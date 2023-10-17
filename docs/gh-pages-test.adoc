@@ -1,3 +1,0 @@
-= This is a GH Pages Test
-
-* Hello
