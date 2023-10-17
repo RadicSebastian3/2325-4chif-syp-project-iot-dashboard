@@ -1,0 +1,22 @@
+= Mülltrennungs App
+
+== Said Nurceski, Balint Balazs, Seifried Erik, Markus Breinesberger
+
+== Description
+ Our Waste Separation App with AI makes recycling fun and educational for kids.
+By simply uploading photos, it identifies waste types and guides children to the right recycling category.
+With a kid-friendly interface, the app promotes eco-friendly habits in an enjoyable way.
+
+== User Stories
+
+== As a parent
+ I want my child to learn about recycling in an engaging way.
+
+== As a child
+ I want to easily understand how to sort different types of waste.
+
+== As an educator
+ I want a tool that supports my lessons on environmental conservation.
+
+== As a user
+ I want the app to tell me where i should throw my waste.
