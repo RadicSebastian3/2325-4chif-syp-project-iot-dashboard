@@ -20,11 +20,11 @@ endif::backend-html5[]
 |===
 |anwesend
 
-|Vorname Nachname
-|B.Balint
-|N. Said
-|S.Erik
-|B.Markus
+|Vorname - Nachname
+|Balint Balazs
+|Said Nurceski
+|Erik Seifried
+|Markus Breinesberger
 |===
 
 .Ort und Zeit
@@ -34,7 +34,7 @@ endif::backend-html5[]
 |Unterricht
 
 |von-bis
-|Di. 17.10.2023, 8 Einheit
+|Di. 17.10.2023, 6 Einheit
 |Dauer
 |20 min
 |===
