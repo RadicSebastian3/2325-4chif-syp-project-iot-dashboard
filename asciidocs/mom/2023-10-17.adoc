@@ -34,7 +34,7 @@ endif::backend-html5[]
 |Unterricht
 
 |von-bis
-|Di. 17.10.2023, 2
+|Di. 17.10.2023, 8 Einheit
 |Dauer
 |20 min
 |===
@@ -53,32 +53,8 @@ alle ausprobieren REST APIs
 .Was wurde vereinbart?
 [%autowidth]
 |===
-|wer |macht was |bis wanng
+|wer |macht was |bis wann
 
-| Hr. Dora
-a| Erstellung des UCD
-| 20.06.2020
-
-|...
-a|
-.Ev. Bilder und Diagramme
-image:animal-pet-cute-kitten-45201.jpg[width=400px]
-
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-|1.06.2020
-
-|Fr. Emil
-a|
-.Class Diagram
-[plantuml,CLD,png]
-----
-@startuml
-class City
-class Street
-City "1" <--right- "*" Street
-@enduml
-----
-
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-|3.06.2020
-|===
+| Balint
+a| 3 Arten von APIs benutzen, entscheiden welche wir nehmen, oder ob das Projekt  überhaupt realisierbar ist ?
+| 7.11.2023
