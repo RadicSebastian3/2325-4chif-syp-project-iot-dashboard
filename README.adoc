@@ -16,7 +16,7 @@ With a kid-friendly interface, the app promotes eco-friendly habits in an enjoya
  I want to easily understand how to sort different types of waste.
 
 == As an educator
- I want a tool that supports my lessons on environmental conservation.
+ I want a tool that helps me teach the children on how to separate waste.
 
 == As a user
  I want the app to tell me where i should throw my waste.

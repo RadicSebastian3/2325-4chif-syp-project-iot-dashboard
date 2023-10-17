@@ -1,4 +1,4 @@
-= Besprechungsprotokoll dd.mm.yyyy
+= Besprechungsprotokoll 17.10.2023
 firstname lastname
 1.0, yyyy-mm-dd: Some notes
 ifndef::imagesdir[:imagesdir: images]
