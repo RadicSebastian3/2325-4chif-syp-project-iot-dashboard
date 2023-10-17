@@ -20,11 +20,11 @@ endif::backend-html5[]
 |===
 |anwesend
 
-|Vorname Nachname
-|B.Balint
-|N. Said
-|S.Erik
-|B.Markus
+|Vorname - Nachname
+|Balint Balazs
+|Said Nurceski
+|Erik Seifried
+|Markus Breinesberger
 |===
 
 .Ort und Zeit
@@ -34,7 +34,7 @@ endif::backend-html5[]
 |Unterricht
 
 |von-bis
-|Di. 17.10.2023, 8 Einheit
+|Di. 17.10.2023, 6 Einheit
 |Dauer
 |20 min
 |===
@@ -56,5 +56,5 @@ alle ausprobieren REST APIs
 |wer |macht was |bis wann
 
 | Balint
-a| 3 Arten von APIs benutzen, entscheiden welche wir nehmen, oder ob das Projekt  überhaupt realisierbar ist ?
+a| Alle 3 APIs austesten, benutzten und entscheiden welchen wir nehmen werden.
 | 7.11.2023
