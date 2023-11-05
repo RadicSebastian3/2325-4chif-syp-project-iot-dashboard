@@ -1,0 +1,25 @@
+== Scenex API (Balint)
+
+=== Authorization => Bearer Token
+* From the website the Key
+
+=== Headears
+* Content-Type => application/json
+
+=== Required body params:
+[source,json]
+----
+{
+  "data": [
+    {
+      "image":"https://hbw.ph/wp-content/uploads/2017/10/yellow-pencil-1.jpg",
+      "features": ["question_answer"],
+      "algorithm": "Aqua",
+        "question": "What material is this object made of in 1 word"
+
+    }
+  ]
+}
+----
+https://scenex.jina.ai/api
+
