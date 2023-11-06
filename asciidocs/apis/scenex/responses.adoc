@@ -100,4 +100,32 @@ image::pic/plastikcalculator.jpeg[200,200]
 }
 ----
 
+== Vision AI
+
+= 1. Picture
+image::pic/pic1.jpg[200,200]
+
+= Response
+image::pic/response_pic1.png[400,400]
+
+= 2. Picture
+image::pic/pic2.jpeg[200,200]
+
+= Response
+image::pic/response_pic2.png[400,400]
+
+= 3. Picture
+image::pic/pic3.jpeg[200,200]
+
+= Response
+image::pic/response_pic3.png[400,400]
+
+= 4. Picture
+image::pic/pic4.jpeg[200,200]
+
+= Response
+image::pic/response_pic4.png[400,400]
+
+= 5. Picture
+image::pic/pic5.jpeg[200,200]
 
