@@ -100,7 +100,7 @@ image::pic/plastikcalculator.jpeg[200,200]
 }
 ----
 
-== Vision AI
+== Vision AI(Erik)
 
 = 1. Picture
 image::pic/pic1.jpg[200,200]
@@ -126,6 +126,4 @@ image::pic/pic4.jpeg[200,200]
 = Response
 image::pic/response_pic4.png[400,400]
 
-= 5. Picture
-image::pic/pic5.jpeg[200,200]
 
