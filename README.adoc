@@ -1,9 +1,6 @@
-= Mülltrennungs App
+= IoT Dashboard
 
 == Said Nurceski, Balint Balazs, Seifried Erik, Markus Breinesberger
 
 == Description
- Our Waste Separation App with AI makes recycling fun and educational for kids.
-By simply uploading photos, it identifies waste types and guides children to the right recycling category.
-With a kid-friendly interface, the app promotes eco-friendly habits in an enjoyable way.
-
+ Dashboard with data from the school's IoT facilities
