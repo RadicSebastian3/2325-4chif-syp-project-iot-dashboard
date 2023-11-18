@@ -1,18 +1,13 @@
 package at.htl.readJson;
 
 import at.htl.entity.Unit;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.quarkus.runtime.StartupEvent;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.event.Observes;
-import jakarta.ws.rs.Path;
 
+import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Map;
 
 @ApplicationScoped
 public class readDataFromJson {
@@ -21,10 +16,17 @@ public class readDataFromJson {
             String jsonString = new String(Files.readAllBytes(Paths.get(filePath)));
 
             ObjectMapper objectMapper = new ObjectMapper();
-            Unit unit = objectMapper.readValue(jsonString, Unit.class);
+            JsonNode jsonNode = objectMapper.readTree(jsonString);
 
-            System.out.println("Unit: " + unit.getClass().getName());
+            Long id = jsonNode.path("Device").path("Id").asLong();
+            String name = jsonNode.path("Device").path("Name").asText();
 
+            Unit unit = new Unit();
+            unit.setId(BigInteger.valueOf(id));
+            unit.setName(name);
+
+            System.out.println(unit.getName());
+            System.out.println(unit.getId());
             return jsonString;
         } catch (Exception e) {
             e.printStackTrace();
