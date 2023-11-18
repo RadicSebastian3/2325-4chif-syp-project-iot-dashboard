@@ -12,6 +12,8 @@ release.properties
 .settings/
 bin/
 
+src/main/docker/*
+
 # IntelliJ
 .idea
 *.ipr
