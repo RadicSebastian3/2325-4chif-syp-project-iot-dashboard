@@ -1,6 +1,7 @@
 package at.htl.entity;
 
 import java.math.BigInteger;
+import java.util.List;
 
 public class Device {
     BigInteger id;
@@ -9,7 +10,6 @@ public class Device {
     String name;
 
     String site;
-
 
     public Device() {
     }
