@@ -60,4 +60,15 @@ public class ValueType {
     public void setSentomqtt(boolean sentomqtt) {
         this.sentomqtt = sentomqtt;
     }
+
+    @Override
+    public String toString() {
+        return "ValueType{" +
+                "id=" + id +
+                ", unit=" + unit +
+                ", description='" + description + '\'' +
+                ", presistValues=" + presistValues +
+                ", sentomqtt=" + sentomqtt +
+                '}';
+    }
 }

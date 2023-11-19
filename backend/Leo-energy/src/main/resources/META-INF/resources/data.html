@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Data</title>
+
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 10px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+<h1>All Data</h1>
+<table id="devicesTable">
+    <thead>
+    <tr>
+        <th>Devices</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr id="deviceRow"></tr>
+    </tbody>
+</table>
+
+<table id="unitsTable">
+    <thead>
+    <tr>
+        <th>Units</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr id="unitRow"></tr>
+    </tbody>
+</table>
+<table id="valuesTable">
+    <thead>
+    <tr>
+        <th>Values</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr id="valueRow"></tr>
+    </tbody>
+</table>
+<table id="valueTypesTable">
+    <thead>
+    <tr>
+        <th>Value Types</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr id="valueTypeRow"></tr>
+    </tbody>
+</table>
+
+<script>
+    fetch('/device/data')
+        .then(response => response.json())
+        .then(data => {
+            const deviceRow = document.getElementById('deviceRow');
+            const unitRow = document.getElementById('unitRow');
+            const valueRow = document.getElementById('valueRow');
+            const valueTypeRow = document.getElementById('valueTypeRow');
+
+            data.devices.forEach(device => {
+                deviceRow.innerHTML += `<td>${device.displayName}, ${device.id}, ${device.name}, ${device.site}</td>`;
+            });
+
+            data.units.forEach(unit => {
+                unitRow.innerHTML += `<td>${unit.name}, ${unit.id}</td>`;
+            });
+
+            data.values.forEach(value => {
+                const deviceDisplayName = value.device ? value.device.displayName : "";
+                const valueTypeDescription = value.valueType ? value.valueType.description : "";
+                valueRow.innerHTML += `<td>${deviceDisplayName}, ${value.id}, ${value.time}, ${value.value}, ${valueTypeDescription}</td>`;
+            });
+
+            data.valueTypes.forEach(valueType => {
+                const unitName = valueType.unit ? valueType.unit.name : "";
+                valueTypeRow.innerHTML += `<td>${valueType.description}, ${valueType.id}, ${valueType.presistValues}, ${valueType.sentomqtt}, ${unitName}</td>`;
+            });
+
+        })
+        .catch(error => console.error('Error fetching data:', error));
+</script>
+</body>
+</html>

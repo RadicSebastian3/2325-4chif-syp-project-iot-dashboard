@@ -1,3 +1,5 @@
+package at.htl;
+
 import at.htl.entity.Device;
 import at.htl.entity.Unit;
 import at.htl.entity.Value;
@@ -21,11 +23,11 @@ import java.util.List;
 
 public class InitBean {
 
-    List<Unit> units = new ArrayList<>();
-    List<Device> devices = new ArrayList<>();
+    static List<Unit> units = new ArrayList<>();
+    static List<Device> devices = new ArrayList<>();
 
-    List<Value> valueList = new ArrayList<>();
-    List<ValueType> valueTypeList = new ArrayList<>();
+    static List<Value> valueList = new ArrayList<>();
+    static List<ValueType> valueTypeList = new ArrayList<>();
 
     void startUp(@Observes StartupEvent event) throws IOException {
         int counter = 1;
@@ -77,7 +79,19 @@ public class InitBean {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
+    public static List<Device> getDevices() {
+        return devices;
+    }
 
+    public static List<Unit> getUnits() {
+        return units;
+    }
+    public static List<Value> getvalueList() {
+        return valueList;
+    }
+    public static List<ValueType> getValueTypeList() {
+        return valueTypeList;
     }
 }

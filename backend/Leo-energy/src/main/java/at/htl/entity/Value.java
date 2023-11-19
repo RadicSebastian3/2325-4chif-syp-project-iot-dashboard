@@ -61,4 +61,15 @@ public class Value {
     public void setValueType(ValueType valueType) {
         this.valueType = valueType;
     }
+
+    @Override
+    public String toString() {
+        return "Value{" +
+                "id=" + id +
+                ", time=" + time +
+                ", value=" + value +
+                ", device=" + device +
+                ", valueType=" + valueType +
+                '}';
+    }
 }

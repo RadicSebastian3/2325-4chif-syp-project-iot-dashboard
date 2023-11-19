@@ -52,4 +52,14 @@ public class Device {
     public void setSite(String site) {
         this.site = site;
     }
+
+    @Override
+    public String toString() {
+        return "Device{" +
+                "id=" + id +
+                ", displayName='" + displayName + '\'' +
+                ", name='" + name + '\'' +
+                ", site='" + site + '\'' +
+                '}';
+    }
 }
