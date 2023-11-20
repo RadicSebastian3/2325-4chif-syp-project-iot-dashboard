@@ -2,135 +2,71 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LeoEnergy MVP</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-<h1>Devices Table</h1>
-<table id="devicesTable">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Site</th>
-    </tr>
-    </thead>
-    <tbody>
-    <!-- Rows will be added here -->
-    </tbody>
-</table>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>LeoEnergy MVP</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+    <h1>Devices</h1>
+    <table id="devicesTable">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Site</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Rows will be added here -->
+        </tbody>
+    </table>
 
-<h1>Values Table</h1>
-<table id="valuesTable">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Time</th>
-        <th>Value</th>
-        <th>Value Type</th>
-        <th>Unit</th>
-    </tr>
-    </thead>
-    <tbody>
-    <!-- Rows will be added here -->
-    </tbody>
-</table>
+    <h1>Values</h1>
+    <table id="valuesTable">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Time</th>
+            <th>Value</th>
+            <th>Value Type</th>
+            <th>Unit</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Rows will be added here -->
+        </tbody>
+    </table>
 
-<h1>Value Types Table</h1>
-<table id="valueTypesTable">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Description</th>
-        <th>Presist Values</th>
-        <th>Sent to MQTT</th>
-        <th>Unit ID</th>
-    </tr>
-    </thead>
-    <tbody>
-    <!-- Rows will be added here -->
-    </tbody>
-</table>
+    <h1>Value Types</h1>
+    <table id="valueTypesTable">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Description</th>
+            <th>Presist Values</th>
+            <th>Sent to MQTT</th>
+            <th>Unit ID</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Rows will be added here -->
+        </tbody>
+    </table>
 
-<h1>Units Table</h1>
-<table id="unitsTable">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-    </tr>
-    </thead>
-    <tbody>
-    <!-- Rows will be added here -->
-    </tbody>
-</table>
-
-<script>
-    fetch('/device/data')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(jsonData => {
-            // Process the JSON data
-            createDevicesTable(jsonData.devices);
-            createValuesTable(jsonData.values);
-            createValueTypesTable(jsonData.valueTypes);
-            createUnitsTable(jsonData.units);
-        })
-        .catch(error => console.error('Error:', error));
-
-    function createDevicesTable(devices) {
-        const devicesTable = document.getElementById('devicesTable').getElementsByTagName('tbody')[0];
-
-        for (const device of devices) {
-            const row = devicesTable.insertRow();
-            row.insertCell(0).textContent = device.id;
-            row.insertCell(1).textContent = device.name;
-            row.insertCell(2).textContent = device.site;
-        }
-    }
-
-    function createValuesTable(values) {
-        const valuesTable = document.getElementById('valuesTable').getElementsByTagName('tbody')[0];
-
-        for (const value of values) {
-            const row = valuesTable.insertRow();
-            row.insertCell(0).textContent = value.id;
-            row.insertCell(1).textContent = value.time;
-            row.insertCell(2).textContent = value.value;
-            row.insertCell(3).textContent = value.valueType.description;
-            row.insertCell(4).textContent = value.valueType.unit.name;
-        }
-    }
-
-    function createValueTypesTable(valueTypes) {
-        const valueTypesTable = document.getElementById('valueTypesTable').getElementsByTagName('tbody')[0];
-
-        for (const valueType of valueTypes) {
-            const row = valueTypesTable.insertRow();
-            row.insertCell(0).textContent = valueType.id;
-            row.insertCell(1).textContent = valueType.description;
-            row.insertCell(2).textContent = valueType.presistValues;
-            row.insertCell(3).textContent = valueType.sentomqtt;
-            row.insertCell(4).textContent = valueType.unit.id;
-        }
-    }
-
-    function createUnitsTable(units) {
-        const unitsTable = document.getElementById('unitsTable').getElementsByTagName('tbody')[0];
-
-        for (const unit of units) {
-            const row = unitsTable.insertRow();
-            row.insertCell(0).textContent = unit.id;
-            row.insertCell(1).textContent = unit.name;
-        }
-    }
-</script>
-</body>
+    <h1>Units</h1>
+    <table id="unitsTable">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Rows will be added here -->
+        </tbody>
+    </table>
+    </body>
 </html>
+<script type="text/javascript" src="script.js"></script>
