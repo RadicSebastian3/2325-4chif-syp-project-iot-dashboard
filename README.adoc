@@ -1,6 +1,46 @@
 = IoT Dashboard
 
-== Said Nurceski, Balint Balazs, Seifried Erik, Markus Breinesberger
+== Team
+.Team
+|===
+|Name
 
-== Description
- Dashboard with data from the school's IoT facilities
+| Said Nurceski - Teamleader
+
+| Balint Balazs
+
+| Erik Seifried
+
+| Markus Breinesberger
+
+|===
+
+== Ausgangssituation
+----
+Auf einer vm (leoenergy genannt) werden von einem schuleigenen Server in einem 5min -
+Intervall per sftp Datendateien im json-Format heruntergeladen
+----
+
+== Anforderungen
+----
+Die Quarkus App liest diese json-Dateien ein und schreibt diese in eine influxdb
+Dabei ist auf korrektes Tagging zu achten
+Es werden laufend neue json-Dateitypen hinzugefügt.
+----
+----
+Am Dashboard soll angezeigt werden, welche Dateien (Struktur des Namens) derzeit import
+importiert
+Wieviele verschiedene Dateiarten gibt es im Verzeichnis
+Wieviele verschieden Dateiarten werden derzeit importiert
+----
+
+== Diagrams
+
+.Class Diagram
+image::https://www.plantuml.com/plantuml/png/VLBBIaKn3DptAqAN5-x2hQlx0UxyW5Bl2HBeepOv1mxYlzj6j5IBgvAPpZ3JzCRYg-mn68D9I4wm0TsUIDZ2km6u06tm24yvlRRfUbKe-OWDV9PA3VwOj8SFEpev2_uuADIHXTM6VA_3gqC5AnEBghXHBpa7z4avnhH9ZcyYluWUsGt_HQR_2WbfeNwm-5WKxC8lwRZV0nzqHwV7A3JtT8l6SoALZqWwBf-7k0H_JW-kn5-4IUQbV2yIx8DjVc0l5kO5cMbSNcGpqgvvOswOjlw5FW40[]
+
+.Usecase Diagram
+image::https://www.plantuml.com/plantuml/png/VP1DJWCn38NtFeKr-oveTonG-Ra21p2JnyJgZ3Do72IAk3jDaL0bgYwoUNdV9zlx6kBHbfbcl0T7OTSf1oTrZA75ICOepa-m5aSuI-LMuKIhZ0UPmCEBrFnMn1C_sX4wOU0lujuQfPx_0sgom6fuEqHp6CjlrOOkV7s-kmHE6iapVy3hc1K91kUp9JxN_-ps2flW_PrwmRginKFX0RkXsT4tKL-DDvk7FXBVSrNak0otryBTNqXxMEh7_040[]
+
+== Sprint-backlog
+https://vm81.htl-leonding.ac.at/agiles/99-387/current[Sprint Backlog]
