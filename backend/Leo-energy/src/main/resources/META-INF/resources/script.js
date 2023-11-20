@@ -1,3 +1,5 @@
+let jsonData;
+
 fetch('/device/data')
     .then(response => {
         if (!response.ok) {
@@ -5,8 +7,9 @@ fetch('/device/data')
         }
         return response.json();
     })
-    .then(jsonData => {
+    .then(data => {
         // Process the JSON data
+        jsonData = data;
         createDevicesTable(jsonData.devices);
         createValuesTable(jsonData.values);
         createValueTypesTable(jsonData.valueTypes);
@@ -27,6 +30,7 @@ function createDevicesTable(devices) {
 
 function createValuesTable(values) {
     const valuesTable = document.getElementById('valuesTable').getElementsByTagName('tbody')[0];
+    valuesTable.innerHTML = '';
 
     for (const value of values) {
         const row = valuesTable.insertRow();
@@ -59,4 +63,33 @@ function createUnitsTable(units) {
         row.insertCell(0).textContent = unit.id;
         row.insertCell(1).textContent = unit.name;
     }
+}
+
+document.getElementById('sortValues').addEventListener('change', function () {
+    const sortBy = this.value;
+    sortValuesTable(sortBy);
+});
+
+function sortValuesTable(sortBy) {
+    jsonData.values.sort((a, b) => {
+
+        let aValue, bValue;
+
+        if (sortBy === 'valueType') {
+            aValue = a.valueType.description;
+            bValue = b.valueType.description;
+        } else if (sortBy === 'unit') {
+            aValue = a.valueType.unit.name;
+            bValue = b.valueType.unit.name;
+        } else {
+            aValue = a[sortBy];
+            bValue = b[sortBy];
+        }
+
+        if (aValue < bValue) { return -1; }
+        if (aValue > bValue) { return 1; }
+        return 0;
+    });
+
+    createValuesTable(jsonData.values);
 }
