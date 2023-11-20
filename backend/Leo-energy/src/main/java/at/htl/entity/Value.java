@@ -5,11 +5,11 @@ import java.sql.Timestamp;
 
 public class Value {
 
-    BigInteger id;
-    Timestamp time;
-    BigInteger value;
-    Device device;
-    ValueType valueType;
+    private BigInteger id;
+    private Timestamp time;
+    private BigInteger value;
+    private Device device;
+    private ValueType valueType;
 
     public Value() {
     }

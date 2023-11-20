@@ -3,12 +3,12 @@ package at.htl.entity;
 import java.math.BigInteger;
 
 public class ValueType {
-    BigInteger id;
-    Unit unit;
-    String description;
-    boolean presistValues;
+    private BigInteger id;
+    private Unit unit;
+    private String description;
+    private boolean presistValues;
     
-    boolean sentomqtt;
+    private boolean sentomqtt;
 
     public ValueType() {
     }

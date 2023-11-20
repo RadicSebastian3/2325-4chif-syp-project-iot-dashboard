@@ -60,7 +60,10 @@
             const valueTypeRow = document.getElementById('valueTypeRow');
 
             data.devices.forEach(device => {
-                deviceRow.innerHTML += `<td>${device.displayName}, ${device.id}, ${device.name}, ${device.site}</td>`;
+                deviceRow.innerHTML += `<td>${device.displayName || "null"}</td>`;
+                deviceRow.innerHTML += `<td>${device.id}</td>`;
+                deviceRow.innerHTML += `<td>${device.name}</td>`;
+                deviceRow.innerHTML += `<td>${device.site}</td>`;
             });
 
             data.units.forEach(unit => {

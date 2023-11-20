@@ -6,8 +6,8 @@ import java.math.BigInteger;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Unit {
     
-    BigInteger id;
-    String name;
+    private BigInteger id;
+    private String name;
 
     public Unit() {
     }

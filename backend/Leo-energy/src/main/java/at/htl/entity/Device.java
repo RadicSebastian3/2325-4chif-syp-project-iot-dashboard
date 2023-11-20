@@ -4,12 +4,10 @@ import java.math.BigInteger;
 import java.util.List;
 
 public class Device {
-    BigInteger id;
-    String displayName;
-
-    String name;
-
-    String site;
+    private BigInteger id;
+    private String displayName;
+    private String name;
+    private String site;
 
     public Device() {
     }
