@@ -1,5 +1,7 @@
 window.onload = fetchDeviceData;
 let jsonData = null;
+const sortValuesElement = document.getElementById('sortValues');
+const descendingElement = document.getElementById('descending');
 
 function fetchDeviceData(){
     fetch('/device/data')
@@ -67,12 +69,17 @@ function createUnitsTable(units) {
     }
 }
 
-document.getElementById('sortValues').addEventListener('change', function () {
+sortValuesElement.addEventListener('change', function () {
     const sortBy = this.value;
     sortValuesTable(sortBy);
 });
 
+descendingElement.addEventListener('change', function () {
+    const sortBy = sortValuesElement.value;
+    sortValuesTable(sortBy);
+})
 function sortValuesTable(sortBy) {
+    const checkbox = document.getElementById('descending');
     jsonData.values.sort((a, b) => {
 
         let aValue, bValue;
@@ -86,6 +93,12 @@ function sortValuesTable(sortBy) {
         } else {
             aValue = a[sortBy];
             bValue = b[sortBy];
+        }
+
+        if(checkbox.checked === true){
+            const bubble = aValue;
+            aValue = bValue;
+            bValue = bubble;
         }
 
         if (aValue < bValue) { return -1; }
