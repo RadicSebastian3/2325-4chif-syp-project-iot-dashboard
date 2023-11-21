@@ -1,18 +1,25 @@
-fetch('/device/data')
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(jsonData => {
-        // Process the JSON data
-        createDevicesTable(jsonData.devices);
-        createValuesTable(jsonData.values);
-        createValueTypesTable(jsonData.valueTypes);
-        createUnitsTable(jsonData.units);
-    })
-    .catch(error => console.error('Error:', error));
+window.onload = fetchDeviceData;
+let jsonData = null;
+const sortValuesElement = document.getElementById('sortValues');
+const descendingElement = document.getElementById('descending');
+
+function fetchDeviceData(){
+    fetch('/device/data')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(json => {
+            jsonData = json;
+            createDevicesTable(json.devices);
+            createValuesTable(json.values);
+            createValueTypesTable(json.valueTypes);
+            createUnitsTable(json.units);
+        })
+        .catch(error => console.error('Error:', error));
+}
 
 function createDevicesTable(devices) {
     const devicesTable = document.getElementById('devicesTable').getElementsByTagName('tbody')[0];
@@ -27,6 +34,7 @@ function createDevicesTable(devices) {
 
 function createValuesTable(values) {
     const valuesTable = document.getElementById('valuesTable').getElementsByTagName('tbody')[0];
+    valuesTable.innerHTML = "";
 
     for (const value of values) {
         const row = valuesTable.insertRow();
@@ -59,4 +67,44 @@ function createUnitsTable(units) {
         row.insertCell(0).textContent = unit.id;
         row.insertCell(1).textContent = unit.name;
     }
+}
+
+sortValuesElement.addEventListener('change', function () {
+    const sortBy = this.value;
+    sortValuesTable(sortBy);
+});
+
+descendingElement.addEventListener('change', function () {
+    const sortBy = sortValuesElement.value;
+    sortValuesTable(sortBy);
+})
+function sortValuesTable(sortBy) {
+    const checkbox = document.getElementById('descending');
+    jsonData.values.sort((a, b) => {
+
+        let aValue, bValue;
+
+        if (sortBy === 'valueType') {
+            aValue = a.valueType.description;
+            bValue = b.valueType.description;
+        } else if (sortBy === 'unit') {
+            aValue = a.valueType.unit.name;
+            bValue = b.valueType.unit.name;
+        } else {
+            aValue = a[sortBy];
+            bValue = b[sortBy];
+        }
+
+        if(checkbox.checked === true){
+            const bubble = aValue;
+            aValue = bValue;
+            bValue = bubble;
+        }
+
+        if (aValue < bValue) { return -1; }
+        if (aValue > bValue) { return 1; }
+        return 0;
+    });
+
+    createValuesTable(jsonData.values);
 }
