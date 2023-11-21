@@ -1,0 +1,14 @@
+= Sprint Reviews
+
+
+== Sprint Review 7.11.
+* bis 21.11.:
+** Email an Prof. Stütz
+** Darstellung (Diagramm, Tabelle) für Sensorwerte von Facilities
+
+== Sprint Review 21.11.
+* bis 5.12.:
+** PV-Daten in Histrogramm visualisieren (von den letzten 24h, in kW)
+*** "Zeile 3 in Diagramm"
+** in Diagramm ausgeben
+** Timestamp eingeben -> Daten zu Timestamp ausgeben
