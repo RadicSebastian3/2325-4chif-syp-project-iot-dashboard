@@ -4,6 +4,7 @@ import at.htl.entity.Device;
 import at.htl.entity.Unit;
 import at.htl.entity.Value;
 import at.htl.entity.ValueType;
+import at.htl.influxdb.WriteQueryExample;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.quarkus.runtime.StartupEvent;
@@ -11,6 +12,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Observes;
 import jakarta.json.Json;
 
+import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.nio.file.Files;
@@ -27,6 +29,8 @@ import java.util.List;
 
 public class InitBean {
 
+
+
     static List<Unit> units = new ArrayList<>();
     static List<Device> devices = new ArrayList<>();
 
@@ -36,53 +40,75 @@ public class InitBean {
     void startUp(@Observes StartupEvent event) throws IOException {
         int counter = 1;
 
-        try {
-            String filePath = "data/ftp-data/7-10979582-20221205194710.json";
-            String jsonString = new String(Files.readAllBytes(Paths.get(filePath)));
-            ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode jsonNode = objectMapper.readTree(jsonString);
+        String testOrdnerPath = "testOrdner/";
+        File testOrdner = new File(testOrdnerPath);
+        if (testOrdner.exists() && testOrdner.isDirectory()) {
+            File[] datas = testOrdner.listFiles();
+            if (datas != null) {
+                for (File data : datas) {
 
-            JsonNode device = jsonNode.get("Device");
-            Device newDevice = new Device(device.get("Id").bigIntegerValue(),
-                    "", device.get("Name").asText(),
-                    device.get("Site").asText());
+                    try {
+                        String filePath = data.getPath();
+                        String jsonString = new String(Files.readAllBytes(Paths.get(filePath)));
+                        ObjectMapper objectMapper = new ObjectMapper();
+                        JsonNode jsonNode = objectMapper.readTree(jsonString);
 
-
-            JsonNode splittedJsonAfterValueDescs = jsonNode.get("Device").get("ValueDescs");
-
-            devices.add(newDevice);
-            if (splittedJsonAfterValueDescs.isArray()) {
-                for (JsonNode element : splittedJsonAfterValueDescs) {
-                    Unit newUnit = new Unit(new BigInteger(String.valueOf(counter)),
-                            element.get("UnitStr").asText());
-
-                    JsonNode valuesOfCurrentElement = element.get("Values").get(0);
+                        JsonNode device = jsonNode.get("Device");
+                        Device newDevice = new Device(device.get("Id").bigIntegerValue(), "", device.get("Name").asText(), device.get("Site").asText());
 
 
-                    ValueType newValueType = new ValueType(element.get("Id").bigIntegerValue(),
-                            newUnit, element.get("DescriptionStr").asText(),
-                            true,
-                            false);
+                        JsonNode splittedJsonAfterValueDescs = jsonNode.get("Device").get("ValueDescs");
+
+                        devices.add(newDevice);
+                        if (splittedJsonAfterValueDescs.isArray()) {
+                            for (JsonNode element : splittedJsonAfterValueDescs) {
+                                Unit newUnit = new Unit(new BigInteger(String.valueOf(counter)), element.get("UnitStr").asText());
+
+                                JsonNode valuesOfCurrentElement = element.get("Values").get(0);
 
 
-                    Value newValue = new Value(new BigInteger(String.valueOf(counter)),
-                            new Timestamp(valuesOfCurrentElement.get("Timestamp").asLong() * 1000),
-                            valuesOfCurrentElement.get("Val").bigIntegerValue(),
-                            newDevice, newValueType);
-                    counter++;
-                    units.add(newUnit);
-                    valueTypeList.add(newValueType);
-                    valueList.add(newValue);
+                                ValueType newValueType = new ValueType(element.get("Id").bigIntegerValue(), newUnit, element.get("DescriptionStr").asText(), true, false);
+
+
+                                Value newValue = new Value(new BigInteger(String.valueOf(counter)), new Timestamp(valuesOfCurrentElement.get("Timestamp").asLong() * 1000), valuesOfCurrentElement.get("Val").bigIntegerValue(), newDevice, newValueType);
+                                counter++;
+                                units.add(newUnit);
+                                valueTypeList.add(newValueType);
+                                valueList.add(newValue);
+                            }
+
+                        }
+                       // System.out.println(units.toString());
+                        //System.out.println(devices.toString());
+                      //  System.out.println(valueList.toString());
+                       // System.out.println(valueTypeList.toString());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    if (data.delete()) {
+                        System.out.println("Datei erfolgreich gelöscht: " + data.getName());
+                    } else {
+                        System.out.println("Fehler beim Löschen der Datei: " + data.getName());
+                    }
+
+
                 }
-
+            } else {
+                System.out.println("Das Verzeichnis ist leer.");
             }
-            System.out.println(units.toString());
-            System.out.println(devices.toString());
-            System.out.println(valueList.toString());
-            System.out.println(valueTypeList.toString());
-        } catch (Exception e) {
-            e.printStackTrace();
+        } else {
+            System.out.println("Das Verzeichnis existiert nicht oder ist kein Verzeichnis.");
         }
+
+        System.out.println("Size of diveces" + devices.size());
+
+        System.out.println(units.size());
+        System.out.println(valueList.size());
+        System.out.println(valueTypeList.size());
+
+        //TRY DB
+
     }
 
     public static List<Device> getDevices() {
@@ -92,9 +118,11 @@ public class InitBean {
     public static List<Unit> getUnits() {
         return units;
     }
+
     public static List<Value> getvalueList() {
         return valueList;
     }
+
     public static List<ValueType> getValueTypeList() {
         return valueTypeList;
     }
