@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.20">
 <link rel="icon" type="image/png" href="themes/favicon.png">
-<title>Said Nurceski</title>
+<title>IoT Dashboard</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,26 +437,109 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
+<h1>IoT Dashboard</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_said_nurceski">1. Said Nurceski</a></li>
+<li><a href="#_team">1. Team</a></li>
+<li><a href="#_ausgangssituation">2. Ausgangssituation</a></li>
+<li><a href="#_anforderungen">3. Anforderungen</a></li>
+<li><a href="#_diagrams">4. Diagrams</a></li>
+<li><a href="#_sprint_backlog">5. Sprint-backlog</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_said_nurceski"><a class="anchor" href="#_said_nurceski"></a>1. Said Nurceski</h2>
+<h2 id="_team"><a class="anchor" href="#_team"></a>1. Team</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Team</caption>
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Said Nurceski</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Balint Balazs</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Erik Seifried</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Markus Breinesberger</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ausgangssituation"><a class="anchor" href="#_ausgangssituation"></a>2. Ausgangssituation</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>Auf einer vm (leoenergy genannt) werden von einem schuleigenen Server in einem 5min -
+Intervall per sftp Datendateien im json-Format heruntergeladen</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_anforderungen"><a class="anchor" href="#_anforderungen"></a>3. Anforderungen</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>Die Quarkus App liest diese json-Dateien ein und schreibt diese in eine influxdb
+Dabei ist auf korrektes Tagging zu achten
+Es werden laufend neue json-Dateitypen hinzugefügt.</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Am Dashboard soll angezeigt werden, welche Dateien (Struktur des Namens) derzeit import
+importiert
+Wieviele verschiedene Dateiarten gibt es im Verzeichnis
+Wieviele verschieden Dateiarten werden derzeit importiert</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_diagrams"><a class="anchor" href="#_diagrams"></a>4. Diagrams</h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="https://www.plantuml.com/plantuml/png/VLBBIaKn3DptAqAN5-x2hQlx0UxyW5Bl2HBeepOv1mxYlzj6j5IBgvAPpZ3JzCRYg-mn68D9I4wm0TsUIDZ2km6u06tm24yvlRRfUbKe-OWDV9PA3VwOj8SFEpev2_uuADIHXTM6VA_3gqC5AnEBghXHBpa7z4avnhH9ZcyYluWUsGt_HQR_2WbfeNwm-5WKxC8lwRZV0nzqHwV7A3JtT8l6SoALZqWwBf-7k0H_JW-kn5-4IUQbV2yIx8DjVc0l5kO5cMbSNcGpqgvvOswOjlw5FW40" alt="VLBBIaKn3DptAqAN5 x2hQlx0UxyW5Bl2HBeepOv1mxYlzj6j5IBgvAPpZ3JzCRYg mn68D9I4wm0TsUIDZ2km6u06tm24yvlRRfUbKe OWDV9PA3VwOj8SFEpev2 uuADIHXTM6VA 3gqC5AnEBghXHBpa7z4avnhH9ZcyYluWUsGt HQR 2WbfeNwm 5WKxC8lwRZV0nzqHwV7A3JtT8l6SoALZqWwBf 7k0H JW kn5 4IUQbV2yIx8DjVc0l5kO5cMbSNcGpqgvvOswOjlw5FW40">
+</div>
+<div class="title">Figure 1. Class Diagram</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="https://www.plantuml.com/plantuml/png/VP1DJWCn38NtFeKr-oveTonG-Ra21p2JnyJgZ3Do72IAk3jDaL0bgYwoUNdV9zlx6kBHbfbcl0T7OTSf1oTrZA75ICOepa-m5aSuI-LMuKIhZ0UPmCEBrFnMn1C_sX4wOU0lujuQfPx_0sgom6fuEqHp6CjlrOOkV7s-kmHE6iapVy3hc1K91kUp9JxN_-ps2flW_PrwmRginKFX0RkXsT4tKL-DDvk7FXBVSrNak0otryBTNqXxMEh7_040" alt="VP1DJWCn38NtFeKr oveTonG Ra21p2JnyJgZ3Do72IAk3jDaL0bgYwoUNdV9zlx6kBHbfbcl0T7OTSf1oTrZA75ICOepa m5aSuI LMuKIhZ0UPmCEBrFnMn1C sX4wOU0lujuQfPx 0sgom6fuEqHp6CjlrOOkV7s kmHE6iapVy3hc1K91kUp9JxN  ps2flW PrwmRginKFX0RkXsT4tKL DDvk7FXBVSrNak0otryBTNqXxMEh7 040">
+</div>
+<div class="title">Figure 2. Usecase Diagram</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_sprint_backlog"><a class="anchor" href="#_sprint_backlog"></a>5. Sprint-backlog</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Balint carried</p>
+<p><a href="https://vm81.htl-leonding.ac.at/agiles/99-387/current">Sprint Backlog</a></p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-11-28 09:18:32 UTC
+Last updated 2023-11-28 09:25:46 UTC
 </div>
 </div>
 </body>
