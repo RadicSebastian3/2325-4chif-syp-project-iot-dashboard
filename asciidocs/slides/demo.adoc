@@ -1,4 +1,4 @@
-= EcoPoints
+= Leoenergy
 :revealjs_theme: moon
 :revealjs_history: true
 :revealjs_center: true
