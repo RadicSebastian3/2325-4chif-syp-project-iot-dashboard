@@ -2,23 +2,20 @@ package at.htl.entity;
 
 import jakarta.persistence.*;
 
-import java.math.BigInteger;
-import java.util.List;
-
 @Entity
 @Table(name = "DEVICE")
-public class new_Device {
+public class NewDevice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
 
-    public new_Device(String name) {
+    public NewDevice(String name) {
         this.name = name;
     }
 
-    public new_Device() {
+    public NewDevice() {
 
     }
 
@@ -36,5 +33,13 @@ public class new_Device {
 
     public Long getId() {
         return id;
+    }
+
+    @Override
+    public String toString() {
+        return "NewDevice{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

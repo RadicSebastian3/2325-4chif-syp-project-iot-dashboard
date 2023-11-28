@@ -1,9 +1,9 @@
 package at.htl;
 
 import at.htl.entity.Device;
-import at.htl.entity.old_Unit;
-import at.htl.entity.old_Value;
-import at.htl.entity.old_ValueType;
+import at.htl.entity.OldUnit;
+import at.htl.entity.OldValue;
+import at.htl.entity.OldValueType;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.quarkus.runtime.StartupEvent;
@@ -25,11 +25,11 @@ public class InitBean {
 
 
 
-    static List<old_Unit> units = new ArrayList<>();
+    static List<OldUnit> units = new ArrayList<>();
     static List<Device> devices = new ArrayList<>();
 
-    static List<old_Value> valueList = new ArrayList<>();
-    static List<old_ValueType> valueTypeList = new ArrayList<>();
+    static List<OldValue> valueList = new ArrayList<>();
+    static List<OldValueType> valueTypeList = new ArrayList<>();
 
     void startUp(@Observes StartupEvent event) throws IOException {
         int counter = 1;
@@ -57,17 +57,17 @@ public class InitBean {
                         devices.add(newDevice);
                         if (splittedJsonAfterValueDescs.isArray()) {
                             for (JsonNode element : splittedJsonAfterValueDescs) {
-                                old_Unit newUnit = new old_Unit(new BigInteger(String.valueOf(counter)), element.get("UnitStr").
+                                OldUnit newUnit = new OldUnit(new BigInteger(String.valueOf(counter)), element.get("UnitStr").
                                         asText());
 
                                 JsonNode valuesOfCurrentElement = element.get("Values").get(0);
 
 
-                                old_ValueType newValueType = new old_ValueType(element.get("Id").bigIntegerValue(), newUnit,
+                                OldValueType newValueType = new OldValueType(element.get("Id").bigIntegerValue(), newUnit,
                                         element.get("DescriptionStr").asText(), true, false);
 
 
-                                old_Value newValue = new old_Value(new BigInteger(String.valueOf(counter)),
+                                OldValue newValue = new OldValue(new BigInteger(String.valueOf(counter)),
                                         new Timestamp(valuesOfCurrentElement.get("Timestamp").asLong() * 1000),
                                         valuesOfCurrentElement.get("Val").bigIntegerValue(), newDevice, newValueType);
                                 counter++;
@@ -114,15 +114,15 @@ public class InitBean {
         return devices;
     }
 
-    public static List<old_Unit> getUnits() {
+    public static List<OldUnit> getUnits() {
         return units;
     }
 
-    public static List<old_Value> getvalueList() {
+    public static List<OldValue> getvalueList() {
         return valueList;
     }
 
-    public static List<old_ValueType> getValueTypeList() {
+    public static List<OldValueType> getValueTypeList() {
         return valueTypeList;
     }
 }

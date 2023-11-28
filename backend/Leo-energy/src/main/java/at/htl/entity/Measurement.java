@@ -2,6 +2,8 @@ package at.htl.entity;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "MEASUREMENT")
 public class Measurement {
@@ -11,9 +13,9 @@ public class Measurement {
 
     private String name;
 
-    private double valueType;
+    private BigDecimal valueType;
 
-    public Measurement(String name, double valueType) {
+    public Measurement(String name, BigDecimal valueType) {
         this.name = name;
         this.valueType = valueType;
     }
@@ -30,11 +32,11 @@ public class Measurement {
         this.name = name;
     }
 
-    public double getValueType() {
+    public BigDecimal getValueType() {
         return valueType;
     }
 
-    public void setValueType(double valueType) {
+    public void setValueType(BigDecimal valueType) {
         this.valueType = valueType;
     }
 

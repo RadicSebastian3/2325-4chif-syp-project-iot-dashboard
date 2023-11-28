@@ -2,18 +2,18 @@ package at.htl.entity;
 
 import java.math.BigInteger;
 
-public class old_ValueType {
+public class OldValueType {
     private BigInteger id;
-    private old_Unit unit;
+    private OldUnit unit;
     private String description;
     private boolean presistValues;
     
     private boolean sentomqtt;
 
-    public old_ValueType() {
+    public OldValueType() {
     }
 
-    public old_ValueType(BigInteger id, old_Unit unit, String description, boolean presistValues, boolean sentomqtt) {
+    public OldValueType(BigInteger id, OldUnit unit, String description, boolean presistValues, boolean sentomqtt) {
         this.id = id;
         this.unit = unit;
         this.description = description;
@@ -29,11 +29,11 @@ public class old_ValueType {
         this.id = id;
     }
 
-    public old_Unit getUnit() {
+    public OldUnit getUnit() {
         return unit;
     }
 
-    public void setUnit(old_Unit unit) {
+    public void setUnit(OldUnit unit) {
         this.unit = unit;
     }
 

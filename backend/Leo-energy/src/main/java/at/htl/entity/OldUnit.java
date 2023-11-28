@@ -4,14 +4,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.math.BigInteger;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class old_Unit {
+public class OldUnit {
     private BigInteger id;
     private String name;
 
-    public old_Unit() {
+    public OldUnit() {
     }
 
-    public old_Unit(BigInteger id, String name) {
+    public OldUnit(BigInteger id, String name) {
         this.id = id;
         this.name = name;
     }
