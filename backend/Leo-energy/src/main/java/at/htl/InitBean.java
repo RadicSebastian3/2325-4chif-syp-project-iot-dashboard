@@ -4,7 +4,6 @@ import at.htl.entity.Device;
 import at.htl.entity.Unit;
 import at.htl.entity.Value;
 import at.htl.entity.ValueType;
-import at.htl.influxdb.WriteQueryExample;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.quarkus.runtime.StartupEvent;
