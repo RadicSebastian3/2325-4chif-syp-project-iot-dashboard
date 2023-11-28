@@ -1,32 +1,28 @@
 = EcoPoints
-:revealjs_theme: white
-ifndef::imagesdir[:imagesdir: ../images]
-ifdef::env-ide[]
-:imagesdir: ../images
-endif::[]
-ifndef::env-ide[]
+:revealjs_theme: moon
+:revealjs_history: true
+:revealjs_center: true
 :imagesdir: images
-endif::[]
 
 [.font-xx-large]
 == Team
 
 |===
-|Name
+| Name
 
-|Said Nurceski
+| Said Nurceski
 
-|Balint Balasz
+| Balint Balasz
 
 | Erik Seifried
 
-|Markus Breinesberger
+| Markus Breinesberger
 
 |===
 
 == Leoenergy
 
-* Dashboard für den Energierverbrauch und -verkauf an der HTL Leonding
+* Dashboard für den Energieverbrauch und -verkauf an der HTL Leonding
 * Wann wurde wie viel Strom verbraucht?
 * Wann wurde mehr produziert als genutzt oder sogar verkauft?
 
@@ -35,10 +31,8 @@ endif::[]
 
 * Proof of Concept
 ** Verschiedene KI's ausprobieren
-** Welche Benutzten wir
+** Welche Benutzen wir
 *** (Projekt wechsel)
-
-=== Files einlesen
 
 [.font-xx-large]
 == Sprint 2
@@ -46,23 +40,18 @@ endif::[]
 * Files einlesen
 * In einer HTML Tabelle ausgeben
 
-Said
+[.font-xx-large]
+=== Files einlesen
 
+== Sprint 2 - Aufgabenverteilung
+
+* Said
 * Frontend
 * Files einlesen (mitgeholfen)
 
-
-Balint
-
+* Balint
 * Files einlesen
+* Logik implementiert
 
-* Logik gemacht
-
-== Sprint 2
-
-Erik und Markus
-
+* Erik und Markus
 * Frontend
-
-
-
