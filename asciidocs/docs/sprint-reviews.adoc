@@ -1,5 +1,9 @@
 = Sprint Reviews
 
+== Sprint Review 7.11.
+* bis 21.11.:
+** Email an Prof. Stütz
+** Darstellung (Diagramm, Tabelle) für Sensorwerte von Facilities
 
 == Sprint Review 7.11.
 * bis 21.11.:

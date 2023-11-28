@@ -3,18 +3,18 @@ package at.htl.entity;
 import java.math.BigInteger;
 import java.sql.Timestamp;
 
-public class Value {
+public class old_Value {
 
     private BigInteger id;
     private Timestamp time;
     private BigInteger value;
     private Device device;
-    private ValueType valueType;
+    private old_ValueType valueType;
 
-    public Value() {
+    public old_Value() {
     }
 
-    public Value(BigInteger id, Timestamp time, BigInteger value, Device device, ValueType valueType) {
+    public old_Value(BigInteger id, Timestamp time, BigInteger value, Device device, old_ValueType valueType) {
         this.id = id;
         this.time = time;
         this.value = value;
@@ -54,11 +54,11 @@ public class Value {
         this.device = device;
     }
 
-    public ValueType getValueType() {
+    public old_ValueType getValueType() {
         return valueType;
     }
 
-    public void setValueType(ValueType valueType) {
+    public void setValueType(old_ValueType valueType) {
         this.valueType = valueType;
     }
 
