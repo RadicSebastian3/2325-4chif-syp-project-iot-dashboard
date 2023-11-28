@@ -3,25 +3,33 @@ package at.htl.entity;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 
 @Entity
 @Table(name = "MEASUREMENT")
 public class Measurement {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private BigInteger id;
 
     private String name;
 
     private BigDecimal valueType;
+    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    private Device device;
 
-    public Measurement(String name, BigDecimal valueType) {
-        this.name = name;
-        this.valueType = valueType;
-    }
+
+
+
 
     public Measurement() {
 
+    }
+
+    public Measurement(BigInteger id, String name, BigDecimal valueType, Device device) {
+        this.id = id;
+        this.name = name;
+        this.valueType = valueType;
+        this.device = device;
     }
 
     public String getName() {
@@ -40,12 +48,20 @@ public class Measurement {
         this.valueType = valueType;
     }
 
-    public void setId(Long id) {
+    public BigInteger getId() {
+        return id;
+    }
+
+    public void setId(BigInteger id) {
         this.id = id;
     }
 
-    public Long getId() {
-        return id;
+    public Device getDevice() {
+        return device;
+    }
+
+    public void setDevice(Device device) {
+        this.device = device;
     }
 
     @Override

@@ -1,14 +1,17 @@
 package at.htl;
 
+import at.htl.controller.DeviceRepository;
+import at.htl.controller.MeasurementRepository;
 import at.htl.entity.Device;
-import at.htl.entity.OldUnit;
-import at.htl.entity.OldValue;
-import at.htl.entity.OldValueType;
+import at.htl.entity.Measurement;
+import at.htl.entity.Measurement_Table;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.quarkus.runtime.StartupEvent;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Observes;
+import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,14 +26,18 @@ import java.util.List;
 
 public class InitBean {
 
+    @Inject
+    MeasurementRepository measurementRepository;
+
+    @Inject
+    DeviceRepository deviceRepository;
 
 
-    static List<OldUnit> units = new ArrayList<>();
     static List<Device> devices = new ArrayList<>();
 
-    static List<OldValue> valueList = new ArrayList<>();
-    static List<OldValueType> valueTypeList = new ArrayList<>();
-
+    static List<Measurement> measurementList = new ArrayList<>();
+    static List<Measurement_Table> measurement_tableList = new ArrayList<>();
+    @Transactional
     void startUp(@Observes StartupEvent event) throws IOException {
         int counter = 1;
 
@@ -48,39 +55,36 @@ public class InitBean {
                         JsonNode jsonNode = objectMapper.readTree(jsonString);
 
                         JsonNode device = jsonNode.get("Device");
-                        Device newDevice = new Device(device.get("Id").bigIntegerValue(), "",
-                                device.get("Name").asText(), device.get("Site").asText());
+                        Device newDevice = new Device(device.get("Id").bigIntegerValue(), device.get("Name").asText());
 
 
                         JsonNode splittedJsonAfterValueDescs = jsonNode.get("Device").get("ValueDescs");
 
-                        devices.add(newDevice);
+                       // devices.add(newDevice);
                         if (splittedJsonAfterValueDescs.isArray()) {
                             for (JsonNode element : splittedJsonAfterValueDescs) {
-                                OldUnit newUnit = new OldUnit(new BigInteger(String.valueOf(counter)), element.get("UnitStr").
-                                        asText());
+
+                                Measurement currentMeasurement = new Measurement(element.get("Id").bigIntegerValue(),
+                                        element.get("DescriptionStr").asText(),
+                                        element.get("ValueType").decimalValue(),
+                                        newDevice);
+
+                                measurementRepository.save(currentMeasurement);
 
                                 JsonNode valuesOfCurrentElement = element.get("Values").get(0);
 
-
-                                OldValueType newValueType = new OldValueType(element.get("Id").bigIntegerValue(), newUnit,
-                                        element.get("DescriptionStr").asText(), true, false);
-
-
-                                OldValue newValue = new OldValue(new BigInteger(String.valueOf(counter)),
+                                Measurement_Table measurementTable = new Measurement_Table((new BigInteger(String.valueOf(counter))),
                                         new Timestamp(valuesOfCurrentElement.get("Timestamp").asLong() * 1000),
-                                        valuesOfCurrentElement.get("Val").bigIntegerValue(), newDevice, newValueType);
+                                        valuesOfCurrentElement.get("Val").decimalValue(),currentMeasurement);
                                 counter++;
-                                units.add(newUnit);
-                                valueTypeList.add(newValueType);
-                                valueList.add(newValue);
+
+
+                             //   measurementList.add(currentMeasurement);
+                             //   measurement_tableList.add(measurementTable);
                             }
 
                         }
-                       // System.out.println(units.toString());
-                        //System.out.println(devices.toString());
-                      //  System.out.println(valueList.toString());
-                       // System.out.println(valueTypeList.toString());
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -100,29 +104,11 @@ public class InitBean {
             System.out.println("Das Verzeichnis existiert nicht oder ist kein Verzeichnis.");
         }
 
-        System.out.println("Size of diveces" + devices.size());
-
-        System.out.println(units.size());
-        System.out.println(valueList.size());
-        System.out.println(valueTypeList.size());
+    /*    System.out.println("Size of diveces" + devices.size());
+        System.out.println("Size OF MEASUREMENT TABLE LIST" + measurement_tableList.size());
+        System.out.println("SIZE OF MEASUREMENT LIST" + measurementList.size());*/
 
         //TRY DB
 
-    }
-
-    public static List<Device> getDevices() {
-        return devices;
-    }
-
-    public static List<OldUnit> getUnits() {
-        return units;
-    }
-
-    public static List<OldValue> getvalueList() {
-        return valueList;
-    }
-
-    public static List<OldValueType> getValueTypeList() {
-        return valueTypeList;
     }
 }
