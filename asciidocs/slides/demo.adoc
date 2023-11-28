@@ -51,8 +51,6 @@ image::https://www.plantuml.com/plantuml/png/VP1DJWCn38NtFeKr-oveTonG-Ra21p2JnyJ
 * Files einlesen
 * In einer HTML Tabelle ausgeben
 
-[.font-xx-large]
-=== Files einlesen
 
 == Sprint 2 - Aufgabenverteilung
 
