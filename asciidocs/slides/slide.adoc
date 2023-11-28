@@ -1,0 +1,67 @@
+= EcoPoints
+:revealjs_theme: white
+ifndef::imagesdir[:imagesdir: ../images]
+ifdef::env-ide[]
+:imagesdir: ../images
+endif::[]
+ifndef::env-ide[]
+:imagesdir: images
+endif::[]
+
+[.font-xx-large]
+== Team
+
+|===
+|Name
+
+|Said Nurceski
+
+|Balint Balasz
+
+| Erik Seifried
+
+|Markus Breinesberger
+
+|===
+
+== Leoenergy
+
+* Dashboard für den Energierverbrauch und -verkauf an der HTL Leonding
+* Wann wurde wie viel Strom verbraucht?
+* Wann wurde mehr produziert als genutzt oder sogar verkauft?
+
+[.font-xx-large]
+== Sprint 1
+
+* Proof of Concept
+** Verschiedene KI's ausprobieren
+** Welche Benutzten wir
+*** (Projekt wechsel)
+
+=== Files einlesen
+
+[.font-xx-large]
+== Sprint 2
+
+* Files einlesen
+* In einer HTML Tabelle ausgeben
+
+Said
+
+* Frontend
+* Files einlesen (mitgeholfen)
+
+
+Balint
+
+* Files einlesen
+* Logik gemacht
+
+== Sprint 2
+
+Erik und Markus
+
+* Frontend
+
+
+
