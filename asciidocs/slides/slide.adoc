@@ -55,6 +55,7 @@ Said
 Balint
 
 * Files einlesen
+
 * Logik gemacht
 
 == Sprint 2
