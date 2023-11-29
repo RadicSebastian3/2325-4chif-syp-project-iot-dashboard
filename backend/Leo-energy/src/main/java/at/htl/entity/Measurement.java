@@ -18,9 +18,6 @@ public class Measurement {
     private Device device;
 
 
-
-
-
     public Measurement() {
 
     }
