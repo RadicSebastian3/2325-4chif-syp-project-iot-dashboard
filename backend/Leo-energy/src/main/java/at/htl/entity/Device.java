@@ -1,22 +1,25 @@
 package at.htl.entity;
 
-import java.math.BigInteger;
-import java.util.List;
+import jakarta.persistence.*;
 
+import java.math.BigInteger;
+
+@Entity
+@Table(name = "DEVICE")
 public class Device {
+    @Id
     private BigInteger id;
-    private String displayName;
+
     private String name;
-    private String site;
+
 
     public Device() {
+
     }
 
-    public Device(BigInteger id, String displayName, String name, String site) {
+    public Device(BigInteger id, String name) {
         this.id = id;
-        this.displayName = displayName;
         this.name = name;
-        this.site = site;
     }
 
     public BigInteger getId() {
@@ -27,14 +30,6 @@ public class Device {
         this.id = id;
     }
 
-    public String getDisplayName() {
-        return displayName;
-    }
-
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
-    }
-
     public String getName() {
         return name;
     }
@@ -43,21 +38,11 @@ public class Device {
         this.name = name;
     }
 
-    public String getSite() {
-        return site;
-    }
-
-    public void setSite(String site) {
-        this.site = site;
-    }
-
     @Override
     public String toString() {
-        return "Device{" +
+        return "NewDevice{" +
                 "id=" + id +
-                ", displayName='" + displayName + '\'' +
                 ", name='" + name + '\'' +
-                ", site='" + site + '\'' +
                 '}';
     }
 }

@@ -15,7 +15,7 @@ public class InfluxDB2Example {
     public static void main(final String[] args) {
 
         // You can generate an API token from the "API Tokens Tab" in the UI
-        String token = "q9fIbjSyX8XOeqSIFWCfMXplj7VPpQdhtB3TausosU46xrL_E8pc4AsMTHNTovqR5o4BuTTEBLpwU0Vq01eOsw==";
+        String token = "-PHNf93K8rwPKfgmBjmwSCfvqyQ3Nf6eE0R9pIml4K0VtJCoSTNtuCMKi4BVsds5nCXvhsLoEFUOQNXJsF3bPA==";
         String bucket = "db";
         String org = "Leoenergy";
 
