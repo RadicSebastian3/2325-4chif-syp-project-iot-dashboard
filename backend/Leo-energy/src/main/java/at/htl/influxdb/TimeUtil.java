@@ -5,11 +5,6 @@ import java.util.EnumSet;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Utils for time related methods.
- *
- * @author stefan.majer [at] gmail.com
- */
 public enum TimeUtil {
     INSTANCE;
 
@@ -40,13 +35,6 @@ public enum TimeUtil {
             TimeUnit.NANOSECONDS);
 
     public static final int TIME_IN_SECOND_LENGTH = 20;
-
-    /**
-     * Convert from a TimeUnit to a influxDB timeunit String.
-     *
-     * @param t the TimeUnit
-     * @return the String representation.
-     */
     public static String toTimePrecision(final TimeUnit t) {
         switch (t) {
             case HOURS:
