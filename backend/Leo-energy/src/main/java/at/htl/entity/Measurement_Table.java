@@ -1,32 +1,26 @@
 package at.htl.entity;
 
-import java.time.Instant;
-import java.util.List;
-
 import com.influxdb.annotations.Column;
 import com.influxdb.annotations.Measurement;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.TypedQuery;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.sql.Timestamp;
+import java.time.Instant;
 
-import static jakarta.persistence.Persistence.createEntityManagerFactory;
-
-
+@Measurement(name = "Measurement_Table")
 public class Measurement_Table {
-   private BigInteger id; //tag
-    private Timestamp timestamp;
 
+    @Column(tag = true)
+    private BigInteger id;
+
+    @Column(timestamp = true)
     private long time;
 
+    @Column
     private BigDecimal value;
 
-    private Instant instant;
-
-    at.htl.entity.Measurement measurement;
+    @Column
+    private at.htl.entity.Measurement measurement;
 
     public Measurement_Table() {
     }
@@ -46,12 +40,12 @@ public class Measurement_Table {
         this.id = id;
     }
 
-    public Timestamp getTimestamp() {
-        return timestamp;
+    public long getTime() {
+        return time;
     }
 
-    public void setTimestamp(Timestamp timestamp) {
-        this.timestamp = timestamp;
+    public void setTime(long time) {
+        this.time = time;
     }
 
     public BigDecimal getValue() {
@@ -68,21 +62,5 @@ public class Measurement_Table {
 
     public void setMeasurement(at.htl.entity.Measurement measurement) {
         this.measurement = measurement;
-    }
-
-    public Instant getInstant() {
-        return instant;
-    }
-
-    public void setInstant(Instant instant) {
-        this.instant = instant;
-    }
-
-    public long getTime() {
-        return time;
-    }
-
-    public void setTime(long time) {
-        this.time = time;
     }
 }

@@ -9,6 +9,7 @@ import com.influxdb.client.write.Point;
 import com.influxdb.query.FluxRecord;
 import com.influxdb.query.FluxTable;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -22,7 +23,7 @@ public class JsonToInfluxSaid {
         try {
             InfluxDBClient client = InfluxDBClientFactory.create(influxUrl, token.toCharArray());
 
-            String query = "from(bucket: \"db\") |> range(start: -1h) |> filter(fn: (r) => r._measurement == \"Measurement_Table\")";
+            String query = "from(bucket: \"db\") |> range(start: -7d) |> filter(fn: (r) => r._measurement == \"Measurement_Table\")";
             List<FluxTable> tables = client.getQueryApi().query(query, org);
 
             for (FluxTable table : tables) {
@@ -39,29 +40,28 @@ public class JsonToInfluxSaid {
         }
     }
 
+
     public static void writeToInfluxDB(Measurement_Table measurementTable) {
         String token = "r47FhqJ5qnmkYX-VGhuXdXWiwXK1OlwNhHr6rJ6Gz3a_LDQgRMZFHAK7sIqzCnn-VW1AqDi8JZTCEG4BvGVc5A==";
         String bucket = "db";
         String org = "Leoenergy";
         String influxUrl = "http://localhost:8086";
+
         try {
             InfluxDBClient client = InfluxDBClientFactory.create(influxUrl, token.toCharArray());
-            WriteApiBlocking writeApi = client.getWriteApiBlocking();
 
             long currentTimeInNanoseconds = TimeUnit.SECONDS.toNanos(1700646606);
 
             Point point = Point.measurement("Measurement_Table")
                     .addTag("id", measurementTable.getId().toString())
                     .addField("value", measurementTable.getValue())
-                    .time(currentTimeInNanoseconds, WritePrecision.NS);
+                    .time(Instant.now(), WritePrecision.NS);
 
+            WriteApiBlocking writeApi = client.getWriteApiBlocking();
             writeApi.writePoint(bucket, org, point);
-
-
-            String query = "from(bucket: \"db\") |> range(start: -1h)";
-            List<FluxTable> tables = client.getQueryApi().query(query, org);
-
             client.close();
+
+            System.out.println("Data successfully written to InfluxDB.");
 
         } catch (Exception e) {
             System.err.println("Error writing    data to InfluxDB: " + e.getMessage());
