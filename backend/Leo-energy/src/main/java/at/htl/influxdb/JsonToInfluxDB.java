@@ -29,7 +29,7 @@ public class JsonToInfluxDB {
 
     public static void queryAllData() {
         String token = "-PHNf93K8rwPKfgmBjmwSCfvqyQ3Nf6eE0R9pIml4K0VtJCoSTNtuCMKi4BVsds5nCXvhsLoEFUOQNXJsF3bPA==";
-        String bucket = "db";
+        String bucket = "stuetz";
         String org = "Leoenergy";
         String influxUrl = "http://localhost:8086";
 
@@ -55,22 +55,32 @@ public class JsonToInfluxDB {
 
     public static void writeToInfluxDB(Measurement_Table measurementTable) {
         String token = "-PHNf93K8rwPKfgmBjmwSCfvqyQ3Nf6eE0R9pIml4K0VtJCoSTNtuCMKi4BVsds5nCXvhsLoEFUOQNXJsF3bPA==";
-        String bucket = "db";
+        String bucket = "stuetz";
         String org = "Leoenergy";
         String influxUrl = "http://localhost:8086";
         try {
             InfluxDBClient client = InfluxDBClientFactory.create(influxUrl, token.toCharArray());
             WriteApiBlocking writeApi = client.getWriteApiBlocking();
 
-            System.out.println("InstanceNOW:  " + Instant.now());
-            System.out.println("MyInstance: " + measurementTable.getInstant());
+            long currentTimeInNanoseconds = TimeUnit.SECONDS.toNanos(measurementTable.getTime());
 
-            Point point = Point.measurement("Measurement_Table")
+            Point point = Point.measurement("sensor_data")
                     .addTag("id", measurementTable.getId().toString())
                     .addField("value", measurementTable.getValue())
-                    .time(measurementTable.getInstant(), WritePrecision.NS);
+                    .time(currentTimeInNanoseconds,WritePrecision.NS);
 
             writeApi.writePoint(bucket, org, point);
+
+
+            String query = "from(bucket: \"stuetz\") |> range(start: -1h)";
+            List<FluxTable> tables = client.getQueryApi().query(query, org);
+
+            for (FluxTable table : tables) {
+                for (FluxRecord record : table.getRecords()) {
+                    System.out.println(record);
+                }
+            }
+
             client.close();
 
         } catch (Exception e) {
@@ -87,8 +97,8 @@ public class JsonToInfluxDB {
 
 
         Measurement_Table measurementTable = new Measurement_Table(BigInteger.valueOf(3l),
-                Instant.ofEpochMilli(1670266030),
-                BigDecimal.valueOf(2000.321),
+                1670266030,
+                BigDecimal.valueOf(1231),
                 new Measurement());
         writeToInfluxDB(measurementTable);
         queryAllData();

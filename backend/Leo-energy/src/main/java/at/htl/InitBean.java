@@ -76,7 +76,7 @@ public class InitBean {
                                 JsonNode valuesOfCurrentElement = element.get("Values").get(0);
 
                                 Measurement_Table measurementTable = new Measurement_Table((new BigInteger(String.valueOf(counter))),
-                                        Instant.ofEpochMilli(valuesOfCurrentElement.get("Timestamp").asLong()),
+                                        (valuesOfCurrentElement.get("Timestamp").asLong()),
                                         valuesOfCurrentElement.get("Val").decimalValue(),currentMeasurement);
                                 counter++;
 

@@ -31,9 +31,9 @@ public class Measurement_Table {
     public Measurement_Table() {
     }
 
-    public Measurement_Table(BigInteger id, Instant time, BigDecimal value, at.htl.entity.Measurement measurement) {
+    public Measurement_Table(BigInteger id, long time, BigDecimal value, at.htl.entity.Measurement measurement) {
         this.id = id;
-        this.instant = time;
+        this.time = time;
         this.value = value;
         this.measurement = measurement;
     }
