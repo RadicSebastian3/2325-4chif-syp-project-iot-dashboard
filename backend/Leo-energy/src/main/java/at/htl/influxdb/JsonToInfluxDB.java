@@ -62,7 +62,8 @@ public class JsonToInfluxDB {
             InfluxDBClient client = InfluxDBClientFactory.create(influxUrl, token.toCharArray());
             WriteApiBlocking writeApi = client.getWriteApiBlocking();
 
-            long currentTimeInNanoseconds = TimeUnit.SECONDS.toNanos(measurementTable.getTime());
+           // long currentTimeInNanoseconds = TimeUnit.SECONDS.toNanos(measurementTable.getTime());
+            long currentTimeInNanoseconds = TimeUnit.SECONDS.toNanos(1700646116);
 
             Point point = Point.measurement("sensor_data")
                     .addTag("id", measurementTable.getId().toString())
@@ -96,9 +97,9 @@ public class JsonToInfluxDB {
         System.setProperty("java.util.logging.manager", "org.jboss.logmanager.LogManager");
 
 
-        Measurement_Table measurementTable = new Measurement_Table(BigInteger.valueOf(3l),
-                1670266030,
-                BigDecimal.valueOf(1231),
+        Measurement_Table measurementTable = new Measurement_Table(BigInteger.valueOf(11l),
+                1700646116,
+                BigDecimal.valueOf(123),
                 new Measurement());
         writeToInfluxDB(measurementTable);
         queryAllData();

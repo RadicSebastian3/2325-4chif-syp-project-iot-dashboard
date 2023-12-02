@@ -83,11 +83,9 @@ public class InitBean {
                                 JsonToInfluxDB.writeToInfluxDB(measurementTable);
                             }
                         }
-
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-
 
 
                   /*  if (data.delete()) {
@@ -104,7 +102,5 @@ public class InitBean {
         } else {
             System.out.println("Das Verzeichnis existiert nicht oder ist kein Verzeichnis.");
         }
-
-        JsonToInfluxDB.queryAllData();
     }
 }
