@@ -15,13 +15,16 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import static at.htl.influxdb.JsonToInfluxDB.writeToInfluxDB;
 
@@ -35,10 +38,26 @@ public class InitBean {
     @Inject
     DeviceRepository deviceRepository;
 
-
+    private int counter = 1;
     @Transactional
     void startUp(@Observes StartupEvent event) throws IOException {
-        int counter = 1;
+
+
+        String configFilePath = "config/config.txt";
+        File configFile = new File(configFilePath);
+
+        if (configFile.exists()) {
+            try (Scanner scanner = new Scanner(configFile)) {
+                if (scanner.hasNextInt()) {
+                    counter = scanner.nextInt();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            counter = 1;
+        }
+
 
         String testOrdnerPath = "data/ftp-data";
         File testOrdner = new File(testOrdnerPath);
@@ -75,7 +94,7 @@ public class InitBean {
                                 Measurement_Table measurementTable = new Measurement_Table((new BigInteger(String.valueOf(counter))),
                                         valuesOfCurrentElement.get("Timestamp").asLong(),
                                         valuesOfCurrentElement.get("Val").decimalValue(),currentMeasurement);
-                                counter++;
+                                counter += 1;
 
 
                                 JsonToInfluxDB.writeToInfluxDB(measurementTable);
@@ -87,11 +106,11 @@ public class InitBean {
                         e.printStackTrace();
                     }
 
-                 /*   if (data.delete()) {
+                  if (data.delete()) {
                         System.out.println("Datei erfolgreich gelöscht: " + data.getName());
                     } else {
                         System.out.println("Fehler beim Löschen der Datei: " + data.getName());
-                    }*/
+                    }
 
 
                 }
@@ -100,6 +119,12 @@ public class InitBean {
             }
         } else {
             System.out.println("Das Verzeichnis existiert nicht oder ist kein Verzeichnis.");
+        }
+
+        try (PrintWriter writer = new PrintWriter(configFile)) {
+            writer.print(counter);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
     }
 }
