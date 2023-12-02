@@ -15,23 +15,25 @@ import java.sql.Timestamp;
 
 import static jakarta.persistence.Persistence.createEntityManagerFactory;
 
-@Measurement(name = "Measurement_Device")
+
 public class Measurement_Table {
-    @Column(tag = true)
-    BigInteger id; //tag
-    @Column(timestamp = true)
-    Timestamp timestamp;
-    @Column
-    BigDecimal value;
-    @Column
+   private BigInteger id; //tag
+    private Timestamp timestamp;
+
+    private long time;
+
+    private BigDecimal value;
+
+    private Instant instant;
+
     at.htl.entity.Measurement measurement;
 
     public Measurement_Table() {
     }
 
-    public Measurement_Table(BigInteger id, Timestamp timestamp, BigDecimal value, at.htl.entity.Measurement measurement) {
+    public Measurement_Table(BigInteger id, Instant time, BigDecimal value, at.htl.entity.Measurement measurement) {
         this.id = id;
-        this.timestamp = timestamp;
+        this.instant = time;
         this.value = value;
         this.measurement = measurement;
     }
@@ -66,5 +68,21 @@ public class Measurement_Table {
 
     public void setMeasurement(at.htl.entity.Measurement measurement) {
         this.measurement = measurement;
+    }
+
+    public Instant getInstant() {
+        return instant;
+    }
+
+    public void setInstant(Instant instant) {
+        this.instant = instant;
+    }
+
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
     }
 }

@@ -20,6 +20,7 @@ import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,14 +76,11 @@ public class InitBean {
                                 JsonNode valuesOfCurrentElement = element.get("Values").get(0);
 
                                 Measurement_Table measurementTable = new Measurement_Table((new BigInteger(String.valueOf(counter))),
-                                        new Timestamp(valuesOfCurrentElement.get("Timestamp").asLong() * 1000),
+                                        Instant.ofEpochMilli(valuesOfCurrentElement.get("Timestamp").asLong()),
                                         valuesOfCurrentElement.get("Val").decimalValue(),currentMeasurement);
                                 counter++;
 
                                 JsonToInfluxDB.writeToInfluxDB(measurementTable);
-                                JsonToInfluxDB.queryAllData();
-                                //   measurementList.add(currentMeasurement);
-                             //   measurement_tableList.add(measurementTable);
                             }
                         }
 
@@ -90,11 +88,13 @@ public class InitBean {
                         e.printStackTrace();
                     }
 
-                    if (data.delete()) {
+
+
+                  /*  if (data.delete()) {
                         System.out.println("Datei erfolgreich gelöscht: " + data.getName());
                     } else {
                         System.out.println("Fehler beim Löschen der Datei: " + data.getName());
-                    }
+                    }*/
 
 
                 }
@@ -105,11 +105,6 @@ public class InitBean {
             System.out.println("Das Verzeichnis existiert nicht oder ist kein Verzeichnis.");
         }
 
-    /*    System.out.println("Size of diveces" + devices.size());
-        System.out.println("Size OF MEASUREMENT TABLE LIST" + measurement_tableList.size());
-        System.out.println("SIZE OF MEASUREMENT LIST" + measurementList.size());*/
-
-        //TRY DB
-
+        JsonToInfluxDB.queryAllData();
     }
 }
