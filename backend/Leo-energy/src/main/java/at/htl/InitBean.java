@@ -5,7 +5,7 @@ import at.htl.controller.MeasurementRepository;
 import at.htl.entity.Device;
 import at.htl.entity.Measurement;
 import at.htl.entity.Measurement_Table;
-import at.htl.influxdb.JsonToInfluxSaid;
+import at.htl.influxdb.JsonToInfluxDB;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.quarkus.runtime.StartupEvent;
@@ -19,10 +19,14 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import static at.htl.influxdb.JsonToInfluxDB.writeToInfluxDB;
+
 @ApplicationScoped
+
 public class InitBean {
 
     @Inject
@@ -31,76 +35,71 @@ public class InitBean {
     @Inject
     DeviceRepository deviceRepository;
 
+
     @Transactional
-    void startUp(@Observes StartupEvent event) {
+    void startUp(@Observes StartupEvent event) throws IOException {
         int counter = 1;
 
-        String testOrdnerPath = "testOrdner/";
+        String testOrdnerPath = "data/ftp-data";
         File testOrdner = new File(testOrdnerPath);
-
         if (testOrdner.exists() && testOrdner.isDirectory()) {
             File[] datas = testOrdner.listFiles();
-
             if (datas != null) {
                 for (File data : datas) {
+
                     try {
-                        processFile(data, counter++);
+                        String filePath = data.getPath();
+                        String jsonString = new String(Files.readAllBytes(Paths.get(filePath)));
+                        ObjectMapper objectMapper = new ObjectMapper();
+                        JsonNode jsonNode = objectMapper.readTree(jsonString);
+
+                        JsonNode device = jsonNode.get("Device");
+                        Device newDevice = new Device(device.get("Id").bigIntegerValue(), device.get("Name").asText());
+
+
+                        JsonNode splittedJsonAfterValueDescs = jsonNode.get("Device").get("ValueDescs");
+
+                        deviceRepository.save(newDevice);
+                        if (splittedJsonAfterValueDescs.isArray()) {
+                            for (JsonNode element : splittedJsonAfterValueDescs) {
+
+                                Measurement currentMeasurement = new Measurement(element.get("Id").bigIntegerValue(),
+                                        element.get("DescriptionStr").asText(),
+                                        element.get("ValueType").decimalValue(),
+                                        newDevice);
+
+                                measurementRepository.save(currentMeasurement);
+
+                                JsonNode valuesOfCurrentElement = element.get("Values").get(0);
+
+                                Measurement_Table measurementTable = new Measurement_Table((new BigInteger(String.valueOf(counter))),
+                                        valuesOfCurrentElement.get("Timestamp").asLong(),
+                                        valuesOfCurrentElement.get("Val").decimalValue(),currentMeasurement);
+                                counter++;
+
+
+                                JsonToInfluxDB.writeToInfluxDB(measurementTable);
+                            }
+
+                        }
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                }
 
-                JsonToInfluxSaid.queryAllData();
+                 /*   if (data.delete()) {
+                        System.out.println("Datei erfolgreich gelöscht: " + data.getName());
+                    } else {
+                        System.out.println("Fehler beim Löschen der Datei: " + data.getName());
+                    }*/
+
+
+                }
             } else {
                 System.out.println("Das Verzeichnis ist leer.");
             }
         } else {
             System.out.println("Das Verzeichnis existiert nicht oder ist kein Verzeichnis.");
-        }
-    }
-
-    private void processFile(File data, int counter) {
-        try {
-            String filePath = data.getPath();
-            String jsonString = new String(Files.readAllBytes(Paths.get(filePath)));
-            ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode jsonNode = objectMapper.readTree(jsonString);
-
-            JsonNode device = jsonNode.get("Device");
-            Device newDevice = new Device(device.get("Id").bigIntegerValue(), device.get("Name").asText());
-
-            JsonNode splittedJsonAfterValueDescs = jsonNode.get("Device").get("ValueDescs");
-
-            if (splittedJsonAfterValueDescs.isArray()) {
-                for (JsonNode element : splittedJsonAfterValueDescs) {
-                    Measurement currentMeasurement = new Measurement(
-                            element.get("Id").bigIntegerValue(),
-                            element.get("DescriptionStr").asText(),
-                            element.get("ValueType").decimalValue(),
-                            newDevice);
-
-                    measurementRepository.save(currentMeasurement);
-
-                    JsonNode valuesOfCurrentElement = element.get("Values").get(0);
-
-                    Measurement_Table measurementTable = new Measurement_Table(
-                            new BigInteger(String.valueOf(counter)),
-                            valuesOfCurrentElement.get("Timestamp").asLong(),
-                            valuesOfCurrentElement.get("Val").decimalValue(),
-                            currentMeasurement);
-
-                    JsonToInfluxSaid.writeToInfluxDB(measurementTable);
-                }
-            }
-
-            if (data.delete()) {
-                System.out.println("Datei erfolgreich gelöscht: " + data.getName());
-            } else {
-                System.out.println("Fehler beim Löschen der Datei: " + data.getName());
-            }
-        } catch (IOException e) {
-            System.err.println("Error processing file: " + data.getName());
-            e.printStackTrace();
         }
     }
 }

@@ -27,60 +27,23 @@ import java.util.concurrent.TimeUnit;
 
 public class JsonToInfluxDB {
 
-    public static void queryAllData() {
-        String token = "-PHNf93K8rwPKfgmBjmwSCfvqyQ3Nf6eE0R9pIml4K0VtJCoSTNtuCMKi4BVsds5nCXvhsLoEFUOQNXJsF3bPA==";
-        String bucket = "stuetz";
-        String org = "Leoenergy";
-        String influxUrl = "http://localhost:8086";
-
-        try {
-            InfluxDBClient client = InfluxDBClientFactory.create(influxUrl, token.toCharArray());
-
-            String query = "from(bucket: \"db\") |> range(start: -1h) |> filter(fn: (r) => r._measurement == \"Measurement_Table\")";
-            List<FluxTable> tables = client.getQueryApi().query(query, org);
-
-            for (FluxTable table : tables) {
-                for (FluxRecord record : table.getRecords()) {
-                    System.out.println(record);
-                }
-            }
-
-            client.close();
-
-        } catch (Exception e) {
-            System.err.println("Error querying data from InfluxDB: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
     public static void writeToInfluxDB(Measurement_Table measurementTable) {
-        String token = "-PHNf93K8rwPKfgmBjmwSCfvqyQ3Nf6eE0R9pIml4K0VtJCoSTNtuCMKi4BVsds5nCXvhsLoEFUOQNXJsF3bPA==";
-        String bucket = "stuetz";
+        String token = "tkmKIvXdbCpVOVhC2NId36u48RkVj6H8vHug5GfNqCJixN9RjG8RAl43lOZNxajhF7a6L-EhkrHt3wNnZ5VuzA==";
+        String bucket = "db";
         String org = "Leoenergy";
         String influxUrl = "http://localhost:8086";
         try {
             InfluxDBClient client = InfluxDBClientFactory.create(influxUrl, token.toCharArray());
             WriteApiBlocking writeApi = client.getWriteApiBlocking();
 
-           // long currentTimeInNanoseconds = TimeUnit.SECONDS.toNanos(measurementTable.getTime());
-            long currentTimeInNanoseconds = TimeUnit.SECONDS.toNanos(1700646116);
+          long currentTimeInNanoseconds = TimeUnit.SECONDS.toNanos(measurementTable.getTime());
 
             Point point = Point.measurement("sensor_data")
                     .addTag("id", measurementTable.getId().toString())
                     .addField("value", measurementTable.getValue())
-                    .time(currentTimeInNanoseconds,WritePrecision.NS);
+                        .time(currentTimeInNanoseconds,WritePrecision.NS);
 
             writeApi.writePoint(bucket, org, point);
-
-
-            String query = "from(bucket: \"stuetz\") |> range(start: -1h)";
-            List<FluxTable> tables = client.getQueryApi().query(query, org);
-
-            for (FluxTable table : tables) {
-                for (FluxRecord record : table.getRecords()) {
-                    System.out.println(record);
-                }
-            }
 
             client.close();
 
@@ -93,16 +56,14 @@ public class JsonToInfluxDB {
 
 
 
-    public static void main(String[] args) {
+  /*  public static void main(String[] args) {
         System.setProperty("java.util.logging.manager", "org.jboss.logmanager.LogManager");
 
 
-        Measurement_Table measurementTable = new Measurement_Table(BigInteger.valueOf(11l),
+        Measurement_Table measurementTable = new Measurement_Table(BigInteger.valueOf(17l),
                 1700646116,
-                BigDecimal.valueOf(123),
+                BigDecimal.valueOf(987654),
                 new Measurement());
         writeToInfluxDB(measurementTable);
-        queryAllData();
-
-    }
+    }*/
 }
