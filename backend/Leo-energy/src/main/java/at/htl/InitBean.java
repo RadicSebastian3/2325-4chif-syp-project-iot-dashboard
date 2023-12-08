@@ -6,6 +6,7 @@ import at.htl.entity.Device;
 import at.htl.entity.Measurement;
 import at.htl.entity.Measurement_Table;
 import at.htl.influxdb.JsonToInfluxDB;
+import at.htl.influxdb.JsonToInfluxDBErik;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.quarkus.runtime.StartupEvent;
@@ -96,8 +97,7 @@ public class InitBean {
                                         valuesOfCurrentElement.get("Val").decimalValue(),currentMeasurement);
                                 counter += 1;
 
-
-                                JsonToInfluxDB.writeToInfluxDB(measurementTable);
+                                JsonToInfluxDBErik.writeToInfluxDB(measurementTable);
                             }
 
                         }

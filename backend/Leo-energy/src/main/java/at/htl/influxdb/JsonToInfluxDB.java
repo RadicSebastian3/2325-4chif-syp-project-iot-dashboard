@@ -10,6 +10,7 @@ import com.influxdb.client.domain.WritePrecision;
 import com.influxdb.client.write.Point;
 import com.influxdb.query.FluxRecord;
 import com.influxdb.query.FluxTable;
+import io.quarkus.logging.Log;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -44,8 +45,10 @@ public class JsonToInfluxDB {
                         .time(currentTimeInNanoseconds,WritePrecision.NS);
 
             writeApi.writePoint(bucket, org, point);
+            Log.info("Wrote to InfluxDB: " + point.toLineProtocol());
 
             client.close();
+            Log.info("Closed InfluxDB connection");
 
         } catch (Exception e) {
             System.err.println("Error writing    data to InfluxDB: " + e.getMessage());
