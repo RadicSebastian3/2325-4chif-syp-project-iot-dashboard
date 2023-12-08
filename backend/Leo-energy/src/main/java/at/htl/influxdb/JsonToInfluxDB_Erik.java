@@ -1,32 +1,17 @@
 package at.htl.influxdb;
 
-import at.htl.entity.Measurement;
 import at.htl.entity.Measurement_Table;
 import com.influxdb.client.InfluxDBClient;
 import com.influxdb.client.InfluxDBClientFactory;
-import com.influxdb.client.QueryApi;
 import com.influxdb.client.WriteApiBlocking;
 import com.influxdb.client.domain.WritePrecision;
 import com.influxdb.client.write.Point;
-import com.influxdb.query.FluxRecord;
-import com.influxdb.query.FluxTable;
 import io.quarkus.logging.Log;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.sql.Time;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.List;
-import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
-public class JsonToInfluxDB {
+public class JsonToInfluxDB_Erik {
 
     public static void writeToInfluxDB(Measurement_Table measurementTable) {
         String token = "0-NfyFWahOWqLpDD9TDhRGj-9OVL1NGBpdyuWLcaa85LEPiNEI243-5fi0ygtVKtgIY1iSAI9S0BIQpQorS_4w==";

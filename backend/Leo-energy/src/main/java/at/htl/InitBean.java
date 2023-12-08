@@ -6,7 +6,6 @@ import at.htl.entity.Device;
 import at.htl.entity.Measurement;
 import at.htl.entity.Measurement_Table;
 import at.htl.influxdb.JsonToInfluxDB;
-import at.htl.influxdb.JsonToInfluxDBErik;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.quarkus.runtime.StartupEvent;
@@ -22,12 +21,7 @@ import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
-
-import static at.htl.influxdb.JsonToInfluxDB.writeToInfluxDB;
 
 @ApplicationScoped
 
@@ -97,7 +91,7 @@ public class InitBean {
                                         valuesOfCurrentElement.get("Val").decimalValue(),currentMeasurement);
                                 counter += 1;
 
-                                JsonToInfluxDBErik.writeToInfluxDB(measurementTable);
+                                JsonToInfluxDB.writeToInfluxDB(measurementTable);
                             }
 
                         }
