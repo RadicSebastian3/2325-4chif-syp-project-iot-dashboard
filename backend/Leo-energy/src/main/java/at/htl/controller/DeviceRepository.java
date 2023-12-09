@@ -6,6 +6,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class DeviceRepository {
     @Inject
     EntityManager em;
 
+     @Transactional
     public Device save(Device device){
         return em.merge(device);
     }
@@ -30,6 +32,7 @@ public class DeviceRepository {
     public void delete(Long id){
         em.remove(findById(id));
     }
+    @Transactional
     public void update(Long id, Device device){
         Device d = findById(id);
         d.setName(device.getName());

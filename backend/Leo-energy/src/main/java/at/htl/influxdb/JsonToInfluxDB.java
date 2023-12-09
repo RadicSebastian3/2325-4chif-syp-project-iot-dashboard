@@ -10,7 +10,7 @@ import com.influxdb.client.domain.WritePrecision;
 import com.influxdb.client.write.Point;
 import com.influxdb.query.FluxRecord;
 import com.influxdb.query.FluxTable;
-import io.quarkus.logging.Log;
+import jakarta.transaction.Transactional;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -27,9 +27,8 @@ import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 public class JsonToInfluxDB {
-
     public static void writeToInfluxDB(Measurement_Table measurementTable) {
-        String token = "0-NfyFWahOWqLpDD9TDhRGj-9OVL1NGBpdyuWLcaa85LEPiNEI243-5fi0ygtVKtgIY1iSAI9S0BIQpQorS_4w==";
+        String token = "bj2VxiNCrIUsLhImpuBHfP-xmnjWIUrj0u-UUngVIXKuhiBf8p-8BbtAAX2VS_wp_eEb7Tj5UzjEiudaGY9P0A==";
         String bucket = "db";
         String org = "Leoenergy";
         String influxUrl = "http://localhost:8086";
@@ -39,24 +38,19 @@ public class JsonToInfluxDB {
 
           long currentTimeInNanoseconds = TimeUnit.SECONDS.toNanos(measurementTable.getTime());
 
-            Point point = Point.measurement("sensor_data")
+            Point point = Point.measurement("balint")
                     .addTag("id", measurementTable.getId().toString())
                     .addField("value", measurementTable.getValue())
                         .time(currentTimeInNanoseconds,WritePrecision.NS);
 
             writeApi.writePoint(bucket, org, point);
-            Log.info("Wrote to InfluxDB: " + point.toLineProtocol());
 
             client.close();
-            Log.info("Closed InfluxDB connection");
 
         } catch (Exception e) {
             System.err.println("Error writing    data to InfluxDB: " + e.getMessage());
             e.printStackTrace();
         }
-    }
-
-    public void getValuesFromThatDay(Timestamp a1, Timestamp a2){
     }
 
 
