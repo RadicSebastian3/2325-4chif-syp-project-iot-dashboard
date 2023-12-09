@@ -38,7 +38,7 @@ public class JsonToInfluxDB {
 
           long currentTimeInNanoseconds = TimeUnit.SECONDS.toNanos(measurementTable.getTime());
 
-            Point point = Point.measurement("balint")
+            Point point = Point.measurement("test")
                     .addTag("id", measurementTable.getId().toString())
                     .addField("value", measurementTable.getValue())
                         .time(currentTimeInNanoseconds,WritePrecision.NS);
