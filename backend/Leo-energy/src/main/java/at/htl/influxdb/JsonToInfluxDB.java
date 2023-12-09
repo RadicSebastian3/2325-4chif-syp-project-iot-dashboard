@@ -10,6 +10,7 @@ import com.influxdb.client.domain.WritePrecision;
 import com.influxdb.client.write.Point;
 import com.influxdb.query.FluxRecord;
 import com.influxdb.query.FluxTable;
+import jakarta.transaction.Transactional;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -26,9 +27,8 @@ import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 public class JsonToInfluxDB {
-
     public static void writeToInfluxDB(Measurement_Table measurementTable) {
-        String token = "tkmKIvXdbCpVOVhC2NId36u48RkVj6H8vHug5GfNqCJixN9RjG8RAl43lOZNxajhF7a6L-EhkrHt3wNnZ5VuzA==";
+        String token = "bj2VxiNCrIUsLhImpuBHfP-xmnjWIUrj0u-UUngVIXKuhiBf8p-8BbtAAX2VS_wp_eEb7Tj5UzjEiudaGY9P0A==";
         String bucket = "db";
         String org = "Leoenergy";
         String influxUrl = "http://localhost:8086";
@@ -38,7 +38,7 @@ public class JsonToInfluxDB {
 
           long currentTimeInNanoseconds = TimeUnit.SECONDS.toNanos(measurementTable.getTime());
 
-            Point point = Point.measurement("sensor_data")
+            Point point = Point.measurement("balint")
                     .addTag("id", measurementTable.getId().toString())
                     .addField("value", measurementTable.getValue())
                         .time(currentTimeInNanoseconds,WritePrecision.NS);

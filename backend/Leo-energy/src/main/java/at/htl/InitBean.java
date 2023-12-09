@@ -39,7 +39,7 @@ public class InitBean {
     DeviceRepository deviceRepository;
 
     private int counter = 1;
-    @Transactional
+
     void startUp(@Observes StartupEvent event) throws IOException {
 
 
@@ -59,7 +59,7 @@ public class InitBean {
         }
 
 
-        String testOrdnerPath = "data/ftp-data";
+        String testOrdnerPath = "data/input-data/";
         File testOrdner = new File(testOrdnerPath);
         if (testOrdner.exists() && testOrdner.isDirectory()) {
             File[] datas = testOrdner.listFiles();
@@ -106,11 +106,11 @@ public class InitBean {
                         e.printStackTrace();
                     }
 
-                  if (data.delete()) {
+                /*  if (data.delete()) {
                         System.out.println("Datei erfolgreich gelöscht: " + data.getName());
                     } else {
                         System.out.println("Fehler beim Löschen der Datei: " + data.getName());
-                    }
+                    }*/
 
 
                 }
