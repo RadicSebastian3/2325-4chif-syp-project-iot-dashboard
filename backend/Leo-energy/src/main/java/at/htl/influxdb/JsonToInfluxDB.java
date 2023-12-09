@@ -1,6 +1,5 @@
 package at.htl.influxdb;
 
-import at.htl.entity.Measurement;
 import at.htl.entity.Measurement_Table;
 import com.influxdb.client.InfluxDBClient;
 import com.influxdb.client.InfluxDBClientFactory;
@@ -10,24 +9,21 @@ import com.influxdb.client.domain.WritePrecision;
 import com.influxdb.client.write.Point;
 import com.influxdb.query.FluxRecord;
 import com.influxdb.query.FluxTable;
-import jakarta.transaction.Transactional;
+
+import org.influxdb.InfluxDB;
+import org.influxdb.InfluxDBFactory;
+import org.influxdb.dto.Query;
+import org.influxdb.dto.QueryResult;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.sql.Time;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 public class JsonToInfluxDB {
-    public static void writeToInfluxDB(Measurement_Table measurementTable) {
+    public static void insertMeasurement(Measurement_Table measurementTable) {
         String token = "bj2VxiNCrIUsLhImpuBHfP-xmnjWIUrj0u-UUngVIXKuhiBf8p-8BbtAAX2VS_wp_eEb7Tj5UzjEiudaGY9P0A==";
         String bucket = "db";
         String org = "Leoenergy";
@@ -55,15 +51,54 @@ public class JsonToInfluxDB {
 
 
 
+    public static List<Measurement_Table> getValuesBetweenTwoTimeStamps(Timestamp startTime, Timestamp endTime) {
+        String token = "bj2VxiNCrIUsLhImpuBHfP-xmnjWIUrj0u-UUngVIXKuhiBf8p-8BbtAAX2VS_wp_eEb7Tj5UzjEiudaGY9P0A==";
+        String bucket = "db";
+        String org = "Leoenergy";
+        String influxUrl = "http://localhost:8086";
 
-  /*  public static void main(String[] args) {
-        System.setProperty("java.util.logging.manager", "org.jboss.logmanager.LogManager");
+        List<Measurement_Table> resultList = new ArrayList<>();
+
+        try (InfluxDBClient client = InfluxDBClientFactory.create(influxUrl, token.toCharArray())) {
+
+            // Konvertiere Timestamps in Nanosekunden
+            long startNano = startTime.toInstant().toEpochMilli() * 1_000_000;
+            long endNano = endTime.toInstant().toEpochMilli() * 1_000_000;
+
+            // Erstelle die Flux-Abfrage mit dem Zeitbereich
+            String query = String.format("from(bucket: \"%s\") |> range(start: %d, stop: %d)", bucket, startNano, endNano);
+
+            QueryApi queryApi = client.getQueryApi();
+            List<FluxTable> tables = queryApi.query(query, org);
+
+            for (FluxTable fluxTable : tables) {
+                List<FluxRecord> records = fluxTable.getRecords();
+                for (FluxRecord fluxRecord : records) {
+                    Measurement_Table measurementTable = new Measurement_Table();
+                    measurementTable.setTimeInstance(fluxRecord.getTime());
+                    measurementTable.setValue(new BigDecimal(fluxRecord.getValueByKey("_value").toString()));
+                    resultList.add(measurementTable);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return resultList;
+    }
+    public static void main(String[] args) {
+
+        Timestamp startTime = Timestamp.valueOf("2023-10-01 18:02:24");
+        Timestamp endTime = Timestamp.valueOf("2023-12-09 18:02:24");
+        List<Measurement_Table> result = getValuesBetweenTwoTimeStamps(startTime, endTime);
+
+        for (Measurement_Table measurement : result) {
+            System.out.println("ID: " + measurement.getId() +
+                    ", Time: " + measurement.getTimeInstance() +
+                    ", Value: " + measurement.getValue());
+        }
+    }
 
 
-        Measurement_Table measurementTable = new Measurement_Table(BigInteger.valueOf(17l),
-                1700646116,
-                BigDecimal.valueOf(987654),
-                new Measurement());
-        writeToInfluxDB(measurementTable);
-    }*/
 }

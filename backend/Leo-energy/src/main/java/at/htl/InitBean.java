@@ -12,7 +12,6 @@ import io.quarkus.runtime.StartupEvent;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Observes;
 import jakarta.inject.Inject;
-import jakarta.transaction.Transactional;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -91,7 +90,7 @@ public class InitBean {
                                         valuesOfCurrentElement.get("Val").decimalValue(),currentMeasurement);
                                 counter += 1;
 
-                                JsonToInfluxDB.writeToInfluxDB(measurementTable);
+                                JsonToInfluxDB.insertMeasurement(measurementTable);
                             }
 
                         }

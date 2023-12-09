@@ -7,16 +7,22 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.Instant;
 
+@Measurement(name = "measurement_table")
 public class Measurement_Table {
 
+    @Column(tag = true)
     private BigInteger id;
+
 
     private long time;
 
-
+    @Column
     private BigDecimal value;
 
     private at.htl.entity.Measurement measurement;
+
+    @Column(timestamp = true)
+    Instant timeInstance;
 
     public Measurement_Table() {
     }
@@ -42,6 +48,15 @@ public class Measurement_Table {
 
     public void setTime(long time) {
         this.time = time;
+    }
+
+
+    public Instant getTimeInstance() {
+        return timeInstance;
+    }
+
+    public void setTimeInstance(Instant timeInstance) {
+        this.timeInstance = timeInstance;
     }
 
     public BigDecimal getValue() {
