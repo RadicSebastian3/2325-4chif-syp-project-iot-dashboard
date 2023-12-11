@@ -28,6 +28,9 @@ ifndef::imagesdir[:imagesdir: ../images]
 * Wann wurde wie viel Strom verbraucht?
 * Wann wurde mehr produziert als genutzt oder sogar verkauft?
 
+== CLD
+image::https://www.plantuml.com/plantuml/png/ZKyz2y8m4DtpAuwCGWVNJaMwE3ZPNSxqZ0T9Mf9BGSJ_Rccf5BJWcnx7-tXN9S4esJlbw2OW7KIsTu6M8ndXBYXb7AO4DGriwAbW1BSb7DWUWv2bE9q2UYhXB963LQ_5T29CEPAd8FyvOSI0BbFpw6cIrcJOe_kPUMdmwhOt2NjAWhuleLdef-4hVNuGz5v3KO3UwNMJMl4DoJn6LHJQxDqR[]
+
 == Sprint 1
 
 * Proof of Concept

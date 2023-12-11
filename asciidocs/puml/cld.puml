@@ -1,0 +1,23 @@
+@startuml
+left to right direction
+
+class Device{
+    id: BigInteger
+    name: String
+}
+
+class Measurement{
+    id: BigInteger
+    name: String
+    valueType: BigDecimal
+}
+
+class Measurement_Table{
+    id: BigInteger
+    timestamp: Timestamp
+    value: BigDecimal
+}
+
+Device "1" -- "*" Measurement
+Measurement "1" -- "*" Measurement_Table
+@enduml
