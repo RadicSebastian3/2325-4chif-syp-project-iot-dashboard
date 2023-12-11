@@ -74,7 +74,7 @@ ifndef::imagesdir[:imagesdir: ../images]
 ** JsonToInfluxDB (mitgeholfen) Timestamp gefixed
 
 === Erik
-** Frontend
+** Versucht Frontend zu machen
 
 === Markus
 ** Frontend
