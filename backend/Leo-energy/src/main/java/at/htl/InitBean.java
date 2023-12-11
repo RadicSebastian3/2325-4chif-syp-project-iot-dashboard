@@ -38,7 +38,7 @@ public class InitBean {
     @Inject
     DeviceRepository deviceRepository;
 
-    private static final int MAX_FILES_TO_PROCESS = 5;
+    private static final int MAX_FILES_TO_PROCESS = 2;
 
     private int counter = 1;
 
@@ -66,7 +66,7 @@ public class InitBean {
     }
 
     private void processFiles() {
-        String relativePath = "/home/said/Programming/data/wetransfer_2023-10-zip_2023-11-22_1103/2023-10";
+        String relativePath = "/home/balint/htl/4bhif/syp/newData/wetransfer_2023-10-zip_2023-11-22_1103/2023-10";
         String absolutePath = Paths.get(relativePath).toAbsolutePath().toString();
         File testOrdner = new File(absolutePath);
 

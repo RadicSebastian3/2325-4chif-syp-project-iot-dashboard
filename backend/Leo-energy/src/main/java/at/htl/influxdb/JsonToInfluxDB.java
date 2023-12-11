@@ -64,7 +64,9 @@ public class JsonToInfluxDB {
             long endNano = endTime.toInstant().toEpochMilli() * 1_000_000;
 
             String query = String.format("from(bucket: \"%s\") " +
-                                         "|> range(start: %d, stop: %d)", bucket, startNano, endNano);
+                                         "|> range(start: %d, stop: %d)"+
+                                          "|> filter(fn: (r) => r[\"_measurement\"] == \"measurement_table\")",
+                                        bucket, startNano, endNano);
 
             QueryApi queryApi = client.getQueryApi();
             List<FluxTable> tables = queryApi.query(query, org);
@@ -123,8 +125,8 @@ public class JsonToInfluxDB {
     }*/
     public static void main(String[] args) {
 
-        Timestamp startTime = Timestamp.valueOf("2023-10-01 00:00:00");
-        Timestamp endTime = Timestamp.valueOf("2023-12-10 00:00:00");
+        Timestamp startTime = Timestamp.valueOf("2023-9-01 00:00:00");
+        Timestamp endTime = Timestamp.valueOf("2023-12-20 00:00:00");
 
         List<Measurement_Table> result = getValuesBetweenTwoTimeStamps(startTime, endTime);
 
