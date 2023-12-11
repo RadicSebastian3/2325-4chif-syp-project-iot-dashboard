@@ -28,16 +28,6 @@ ifndef::imagesdir[:imagesdir: ../images]
 * Wann wurde wie viel Strom verbraucht?
 * Wann wurde mehr produziert als genutzt oder sogar verkauft?
 
-
-== CLD
-
-image::https://www.plantuml.com/plantuml/png/VLBBIaKn3DptAqAN5-x2hQlx0UxyW5Bl2HBeepOv1mxYlzj6j5IBgvAPpZ3JzCRYg-mn68D9I4wm0TsUIDZ2km6u06tm24yvlRRfUbKe-OWDV9PA3VwOj8SFEpev2_uuADIHXTM6VA_3gqC5AnEBghXHBpa7z4avnhH9ZcyYluWUsGt_HQR_2WbfeNwm-5WKxC8lwRZV0nzqHwV7A3JtT8l6SoALZqWwBf-7k0H_JW-kn5-4IUQbV2yIx8DjVc0l5kO5cMbSNcGpqgvvOswOjlw5FW40[]
-
-== Usecase Diagram
-
-image::https://www.plantuml.com/plantuml/png/VP1DJWCn38NtFeKr-oveTonG-Ra21p2JnyJgZ3Do72IAk3jDaL0bgYwoUNdV9zlx6kBHbfbcl0T7OTSf1oTrZA75ICOepa-m5aSuI-LMuKIhZ0UPmCEBrFnMn1C_sX4wOU0lujuQfPx_0sgom6fuEqHp6CjlrOOkV7s-kmHE6iapVy3hc1K91kUp9JxN_-ps2flW_PrwmRginKFX0RkXsT4tKL-DDvk7FXBVSrNak0otryBTNqXxMEh7_040[]
-
-[.font-xx-large]
 == Sprint 1
 
 * Proof of Concept
@@ -54,13 +44,37 @@ image::https://www.plantuml.com/plantuml/png/VP1DJWCn38NtFeKr-oveTonG-Ra21p2JnyJ
 
 == Sprint 2 - Aufgabenverteilung
 
-* Said
+===  Said
 * Frontend
 * Files einlesen (mitgeholfen)
 
-* Balint
+=== Balint
 * Files einlesen
 * Logik implementiert
 
-* Erik und Markus
+=== Erik und Markus
 * Frontend
+
+== Sprint 3
+
+** PV-Daten in Histrogramm visualisieren (von den letzten 24h, in kW)
+*** "Zeile 3 in Diagramm"
+** in Diagramm ausgeben
+** Timestamp eingeben -> Daten zu Timestamp ausgeben
+
+== Sprint 3 - Aufgabenverteilung
+
+=== Said
+** InfluxDB
+** JsonToInfluxDB
+
+=== Balint
+** InfluxDB
+** Logik zum einlesen der Daten
+** JsonToInfluxDB (mitgeholfen) Timestamp gefixed
+
+=== Erik
+** Frontend
+
+=== Markus
+** Frontend

@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
 
 public class JsonToInfluxDB {
     public static void insertMeasurement(Measurement_Table measurementTable) {
-        String token = "dpWZoPRCcJmjM7CEynlTim-xRjf0Fo7YLav_CgHkl2liY5Xai0hja1-H3HDfOSzCb3HVfHaS_Y7ohT6yzKYGfg==";
+        String token = "drVEFN237bKIZ3DKQ-UsbO_5Cgq5VXfTudv_TjqRuJw2v1tN42s2iaEiHewyOyG2eryQIphAshIV6x07P2w7GA==";
         String bucket = "db";
         String org = "Leoenergy";
         String influxUrl = "http://localhost:8086";
@@ -51,7 +51,7 @@ public class JsonToInfluxDB {
     }
 
     public static List<Measurement_Table> getValuesBetweenTwoTimeStamps(Timestamp startTime, Timestamp endTime) {
-        String token = "dpWZoPRCcJmjM7CEynlTim-xRjf0Fo7YLav_CgHkl2liY5Xai0hja1-H3HDfOSzCb3HVfHaS_Y7ohT6yzKYGfg==";
+        String token = "drVEFN237bKIZ3DKQ-UsbO_5Cgq5VXfTudv_TjqRuJw2v1tN42s2iaEiHewyOyG2eryQIphAshIV6x07P2w7GA==";
         String bucket = "db";
         String org = "Leoenergy";
         String influxUrl = "http://localhost:8086";
