@@ -3,42 +3,53 @@ package at.htl.resource;
 import at.htl.entity.Measurement_Table;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
 import java.math.BigDecimal;
+import java.sql.Time;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.*;
 
 import static at.htl.influxdb.JsonToInfluxDB.getValuesBetweenTwoTimeStamps;
 
-@Path("/device/data")
+@Path("/energyproduction")
 public class DataResource {
-
     @GET
-    @Produces("application/json")
+    @Path("/getDataBetweenTwoTimestamps/{start}/{end}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getDataBetweenTwoTimestamps(@PathParam("start") String start, @PathParam("end") String end){
+        Timestamp startTime = Timestamp.from(Instant.parse(start));
+        Timestamp endTime = Timestamp.from(Instant.parse(end));
 
+        List<Measurement_Table> data = getValuesBetweenTwoTimeStamps(startTime, endTime);
+        Map<Timestamp, Double> map = new HashMap<>();
 
-    public Map<String, List<?>> getAllData() {
-        Timestamp startTime = Timestamp.valueOf("2023-10-01 00:00:00");
-        Timestamp endTime = Timestamp.valueOf("2023-10-31 23:59:59");
-
-        List<Measurement_Table> measurements = getValuesBetweenTwoTimeStamps(startTime, endTime);
-        List<String> labels = new ArrayList<>();
-        List<BigDecimal> values = new ArrayList<>();
-
-        for (Measurement_Table measurement : measurements) {
-            labels.add(measurement.getTimeInstance().toString());
-            values.add(measurement.getValue());
+        for (Measurement_Table measurement : data){
+            map.put(Timestamp.from(measurement.getTimeInstance()), measurement.getValue().doubleValue());
         }
 
-        Map<String, List<?>> dataMap = new HashMap<>();
-        dataMap.put("labels", labels);
-        dataMap.put("values", values);
-
-        return dataMap;
+        return Response.ok().entity(map).build();
     }
 
+    @GET
+    @Path("/example/{start}/{end}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response example(@PathParam("start") String start, @PathParam("end") String end){
+        Timestamp startTime = Timestamp.from(Instant.parse(start));
+        Timestamp endTime = Timestamp.from(Instant.parse(end));
+
+        Map<Timestamp, Double> map = new HashMap<>();
+        map.put(startTime, Double.valueOf(Math.abs(new Random().nextInt())));
+        map.put(endTime, Double.valueOf(Math.abs(new Random().nextInt())));
+
+        return Response.ok().entity(map).build();
+    }
 }

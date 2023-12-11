@@ -1,8 +1,40 @@
-const date = document.getElementById("date");
-const submitButton = document.getElementById("submitBtn");
+const selectedDate = document.getElementById("date");
+const useExampleApi = document.getElementById("useExampleApi")
 
-submitButton.addEventListener("click", () => {
-    const dateValueMap = fetchData(date.value);
+function submit() {
+    const startDate = new Date(selectedDate.value);
+    startDate.setHours(0);
+    startDate.setMinutes(0);
+    startDate.setSeconds(0);
+    const endDate = new Date(selectedDate.value);
+    startDate.setHours(23);
+    startDate.setMinutes(59);
+    startDate.setSeconds(59);
+    makeAPICall(startDate.toISOString(), endDate.toISOString());
+}
+
+function makeAPICall(startDate, endDate) {
+    let apiUrl = `http://localhost:8080/energyproduction/getDataBetweenTwoTimestamps/${startDate}/${endDate}`
+
+    if(useExampleApi.checked === true){
+        apiUrl = `http://localhost:8080/energyproduction/example/${startDate}/${endDate}`;
+    }
+
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            drawChart(convertJsonToMap(data));
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
+}
+
+function drawChart(data) {
+    const values = Array.from(data.values());
+    const sum = values.reduce((acc, value) => acc + value, 0);
+    const average = sum / values.length;
 
     const chart = new CanvasJS.Chart('chartContainer', {
         axisX: {
@@ -12,81 +44,40 @@ submitButton.addEventListener("click", () => {
             title: 'Time HH:mm'
         },
         axisY: {
-            title: 'W'
+            title: 'W',
+            stripLines: [{
+                value: average,
+                color: 'green',
+                label: `average (${average})`,
+                labelFontColor: 'green',
+                labelAlign: 'near',
+                labelBackgroundColor: 'white',
+                labelFontSize: 10
+            }]
         },
         data: [{
             type: 'line',
-            dataPoints: Array.from(dateValueMap, ([date, value]) => ({
+            dataPoints: Array.from(data, ([date, value]) => ({
                 x: date,
                 y: value
             }))
         }]
     });
     chart.render();
-});
-
-
-function fetchData(dayIso){
-    //TODO:
-    //fetch the data from the quarkus application from the specific day from 0:00 am to 11:59pm
-    //@param dayIso: the day where we want to get the data
-    //@returns a key-value collection (e.g. Map) with the time as key and the watt-value as value
-    return fillExampleDataToMap();
 }
 
-function fillExampleDataToMap(){
-    const map = new Map();
-    map.set(new Date(2023,9,1,0,0,5), 70);
-    map.set(new Date(2023,9,1,0,45,5), 30);
-    map.set(new Date(2023,9,1,2,0,5), 85);
-    map.set(new Date(2023,9,1,3,0,5), 70);
-    map.set(new Date(2023,9,1,4,45,5), 30);
-    map.set(new Date(2023,9,1,6,23,5), 85)
-    map.set(new Date(2023,9,1,20,23,5), 1);
-    return map;
-}
+function convertJsonToMap(jsonData) {
+    const dateValueMap = new Map();
 
-function averageOfCollection(collection){
-    let sum = 0;
+    for (const dateString in jsonData) {
+        if (jsonData.hasOwnProperty(dateString)) {
+            const value = jsonData[dateString];
+            // Extract timestamp without fractional seconds and time zone offset
+            const timestamp = dateString.replace(/(\.\d+)?Z\[UTC\]$/, '');
 
-    for(var item of collection){
-        sum += item;
+            dateValueMap.set(new Date(timestamp), value);
+        }
     }
 
-    return sum/collection.size;
+    return dateValueMap;
 }
-
-
-
-
-
-/*fetch('https://localhost:8080/device/data')
-.then(response => response.json())
-.then(data => {
-    createChart(data, 'monthlyChart', 'Monthly');
-    createChart(data, 'dailyChart', 'Daily');
-})
-
-function createChart(data, chartId, title) {
-    const ctx = document.getElementById(chartId).getContext('2d');
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: data.labels,
-            datasets: data.datasets
-        },
-        options: {
-            title: {
-                display: true,
-                text: title
-            },
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
-    });
-}*/

@@ -23,8 +23,8 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class JsonToInfluxDB {
+    static final String token = "qfuIFzUSuYnW7xrVRAeg9VMqBdMcoNjwmDDnPJmNm40dp8HL2XSq2HsnP_83UvKcvGzeTKPbjqNrfJqSRURLng==";
     public static void insertMeasurement(Measurement_Table measurementTable) {
-        String token = "7EH2IeyCQcEKH4Uhep1gES5JAb7oMBn0nJ6sB1rrkDeyt9Fz53K5-4QjMpkbFW1byFchwLXTftdRZV_uLFHOug==";
         String bucket = "db";
         String org = "Leoenergy";
         String influxUrl = "http://localhost:8086";
@@ -51,7 +51,6 @@ public class JsonToInfluxDB {
     }
 
     public static List<Measurement_Table> getValuesBetweenTwoTimeStamps(Timestamp startTime, Timestamp endTime) {
-        String token = "7EH2IeyCQcEKH4Uhep1gES5JAb7oMBn0nJ6sB1rrkDeyt9Fz53K5-4QjMpkbFW1byFchwLXTftdRZV_uLFHOug==";
         String bucket = "db";
         String org = "Leoenergy";
         String influxUrl = "http://localhost:8086";
@@ -94,7 +93,7 @@ public class JsonToInfluxDB {
 
         for (Measurement_Table measurement : result) {
             System.out.println("ID: " + measurement.getId() +
-                    ", Time: " + measurement.getTimeInstance() +
+                    ", Time: " + measurement.getTimeInstance().toString() +
                     ", Value: " + measurement.getValue() +
                     "Measurement_ID" + measurement.getMeasurementId());
         }
