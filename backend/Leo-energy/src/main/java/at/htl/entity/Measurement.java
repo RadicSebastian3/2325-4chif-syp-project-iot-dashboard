@@ -69,10 +69,6 @@ public class Measurement {
         this.device = device;
     }
 
-
-
-
-
     public String getUnitStr() {
         return unitStr;
     }
