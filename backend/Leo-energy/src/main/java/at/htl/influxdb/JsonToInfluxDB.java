@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
 
 public class JsonToInfluxDB {
     public static void insertMeasurement(Measurement_Table measurementTable) {
-        String token = "7EH2IeyCQcEKH4Uhep1gES5JAb7oMBn0nJ6sB1rrkDeyt9Fz53K5-4QjMpkbFW1byFchwLXTftdRZV_uLFHOug==";
+        String token = "dpWZoPRCcJmjM7CEynlTim-xRjf0Fo7YLav_CgHkl2liY5Xai0hja1-H3HDfOSzCb3HVfHaS_Y7ohT6yzKYGfg==";
         String bucket = "db";
         String org = "Leoenergy";
         String influxUrl = "http://localhost:8086";
@@ -51,7 +51,7 @@ public class JsonToInfluxDB {
     }
 
     public static List<Measurement_Table> getValuesBetweenTwoTimeStamps(Timestamp startTime, Timestamp endTime) {
-        String token = "7EH2IeyCQcEKH4Uhep1gES5JAb7oMBn0nJ6sB1rrkDeyt9Fz53K5-4QjMpkbFW1byFchwLXTftdRZV_uLFHOug==";
+        String token = "dpWZoPRCcJmjM7CEynlTim-xRjf0Fo7YLav_CgHkl2liY5Xai0hja1-H3HDfOSzCb3HVfHaS_Y7ohT6yzKYGfg==";
         String bucket = "db";
         String org = "Leoenergy";
         String influxUrl = "http://localhost:8086";
@@ -60,12 +60,48 @@ public class JsonToInfluxDB {
 
         try (InfluxDBClient client = InfluxDBClientFactory.create(influxUrl, token.toCharArray())) {
 
-            // Konvertiere Timestamps in Nanosekunden
             long startNano = startTime.toInstant().toEpochMilli() * 1_000_000;
             long endNano = endTime.toInstant().toEpochMilli() * 1_000_000;
 
-            // Erstelle die Flux-Abfrage mit dem Zeitbereich
-            String query = String.format("from(bucket: \"%s\") |> range(start: %d, stop: %d)", bucket, startNano, endNano);
+            String query = String.format("from(bucket: \"%s\") " +
+                                         "|> range(start: %d, stop: %d)", bucket, startNano, endNano);
+
+            QueryApi queryApi = client.getQueryApi();
+            List<FluxTable> tables = queryApi.query(query, org);
+
+            for (FluxTable fluxTable : tables) {
+                List<FluxRecord> records = fluxTable.getRecords();
+                for (FluxRecord fluxRecord : records) {
+                    Measurement_Table measurementTable = new Measurement_Table();
+                    measurementTable.setTimeInstance(fluxRecord.getTime());
+                    measurementTable.setValue(new BigDecimal(fluxRecord.getValueByKey("_value").toString()));
+                    resultList.add(measurementTable);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resultList;
+    }
+  /*  public static List<Measurement_Table> getValuesBetweenTwoTimeStampsWithTheSameMeasurementId(Timestamp startTime, Timestamp endTime,BigInteger measurementId) {
+        String token = "dpWZoPRCcJmjM7CEynlTim-xRjf0Fo7YLav_CgHkl2liY5Xai0hja1-H3HDfOSzCb3HVfHaS_Y7ohT6yzKYGfg==";
+        String bucket = "db";
+        String org = "Leoenergy";
+        String influxUrl = "http://localhost:8086";
+
+        List<Measurement_Table> resultList = new ArrayList<>();
+
+        try (InfluxDBClient client = InfluxDBClientFactory.create(influxUrl, token.toCharArray())) {
+
+            long startNano = startTime.toInstant().toEpochMilli() * 1_000_000;
+            long endNano = endTime.toInstant().toEpochMilli() * 1_000_000;
+
+            String query = String.format("from(bucket: \"%s\") " +
+                            "|> range(start: %d, stop: %d)"+
+                            "|> filter(fn: (r) => r[\"_measurement\"] == \"measurement_table\")" +
+                            "|> filter(fn: (r) => r[\"_field\"] == \"value\")\n" +
+                            "  |> filter(fn: (r) => r[\"measurement_id\"] == \"10\")"
+                    , bucket, startNano, endNano);
 
             QueryApi queryApi = client.getQueryApi();
             List<FluxTable> tables = queryApi.query(query, org);
@@ -83,21 +119,16 @@ public class JsonToInfluxDB {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return resultList;
-    }
+    }*/
     public static void main(String[] args) {
 
-        Timestamp startTime = Timestamp.valueOf("2023-10-01 18:02:24");
-        Timestamp endTime = Timestamp.valueOf("2023-12-09 18:02:24");
+        Timestamp startTime = Timestamp.valueOf("2023-10-01 00:00:00");
+        Timestamp endTime = Timestamp.valueOf("2023-12-10 00:00:00");
+
         List<Measurement_Table> result = getValuesBetweenTwoTimeStamps(startTime, endTime);
 
-        for (Measurement_Table measurement : result) {
-            System.out.println("ID: " + measurement.getId() +
-                    ", Time: " + measurement.getTimeInstance() +
-                    ", Value: " + measurement.getValue() +
-                    "Measurement_ID" + measurement.getMeasurementId());
-        }
+        System.out.println(result.size());
     }
 
 
