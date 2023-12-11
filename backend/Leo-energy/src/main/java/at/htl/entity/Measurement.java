@@ -1,9 +1,13 @@
 package at.htl.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.checkerframework.common.reflection.qual.GetMethod;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "MEASUREMENT")
@@ -17,16 +21,20 @@ public class Measurement {
     @ManyToOne//(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     private Device device;
 
+    private String unitStr;
+
 
     public Measurement() {
 
     }
 
-    public Measurement(BigInteger id, String name, BigDecimal valueType, Device device) {
+    public Measurement(BigInteger id, String name, BigDecimal valueType, Device device, String unitStr) {
         this.id = id;
         this.name = name;
         this.valueType = valueType;
         this.device = device;
+        this.unitStr = unitStr;
+
     }
 
     public String getName() {
@@ -59,6 +67,18 @@ public class Measurement {
 
     public void setDevice(Device device) {
         this.device = device;
+    }
+
+
+
+
+
+    public String getUnitStr() {
+        return unitStr;
+    }
+
+    public void setUnitStr(String unitStr) {
+        this.unitStr = unitStr;
     }
 
     @Override

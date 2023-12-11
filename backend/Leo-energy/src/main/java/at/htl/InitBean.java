@@ -52,9 +52,11 @@ public class InitBean {
             counter = 1;
         }
 
+        String relativePath = "/home/balint/htl/4bhif/syp/newData/wetransfer_2023-10-zip_2023-11-22_1103/2023-10";
 
-        String testOrdnerPath = "data/input-data/";
-        File testOrdner = new File(testOrdnerPath);
+        String absolutePath = Paths.get(relativePath).toAbsolutePath().toString();
+        File testOrdner = new File(absolutePath);
+
         if (testOrdner.exists() && testOrdner.isDirectory()) {
             File[] datas = testOrdner.listFiles();
             if (datas != null) {
@@ -69,25 +71,18 @@ public class InitBean {
                         JsonNode device = jsonNode.get("Device");
                         Device newDevice = new Device(device.get("Id").bigIntegerValue(), device.get("Name").asText());
 
-
                         JsonNode splittedJsonAfterValueDescs = jsonNode.get("Device").get("ValueDescs");
 
                         deviceRepository.save(newDevice);
                         if (splittedJsonAfterValueDescs.isArray()) {
                             for (JsonNode element : splittedJsonAfterValueDescs) {
-
-                                Measurement currentMeasurement = new Measurement(element.get("Id").bigIntegerValue(),
-                                        element.get("DescriptionStr").asText(),
-                                        element.get("ValueType").decimalValue(),
-                                        newDevice);
+                                Measurement currentMeasurement = new Measurement(element.get("Id").bigIntegerValue(), element.get("DescriptionStr").asText(), element.get("ValueType").decimalValue(), newDevice, element.get("UnitStr").asText());
 
                                 measurementRepository.save(currentMeasurement);
 
                                 JsonNode valuesOfCurrentElement = element.get("Values").get(0);
 
-                                Measurement_Table measurementTable = new Measurement_Table((new BigInteger(String.valueOf(counter))),
-                                        valuesOfCurrentElement.get("Timestamp").asLong(),
-                                        valuesOfCurrentElement.get("Val").decimalValue(),currentMeasurement);
+                                Measurement_Table measurementTable = new Measurement_Table(new BigInteger(String.valueOf(counter)), currentMeasurement.getId(), valuesOfCurrentElement.get("Timestamp").asLong(), valuesOfCurrentElement.get("Val").decimalValue());
                                 counter += 1;
 
                                 JsonToInfluxDB.insertMeasurement(measurementTable);
@@ -99,11 +94,11 @@ public class InitBean {
                         e.printStackTrace();
                     }
 
-                /*  if (data.delete()) {
+                if (data.delete()) {
                         System.out.println("Datei erfolgreich gelöscht: " + data.getName());
                     } else {
                         System.out.println("Fehler beim Löschen der Datei: " + data.getName());
-                    }*/
+                    }
 
 
                 }

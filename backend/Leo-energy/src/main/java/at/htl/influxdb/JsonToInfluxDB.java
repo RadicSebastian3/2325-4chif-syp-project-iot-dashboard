@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
 
 public class JsonToInfluxDB {
     public static void insertMeasurement(Measurement_Table measurementTable) {
-        String token = "bj2VxiNCrIUsLhImpuBHfP-xmnjWIUrj0u-UUngVIXKuhiBf8p-8BbtAAX2VS_wp_eEb7Tj5UzjEiudaGY9P0A==";
+        String token = "7EH2IeyCQcEKH4Uhep1gES5JAb7oMBn0nJ6sB1rrkDeyt9Fz53K5-4QjMpkbFW1byFchwLXTftdRZV_uLFHOug==";
         String bucket = "db";
         String org = "Leoenergy";
         String influxUrl = "http://localhost:8086";
@@ -34,25 +34,24 @@ public class JsonToInfluxDB {
 
           long currentTimeInNanoseconds = TimeUnit.SECONDS.toNanos(measurementTable.getTime());
 
-            Point point = Point.measurement("test")
+            Point point = Point.measurement("measurement_table")
                     .addTag("id", measurementTable.getId().toString())
+                    .addTag("measurement_id",measurementTable.getMeasurementId().toString())
                     .addField("value", measurementTable.getValue())
-                        .time(currentTimeInNanoseconds,WritePrecision.NS);
+                    .time(currentTimeInNanoseconds,WritePrecision.NS);
 
             writeApi.writePoint(bucket, org, point);
 
             client.close();
 
         } catch (Exception e) {
-            System.err.println("Error writing    data to InfluxDB: " + e.getMessage());
+            System.err.println("Error writing data to InfluxDB: " + e.getMessage());
             e.printStackTrace();
         }
     }
 
-
-
     public static List<Measurement_Table> getValuesBetweenTwoTimeStamps(Timestamp startTime, Timestamp endTime) {
-        String token = "bj2VxiNCrIUsLhImpuBHfP-xmnjWIUrj0u-UUngVIXKuhiBf8p-8BbtAAX2VS_wp_eEb7Tj5UzjEiudaGY9P0A==";
+        String token = "7EH2IeyCQcEKH4Uhep1gES5JAb7oMBn0nJ6sB1rrkDeyt9Fz53K5-4QjMpkbFW1byFchwLXTftdRZV_uLFHOug==";
         String bucket = "db";
         String org = "Leoenergy";
         String influxUrl = "http://localhost:8086";
@@ -96,7 +95,8 @@ public class JsonToInfluxDB {
         for (Measurement_Table measurement : result) {
             System.out.println("ID: " + measurement.getId() +
                     ", Time: " + measurement.getTimeInstance() +
-                    ", Value: " + measurement.getValue());
+                    ", Value: " + measurement.getValue() +
+                    "Measurement_ID" + measurement.getMeasurementId());
         }
     }
 
