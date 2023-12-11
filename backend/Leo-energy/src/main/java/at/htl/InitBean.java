@@ -39,7 +39,7 @@ public class InitBean {
     DeviceRepository deviceRepository;
 
     private static final int MAX_FILES_TO_PROCESS = 2;
-
+    private static final int MAX_FILES_TO_READ = 100;
     private int counter = 1;
 
     void startUp(@Observes StartupEvent event) {
@@ -66,25 +66,36 @@ public class InitBean {
     }
 
     private void processFiles() {
-        String relativePath = "/home/balint/htl/4bhif/syp/newData/wetransfer_2023-10-zip_2023-11-22_1103/2023-10";
+        String relativePath = "/home/said/Programming/data/wetransfer_2023-10-zip_2023-11-22_1103/2023-10";
         String absolutePath = Paths.get(relativePath).toAbsolutePath().toString();
         File testOrdner = new File(absolutePath);
 
+        counter = 0;
         if (testOrdner.exists() && testOrdner.isDirectory()) {
             File[] datas = testOrdner.listFiles();
             if (datas != null) {
                 ExecutorService executorService = Executors.newFixedThreadPool(MAX_FILES_TO_PROCESS);
 
                 for (File data : datas) {
-                    executorService.submit(() -> processFile(data));
-                }
+                    if (counter <= MAX_FILES_TO_READ) {
+                        executorService.submit(() -> processFile(data));
+                        counter++;
 
+                        if (counter > MAX_FILES_TO_READ) {
+                            LOG.info("Maximale Anzahl von Dateien erreicht: {}", MAX_FILES_TO_READ);
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                }
                 executorService.shutdown();
                 try {
                     executorService.awaitTermination(Long.MAX_VALUE, java.util.concurrent.TimeUnit.NANOSECONDS);
                 } catch (InterruptedException e) {
                     LOG.error("Fehler beim Warten auf die ExecutorService-Abschaltung", e);
                 }
+
             } else {
                 LOG.info("Das Verzeichnis ist leer.");
             }
