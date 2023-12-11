@@ -66,7 +66,7 @@ public class InitBean {
     }
 
     private void processFiles() {
-        String relativePath = "/home/balint/htl/4bhif/syp/newData/wetransfer_2023-10-zip_2023-11-22_1103/2023-10";
+        String relativePath = "/home/said/Programming/data/wetransfer_2023-10-zip_2023-11-22_1103/2023-10";
         String absolutePath = Paths.get(relativePath).toAbsolutePath().toString();
         File testOrdner = new File(absolutePath);
 
@@ -102,6 +102,7 @@ public class InitBean {
 
             JsonNode device = jsonNode.get("Device");
             Device newDevice = new Device(device.get("Id").bigIntegerValue(), device.get("Name").asText());
+
 
             JsonNode splittedJsonAfterValueDescs = jsonNode.get("Device").get("ValueDescs");
 
