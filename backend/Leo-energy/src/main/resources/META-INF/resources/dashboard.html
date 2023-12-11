@@ -6,11 +6,12 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <div>
-        <canvas id="monthlyChart"></canvas>
-        <canvas id="dailyChart"></canvas>
-    </div>
+    <p>Select day of month October to show information</p>
+    <input type="date" value="2023-10-01" min="2023-10-01" max="2023-10-31" id="date">
+    <button id="submitBtn">Submit</button>
 
-    <script src="loadAndDisplayData.js"></script>
+    <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+    <script src="canvasjs.min.js"></script>
 </body>
 </html>
+<script src="script.js"></script>
