@@ -48,6 +48,11 @@ public class DataResource {
 
         Map<Timestamp, Double> map = new HashMap<>();
         map.put(startTime, Double.valueOf(Math.abs(new Random().nextInt())));
+        map.put(Timestamp.from(Instant.parse(start).plusSeconds(10000)), Double.valueOf(Math.abs(new Random().nextInt())));
+        map.put(Timestamp.from(Instant.parse(start).plusSeconds(20000)), Double.valueOf(Math.abs(new Random().nextInt())));
+        map.put(Timestamp.from(Instant.parse(start).plusSeconds(30000)), Double.valueOf(Math.abs(new Random().nextInt())));
+        map.put(Timestamp.from(Instant.parse(start).plusSeconds(40000)), Double.valueOf(Math.abs(new Random().nextInt())));
+        map.put(Timestamp.from(Instant.parse(start).plusSeconds(50000)), Double.valueOf(Math.abs(new Random().nextInt())));
         map.put(endTime, Double.valueOf(Math.abs(new Random().nextInt())));
 
         return Response.ok().entity(map).build();

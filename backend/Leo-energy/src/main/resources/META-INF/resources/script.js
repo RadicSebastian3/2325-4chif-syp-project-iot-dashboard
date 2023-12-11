@@ -35,13 +35,14 @@ function drawChart(data) {
     const values = Array.from(data.values());
     const sum = values.reduce((acc, value) => acc + value, 0);
     const average = sum / values.length;
+    const median = (values.sort((a, b) => a - b)[Math.floor(values.length / 2)] + values.sort((a, b) => a - b)[Math.ceil(values.length / 2 - 1)]) / 2
 
     const chart = new CanvasJS.Chart('chartContainer', {
         axisX: {
             valueFormatString: 'HH:mm',
-            interval: 1,
-            labelAngle: -50,
-            title: 'Time HH:mm'
+            interval: 0.5,
+            //labelAngle: -50,
+            title: 'Time'
         },
         axisY: {
             title: 'W',
@@ -50,6 +51,14 @@ function drawChart(data) {
                 color: 'green',
                 label: `average (${average})`,
                 labelFontColor: 'green',
+                labelAlign: 'near',
+                labelBackgroundColor: 'white',
+                labelFontSize: 10
+            }, {
+                value: median,
+                color: 'blue',
+                label: `median (${median})`,
+                labelFontColor: 'blue',
                 labelAlign: 'near',
                 labelBackgroundColor: 'white',
                 labelFontSize: 10
@@ -79,5 +88,5 @@ function convertJsonToMap(jsonData) {
         }
     }
 
-    return dateValueMap;
+    return new Map(Array.from(dateValueMap.entries()).sort(([a], [b]) => a - b));
 }
