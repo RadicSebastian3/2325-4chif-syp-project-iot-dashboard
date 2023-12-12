@@ -83,3 +83,7 @@ image::architektur.webp[]
 ** Frontend
 *** Kommunikation mit Server und Mapping
 ** RESt-Ressourcen
+
+== Problme & Vorschläge zum Lösen dieser
+* InfluxDB sehr "unhandlich", schwierig zu konfigurieren und kompliziertes Handling
+** Rel. Db stattdessen
