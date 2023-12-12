@@ -66,7 +66,7 @@ public class InitBean {
     }
 
     private void processFiles() {
-        String relativePath = "/home/said/Programming/data/wetransfer_2023-10-zip_2023-11-22_1103/2023-10";
+        String relativePath = "/home/markus/Dokumente/exampledata/2023-10backup";
         String absolutePath = Paths.get(relativePath).toAbsolutePath().toString();
         File testOrdner = new File(absolutePath);
 
@@ -77,11 +77,11 @@ public class InitBean {
                 ExecutorService executorService = Executors.newFixedThreadPool(MAX_FILES_TO_PROCESS);
 
                 for (File data : datas) {
-                    if (counter <= MAX_FILES_TO_READ) {
+                    if (true) {
                         executorService.submit(() -> processFile(data));
                         counter++;
 
-                        if (counter > MAX_FILES_TO_READ) {
+                        if (false) {
                             LOG.info("Maximale Anzahl von Dateien erreicht: {}", MAX_FILES_TO_READ);
                             break;
                         }
