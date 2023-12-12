@@ -1,9 +1,8 @@
 <?xml version="1.0"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"
-         xmlns="http://maven.apache.org/POM/4.0.0"
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>at.htl.leoenergy</groupId>
+    <groupId>at.htl</groupId>
     <artifactId>leoenergy-relational</artifactId>
     <version>1.0-SNAPSHOT</version>
     <properties>
@@ -13,7 +12,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
         <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
-        <quarkus.platform.version>3.6.1</quarkus.platform.version>
+        <quarkus.platform.version>3.5.2</quarkus.platform.version>
         <skipITs>true</skipITs>
         <surefire-plugin.version>3.1.2</surefire-plugin.version>
     </properties>
@@ -35,11 +34,19 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-resteasy-reactive-jsonb</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy-reactive</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-arc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-jdbc-postgresql</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -50,6 +57,56 @@
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.influxdb</groupId>
+            <artifactId>influxdb-client-java</artifactId>
+            <version>6.6.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-jdbc-derby</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-hibernate-orm</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-smallrye-openapi</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.24.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>6.2.7.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.influxdb</groupId>
+            <artifactId>influxdb-java</artifactId>
+            <version>2.23</version>
+        </dependency>
+        <!-- For Maven -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-undertow</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-db</artifactId>
+            <version>2.0.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.influxdb</groupId>
+            <artifactId>influxdb3-java</artifactId>
+            <version>0.2.0</version>
         </dependency>
     </dependencies>
     <build>
@@ -97,16 +154,15 @@
                             <goal>integration-test</goal>
                             <goal>verify</goal>
                         </goals>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
+                                <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+                                <maven.home>${maven.home}</maven.home>
+                            </systemPropertyVariables>
+                        </configuration>
                     </execution>
                 </executions>
-                <configuration>
-                    <systemPropertyVariables>
-                        <native.image.path>${project.build.directory}/${project.build.finalName}-runner
-                        </native.image.path>
-                        <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
-                        <maven.home>${maven.home}</maven.home>
-                    </systemPropertyVariables>
-                </configuration>
             </plugin>
         </plugins>
     </build>
