@@ -35,7 +35,8 @@ function drawChart(data) {
     const values = Array.from(data.values());
     const sum = values.reduce((acc, value) => acc + value, 0);
     const average = sum / values.length;
-    const median = (values.sort((a, b) => a - b)[Math.floor(values.length / 2)] + values.sort((a, b) => a - b)[Math.ceil(values.length / 2 - 1)]) / 2
+    const median = (values.sort((a, b) => a - b)[Math.floor(values.length / 2)] + values.sort((a, b) => a - b)[Math.ceil(values.length / 2 - 1)]) / 2;
+    const max = Math.max(...values);
 
     const chart = new CanvasJS.Chart('chartContainer', {
         axisX: {
@@ -59,6 +60,14 @@ function drawChart(data) {
                 color: 'blue',
                 label: `median (${median})`,
                 labelFontColor: 'blue',
+                labelAlign: 'near',
+                labelBackgroundColor: 'white',
+                labelFontSize: 10
+            }, {
+                value: max,
+                color: 'yellow',
+                label: `max (${max})`,
+                labelFontColor: 'yellow',
                 labelAlign: 'near',
                 labelBackgroundColor: 'white',
                 labelFontSize: 10
