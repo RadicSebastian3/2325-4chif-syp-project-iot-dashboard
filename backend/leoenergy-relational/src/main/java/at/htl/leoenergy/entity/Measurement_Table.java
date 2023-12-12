@@ -1,6 +1,7 @@
 package at.htl.leoenergy.entity;
 
 import com.influxdb.annotations.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -8,7 +9,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.Instant;
 
-@Table(name = "MEASUREMENT")
+@Entity
+@Table(name = "MEASUREMENT_TABLE")
 public class Measurement_Table {
     @Id
     private BigInteger id;
