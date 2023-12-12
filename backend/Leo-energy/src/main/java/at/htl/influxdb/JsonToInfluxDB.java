@@ -18,13 +18,14 @@ import org.influxdb.dto.QueryResult;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class JsonToInfluxDB {
     public static void insertMeasurement(Measurement_Table measurementTable) {
-        String token = "7B57CHW0CmrDfgj5mwttL9bKZN7No5UHlRzufkuA6Nrt6IhXsm03pdzZWaz8UMy6paYk-hdhAMSKbDPD_KkpkA==";
+        String token = "drVEFN237bKIZ3DKQ-UsbO_5Cgq5VXfTudv_TjqRuJw2v1tN42s2iaEiHewyOyG2eryQIphAshIV6x07P2w7GA==";
         String bucket = "db";
         String org = "Leoenergy";
         String influxUrl = "http://localhost:8086";
@@ -51,7 +52,7 @@ public class JsonToInfluxDB {
     }
 
     public static List<Measurement_Table> getValuesBetweenTwoTimeStamps(Timestamp startTime, Timestamp endTime) {
-        String token = "7B57CHW0CmrDfgj5mwttL9bKZN7No5UHlRzufkuA6Nrt6IhXsm03pdzZWaz8UMy6paYk-hdhAMSKbDPD_KkpkA==";
+        String token = "drVEFN237bKIZ3DKQ-UsbO_5Cgq5VXfTudv_TjqRuJw2v1tN42s2iaEiHewyOyG2eryQIphAshIV6x07P2w7GA==";
         String bucket = "db";
         String org = "Leoenergy";
         String influxUrl = "http://localhost:8086";
@@ -64,9 +65,9 @@ public class JsonToInfluxDB {
             long endNano = endTime.toInstant().toEpochMilli() * 1_000_000;
 
             String query = String.format("from(bucket: \"%s\") " +
-                                         "|> range(start: %d, stop: %d)"+
-                                          "|> filter(fn: (r) => r[\"_measurement\"] == \"measurement_table\")",
-                                        bucket, startNano, endNano);
+                            "|> range(start: %d, stop: %d)"+
+                            "|> filter(fn: (r) => r[\"_measurement\"] == \"measurement_table\" and r[\"_field\"] == \"value\")",
+                    bucket, startNano, endNano);
 
             QueryApi queryApi = client.getQueryApi();
             List<FluxTable> tables = queryApi.query(query, org);
@@ -125,8 +126,11 @@ public class JsonToInfluxDB {
     }*/
     public static void main(String[] args) {
 
-        Timestamp startTime = Timestamp.valueOf("2023-9-01 00:00:00");
-        Timestamp endTime = Timestamp.valueOf("2023-12-20 00:00:00");
+        Instant startInstant = Instant.parse("2023-10-01T00:00:00Z");
+        Instant endInstant = Instant.parse("2023-10-2T23:59:59Z");
+
+        Timestamp startTime = Timestamp.from(startInstant);
+        Timestamp endTime = Timestamp.from(endInstant);
 
         List<Measurement_Table> result = getValuesBetweenTwoTimeStamps(startTime, endTime);
 
