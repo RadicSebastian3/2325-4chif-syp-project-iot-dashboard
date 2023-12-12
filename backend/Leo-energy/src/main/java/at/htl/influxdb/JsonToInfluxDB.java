@@ -66,7 +66,7 @@ public class JsonToInfluxDB {
 
             String query = String.format("from(bucket: \"%s\") " +
                             "|> range(start: %d, stop: %d)"+
-                            "|> filter(fn: (r) => r[\"_measurement\"] == \"measurement_table\" and r[\"_field\"] == \"value\")",
+                            "|> filter(fn: (r) => r[\"_measurement\"] == \"measurement_table\")",
                     bucket, startNano, endNano);
 
             QueryApi queryApi = client.getQueryApi();
@@ -127,7 +127,7 @@ public class JsonToInfluxDB {
     public static void main(String[] args) {
 
         Instant startInstant = Instant.parse("2023-10-01T00:00:00Z");
-        Instant endInstant = Instant.parse("2023-10-2T23:59:59Z");
+        Instant endInstant = Instant.parse("2023-10-01T23:59:59Z");
 
         Timestamp startTime = Timestamp.from(startInstant);
         Timestamp endTime = Timestamp.from(endInstant);
