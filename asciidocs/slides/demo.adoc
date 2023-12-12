@@ -69,15 +69,17 @@ image::https://www.plantuml.com/plantuml/png/ZKyz2y8m4DtpAuwCGWVNJaMwE3ZPNSxqZ0T
 
 === Said
 ** InfluxDB
-** JsonToInfluxDB
+** Backend
 
 === Balint
 ** InfluxDB
-** Logik zum einlesen der Daten
-** JsonToInfluxDB (mitgeholfen) Timestamp gefixed
+** Backend
+** JPA
+** Queries für Influxdb
+
 
 === Erik
-** Versucht Frontend zu machen
+** Frontend
 
 === Markus
 ** Frontend
