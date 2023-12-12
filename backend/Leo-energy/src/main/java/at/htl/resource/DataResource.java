@@ -26,8 +26,8 @@ public class DataResource {
     @Path("/getDataBetweenTwoTimestamps/{start}/{end}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getDataBetweenTwoTimestamps(@PathParam("start") String start, @PathParam("end") String end){
-        Timestamp startTime = Timestamp.from(Instant.parse(start));
-        Timestamp endTime = Timestamp.from(Instant.parse(end));
+        Timestamp startTime = Timestamp.valueOf(start);
+        Timestamp endTime = Timestamp.valueOf(end);
 
         List<Measurement_Table> data = getValuesBetweenTwoTimeStamps(startTime, endTime);
         Map<Timestamp, Double> map = new HashMap<>();

@@ -13,8 +13,6 @@ import java.time.Instant;
 
 @Measurement(name = "measurement_table")
 public class Measurement_Table {
-
-
     @Column(tag = true)
     private BigInteger id;
 
