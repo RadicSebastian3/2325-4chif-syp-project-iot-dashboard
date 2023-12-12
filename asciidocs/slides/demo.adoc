@@ -80,6 +80,14 @@ image::https://www.plantuml.com/plantuml/png/ZKyz2y8m4DtpAuwCGWVNJaMwE3ZPNSxqZ0T
 
 === Erik
 ** Frontend
+*** CanvasJS
+** Architektur-Architekt
 
 === Markus
 ** Frontend
+*** Kommunikation mit Server und Mapping
+** RESt-Ressourcen
+
+== Probleme & Vorschläge zum Lösen dieser
+* InfluxDB sehr "unhandlich", schwierig zu konfigurieren und kompliziertes Handling
+** Rel. Db stattdessen
