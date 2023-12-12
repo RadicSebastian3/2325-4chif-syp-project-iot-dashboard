@@ -66,7 +66,7 @@ public class InitBean {
     }
 
     private void processFiles() {
-        String relativePath = "/home/said/Programming/data/wetransfer_2023-10-zip_2023-11-22_1103/2023-10";
+        String relativePath = "/home/markus/Downloads/wetransfer_2023-10-zip_2023-11-22_1103/2023-10";
         String absolutePath = Paths.get(relativePath).toAbsolutePath().toString();
         File testOrdner = new File(absolutePath);
 

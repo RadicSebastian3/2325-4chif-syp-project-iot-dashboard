@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.*;
 
 import static at.htl.influxdb.JsonToInfluxDB.getValuesBetweenTwoTimeStamps;
@@ -26,8 +27,12 @@ public class DataResource {
     @Path("/getDataBetweenTwoTimestamps/{start}/{end}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getDataBetweenTwoTimestamps(@PathParam("start") String start, @PathParam("end") String end){
-        Timestamp startTime = Timestamp.from(Instant.parse(start));
-        Timestamp endTime = Timestamp.from(Instant.parse(end));
+        Timestamp startTime = Timestamp.valueOf(Timestamp.from(Instant.parse(start)).toLocalDateTime().atZone(ZoneId.systemDefault()).toLocalDateTime());
+        Timestamp endTime = addHoursToTimestamp(Timestamp.from(Instant.parse(end)), -2);
+
+        Timestamp bubble = startTime;
+        startTime = endTime;
+        endTime = bubble;
 
         List<Measurement_Table> data = getValuesBetweenTwoTimeStamps(startTime, endTime);
         Map<Timestamp, Double> map = new HashMap<>();
@@ -56,5 +61,19 @@ public class DataResource {
         map.put(endTime, Double.valueOf(Math.abs(new Random().nextInt())));
 
         return Response.ok().entity(map).build();
+    }
+
+    private static Timestamp addHoursToTimestamp(Timestamp originalTimestamp, int hoursToAdd) {
+        // Convert Timestamp to Date
+        Date originalDate = new Date(originalTimestamp.getTime());
+
+        // Add hours using Calendar
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(originalDate);
+        calendar.add(Calendar.HOUR_OF_DAY, hoursToAdd);
+
+        // Convert Date back to Timestamp
+        Date modifiedDate = calendar.getTime();
+        return new Timestamp(modifiedDate.getTime());
     }
 }
