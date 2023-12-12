@@ -31,8 +31,12 @@ ifndef::imagesdir[:imagesdir: ../images]
 == CLD
 image::https://www.plantuml.com/plantuml/png/ZKyz2y8m4DtpAuwCGWVNJaMwE3ZPNSxqZ0T9Mf9BGSJ_Rccf5BJWcnx7-tXN9S4esJlbw2OW7KIsTu6M8ndXBYXb7AO4DGriwAbW1BSb7DWUWv2bE9q2UYhXB963LQ_5T29CEPAd8FyvOSI0BbFpw6cIrcJOe_kPUMdmwhOt2NjAWhuleLdef-4hVNuGz5v3KO3UwNMJMl4DoJn6LHJQxDqR[]
 
-== Architektur
-image::architektur.webp[]
+== Sprint 1
+
+* Proof of Concept
+** Verschiedene KI's ausprobieren
+** Welche Benutzen wir
+*** (Projekt wechsel)
 
 [.font-xx-large]
 == Sprint 2
@@ -69,9 +73,9 @@ image::architektur.webp[]
 
 === Balint
 ** InfluxDB
-*** Quieres zum Insert/Select
 ** Backend
-*** JPA
+** JPA
+** Queries für Influxdb
 
 
 === Erik
@@ -83,3 +87,7 @@ image::architektur.webp[]
 ** Frontend
 *** Kommunikation mit Server und Mapping
 ** RESt-Ressourcen
+
+== Probleme & Vorschläge zum Lösen dieser
+* InfluxDB sehr "unhandlich", schwierig zu konfigurieren und kompliziertes Handling
+** Rel. Db stattdessen
