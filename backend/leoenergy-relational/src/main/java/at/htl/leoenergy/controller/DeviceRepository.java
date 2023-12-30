@@ -41,4 +41,9 @@ public class DeviceRepository {
         d.setName(device.getName());
         em.merge(d);
     }
+
+    @Transactional
+    public void persist(Device deviceEntity) {
+        em.persist(deviceEntity);
+    }
 }

@@ -1,6 +1,6 @@
 package at.htl.leoenergy.resource;
 
-import at.htl.leoenergy.entity.Measurement_Table;
+import at.htl.leoenergy.entity.MeasurementRecord;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
@@ -27,17 +27,17 @@ public class DataResource {
         startTime = endTime;
         endTime = bubble;
 
-        List<Measurement_Table> data = getValuesBetweenTwoTimeStamps(startTime, endTime);
+        List<MeasurementRecord> data = getValuesBetweenTwoTimeStamps(startTime, endTime);
         Map<Timestamp, Double> map = new HashMap<>();
 
-        for (Measurement_Table measurement : data){
+        for (MeasurementRecord measurement : data){
             map.put(Timestamp.from(measurement.getTimeInstance()), measurement.getValue().doubleValue());
         }
 
         return Response.ok().entity(map).build();
     }
 
-    private List<Measurement_Table> getValuesBetweenTwoTimeStamps(Timestamp startTime, Timestamp endTime) {
+    private List<MeasurementRecord> getValuesBetweenTwoTimeStamps(Timestamp startTime, Timestamp endTime) {
         return null; //Muss noch gemacht werden
     }
 

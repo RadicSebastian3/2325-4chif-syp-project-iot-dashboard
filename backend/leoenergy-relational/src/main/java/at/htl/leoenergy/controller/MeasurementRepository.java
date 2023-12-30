@@ -41,4 +41,9 @@ public class MeasurementRepository {
         m.setValueType(measurement.getValueType());
         em.merge(m);
     }
+
+    @Transactional
+    public void persist(Measurement measurementEntity) {
+        em.persist(measurementEntity);
+    }
 }

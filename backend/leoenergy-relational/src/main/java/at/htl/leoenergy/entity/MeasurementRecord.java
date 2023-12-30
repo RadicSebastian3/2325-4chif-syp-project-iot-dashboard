@@ -1,21 +1,20 @@
 package at.htl.leoenergy.entity;
 
-import com.influxdb.annotations.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.Instant;
 
 @Entity
-@Table(name = "MEASUREMENT_TABLE")
-public class Measurement_Table {
+@Table(name = "MEASUREMENT_RECORD")
+public class MeasurementRecord {
     @Id
     private BigInteger id;
 
-    private BigInteger measurementId;
+    @ManyToOne
+    @JoinColumn(name = "measurement_id", referencedColumnName = "id")
+    private Measurement measurement;
 
     private long time;
 
@@ -23,13 +22,13 @@ public class Measurement_Table {
 
     Instant timeInstance;
 
-    public Measurement_Table() {
+    public MeasurementRecord() {
     }
 
 
-    public Measurement_Table(BigInteger id, BigInteger measurementId, long time, BigDecimal value) {
+    public MeasurementRecord(BigInteger id, Measurement measurement, long time, BigDecimal value) {
         this.id = id;
-        this.measurementId = measurementId;
+        this.measurement = measurement;
         this.time = time;
         this.value = value;
     }
@@ -63,12 +62,12 @@ public class Measurement_Table {
         return id;
     }
 
-    public BigInteger getMeasurementId() {
-        return measurementId;
+    public Measurement getMeasurement() {
+        return measurement;
     }
 
-    public void setMeasurementId(BigInteger measurementId) {
-        this.measurementId = measurementId;
+    public void setMeasurement(Measurement measurement) {
+        this.measurement = measurement;
     }
 
     public void setId(BigInteger id) {
@@ -79,7 +78,7 @@ public class Measurement_Table {
     public String toString() {
         return "Measurement_Table{" +
                 "id=" + id +
-                ", measurementId=" + measurementId +
+                ", measurementId=" + measurement +
                 ", time=" + time +
                 ", value=" + value +
                 ", timeInstance=" + timeInstance +
