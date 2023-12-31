@@ -7,28 +7,59 @@ import java.math.BigInteger;
 @Entity
 @Table(name = "DEVICE")
 public class Device {
-    @Id
-    private BigInteger id;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-
+    private int deviceId;
+    private String manufacturerId;
+    private String medium;
     private String name;
+    private String site;
 
-
+    //region constructors
     public Device() {
-
     }
 
-    public Device(BigInteger id, String name) {
-        this.id = id;
+    public Device(int deviceId, String manufacturerId, String medium, String name, String site) {
+        this.deviceId = deviceId;
+        this.manufacturerId = manufacturerId;
+        this.medium = medium;
         this.name = name;
+        this.site = site;
     }
+    //endregion
 
-    public BigInteger getId() {
+    //region getter and setter
+    public Long getId() {
         return id;
     }
 
-    public void setId(BigInteger id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public int getDeviceId() {
+        return deviceId;
+    }
+
+    public void setDeviceId(int deviceId) {
+        this.deviceId = deviceId;
+    }
+
+    public String getManufacturerId() {
+        return manufacturerId;
+    }
+
+    public void setManufacturerId(String manufacturerId) {
+        this.manufacturerId = manufacturerId;
+    }
+
+    public String getMedium() {
+        return medium;
+    }
+
+    public void setMedium(String medium) {
+        this.medium = medium;
     }
 
     public String getName() {
@@ -39,11 +70,17 @@ public class Device {
         this.name = name;
     }
 
+    public String getSite() {
+        return site;
+    }
+
+    public void setSite(String site) {
+        this.site = site;
+    }
+    //endregion
+
     @Override
     public String toString() {
-        return "NewDevice{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+        return String.format("%s", name);
     }
 }
