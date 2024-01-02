@@ -21,18 +21,9 @@ import java.nio.file.Paths;
 import java.util.stream.Stream;
 
 @ApplicationScoped
-public class InitBean {
-    @ConfigProperty(name = "json.file-directory-midi")
-    private String directoryNameMidi;
+public class FileProcessorHelper {
 
-    @ConfigProperty(name = "json.file-directory-maxi_100")
-    private String directoryNameMaxi_100;
 
-    @ConfigProperty(name = "json.file-directory-all")
-    private String directoryNameAll;
-
-    @ConfigProperty(name = "json.file-directory-midi_700")
-    private String directoryNameMidi_700;
 
     @Inject
     private DeviceRepository deviceRepository;
@@ -42,25 +33,35 @@ public class InitBean {
 
     private long processedFileCount = 0;
 
-    void init(@Observes StartupEvent event) {
-        importJsonFiles(directoryNameAll);
-        //printFileNamesOnConsole(directoryNameMaxi_100);
-    }
-
-    private void importJsonFiles(String directoryName) {
+    public void importJsonFiles(String directoryName,int limit) {
         try (Stream<Path> filePathStream = Files.walk(Paths.get(directoryName))) {
             filePathStream
                     .filter(Files::isRegularFile)
                     .filter(f -> !f.toFile().isHidden())
                     //.peek(System.out::println)
                     //.map(Path::getFileName)
-                    .forEach(this::parseJson);
+                    .limit(limit)
+                    .forEach(this::processFileAndDelete);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
         Log.info("All " + processedFileCount + " files processed");
         processedFileCount = 0;
+    }
+    private  void processFileAndDelete(Path filePath) {
+        parseJson(filePath);
+        deleteFileAfterReading(filePath);
+    }
+
+    private void deleteFileAfterReading(Path filePath){
+        try{
+            Files.delete(filePath);
+            Log.infof("File deleted: %s", filePath.toString());
+        }catch (IOException e ){
+            Log.error("Error deleting file: " + filePath.toString(), e);
+        }
+
     }
 
     private void parseJson(Path filePath) {
@@ -120,7 +121,8 @@ public class InitBean {
                         jsonNode.get("DescriptionStr").asText(),
                         jsonNode.get("UnitStr").asText(),
                         jsonNode.get("Values").get(0).get("Timestamp").asLong(),
-                        jsonNode.get("Values").get(0).get("Val").asDouble()
+                        UnitConverter.convertToKilowatt(jsonNode.get("UnitStr").asText(),
+                                jsonNode.get("Values").get(0).get("Val").asDouble())
                 );
                 sensorValueRepository.persist(sensorValue);
                 //Log.infof("%s persisted", sensorValue);

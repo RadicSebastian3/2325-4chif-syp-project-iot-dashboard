@@ -35,8 +35,7 @@ public class SensorValue {
     @Column(name = "VALUE")
     private double val;
 
-    @Column(name = "IS_TO_PUBLISH")
-    private boolean isToPublish;
+
 
     public SensorValue() {
     }
@@ -107,13 +106,6 @@ public class SensorValue {
         this.val = val;
     }
 
-    public boolean isToPublish() {
-        return isToPublish;
-    }
-
-    public void setToPublish(boolean toPublish) {
-        isToPublish = toPublish;
-    }
 
     //endregion
 
