@@ -2,9 +2,9 @@ package at.htl.leoenergy.entity;
 
 import jakarta.persistence.*;
 
+import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.util.TimeZone;
 
 @Entity

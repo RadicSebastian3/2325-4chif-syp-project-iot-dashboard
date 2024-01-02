@@ -3,6 +3,6 @@ package at.htl.leoenergy;
 import io.quarkus.test.junit.QuarkusIntegrationTest;
 
 @QuarkusIntegrationTest
-class ExampleResourceIT extends ExampleResourceTest {
+class DataResourceIT extends DataResourceTest {
     // Execute the same tests but in packaged mode.
 }
