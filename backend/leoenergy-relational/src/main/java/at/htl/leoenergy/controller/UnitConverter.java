@@ -19,7 +19,7 @@ public class UnitConverter {
             case "A":
             case "Bin":
             default:
-                result = value;
+                result = Double.valueOf(0.00);
         }
 
         return result;

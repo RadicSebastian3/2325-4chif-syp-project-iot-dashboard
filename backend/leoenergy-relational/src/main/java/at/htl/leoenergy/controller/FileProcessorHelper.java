@@ -33,35 +33,37 @@ public class FileProcessorHelper {
 
     private long processedFileCount = 0;
 
+    private long deletedFileCount = 0;
+
     public void importJsonFiles(String directoryName,int limit) {
-        try (Stream<Path> filePathStream = Files.walk(Paths.get(directoryName))) {
+        try (Stream<Path> filePathStream = Files.walk(Paths.get(directoryName)).onClose(() -> {
+            Log.info("Closing file stream");
+            Log.info("All " + deletedFileCount + " files deleted");
+            Log.info("All " + processedFileCount + " files processed");
+        })) {
             filePathStream
                     .filter(Files::isRegularFile)
                     .filter(f -> !f.toFile().isHidden())
-                    //.peek(System.out::println)
-                    //.map(Path::getFileName)
                     .limit(limit)
                     .forEach(this::processFileAndDelete);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-        Log.info("All " + processedFileCount + " files processed");
-        processedFileCount = 0;
     }
     private  void processFileAndDelete(Path filePath) {
         parseJson(filePath);
         deleteFileAfterReading(filePath);
     }
 
-    private void deleteFileAfterReading(Path filePath){
-        try{
-            Files.delete(filePath);
-            Log.infof("File deleted: %s", filePath.toString());
-        }catch (IOException e ){
+    private void deleteFileAfterReading(Path filePath) {
+        try {
+            if (Files.exists(filePath)) {
+                Files.delete(filePath);
+                deletedFileCount++;
+            }
+        } catch (IOException e) {
             Log.error("Error deleting file: " + filePath.toString(), e);
         }
-
     }
 
     private void parseJson(Path filePath) {
@@ -73,9 +75,13 @@ public class FileProcessorHelper {
     }
 
     private void printProgress(){
-        if(processedFileCount % 20000 == 0){
+        if(processedFileCount % 2000 == 0){
             Log.infof("%d files processed", processedFileCount);
+            Log.infof("%d files deleted", deletedFileCount);
+            processedFileCount = 0;
+            deletedFileCount = 0;
         }
+
     }
 
     @Transactional
