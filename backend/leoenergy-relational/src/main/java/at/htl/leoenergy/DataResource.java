@@ -35,7 +35,7 @@ public class DataResource {
 
         BigInteger startTimeBigInteger = BigInteger.valueOf(tsTime1);
         BigInteger endTimeBigInteger = BigInteger.valueOf(tsTime2);
-        List<SensorValue> data = sensorValueRepository.getBetweenTwoTimeStamps(endTimeBigInteger, startTimeBigInteger);
+        List<SensorValue> data = sensorValueRepository.getBetweenTwoTimeStamps(startTimeBigInteger, endTimeBigInteger);
         Map<Timestamp, Double> map = new HashMap<>();
 
         for (SensorValue sensorValue : data){
