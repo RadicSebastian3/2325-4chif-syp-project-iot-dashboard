@@ -26,11 +26,13 @@ public class DataResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getDataBetweenTwoTimestamps(@PathParam("start") String start, @PathParam("end") String end){
         Timestamp startTime = Timestamp.valueOf(Timestamp.from(Instant.parse(start)).toLocalDateTime().atZone(ZoneId.systemDefault()).toLocalDateTime());
-        Timestamp endTime = addHoursToTimestamp(Timestamp.from(Instant.parse(end)), -2);
+        Timestamp endTime = addHoursToTimestamp(Timestamp.from(Instant.parse(end)), -1);
 
         Timestamp bubble = startTime;
         startTime = endTime;
         endTime = bubble;
+        System.out.println("start:" + startTime.toLocalDateTime());
+        System.out.println("end: " + endTime.toLocalDateTime());
 
         List<SensorValue> data = sensorValueRepository.getBetweenTwoTimeStamps(startTime, endTime);
         Map<Timestamp, Double> map = new HashMap<>();
