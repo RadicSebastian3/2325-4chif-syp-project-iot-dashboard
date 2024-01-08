@@ -46,9 +46,8 @@ public class DataResource {
 
         for (SensorValue sensorValue : data){
             Date date = new Date(sensorValue.getTimestamp() * 1000L);
-            if (sensorValue.getVal() != 0.0){
+            if (sensorValue.getVal() != 0.0 && sensorValue.getUnitStr().trim().equals("W")){
                 map.put(date,sensorValue.getVal());
-
             }
         //    Timestamp timestamp = new Timestamp(sensorValue.getTimestamp());
 

@@ -95,17 +95,14 @@ function convertJsonToMap(jsonData) {
             const value = jsonData[dateString];
             // Extract timestamp without fractional seconds and time zone offset
             const timestamp = dateString.replace(/(\.\d+)?Z\[UTC\]$/, '');
-
-            if (index % 100000 == 0){
-                dateValueMap.set(new Date(timestamp), value);
-
-
-            }
+            if(value > 10)
+                console.log(new Date(timestamp) + ": " + value);
+            dateValueMap.set(new Date(timestamp), value);
             index++;
         }
     }
     let map = new Map(Array.from(dateValueMap.entries()).sort(([a], [b]) => a - b));
-    console.log(map);
+    //console.log(map);
 
     return  map
 }
