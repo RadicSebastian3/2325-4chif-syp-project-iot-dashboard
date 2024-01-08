@@ -41,14 +41,24 @@ public class DataResource {
         BigInteger endTimeBigInteger = BigInteger.valueOf(tsTime2);
         List<SensorValue> data = sensorValueRepository.getBetweenTwoTimeStamps(startTimeBigInteger,endTimeBigInteger);
         Map<Date, Double> map = new HashMap<>();
-
+        String value = "4";
 
 
         for (SensorValue sensorValue : data){
             Date date = new Date(sensorValue.getTimestamp() * 1000L);
-            if (sensorValue.getVal() != 0.0 && sensorValue.getUnitStr().trim().equals("W")){
+
+            if (Long.parseLong(value) <= 4L){
+                if (sensorValue.getVal() != 0.0 && sensorValue.getUnitStr().trim().equals("W")
+                        && sensorValue.getDevice().getId().equals(Long.valueOf(value)) )
+                {
+                    map.put(date,sensorValue.getVal());
+                }
+            }
+            else if (sensorValue.getVal() != 0.0 && sensorValue.getUnitStr().trim().equals("W")){
                 map.put(date,sensorValue.getVal());
             }
+
+
         //    Timestamp timestamp = new Timestamp(sensorValue.getTimestamp());
 
         }
