@@ -1,24 +1,30 @@
 = Leoenergy
 :revealjs_theme: moon
 :revealjs_history: true
-ifndef::imagesdir[:imagesdir: ../images]
-:revealjs_center: true
 :imagesdir: images
+:revealjs_center: true
+:title-slide-transition: zoom
+:title-slide-transition-speed: fast
+
+[background]
+++++
+<div style="width:100%;height:0;padding-bottom:100%;position:relative;">
+  <iframe src="https://giphy.com/embed/Vf9VTiNQJXNLbFL3QL" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+</div>
+<p style="text-align:center;"><a href="https://giphy.com/gifs/infinite-solar-power-panel-Vf9VTiNQJXNLbFL3QL"></a></p>
+++++
 
 [.font-xx-large]
 == Team
+image::htlleonding.jpg[background]
 
 |===
 | Name
 
-| Said Nurceski
-
+| Said Nurceski [color="black"]
 | Balint Balasz
-
 | Erik Seifried
-
 | Markus Breinesberger
-
 |===
 
 [.font-xx-large]
@@ -29,8 +35,14 @@ ifndef::imagesdir[:imagesdir: ../images]
 * Wann wurde mehr produziert als genutzt oder sogar verkauft?
 
 == CLD
-image::https://www.plantuml.com/plantuml/png/ZKyz2y8m4DtpAuwCGWVNJaMwE3ZPNSxqZ0T9Mf9BGSJ_Rccf5BJWcnx7-tXN9S4esJlbw2OW7KIsTu6M8ndXBYXb7AO4DGriwAbW1BSb7DWUWv2bE9q2UYhXB963LQ_5T29CEPAd8FyvOSI0BbFpw6cIrcJOe_kPUMdmwhOt2NjAWhuleLdef-4hVNuGz5v3KO3UwNMJMl4DoJn6LHJQxDqR[]
 
+image::https://www.plantuml.com/plantuml/png/VLBBIaKn3DptAqAN5-x2hQlx0UxyW5Bl2HBeepOv1mxYlzj6j5IBgvAPpZ3JzCRYg-mn68D9I4wm0TsUIDZ2km6u06tm24yvlRRfUbKe-OWDV9PA3VwOj8SFEpev2_uuADIHXTM6VA_3gqC5AnEBghXHBpa7z4avnhH9ZcyYluWUsGt_HQR_2WbfeNwm-5WKxC8lwRZV0nzqHwV7A3JtT8l6SoALZqWwBf-7k0H_JW-kn5-4IUQbV2yIx8DjVc0l5kO5cMbSNcGpqgvvOswOjlw5FW40[]
+
+== Usecase Diagram
+
+image::https://www.plantuml.com/plantuml/png/VP1DJWCn38NtFeKr-oveTonG-Ra21p2JnyJgZ3Do72IAk3jDaL0bgYwoUNdV9zlx6kBHbfbcl0T7OTSf1oTrZA75ICOepa-m5aSuI-LMuKIhZ0UPmCEBrFnMn1C_sX4wOU0lujuQfPx_0sgom6fuEqHp6CjlrOOkV7s-kmHE6iapVy3hc1K91kUp9JxN_-ps2flW_PrwmRginKFX0RkXsT4tKL-DDvk7FXBVSrNak0otryBTNqXxMEh7_040[]
+
+[.font-xx-large]
 == Sprint 1
 
 * Proof of Concept
@@ -44,50 +56,30 @@ image::https://www.plantuml.com/plantuml/png/ZKyz2y8m4DtpAuwCGWVNJaMwE3ZPNSxqZ0T
 * Files einlesen
 * In einer HTML Tabelle ausgeben
 
+=== Sprint 2 - Aufgabenverteilung
 
-== Sprint 2 - Aufgabenverteilung
+* Said
+** Frontend
+** Files einlesen (mitgeholfen)
 
-===  Said
-* Frontend
-* Files einlesen (mitgeholfen)
+* Balint
+** Files einlesen
+** Logik implementiert
 
-=== Balint
-* Files einlesen
-* Logik implementiert
-
-=== Erik und Markus
-* Frontend
-
-== Sprint 3
-
-** PV-Daten in Histrogramm visualisieren (von den letzten 24h, in kW)
-*** "Zeile 3 in Diagramm"
-** in Diagramm ausgeben
-** Timestamp eingeben -> Daten zu Timestamp ausgeben
+* Erik und Markus
+** Frontend
 
 == Sprint 3 - Aufgabenverteilung
 
-=== Said
-** InfluxDB
-** Backend
-
-=== Balint
-** InfluxDB
-** Backend
-** JPA
-** Queries für Influxdb
-
-
-=== Erik
+* Said
 ** Frontend
-*** CanvasJS
-** Architektur-Architekt
 
-=== Markus
+* Balint
+** Logik
+** Einlesen
+
+* Markus
 ** Frontend
-*** Kommunikation mit Server und Mapping
-** RESt-Ressourcen
 
-== Probleme & Vorschläge zum Lösen dieser
-* InfluxDB sehr "unhandlich", schwierig zu konfigurieren und kompliziertes Handling
-** Rel. Db stattdessen
+* Erik
+** Einlesen
