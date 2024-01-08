@@ -82,10 +82,13 @@ function drawChart(data) {
         }]
     });
     chart.render();
+
+
 }
 
 function convertJsonToMap(jsonData) {
     const dateValueMap = new Map();
+    var index = 0;
 
     for (const dateString in jsonData) {
         if (jsonData.hasOwnProperty(dateString)) {
@@ -93,9 +96,16 @@ function convertJsonToMap(jsonData) {
             // Extract timestamp without fractional seconds and time zone offset
             const timestamp = dateString.replace(/(\.\d+)?Z\[UTC\]$/, '');
 
-            dateValueMap.set(new Date(timestamp), value);
+            if (index % 100000 == 0){
+                dateValueMap.set(new Date(timestamp), value);
+
+
+            }
+            index++;
         }
     }
+    let map = new Map(Array.from(dateValueMap.entries()).sort(([a], [b]) => a - b));
+    console.log(map);
 
-    return new Map(Array.from(dateValueMap.entries()).sort(([a], [b]) => a - b));
+    return  map
 }
