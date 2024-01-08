@@ -5,23 +5,15 @@
 :revealjs_center: true
 :title-slide-transition: zoom
 :title-slide-transition-speed: fast
-
-[background]
-++++
-<div style="width:100%;height:0;padding-bottom:100%;position:relative;">
-  <iframe src="https://giphy.com/embed/Vf9VTiNQJXNLbFL3QL" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-</div>
-<p style="text-align:center;"><a href="https://giphy.com/gifs/infinite-solar-power-panel-Vf9VTiNQJXNLbFL3QL"></a></p>
-++++
+:title-slide-background-image: htlleonding.jpg
 
 [.font-xx-large]
 == Team
-image::htlleonding.jpg[background]
 
 |===
 | Name
 
-| Said Nurceski [color="black"]
+| Said Nurceski
 | Balint Balasz
 | Erik Seifried
 | Markus Breinesberger
