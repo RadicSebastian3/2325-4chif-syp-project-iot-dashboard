@@ -1,24 +1,22 @@
 = Leoenergy
 :revealjs_theme: moon
 :revealjs_history: true
-ifndef::imagesdir[:imagesdir: ../images]
-:revealjs_center: true
 :imagesdir: images
+:revealjs_center: true
+:title-slide-transition: zoom
+:title-slide-transition-speed: fast
+:title-slide-background-image: htlleonding.jpg
 
 [.font-xx-large]
 == Team
-
+image::htlleonding.jpg[background]
 |===
 | Name
 
 | Said Nurceski
-
 | Balint Balasz
-
 | Erik Seifried
-
 | Markus Breinesberger
-
 |===
 
 [.font-xx-large]
@@ -27,7 +25,6 @@ ifndef::imagesdir[:imagesdir: ../images]
 * Dashboard für den Energieverbrauch und -verkauf an der HTL Leonding
 * Wann wurde wie viel Strom verbraucht?
 * Wann wurde mehr produziert als genutzt oder sogar verkauft?
-
 
 == CLD
 
@@ -51,16 +48,31 @@ image::https://www.plantuml.com/plantuml/png/VP1DJWCn38NtFeKr-oveTonG-Ra21p2JnyJ
 * Files einlesen
 * In einer HTML Tabelle ausgeben
 
-
-== Sprint 2 - Aufgabenverteilung
+=== Sprint 2 - Aufgabenverteilung
 
 * Said
-* Frontend
-* Files einlesen (mitgeholfen)
+** Frontend
+** Files einlesen (mitgeholfen)
 
 * Balint
-* Files einlesen
-* Logik implementiert
+** Files einlesen
+** Logik implementiert
 
 * Erik und Markus
-* Frontend
+** Frontend
+
+[.font-xx-large]
+== Sprint 3
+
+* Said
+** Frontend
+
+* Balint
+** Logik
+** Einlesen
+
+* Markus
+** Frontend
+
+* Erik
+** Einlesen
