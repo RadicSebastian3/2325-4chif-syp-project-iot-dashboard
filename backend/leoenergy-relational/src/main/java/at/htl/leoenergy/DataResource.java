@@ -11,6 +11,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 import java.math.BigInteger;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.ZoneId;
@@ -29,18 +30,28 @@ public class DataResource {
         Timestamp startTime = Timestamp.valueOf(Timestamp.from(Instant.parse(start)).toLocalDateTime().atZone(ZoneId.systemDefault()).toLocalDateTime());
         Timestamp endTime = addHoursToTimestamp(Timestamp.from(Instant.parse(end)), -1);
 
+        Timestamp bubble = startTime;
+        startTime = endTime;
+        endTime = bubble;
 
         long tsTime1 = startTime.getTime();
         long tsTime2 = endTime.getTime();
 
         BigInteger startTimeBigInteger = BigInteger.valueOf(tsTime1);
         BigInteger endTimeBigInteger = BigInteger.valueOf(tsTime2);
-        List<SensorValue> data = sensorValueRepository.getBetweenTwoTimeStamps(startTimeBigInteger, endTimeBigInteger);
-        Map<Timestamp, Double> map = new HashMap<>();
+        List<SensorValue> data = sensorValueRepository.getBetweenTwoTimeStamps(startTimeBigInteger,endTimeBigInteger);
+        Map<Date, Double> map = new HashMap<>();
+
+
 
         for (SensorValue sensorValue : data){
-            Timestamp timestamp = new Timestamp(sensorValue.getTimestamp());
-            map.put(timestamp,sensorValue.getVal());
+            Date date = new Date(sensorValue.getTimestamp() * 1000L);
+            if (sensorValue.getVal() != 0.0){
+                map.put(date,sensorValue.getVal());
+
+            }
+        //    Timestamp timestamp = new Timestamp(sensorValue.getTimestamp());
+
         }
 
         return Response.ok().entity(map).build();
