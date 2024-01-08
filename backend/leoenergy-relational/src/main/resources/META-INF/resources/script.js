@@ -1,5 +1,5 @@
 const selectedDate = document.getElementById("date");
-const useExampleApi = document.getElementById("useExampleApi")
+const dropdown = document.getElementById("choices");
 
 function submit() {
     const startDate = new Date(selectedDate.value);
@@ -10,15 +10,12 @@ function submit() {
     startDate.setHours(23);
     startDate.setMinutes(59);
     startDate.setSeconds(59);
-    makeAPICall(startDate.toISOString(), endDate.toISOString());
+    const option = dropdown.value;
+    makeAPICall(startDate.toISOString(), endDate.toISOString(), option);
 }
 
-function makeAPICall(startDate, endDate) {
-    let apiUrl = `http://localhost:8080/energyproduction/getDataBetweenTwoTimestamps/${startDate}/${endDate}`
-
-    if(useExampleApi.checked === true){
-        apiUrl = `http://localhost:8080/energyproduction/example/${startDate}/${endDate}`;
-    }
+function makeAPICall(startDate, endDate, value) {
+    let apiUrl = `http://localhost:8080/energyproduction/getDataBetweenTwoTimestamps/${startDate}/${endDate}/${value}`;
 
     fetch(apiUrl)
         .then(response => response.json())

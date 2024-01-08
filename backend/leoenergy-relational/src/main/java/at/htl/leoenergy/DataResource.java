@@ -24,9 +24,9 @@ public class DataResource {
     @Inject
     SensorValueRepository sensorValueRepository;
     @GET
-    @Path("/getDataBetweenTwoTimestamps/{start}/{end}")
+    @Path("/getDataBetweenTwoTimestamps/{start}/{end}/{value}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getDataBetweenTwoTimestamps(@PathParam("start") String start, @PathParam("end") String end){
+    public Response getDataBetweenTwoTimestamps(@PathParam("start") String start, @PathParam("end") String end, @PathParam("value") String value){
         Timestamp startTime = Timestamp.valueOf(Timestamp.from(Instant.parse(start)).toLocalDateTime().atZone(ZoneId.systemDefault()).toLocalDateTime());
         Timestamp endTime = addHoursToTimestamp(Timestamp.from(Instant.parse(end)), -1);
 
@@ -41,7 +41,6 @@ public class DataResource {
         BigInteger endTimeBigInteger = BigInteger.valueOf(tsTime2);
         List<SensorValue> data = sensorValueRepository.getBetweenTwoTimeStamps(startTimeBigInteger,endTimeBigInteger);
         Map<Date, Double> map = new HashMap<>();
-        String value = "4";
 
 
         for (SensorValue sensorValue : data){
