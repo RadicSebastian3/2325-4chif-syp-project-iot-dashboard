@@ -10,6 +10,7 @@ public class Device {
     @Id
     private BigInteger id;
 
+
     private String name;
 
 

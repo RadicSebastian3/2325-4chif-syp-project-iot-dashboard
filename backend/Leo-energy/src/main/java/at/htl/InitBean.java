@@ -5,26 +5,32 @@ import at.htl.controller.MeasurementRepository;
 import at.htl.entity.Device;
 import at.htl.entity.Measurement;
 import at.htl.entity.Measurement_Table;
+import at.htl.influxdb.JsonToInfluxDB;
+import at.htl.influxdb.UnitConverter;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.quarkus.runtime.StartupEvent;
+import jakarta.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Observes;
 import jakarta.inject.Inject;
-import jakarta.transaction.Transactional;
-
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @ApplicationScoped
-
 public class InitBean {
+
+    private static final Logger LOG = LoggerFactory.getLogger(InitBean.class);
 
     @Inject
     MeasurementRepository measurementRepository;
@@ -32,83 +38,122 @@ public class InitBean {
     @Inject
     DeviceRepository deviceRepository;
 
+    private static final int MAX_FILES_TO_PROCESS = 2;
+    private static final int MAX_FILES_TO_READ = 100;
+    private int counter = 1;
 
-    static List<Device> devices = new ArrayList<>();
+    void startUp(@Observes StartupEvent event) {
+        String configFilePath = "config/config.txt";
+        File configFile = new File(configFilePath);
 
-    static List<Measurement> measurementList = new ArrayList<>();
-    static List<Measurement_Table> measurement_tableList = new ArrayList<>();
-    @Transactional
-    void startUp(@Observes StartupEvent event) throws IOException {
-        int counter = 1;
+        try {
+            readCounterFromConfig(configFile);
+            processFiles();
+            writeCounterToConfig(configFile);
+        } catch (IOException e) {
+            LOG.error("Fehler beim Starten des Programms", e);
+        }
+    }
 
-        String testOrdnerPath = "testOrdner/";
-        File testOrdner = new File(testOrdnerPath);
+    private void readCounterFromConfig(File configFile) throws IOException {
+        if (configFile.exists()) {
+            try (Scanner scanner = new Scanner(configFile)) {
+                if (scanner.hasNextInt()) {
+                    counter = scanner.nextInt();
+                }
+            }
+        }
+    }
+
+    private void processFiles() {
+        String relativePath = "/home/said/Programming/data/wetransfer_2023-10-zip_2023-11-22_1103/2023-10";
+        String absolutePath = Paths.get(relativePath).toAbsolutePath().toString();
+        File testOrdner = new File(absolutePath);
+
+        counter = 0;
         if (testOrdner.exists() && testOrdner.isDirectory()) {
             File[] datas = testOrdner.listFiles();
             if (datas != null) {
+                ExecutorService executorService = Executors.newFixedThreadPool(MAX_FILES_TO_PROCESS);
+
                 for (File data : datas) {
+                    if (counter <= MAX_FILES_TO_READ) {
+                        executorService.submit(() -> processFile(data));
+                        counter++;
 
-                    try {
-                        String filePath = data.getPath();
-                        String jsonString = new String(Files.readAllBytes(Paths.get(filePath)));
-                        ObjectMapper objectMapper = new ObjectMapper();
-                        JsonNode jsonNode = objectMapper.readTree(jsonString);
-
-                        JsonNode device = jsonNode.get("Device");
-                        Device newDevice = new Device(device.get("Id").bigIntegerValue(), device.get("Name").asText());
-
-
-                        JsonNode splittedJsonAfterValueDescs = jsonNode.get("Device").get("ValueDescs");
-
-                       // devices.add(newDevice);
-                        if (splittedJsonAfterValueDescs.isArray()) {
-                            for (JsonNode element : splittedJsonAfterValueDescs) {
-
-                                Measurement currentMeasurement = new Measurement(element.get("Id").bigIntegerValue(),
-                                        element.get("DescriptionStr").asText(),
-                                        element.get("ValueType").decimalValue(),
-                                        newDevice);
-
-                                measurementRepository.save(currentMeasurement);
-
-                                JsonNode valuesOfCurrentElement = element.get("Values").get(0);
-
-                                Measurement_Table measurementTable = new Measurement_Table((new BigInteger(String.valueOf(counter))),
-                                        new Timestamp(valuesOfCurrentElement.get("Timestamp").asLong() * 1000),
-                                        valuesOfCurrentElement.get("Val").decimalValue(),currentMeasurement);
-                                counter++;
-
-
-                             //   measurementList.add(currentMeasurement);
-                             //   measurement_tableList.add(measurementTable);
-                            }
-
+                        if (counter > MAX_FILES_TO_READ) {
+                            LOG.info("Maximale Anzahl von Dateien erreicht: {}", MAX_FILES_TO_READ);
+                            break;
                         }
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                    if (data.delete()) {
-                        System.out.println("Datei erfolgreich gelöscht: " + data.getName());
                     } else {
-                        System.out.println("Fehler beim Löschen der Datei: " + data.getName());
+                        break;
                     }
-
-
                 }
+                executorService.shutdown();
+                try {
+                    executorService.awaitTermination(Long.MAX_VALUE, java.util.concurrent.TimeUnit.NANOSECONDS);
+                } catch (InterruptedException e) {
+                    LOG.error("Fehler beim Warten auf die ExecutorService-Abschaltung", e);
+                }
+
             } else {
-                System.out.println("Das Verzeichnis ist leer.");
+                LOG.info("Das Verzeichnis ist leer.");
             }
         } else {
-            System.out.println("Das Verzeichnis existiert nicht oder ist kein Verzeichnis.");
+            LOG.info("Das Verzeichnis existiert nicht oder ist kein Verzeichnis.");
+        }
+    }
+
+    private void processFile(File data) {
+        try {
+            String filePath = data.getPath();
+            String jsonString = new String(Files.readAllBytes(Paths.get(filePath)));
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonNode = objectMapper.readTree(jsonString);
+
+            JsonNode device = jsonNode.get("Device");
+            Device newDevice = new Device(device.get("Id").bigIntegerValue(), device.get("Name").asText());
+
+
+            JsonNode splittedJsonAfterValueDescs = jsonNode.get("Device").get("ValueDescs");
+
+            deviceRepository.save(newDevice);
+            if (splittedJsonAfterValueDescs.isArray()) {
+                for (JsonNode element : splittedJsonAfterValueDescs) {
+                    Measurement currentMeasurement = new Measurement(element.get("Id").bigIntegerValue(), element.get("DescriptionStr").asText(), element.get("ValueType").decimalValue(), newDevice, element.get("UnitStr").asText());
+
+                    measurementRepository.save(currentMeasurement);
+
+                    JsonNode valuesOfCurrentElement = element.get("Values").get(0);
+
+                    Measurement_Table measurementTable = new Measurement_Table(new BigInteger(String.valueOf(counter)),
+                            currentMeasurement.getId(),
+                            valuesOfCurrentElement.get("Timestamp").asLong(),
+                            UnitConverter.convertToKilowatt(currentMeasurement.getUnitStr(),
+                            valuesOfCurrentElement.get("Val").decimalValue()));
+
+                    counter += 1;
+
+                    JsonToInfluxDB.insertMeasurement(measurementTable);
+                }
+            }
+
+        } catch (Exception e) {
+            LOG.error("Fehler bei der Verarbeitung der Datei: {}", data.getName(), e);
         }
 
-    /*    System.out.println("Size of diveces" + devices.size());
-        System.out.println("Size OF MEASUREMENT TABLE LIST" + measurement_tableList.size());
-        System.out.println("SIZE OF MEASUREMENT LIST" + measurementList.size());*/
+        if (data.delete()) {
+            LOG.info("Datei erfolgreich gelöscht: {}", data.getName());
+        } else {
+            LOG.error("Fehler beim Löschen der Datei: {}", data.getName());
+        }
+    }
 
-        //TRY DB
-
+    private void writeCounterToConfig(File configFile) {
+        try (PrintWriter writer = new PrintWriter(configFile)) {
+            writer.print(counter);
+        } catch (IOException e) {
+            LOG.error("Fehler beim Schreiben des Zählerwerts in die Konfigurationsdatei", e);
+        }
     }
 }

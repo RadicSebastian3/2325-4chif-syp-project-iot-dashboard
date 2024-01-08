@@ -16,3 +16,11 @@
 *** "Zeile 3 in Diagramm"
 ** in Diagramm ausgeben
 ** Timestamp eingeben -> Daten zu Timestamp ausgeben
+
+== Sprint Review 12.12
+* bis 19.12.:
+** In einer Relationalen Datenbank
+** PV-Daten in Histrogramm visualisieren (von den letzten 24h, in kW)
+*** "Zeile 3 in Diagramm"
+** in Diagramm ausgeben
+** Timestamp eingeben -> Daten zu Timestamp ausgeben

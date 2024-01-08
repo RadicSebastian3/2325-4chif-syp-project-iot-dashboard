@@ -55,12 +55,12 @@ image::https://www.plantuml.com/plantuml/png/VP1DJWCn38NtFeKr-oveTonG-Ra21p2JnyJ
 == Sprint 2 - Aufgabenverteilung
 
 * Said
-**  Frontend
-** Files einlesen (mitgeholfen)
+* Frontend
+* Files einlesen (mitgeholfen)
 
 * Balint
-** Files einlesen
-** Logik implementiert
+* Files einlesen
+* Logik implementiert
 
 * Erik und Markus
-** Frontend
+* Frontend

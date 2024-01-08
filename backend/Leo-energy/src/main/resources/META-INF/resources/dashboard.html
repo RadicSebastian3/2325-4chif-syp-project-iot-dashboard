@@ -1,0 +1,20 @@
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <p>Select day of month October to show information</p>
+    <input type="date" value="2023-10-01" min="2023-10-01" max="2023-10-31" id="date">
+    <br>
+    <input type="checkbox" id="useExampleApi" name="Use example api">
+    <p>Use example Api</p>
+    <button id="submitBtn" onclick="submit()">Submit</button>
+
+    <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+    <script src="canvasjs.min.js"></script>
+</body>
+</html>
+<script src="script.js"></script>
