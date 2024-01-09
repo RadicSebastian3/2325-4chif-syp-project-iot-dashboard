@@ -8,6 +8,7 @@
 :title-slide-transition-speed: fast
 :title-slide-background-image: htlleonding.jpg
 
+
 [.font-xx-large]
 == Was ist Leoenergy?
 * Dashboard für den Energieverbrauch und -verkauf an der HTL Leonding
