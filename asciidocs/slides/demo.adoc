@@ -67,8 +67,10 @@ image::https://www.plantuml.com/plantuml/png/VP1DJWCn38NtFeKr-oveTonG-Ra21p2JnyJ
 ** Frontend
 
 * Balint
-** Logik
-** Einlesen
+** Einlesen, Rest
+** Shadowing
+
+== Sprint 3 - Aufgabenverteilung
 
 * Markus
 ** Frontend
