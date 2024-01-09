@@ -6,18 +6,15 @@ class Device{
     name: String
 }
 
-class Measurement{
+class SensorValue{
     id: BigInteger
     name: String
-    valueType: BigDecimal
-}
-
-class Measurement_Table{
-    id: BigInteger
-    timestamp: Timestamp
+    device: Device
     value: BigDecimal
-}
+    description: String
+    unit: String
+    timestamp: Timestamp
+ }
 
-Device "1" -- "*" Measurement
-Measurement "1" -- "*" Measurement_Table
+Device "1"--"*" SensorValue
 @enduml

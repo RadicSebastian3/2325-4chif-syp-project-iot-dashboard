@@ -8,72 +8,36 @@
 :title-slide-background-image: htlleonding.jpg
 
 [.font-xx-large]
-== Team
-
-|===
-| Name
-
-| Said Nurceski
-| Balint Balasz
-| Erik Seifried
-| Markus Breinesberger
-|===
-
-[.font-xx-large]
 == Was ist Leoenergy?
 
 * Dashboard für den Energieverbrauch und -verkauf an der HTL Leonding
 * Wann wurde wie viel Strom verbraucht?
 * Wann wurde mehr produziert als genutzt oder sogar verkauft?
 
+== Architektur
+image::Architektur.jpeg[]
 == CLD
 
-image::https://www.plantuml.com/plantuml/png/VLBBIaKn3DptAqAN5-x2hQlx0UxyW5Bl2HBeepOv1mxYlzj6j5IBgvAPpZ3JzCRYg-mn68D9I4wm0TsUIDZ2km6u06tm24yvlRRfUbKe-OWDV9PA3VwOj8SFEpev2_uuADIHXTM6VA_3gqC5AnEBghXHBpa7z4avnhH9ZcyYluWUsGt_HQR_2WbfeNwm-5WKxC8lwRZV0nzqHwV7A3JtT8l6SoALZqWwBf-7k0H_JW-kn5-4IUQbV2yIx8DjVc0l5kO5cMbSNcGpqgvvOswOjlw5FW40[]
+image::https://www.plantuml.com/plantuml/png/ZP2xgiCm38PtFONmU233MJs5agLpIdTZgwx0TeAjP2bvzoPk0irMJ-P3_qLgYvWiKmmGw24e0sRsJq77cQpma01iCALWHpDRUW6kZvt62_jh4lAKAqecaiPUCYSFoo7gAPKXtqsOVbHkmDKalITMD6yELTcHvMZ2FbXivd5hUJAO4ii924TQzuoZnjln1Lm0FX6e_bNJg3_rtHTQIcwzoni0[height=600, width=800]
 
 == Usecase Diagram
 
-image::https://www.plantuml.com/plantuml/png/VP1DJWCn38NtFeKr-oveTonG-Ra21p2JnyJgZ3Do72IAk3jDaL0bgYwoUNdV9zlx6kBHbfbcl0T7OTSf1oTrZA75ICOepa-m5aSuI-LMuKIhZ0UPmCEBrFnMn1C_sX4wOU0lujuQfPx_0sgom6fuEqHp6CjlrOOkV7s-kmHE6iapVy3hc1K91kUp9JxN_-ps2flW_PrwmRginKFX0RkXsT4tKL-DDvk7FXBVSrNak0otryBTNqXxMEh7_040[]
+image::https://www.plantuml.com/plantuml/png/ROx1IWCn54Nt-OhBxFiF1H4HT2NzW6ToEmbcNafUqg68_wwDK6Onoznmpdb7Qr9RNxBBF3UqWfhcs11IfM-fg1FVIiLqCjO9Ol31tRz4vqoyiL1Pvnk-7T2DNeoOdkzRufNriqht4KngZDHX-2UUYbfVBgEnYtv9F--17ynvIxnKkKIieef556iYheaPZteRS2ph-zzZ-6-lTZ86z-DymE6mSz5s7y4nx4hSaHhwady1[height=600, width=800]
 
-[.font-xx-large]
-== Sprint 1
 
-* Proof of Concept
-** Verschiedene KI's ausprobieren
-** Welche Benutzen wir
-*** (Projekt wechsel)
-
-[.font-xx-large]
-== Sprint 2
-
-* Files einlesen
-* In einer HTML Tabelle ausgeben
-
-=== Sprint 2 - Aufgabenverteilung
-
-* Said
-** Frontend
-** Files einlesen (mitgeholfen)
-
-* Balint
-** Files einlesen
-** Logik implementiert
-
-* Erik und Markus
-** Frontend
+== Sprint 3 was war zu tun
+** In einer Relationalen Datenbank
+** PV-Daten in Histrogramm visualisieren (von den letzten 24h, in kW)
+*** "Zeile 3 in Diagramm"
+** in Diagramm ausgeben
+** Timestamp eingeben -> Daten zu Timestamp ausgeben
 
 == Sprint 3 - Aufgabenverteilung
 
-* Said
-** Frontend
-
-* Balint
-** Einlesen, Rest
-** Shadowing
-
-== Sprint 3 - Aufgabenverteilung
-
-* Markus
-** Frontend
-
-* Erik
-** Einlesen
+|===
+| Said | Balint | Markus | Erik
+| Fronted
+| Einlesen, Logik, Backend
+| Frontend
+| Einlesen der Daten
+|===
