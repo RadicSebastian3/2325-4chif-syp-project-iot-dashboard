@@ -23,7 +23,7 @@ image::https://www.plantuml.com/plantuml/png/ZP2xgiCm38PtFONmU233MJs5agLpIdTZgwx
 
 == CLD
 
-image::cld.jpeg[]
+image::cld.jpeg[height=600, width=400]
 
 == Usecase Diagram
 
