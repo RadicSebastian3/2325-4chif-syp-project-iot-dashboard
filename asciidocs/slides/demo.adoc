@@ -77,5 +77,5 @@ image::https://www.plantuml.com/plantuml/png/ROx1IWCn54Nt-OhBxFiF1H4HT2NzW6ToEmb
 | Fronted
 | Einlesen, Logik, Backend
 | Frontend
-| Einlesen
+| Einlesen der Daten
 |===
