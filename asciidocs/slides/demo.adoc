@@ -14,21 +14,16 @@
 * Wann wurde wie viel Strom verbraucht?
 * Wann wurde mehr produziert als genutzt oder sogar verkauft?
 
+
+== Architektur
+image::Architekt.jpeg[]
+
 == Was ist MQQT?
 image:mqqt.png[]
 
 * Protokoll für das Internet der Dinge
-* an einen Server senden oder veröffentlichen
-* Der Broker überträgt die Informationen dann an diejenigen Clients, die das Topic des Clients zuvor abonniert haben.
-* Alle 5 Minuten Json-Files von Devices der Schule
+* Alle 5 Minuten Json-Files
 
-
-
-
-
-
-== Architektur
-image::Architekt.jpeg[]
 
 == CLD
 
