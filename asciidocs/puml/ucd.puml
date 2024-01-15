@@ -4,10 +4,8 @@ actor "User" as cd
 rectangle Leoenergy {
   usecase "Energieverbrauch einsehen" as energyConsumption
   usecase "Energieverkauf einsehen" as energySell
-  usecase "Graph wann man wie viel verbraucht" as howMuchEnergyIsUsed
 }
 cd -- energyConsumption
 cd -- energySell
-cd -- howMuchEnergyIsUsed
 
 @enduml

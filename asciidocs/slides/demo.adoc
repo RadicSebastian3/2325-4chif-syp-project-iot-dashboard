@@ -24,26 +24,18 @@ image::https://www.plantuml.com/plantuml/png/ZP2xgiCm38PtFONmU233MJs5agLpIdTZgwx
 
 == CLD
 
-image::cld.jpeg[height=300, width=250]
+image::cld.jpeg[height=500, width=300]
 
 == Usecase Diagram
 
-image::https://www.plantuml.com/plantuml/png/ROx1IWCn54Nt-OhBxFiF1H4HT2NzW6ToEmbcNafUqg68_wwDK6Onoznmpdb7Qr9RNxBBF3UqWfhcs11IfM-fg1FVIiLqCjO9Ol31tRz4vqoyiL1Pvnk-7T2DNeoOdkzRufNriqht4KngZDHX-2UUYbfVBgEnYtv9F--17ynvIxnKkKIieef556iYheaPZteRS2ph-zzZ-6-lTZ86z-DymE6mSz5s7y4nx4hSaHhwady1[height=300, width=400]
+image::https://www.plantuml.com/plantuml/png/ROyn3i8m34NtdCBgtZjKGcniY0EOvBUDI1raEqW8SNTeMHYwFlizouCvgxUbX8BHoIjfdcQdb1NHSvN0qQjITp5eHsmKKrX7B5C1dL0XqEb9hq3K394Dr1rNbl60NfLRd0bP33DaA_oCGnLhotsxiQlUk8rxuXcbX7U8YVf-f_NFjzK1ahuFVW00[height=300, width=400]
 
 
 == Sprint 3 was war zu tun
 ** In einer Relationalen Datenbank
 ** PV-Daten in Histrogramm visualisieren (von den letzten 24h, in kW)
-*** "Zeile 3 in Diagramm"
 ** in Diagramm ausgeben
-** Timestamp eingeben -> Daten zu Timestamp ausgeben
+** Datum eingeben -> Daten aus diesem Datum (24h) ausgeben
 
-== Sprint 3 - Aufgabenverteilung
-
-|===
-| Said | Balint | Markus | Erik
-| Fronted
-| Einlesen, Logik, Backend
-| Frontend
-| Einlesen der Daten
-|===
+== LIVE DEMO
+image::htlleonding.jpg[background]
