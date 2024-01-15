@@ -14,8 +14,21 @@
 * Wann wurde wie viel Strom verbraucht?
 * Wann wurde mehr produziert als genutzt oder sogar verkauft?
 
+== Was ist MQQT?
+image:mqqt.png[]
+
+* Protokoll für das Internet der Dinge
+* an einen Server senden oder veröffentlichen
+* Der Broker überträgt die Informationen dann an diejenigen Clients, die das Topic des Clients zuvor abonniert haben.
+* Alle 5 Minuten Json-Files von Devices der Schule
+
+
+
+
+
+
 == Architektur
-image::Architektur.jpeg[]
+image::Architekt.jpeg[]
 
 == CLD
 
@@ -34,7 +47,8 @@ image::https://www.plantuml.com/plantuml/png/ROyn3i8m34NtdCBgtZjKGcniY0EOvBUDI1r
 ** In einer Relationalen Datenbank
 ** PV-Daten in Histrogramm visualisieren (von den letzten 24h, in kW)
 ** in Diagramm ausgeben
-** Datum eingeben -> Daten aus diesem Datum (24h) ausgeben
+** Datum eingeben -> Messwerte von diesem Tag darstellen
+** Extra: Auswahlmöglichkeit von Devices möglich
 
 == LIVE DEMO
 image::htlleonding.jpg[background]
