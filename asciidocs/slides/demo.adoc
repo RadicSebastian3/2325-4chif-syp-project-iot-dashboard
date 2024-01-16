@@ -29,9 +29,6 @@ image:mqqt.png[]
 
 image::https://www.plantuml.com/plantuml/png/ZP2xgiCm38PtFONmU233MJs5agLpIdTZgwx0TeAjP2bvzoPk0irMJ-P3_qLgYvWiKmmGw24e0sRsJq77cQpma01iCALWHpDRUW6kZvt62_jh4lAKAqecaiPUCYSFoo7gAPKXtqsOVbHkmDKalITMD6yELTcHvMZ2FbXivd5hUJAO4ii924TQzuoZnjln1Lm0FX6e_bNJg3_rtHTQIcwzoni0[height=300, width=600]
 
-== CLD
-
-image::cld.jpeg[height=500, width=300]
 
 == Usecase Diagram
 
