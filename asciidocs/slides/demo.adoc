@@ -18,7 +18,7 @@
 == Architektur
 image::Architekt.jpeg[]
 
-== Was ist MQQT?
+== Was ist MQTT?
 image:mqqt.png[]
 
 * Protokoll für das Internet der Dinge
