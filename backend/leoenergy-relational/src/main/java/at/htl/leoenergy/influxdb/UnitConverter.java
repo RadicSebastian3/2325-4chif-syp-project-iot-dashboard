@@ -1,10 +1,10 @@
-package at.htl.leoenergy.controller;
+package at.htl.leoenergy.influxdb;
 
 import java.math.BigDecimal;
 
 public class UnitConverter {
-    public static Double convertToKilowatt(String unit, Double value) {
-        Double result;
+    public static double convertToKilowatt(String unit, double value) {
+        double result;
 
         switch (unit) {
             case "W":
@@ -13,13 +13,10 @@ public class UnitConverter {
             case "Wh":
                 result = value / 1000.0;
                 break;
-            case "m^3/h":
-                result = value * 0.000277778;
-                break;
             case "A":
             case "Bin":
             default:
-                result = Double.valueOf(0.00);
+                result = 0.00;
         }
 
         return result;

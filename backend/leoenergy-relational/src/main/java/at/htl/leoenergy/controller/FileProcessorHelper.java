@@ -1,18 +1,18 @@
 package at.htl.leoenergy.controller;
 
-import at.htl.leoenergy.entity.SensorValue;
+import at.htl.leoenergy.entity.SensorDetails;
 import at.htl.leoenergy.entity.Device;
+import at.htl.leoenergy.entity.Sensor_Value;
+import at.htl.leoenergy.influxdb.JsonRepository;
+import at.htl.leoenergy.influxdb.UnitConverter;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import io.quarkus.logging.Log;
 import io.quarkus.panache.common.Parameters;
-import io.quarkus.runtime.StartupEvent;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.event.Observes;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -29,7 +29,7 @@ public class FileProcessorHelper {
     private DeviceRepository deviceRepository;
 
     @Inject
-    private SensorValueRepository sensorValueRepository;
+    private SensorDetailsRepository sensorDetailsRepository;
 
     private long processedFileCount = 0;
 
@@ -121,17 +121,21 @@ public class FileProcessorHelper {
 
             ArrayNode valueArray = (ArrayNode) jsonRoot.at("/Device/ValueDescs");
             for (JsonNode jsonNode : valueArray) {
-                SensorValue sensorValue = new SensorValue(
+                SensorDetails sensorDetail = new SensorDetails(
                         device,
-                        jsonNode.get("Id").asInt(),
                         jsonNode.get("DescriptionStr").asText(),
-                        jsonNode.get("UnitStr").asText(),
-                        jsonNode.get("Values").get(0).get("Timestamp").asLong(),
-                        UnitConverter.convertToKilowatt(jsonNode.get("UnitStr").asText(),
-                                jsonNode.get("Values").get(0).get("Val").asDouble())
+                        jsonNode.get("UnitStr").asText()
                 );
-                sensorValueRepository.persist(sensorValue);
-                //Log.infof("%s persisted", sensorValue);
+                sensorDetailsRepository.persist(sensorDetail);
+
+                Sensor_Value sensorValue = new Sensor_Value(jsonNode.get("DeviceId").asLong(),
+                        jsonNode.get("Values").get(0).get("Timestamp").asLong(),
+                        UnitConverter.convertToKilowatt(
+                                jsonNode.get("UnitStr").asText(),
+                                jsonNode.get("Values").get(0).get("Val").doubleValue()),
+                        jsonNode.get("Id").asLong());
+              JsonRepository.insertMeasurement(sensorValue);
+
             }
 
         } catch (IOException e) {

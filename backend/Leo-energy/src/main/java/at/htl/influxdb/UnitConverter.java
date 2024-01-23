@@ -13,15 +13,11 @@ public class UnitConverter {
             case "Wh":
                 result = value.divide(BigDecimal.valueOf(1000.0));
                 break;
-            case "m^3/h":
-                result = value.multiply(BigDecimal.valueOf(0.000277778));
-                break;
             case "A":
             case "Bin":
             default:
-                result = value;
+                result = new BigDecimal(0);
         }
-
         return result;
     }
 }

@@ -71,7 +71,7 @@ function drawChart(data) {
             }]
         },
         data: [{
-            type: 'line',
+            type: 'spline',
             dataPoints: Array.from(data, ([date, value]) => ({
                 x: date,
                 y: value

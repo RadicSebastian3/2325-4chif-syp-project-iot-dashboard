@@ -2,14 +2,13 @@ package at.htl.leoenergy.entity;
 
 import jakarta.persistence.*;
 
-import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.TimeZone;
 
 @Entity
 @Table(name = "SENSOR_VALUE")
-public class SensorValue {
+public class SensorDetails {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -21,8 +20,7 @@ public class SensorValue {
     })
     private Device device;
 
-    @Column(name = "VALUE_ID")
-    private int valueId;
+
 
     @Column(name = "DESCRIPTION")
     private String descriptionStr;
@@ -30,23 +28,19 @@ public class SensorValue {
     @Column(name = "UNIT")
     private String unitStr;
 
-    private long timestamp;
-
-    @Column(name = "VALUE")
-    private double val;
 
 
 
-    public SensorValue() {
+
+    public SensorDetails() {
     }
 
-    public SensorValue(Device device, int valueId, String descriptionStr, String unitStr, long timestamp, double val) {
+    public SensorDetails(Device device, String descriptionStr, String unitStr) {
         this.device = device;
-        this.valueId = valueId;
+        this.id = id;
         this.descriptionStr = descriptionStr;
         this.unitStr = unitStr;
-        this.timestamp = timestamp;
-        this.val = val;
+
     }
 
     //region getter and setter
@@ -66,13 +60,7 @@ public class SensorValue {
         this.device = device;
     }
 
-    public int getValueId() {
-        return valueId;
-    }
 
-    public void setValueId(int valueId) {
-        this.valueId = valueId;
-    }
 
     public String getDescriptionStr() {
         return descriptionStr;
@@ -90,34 +78,14 @@ public class SensorValue {
         this.unitStr = unitStr;
     }
 
-    public long getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(long timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public double getVal() {
-        return val;
-    }
-
-    public void setVal(double val) {
-        this.val = val;
-    }
 
 
     //endregion
 
-    public LocalDateTime getDateTime() {
-        return LocalDateTime.ofInstant(
-                Instant.ofEpochSecond(timestamp),
-                TimeZone.getDefault().toZoneId()
-        );
-    }
+
 
     @Override
     public String toString() {
-        return String.format("%s (%s): %f", descriptionStr, unitStr, val);
+        return String.format("%s (%s): %f", descriptionStr, unitStr);
     }
 }

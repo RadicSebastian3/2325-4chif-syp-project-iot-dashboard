@@ -1,7 +1,7 @@
-package at.htl.leoenergy;
+/*package at.htl.leoenergy;
 
-import at.htl.leoenergy.controller.SensorValueRepository;
-import at.htl.leoenergy.entity.SensorValue;
+import at.htl.leoenergy.controller.SensorDetailsRepository;
+import at.htl.leoenergy.entity.SensorDetails;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -11,7 +11,6 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 import java.math.BigInteger;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.ZoneId;
@@ -22,7 +21,7 @@ import java.util.*;
 public class DataResource {
 
     @Inject
-    SensorValueRepository sensorValueRepository;
+    SensorDetailsRepository sensorValueRepository;
     @GET
     @Path("/getDataBetweenTwoTimestamps/{start}/{end}/{value}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -39,11 +38,11 @@ public class DataResource {
 
         BigInteger startTimeBigInteger = BigInteger.valueOf(tsTime1);
         BigInteger endTimeBigInteger = BigInteger.valueOf(tsTime2);
-        List<SensorValue> data = sensorValueRepository.getBetweenTwoTimeStamps(startTimeBigInteger,endTimeBigInteger);
+        List<SensorDetails> data = sensorValueRepository.getBetweenTwoTimeStamps(startTimeBigInteger,endTimeBigInteger);
         Map<Date, Double> map = new HashMap<>();
 
 
-        for (SensorValue sensorValue : data){
+        for (SensorDetails sensorValue : data){
             Date date = new Date(sensorValue.getTimestamp() * 1000L);
 
             if (Long.parseLong(value) <= 4L){
@@ -56,10 +55,6 @@ public class DataResource {
             else if (sensorValue.getVal() != 0.0 && sensorValue.getUnitStr().trim().equals("W")){
                 map.put(date,sensorValue.getVal());
             }
-
-
-        //    Timestamp timestamp = new Timestamp(sensorValue.getTimestamp());
-
         }
 
         return Response.ok().entity(map).build();
@@ -97,4 +92,4 @@ public class DataResource {
         Date modifiedDate = calendar.getTime();
         return new Timestamp(modifiedDate.getTime());
     }
-}
+}*/
