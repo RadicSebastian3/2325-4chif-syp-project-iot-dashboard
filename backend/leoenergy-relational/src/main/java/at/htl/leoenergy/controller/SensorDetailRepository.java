@@ -1,4 +1,5 @@
 package at.htl.leoenergy.controller;
+import at.htl.leoenergy.entity.Device;
 import at.htl.leoenergy.entity.SensorDetails;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import io.quarkus.panache.common.Parameters;
@@ -8,7 +9,7 @@ import java.math.BigInteger;
 import java.util.List;
 
 @ApplicationScoped
-public class SensorDetailsRepository implements PanacheRepository<SensorDetails> {
+public class SensorDetailRepository implements PanacheRepository<SensorDetails> {
 
     public List<SensorDetails> getBetweenTwoTimeStamps(BigInteger startDate, BigInteger endDate) {
         long startTime = startDate.longValue() / 1000;
@@ -18,6 +19,16 @@ public class SensorDetailsRepository implements PanacheRepository<SensorDetails>
         return this.find("timestamp >= :startTime and timestamp <= :endTime",
                 Parameters.with("startTime", startTime).and("endTime", endTime)).list();
     }
+
+    public void save(SensorDetails sensorDetail) {
+        if (findById(sensorDetail.getId()) == null) {
+            persist(sensorDetail);
+        } else {
+           // updateSensorDetail(sensorDetail);
+        }
+    }
+
+
 
 
 

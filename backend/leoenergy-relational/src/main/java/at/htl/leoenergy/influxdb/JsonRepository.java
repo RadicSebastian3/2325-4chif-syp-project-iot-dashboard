@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 public class JsonRepository {
     public static void insertMeasurement(Sensor_Value sensor_value) {
         String token = "9gSDf_6aQw1RH0d2UgcXBNbh0yEQuBsdSPa1TrIxiwwaOwPON-JQ7_0xIAopKCT0EaBsTZ3JoUa7KY_Lk_VYsQ==";
-        String bucket = "db";
+        String bucket = "db3";
         String org = "Leoenergy";
         String influxUrl = "http://localhost:8086";
         try {
@@ -24,9 +24,9 @@ public class JsonRepository {
           long currentTimeInNanoseconds = TimeUnit.SECONDS.toNanos(sensor_value.getTime());
 
             Point point = Point.measurement("Sensor_Values")
+                    .addTag("device_id",String.valueOf(sensor_value.getDeviceId()))
                     .addField("measurement_id",sensor_value.getMeasurementId().toString())
                     .addField("value", sensor_value.getValue())
-                    .addTag("device_id",String.valueOf(sensor_value.getDeviceId()))
                     .time(currentTimeInNanoseconds,WritePrecision.NS);
 
             writeApi.writePoint(bucket, org, point);
@@ -78,17 +78,4 @@ public class JsonRepository {
         }
         return resultList;
     }*/
-    public static void main(String[] args) {
-
-        Instant startInstant = Instant.parse("2023-10-01T00:00:00Z");
-        Instant endInstant = Instant.parse("2023-10-01T23:59:59Z");
-
-        Timestamp startTime = Timestamp.from(startInstant);
-        Timestamp endTime = Timestamp.from(endInstant);
-
-
-
-    }
-
-
 }
