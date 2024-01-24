@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 public class JsonRepository {
     public static void insertMeasurement(Sensor_Value sensor_value) {
-        String token = "yNVwoiBkvoi0BlWLQkIvOmJEKWNXbScj7JY5UgfnaFBG2CrAlI6EOwkkP9AIXXp5wMEBGe3ufAhJVJT2JAffng==";
+        String token = "qwI8IEYW52ragsR2lZvEKxSXvhOcQ6J4klG0h8JGbJ1Q3-4IEG0WRRCOfCS0Nt70MR83BwmDnLaNx7cYEefpCw==";
         String bucket = "db";
         String org = "Leoenergy";
         String influxUrl = "http://localhost:8086";

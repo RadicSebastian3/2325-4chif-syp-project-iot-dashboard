@@ -29,7 +29,7 @@ public class FileProcessorHelper {
     private DeviceRepository deviceRepository;
 
     @Inject
-    private SensorDetailsRepository sensorDetailsRepository;
+    private SensorDetailRepository sensorDetailsRepository;
 
     private long processedFileCount = 0;
 
