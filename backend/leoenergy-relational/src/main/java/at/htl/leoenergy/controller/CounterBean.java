@@ -1,7 +1,5 @@
 package at.htl.leoenergy.controller;
 
-import io.quarkus.runtime.QuarkusApplication;
-import io.quarkus.runtime.annotations.QuarkusMain;
 import io.quarkus.scheduler.Scheduled;
 import jakarta.enterprise.context.ApplicationScoped;
 import io.quarkus.scheduler.ScheduledExecution;
@@ -34,11 +32,9 @@ public class CounterBean {
         return counter.get();
     }
 
-
-
-  @Scheduled(every="200s")
+  @Scheduled(every="10s")
     void increment() {
-        fileProcessorHelper.importJsonFiles(directoryNameAll,200);
+        fileProcessorHelper.importJsonFiles(directoryNameAll,30);
         //LIMIT for the datas how many it should read at once
     }
 }

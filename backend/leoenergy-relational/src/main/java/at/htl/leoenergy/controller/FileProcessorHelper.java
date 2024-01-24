@@ -2,13 +2,14 @@ package at.htl.leoenergy.controller;
 
 import at.htl.leoenergy.entity.SensorDetails;
 import at.htl.leoenergy.entity.Device;
-import at.htl.leoenergy.entity.SensorValue;
+import at.htl.leoenergy.entity.Sensor_Value;
 import at.htl.leoenergy.influxdb.JsonRepository;
 import at.htl.leoenergy.influxdb.UnitConverter;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import io.quarkus.logging.Log;
+import io.quarkus.panache.common.Parameters;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -28,7 +29,7 @@ public class FileProcessorHelper {
     private DeviceRepository deviceRepository;
 
     @Inject
-    private SensorDetailRepository sensorDetailsRepository;
+    private SensorDetailsRepository sensorDetailsRepository;
 
     private long processedFileCount = 0;
 
@@ -91,28 +92,43 @@ public class FileProcessorHelper {
         try {
             jsonRoot = om.readTree(filePath.toFile());
 
+            // check, if device already exists
+            String deviceName = jsonRoot.at("/Device/Name").asText();
+            String deviceSite = jsonRoot.at("/Device/Site").asText();
 
+      /*      long noOfDevices = deviceRepository.count("name = :NAME and site = :SITE",
+                    Parameters
+                            .with("NAME", deviceName)
+                            .and("SITE", deviceSite)
+            );
 
-            Device device =  new Device(
-                    jsonRoot.at("/Device/Id").asLong(),
-                    jsonRoot.at("/Device/ManufacturerId").asText(),
-                    jsonRoot.at("/Device/Medium").asText(),
-                    jsonRoot.at("/Device/Name").asText(),
-                    jsonRoot.at("/Device/Site").asText());
-
-   deviceRepository.save(device);
-
-
+            Device device = null;
+            if (noOfDevices > 0L) {
+                device = deviceRepository.find("name = :NAME and site = :SITE",
+                        Parameters
+                                .with("NAME", deviceName)
+                                .and("SITE", deviceSite)
+                ).singleResult();
+            } else {
+                device = new Device(
+                        jsonRoot.at("/Device/Id").asInt(),
+                        jsonRoot.at("/Device/ManufacturerId").asText(),
+                        jsonRoot.at("/Device/Medium").asText(),
+                        jsonRoot.at("/Device/Name").asText(),
+                        jsonRoot.at("/Device/Site").asText()
+                );
+            }*/
 
             ArrayNode valueArray = (ArrayNode) jsonRoot.at("/Device/ValueDescs");
             for (JsonNode jsonNode : valueArray) {
-                SensorDetails sensorDetails = new SensorDetails(jsonNode.get("Id").asLong(),
-                        deviceRepository.findById(jsonNode.get("DeviceId").asLong()),
-                        jsonNode.get("DescriptionStr").asText(),jsonNode.get("UnitStr").asText());
+             /*   SensorDetails sensorDetail = new SensorDetails(
+                        device,
+                        jsonNode.get("DescriptionStr").asText(),
+                        jsonNode.get("UnitStr").asText()
+                );
+            //    sensorDetailsRepository.persist(sensorDetail);*/
 
-             sensorDetailsRepository.save(sensorDetails);
-
-                SensorValue sensorValue = new SensorValue(jsonNode.get("DeviceId").asLong(),
+                Sensor_Value sensorValue = new Sensor_Value(jsonNode.get("DeviceId").asLong(),
                         jsonNode.get("Values").get(0).get("Timestamp").asLong(),
                         UnitConverter.convertToKilowatt(
                                 jsonNode.get("UnitStr").asText(),
@@ -170,5 +186,4 @@ public class FileProcessorHelper {
             throw new RuntimeException(e);
         }
     }
-
 }

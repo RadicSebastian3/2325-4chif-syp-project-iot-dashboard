@@ -1,17 +1,19 @@
 package at.htl.leoenergy.influxdb;
 
-import at.htl.leoenergy.entity.SensorValue;
+import at.htl.leoenergy.entity.Sensor_Value;
 import com.influxdb.client.InfluxDBClient;
 import com.influxdb.client.InfluxDBClientFactory;
 import com.influxdb.client.WriteApiBlocking;
 import com.influxdb.client.domain.WritePrecision;
 import com.influxdb.client.write.Point;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.concurrent.TimeUnit;
 
 public class JsonRepository {
-    public static void insertMeasurement(SensorValue sensor_value) {
-        String token = "9gSDf_6aQw1RH0d2UgcXBNbh0yEQuBsdSPa1TrIxiwwaOwPON-JQ7_0xIAopKCT0EaBsTZ3JoUa7KY_Lk_VYsQ==";
+    public static void insertMeasurement(Sensor_Value sensor_value) {
+        String token = "yNVwoiBkvoi0BlWLQkIvOmJEKWNXbScj7JY5UgfnaFBG2CrAlI6EOwkkP9AIXXp5wMEBGe3ufAhJVJT2JAffng==";
         String bucket = "db";
         String org = "Leoenergy";
         String influxUrl = "http://localhost:8086";
@@ -20,11 +22,12 @@ public class JsonRepository {
             WriteApiBlocking writeApi = client.getWriteApiBlocking();
 
           long currentTimeInNanoseconds = TimeUnit.SECONDS.toNanos(sensor_value.getTime());
+            System.out.println(sensor_value.getValue());
 
             Point point = Point.measurement("Sensor_Values")
-                    .addTag("device_id",String.valueOf(sensor_value.getDeviceId()))
                     .addField("measurement_id",sensor_value.getMeasurementId().toString())
                     .addField("value", sensor_value.getValue())
+                    .addTag("device_id",String.valueOf(sensor_value.getDeviceId()))
                     .time(currentTimeInNanoseconds,WritePrecision.NS);
 
             writeApi.writePoint(bucket, org, point);
@@ -76,4 +79,17 @@ public class JsonRepository {
         }
         return resultList;
     }*/
+    public static void main(String[] args) {
+
+        Instant startInstant = Instant.parse("2023-10-01T00:00:00Z");
+        Instant endInstant = Instant.parse("2023-10-01T23:59:59Z");
+
+        Timestamp startTime = Timestamp.from(startInstant);
+        Timestamp endTime = Timestamp.from(endInstant);
+
+
+
+    }
+
+
 }
