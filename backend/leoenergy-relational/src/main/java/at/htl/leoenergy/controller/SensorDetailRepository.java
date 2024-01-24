@@ -20,11 +20,17 @@ public class SensorDetailRepository implements PanacheRepository<SensorDetails> 
                 Parameters.with("startTime", startTime).and("endTime", endTime)).list();
     }
 
+
     public void save(SensorDetails sensorDetail) {
-        if (findById(sensorDetail.getId()) == null) {
+        SensorDetails existingSensorDetail = findById(sensorDetail.getId());
+
+        if (existingSensorDetail == null) {
             persist(sensorDetail);
         } else {
-           // updateSensorDetail(sensorDetail);
+            existingSensorDetail.setDevice(sensorDetail.getDevice());
+            existingSensorDetail.setDescriptionStr(sensorDetail.getDescriptionStr());
+            existingSensorDetail.setUnitStr(sensorDetail.getUnitStr());
+            getEntityManager().flush();
         }
     }
 

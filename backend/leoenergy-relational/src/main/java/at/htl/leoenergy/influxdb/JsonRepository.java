@@ -1,20 +1,18 @@
 package at.htl.leoenergy.influxdb;
 
-import at.htl.leoenergy.entity.Sensor_Value;
+import at.htl.leoenergy.entity.SensorValue;
 import com.influxdb.client.InfluxDBClient;
 import com.influxdb.client.InfluxDBClientFactory;
 import com.influxdb.client.WriteApiBlocking;
 import com.influxdb.client.domain.WritePrecision;
 import com.influxdb.client.write.Point;
 
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.concurrent.TimeUnit;
 
 public class JsonRepository {
-    public static void insertMeasurement(Sensor_Value sensor_value) {
+    public static void insertMeasurement(SensorValue sensor_value) {
         String token = "9gSDf_6aQw1RH0d2UgcXBNbh0yEQuBsdSPa1TrIxiwwaOwPON-JQ7_0xIAopKCT0EaBsTZ3JoUa7KY_Lk_VYsQ==";
-        String bucket = "db3";
+        String bucket = "db";
         String org = "Leoenergy";
         String influxUrl = "http://localhost:8086";
         try {

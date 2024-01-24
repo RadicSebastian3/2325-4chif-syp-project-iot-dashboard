@@ -3,12 +3,11 @@ package at.htl.leoenergy.entity;
 import com.influxdb.annotations.Column;
 import com.influxdb.annotations.Measurement;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.Instant;
 
 @Measurement(name = "sensor_values")
-public class Sensor_Value {
+public class SensorValue {
     @Column(tag = true)
     private BigInteger id;
 
@@ -27,11 +26,11 @@ public class Sensor_Value {
 
 
 
-    public Sensor_Value() {
+    public SensorValue() {
     }
 
 
-    public Sensor_Value(long deviceId, long time, double value,Long measurementId) {
+    public SensorValue(long deviceId, long time, double value, Long measurementId) {
         this.measurementId = measurementId;
         this.time = time;
         this.value = value;
