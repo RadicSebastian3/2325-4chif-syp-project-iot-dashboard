@@ -29,7 +29,7 @@ public class FileProcessorHelper {
     private DeviceRepository deviceRepository;
 
     @Inject
-    private SensorDetailRepository sensorDetailsRepository;
+    private SensorDetailsRepository sensorDetailsRepository;
 
     private long processedFileCount = 0;
 
@@ -96,7 +96,7 @@ public class FileProcessorHelper {
             String deviceName = jsonRoot.at("/Device/Name").asText();
             String deviceSite = jsonRoot.at("/Device/Site").asText();
 
-      /*      long noOfDevices = deviceRepository.count("name = :NAME and site = :SITE",
+            long noOfDevices = deviceRepository.count("name = :NAME and site = :SITE",
                     Parameters
                             .with("NAME", deviceName)
                             .and("SITE", deviceSite)
@@ -117,16 +117,10 @@ public class FileProcessorHelper {
                         jsonRoot.at("/Device/Name").asText(),
                         jsonRoot.at("/Device/Site").asText()
                 );
-            }*/
+            }
 
             ArrayNode valueArray = (ArrayNode) jsonRoot.at("/Device/ValueDescs");
             for (JsonNode jsonNode : valueArray) {
-             /*   SensorDetails sensorDetail = new SensorDetails(
-                        device,
-                        jsonNode.get("DescriptionStr").asText(),
-                        jsonNode.get("UnitStr").asText()
-                );
-            //    sensorDetailsRepository.persist(sensorDetail);*/
 
                 Sensor_Value sensorValue = new Sensor_Value(jsonNode.get("DeviceId").asLong(),
                         jsonNode.get("Values").get(0).get("Timestamp").asLong(),
@@ -134,9 +128,8 @@ public class FileProcessorHelper {
                                 jsonNode.get("UnitStr").asText(),
                                 jsonNode.get("Values").get(0).get("Val").doubleValue()),
                         jsonNode.get("Id").asLong());
-                if ( jsonNode.get("UnitStr").asText().equals("W") || jsonNode.get("UnitStr").asText().equals("Wh")) {
+
                     JsonRepository.insertMeasurement(sensorValue);
-                }
 
             }
 

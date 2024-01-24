@@ -7,9 +7,10 @@ import java.math.BigInteger;
 @Entity
 @Table(name = "DEVICE")
 public class Device {
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private int deviceId;
     private String manufacturerId;
     private String medium;
     private String name;
@@ -19,12 +20,8 @@ public class Device {
     public Device() {
     }
 
-    public Device(long deviceId){
-        this.id = deviceId;
-    }
-
-    public Device(long deviceId, String manufacturerId, String medium, String name, String site) {
-        this.id = deviceId;
+    public Device(int deviceId, String manufacturerId, String medium, String name, String site) {
+        this.deviceId = deviceId;
         this.manufacturerId = manufacturerId;
         this.medium = medium;
         this.name = name;
@@ -39,6 +36,14 @@ public class Device {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public int getDeviceId() {
+        return deviceId;
+    }
+
+    public void setDeviceId(int deviceId) {
+        this.deviceId = deviceId;
     }
 
     public String getManufacturerId() {

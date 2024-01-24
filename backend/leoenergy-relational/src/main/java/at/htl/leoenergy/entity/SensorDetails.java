@@ -7,9 +7,9 @@ import java.time.LocalDateTime;
 import java.util.TimeZone;
 
 @Entity
-@Table(name = "SENSOR_VALUE_DETAILS")
+@Table(name = "SENSOR_VALUE")
 public class SensorDetails {
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(cascade = {
@@ -20,21 +20,26 @@ public class SensorDetails {
     })
     private Device device;
 
+
+
     @Column(name = "DESCRIPTION")
     private String descriptionStr;
 
     @Column(name = "UNIT")
     private String unitStr;
 
+
+
+
+
     public SensorDetails() {
     }
 
-    public SensorDetails(Long id,Device device, String descriptionStr, String unitStr) {
-        this.id = id;
+    public SensorDetails(Device device, String descriptionStr, String unitStr) {
         this.device = device;
+        this.id = id;
         this.descriptionStr = descriptionStr;
         this.unitStr = unitStr;
-
 
     }
 
@@ -77,4 +82,10 @@ public class SensorDetails {
 
     //endregion
 
+
+
+    @Override
+    public String toString() {
+        return String.format("%s (%s): %f", descriptionStr, unitStr);
+    }
 }

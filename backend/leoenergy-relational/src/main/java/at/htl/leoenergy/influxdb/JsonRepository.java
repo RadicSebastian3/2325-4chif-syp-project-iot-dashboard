@@ -17,18 +17,16 @@ public class JsonRepository {
         String bucket = "db";
         String org = "Leoenergy";
         String influxUrl = "http://localhost:8086";
-
         try {
             InfluxDBClient client = InfluxDBClientFactory.create(influxUrl, token.toCharArray());
             WriteApiBlocking writeApi = client.getWriteApiBlocking();
 
-          long currentTimeInNanoseconds = TimeUnit.SECONDS.toNanos(sensor_value.getTime());
-            System.out.println(sensor_value.getValue());
+            long currentTimeInNanoseconds = TimeUnit.SECONDS.toNanos(sensor_value.getTime());
 
             Point point = Point.measurement("Sensor_Values")
                     .addField("measurement_id",sensor_value.getMeasurementId().toString())
-                    .addField("value", sensor_value.getValue())
                     .addTag("device_id",String.valueOf(sensor_value.getDeviceId()))
+                    .addField("value", sensor_value.getValue())
                     .time(currentTimeInNanoseconds,WritePrecision.NS);
 
             writeApi.writePoint(bucket, org, point);
@@ -42,44 +40,44 @@ public class JsonRepository {
     }
 
 
-  /*  public static List<Measurement_Table> getValuesBetweenTwoTimeStampsWithTheSameMeasurementId(Timestamp startTime, Timestamp endTime,BigInteger measurementId) {
-        String token = "dpWZoPRCcJmjM7CEynlTim-xRjf0Fo7YLav_CgHkl2liY5Xai0hja1-H3HDfOSzCb3HVfHaS_Y7ohT6yzKYGfg==";
-        String bucket = "db";
-        String org = "Leoenergy";
-        String influxUrl = "http://localhost:8086";
+    /*  public static List<Measurement_Table> getValuesBetweenTwoTimeStampsWithTheSameMeasurementId(Timestamp startTime, Timestamp endTime,BigInteger measurementId) {
+          String token = "dpWZoPRCcJmjM7CEynlTim-xRjf0Fo7YLav_CgHkl2liY5Xai0hja1-H3HDfOSzCb3HVfHaS_Y7ohT6yzKYGfg==";
+          String bucket = "db";
+          String org = "Leoenergy";
+          String influxUrl = "http://localhost:8086";
 
-        List<Measurement_Table> resultList = new ArrayList<>();
+          List<Measurement_Table> resultList = new ArrayList<>();
 
-        try (InfluxDBClient client = InfluxDBClientFactory.create(influxUrl, token.toCharArray())) {
+          try (InfluxDBClient client = InfluxDBClientFactory.create(influxUrl, token.toCharArray())) {
 
-            long startNano = startTime.toInstant().toEpochMilli() * 1_000_000;
-            long endNano = endTime.toInstant().toEpochMilli() * 1_000_000;
+              long startNano = startTime.toInstant().toEpochMilli() * 1_000_000;
+              long endNano = endTime.toInstant().toEpochMilli() * 1_000_000;
 
-            String query = String.format("from(bucket: \"%s\") " +
-                            "|> range(start: %d, stop: %d)"+
-                            "|> filter(fn: (r) => r[\"_measurement\"] == \"measurement_table\")" +
-                            "|> filter(fn: (r) => r[\"_field\"] == \"value\")\n" +
-                            "  |> filter(fn: (r) => r[\"measurement_id\"] == \"10\")"
-                    , bucket, startNano, endNano);
+              String query = String.format("from(bucket: \"%s\") " +
+                              "|> range(start: %d, stop: %d)"+
+                              "|> filter(fn: (r) => r[\"_measurement\"] == \"measurement_table\")" +
+                              "|> filter(fn: (r) => r[\"_field\"] == \"value\")\n" +
+                              "  |> filter(fn: (r) => r[\"measurement_id\"] == \"10\")"
+                      , bucket, startNano, endNano);
 
-            QueryApi queryApi = client.getQueryApi();
-            List<FluxTable> tables = queryApi.query(query, org);
+              QueryApi queryApi = client.getQueryApi();
+              List<FluxTable> tables = queryApi.query(query, org);
 
-            for (FluxTable fluxTable : tables) {
-                List<FluxRecord> records = fluxTable.getRecords();
-                for (FluxRecord fluxRecord : records) {
-                    Measurement_Table measurementTable = new Measurement_Table();
-                    measurementTable.setTimeInstance(fluxRecord.getTime());
-                    measurementTable.setValue(new BigDecimal(fluxRecord.getValueByKey("_value").toString()));
-                    resultList.add(measurementTable);
-                }
-            }
+              for (FluxTable fluxTable : tables) {
+                  List<FluxRecord> records = fluxTable.getRecords();
+                  for (FluxRecord fluxRecord : records) {
+                      Measurement_Table measurementTable = new Measurement_Table();
+                      measurementTable.setTimeInstance(fluxRecord.getTime());
+                      measurementTable.setValue(new BigDecimal(fluxRecord.getValueByKey("_value").toString()));
+                      resultList.add(measurementTable);
+                  }
+              }
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return resultList;
-    }*/
+          } catch (Exception e) {
+              e.printStackTrace();
+          }
+          return resultList;
+      }*/
     public static void main(String[] args) {
 
         Instant startInstant = Instant.parse("2023-10-01T00:00:00Z");
