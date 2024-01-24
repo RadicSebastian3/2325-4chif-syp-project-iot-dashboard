@@ -134,7 +134,9 @@ public class FileProcessorHelper {
                                 jsonNode.get("UnitStr").asText(),
                                 jsonNode.get("Values").get(0).get("Val").doubleValue()),
                         jsonNode.get("Id").asLong());
-              JsonRepository.insertMeasurement(sensorValue);
+                if ( jsonNode.get("UnitStr").asText().equals("W") || jsonNode.get("UnitStr").asText().equals("Wh")) {
+                    JsonRepository.insertMeasurement(sensorValue);
+                }
 
             }
 
