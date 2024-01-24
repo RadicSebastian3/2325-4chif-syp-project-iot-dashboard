@@ -17,6 +17,7 @@ public class JsonRepository {
         String bucket = "db";
         String org = "Leoenergy";
         String influxUrl = "http://localhost:8086";
+
         try {
             InfluxDBClient client = InfluxDBClientFactory.create(influxUrl, token.toCharArray());
             WriteApiBlocking writeApi = client.getWriteApiBlocking();
