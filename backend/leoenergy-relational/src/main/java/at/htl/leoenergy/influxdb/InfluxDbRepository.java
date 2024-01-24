@@ -11,9 +11,9 @@ import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.concurrent.TimeUnit;
 
-public class JsonRepository {
+public class InfluxDbRepository {
     public static void insertMeasurement(Sensor_Value sensor_value) {
-        String token = "qwI8IEYW52ragsR2lZvEKxSXvhOcQ6J4klG0h8JGbJ1Q3-4IEG0WRRCOfCS0Nt70MR83BwmDnLaNx7cYEefpCw==";
+        String token = "naw5uIdPPVNfNoAfWs2xKYlwfmnIdta00ZYHvUuiCwIyCDCBKta_Ehp3yb2pVXx12z3esFSLlDbJbJVSmP25qg==";
         String bucket = "db";
         String org = "Leoenergy";
         String influxUrl = "http://localhost:8086";
@@ -24,8 +24,8 @@ public class JsonRepository {
             long currentTimeInNanoseconds = TimeUnit.SECONDS.toNanos(sensor_value.getTime());
 
             Point point = Point.measurement("Sensor_Values")
-                    .addField("measurement_id",sensor_value.getMeasurementId().toString())
                     .addTag("device_id",String.valueOf(sensor_value.getDeviceId()))
+                    .addTag("measurement_id",String.valueOf(sensor_value.getMeasurementId()))
                     .addField("value", sensor_value.getValue())
                     .time(currentTimeInNanoseconds,WritePrecision.NS);
 

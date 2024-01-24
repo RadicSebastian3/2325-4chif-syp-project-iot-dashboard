@@ -1,9 +1,8 @@
 package at.htl.leoenergy.controller;
 
-import at.htl.leoenergy.entity.SensorDetails;
 import at.htl.leoenergy.entity.Device;
 import at.htl.leoenergy.entity.Sensor_Value;
-import at.htl.leoenergy.influxdb.JsonRepository;
+import at.htl.leoenergy.influxdb.InfluxDbRepository;
 import at.htl.leoenergy.influxdb.UnitConverter;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -129,8 +128,9 @@ public class FileProcessorHelper {
                                 jsonNode.get("Values").get(0).get("Val").doubleValue()),
                         jsonNode.get("Id").asLong());
 
-                    JsonRepository.insertMeasurement(sensorValue);
-
+                if ( jsonNode.get("UnitStr").asText().equals("W") || jsonNode.get("UnitStr").asText().equals("Wh")) {
+                    InfluxDbRepository.insertMeasurement(sensorValue);
+                }
             }
 
         } catch (IOException e) {
