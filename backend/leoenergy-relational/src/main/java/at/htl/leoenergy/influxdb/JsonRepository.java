@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 public class JsonRepository {
     public static void insertMeasurement(Sensor_Value sensor_value) {
-        String token = "9gSDf_6aQw1RH0d2UgcXBNbh0yEQuBsdSPa1TrIxiwwaOwPON-JQ7_0xIAopKCT0EaBsTZ3JoUa7KY_Lk_VYsQ==";
+        String token = "yNVwoiBkvoi0BlWLQkIvOmJEKWNXbScj7JY5UgfnaFBG2CrAlI6EOwkkP9AIXXp5wMEBGe3ufAhJVJT2JAffng==";
         String bucket = "db";
         String org = "Leoenergy";
         String influxUrl = "http://localhost:8086";
@@ -22,6 +22,7 @@ public class JsonRepository {
             WriteApiBlocking writeApi = client.getWriteApiBlocking();
 
           long currentTimeInNanoseconds = TimeUnit.SECONDS.toNanos(sensor_value.getTime());
+            System.out.println(sensor_value.getValue());
 
             Point point = Point.measurement("Sensor_Values")
                     .addField("measurement_id",sensor_value.getMeasurementId().toString())

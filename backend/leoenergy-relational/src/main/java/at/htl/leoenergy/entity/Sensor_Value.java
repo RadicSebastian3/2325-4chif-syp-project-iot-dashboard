@@ -31,7 +31,7 @@ public class Sensor_Value {
     }
 
 
-    public Sensor_Value(Long measurementId, long time, double value,long deviceId) {
+    public Sensor_Value(long deviceId, long time, double value,Long measurementId) {
         this.measurementId = measurementId;
         this.time = time;
         this.value = value;
