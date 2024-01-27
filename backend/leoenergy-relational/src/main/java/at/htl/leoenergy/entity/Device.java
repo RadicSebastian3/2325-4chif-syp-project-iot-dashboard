@@ -2,15 +2,11 @@ package at.htl.leoenergy.entity;
 
 import jakarta.persistence.*;
 
-import java.math.BigInteger;
-
 @Entity
 @Table(name = "DEVICE")
 public class Device {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private int deviceId;
+    @Id
+    private int Id;
     private String manufacturerId;
     private String medium;
     private String name;
@@ -21,7 +17,7 @@ public class Device {
     }
 
     public Device(int deviceId, String manufacturerId, String medium, String name, String site) {
-        this.deviceId = deviceId;
+        this.Id = deviceId;
         this.manufacturerId = manufacturerId;
         this.medium = medium;
         this.name = name;
@@ -30,20 +26,13 @@ public class Device {
     //endregion
 
     //region getter and setter
-    public Long getId() {
-        return id;
+
+    public int getId() {
+        return Id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public int getDeviceId() {
-        return deviceId;
-    }
-
-    public void setDeviceId(int deviceId) {
-        this.deviceId = deviceId;
+    public void setId(int deviceId) {
+        this.Id = deviceId;
     }
 
     public String getManufacturerId() {

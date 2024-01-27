@@ -1,19 +1,24 @@
 package at.htl.leoenergy.influxdb;
 
-import at.htl.leoenergy.entity.Sensor_Value;
+import at.htl.leoenergy.controller.DeviceRepository;
+import at.htl.leoenergy.entity.Device;
+import at.htl.leoenergy.entity.SensorValue;
 import com.influxdb.client.InfluxDBClient;
 import com.influxdb.client.InfluxDBClientFactory;
 import com.influxdb.client.WriteApiBlocking;
 import com.influxdb.client.domain.WritePrecision;
 import com.influxdb.client.write.Point;
+import jakarta.inject.Inject;
 
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.concurrent.TimeUnit;
 
 public class InfluxDbRepository {
-    public static void insertMeasurement(Sensor_Value sensor_value) {
-        String token = "naw5uIdPPVNfNoAfWs2xKYlwfmnIdta00ZYHvUuiCwIyCDCBKta_Ehp3yb2pVXx12z3esFSLlDbJbJVSmP25qg==";
+     DeviceRepository  deviceRepository;
+
+    public static void insertMeasurement(SensorValue sensorValue, Device device) {
+        String token = "86m4tuIKyWMUg99vSfam99YmxL0Cq7zKeqGbt44CuexS922guc1GpQHCKuwmoABvqnS0OMEWao7onglDn0jGCQ==";
         String bucket = "db";
         String org = "Leoenergy";
         String influxUrl = "http://localhost:8086";
@@ -21,12 +26,14 @@ public class InfluxDbRepository {
             InfluxDBClient client = InfluxDBClientFactory.create(influxUrl, token.toCharArray());
             WriteApiBlocking writeApi = client.getWriteApiBlocking();
 
-            long currentTimeInNanoseconds = TimeUnit.SECONDS.toNanos(sensor_value.getTime());
+            long currentTimeInNanoseconds = TimeUnit.SECONDS.toNanos(sensorValue.getTime());
 
             Point point = Point.measurement("Sensor_Values")
-                    .addTag("device_id",String.valueOf(sensor_value.getDeviceId()))
-                    .addTag("measurement_id",String.valueOf(sensor_value.getMeasurementId()))
-                    .addField("value", sensor_value.getValue())
+                    .addTag("device_name",device.getName())
+                    .addTag("measurement_id",String.valueOf(sensorValue.getMeasurementId()))
+                    .addField("value", sensorValue.getValue())
+                    .addTag("unit",sensorValue.getUnit())
+                    .addField("description",sensorValue.getDescription())
                     .time(currentTimeInNanoseconds,WritePrecision.NS);
 
             writeApi.writePoint(bucket, org, point);

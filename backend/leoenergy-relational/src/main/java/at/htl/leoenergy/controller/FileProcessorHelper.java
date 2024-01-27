@@ -1,7 +1,7 @@
 package at.htl.leoenergy.controller;
 
 import at.htl.leoenergy.entity.Device;
-import at.htl.leoenergy.entity.Sensor_Value;
+import at.htl.leoenergy.entity.SensorValue;
 import at.htl.leoenergy.influxdb.InfluxDbRepository;
 import at.htl.leoenergy.influxdb.UnitConverter;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -27,8 +27,6 @@ public class FileProcessorHelper {
     @Inject
     private DeviceRepository deviceRepository;
 
-    @Inject
-    private SensorDetailsRepository sensorDetailsRepository;
 
     private long processedFileCount = 0;
 
@@ -116,20 +114,22 @@ public class FileProcessorHelper {
                         jsonRoot.at("/Device/Name").asText(),
                         jsonRoot.at("/Device/Site").asText()
                 );
+                deviceRepository.persist(device);
             }
 
             ArrayNode valueArray = (ArrayNode) jsonRoot.at("/Device/ValueDescs");
             for (JsonNode jsonNode : valueArray) {
-
-                Sensor_Value sensorValue = new Sensor_Value(jsonNode.get("DeviceId").asLong(),
+                SensorValue sensorValue = new SensorValue(jsonNode.get("DeviceId").asLong(),
                         jsonNode.get("Values").get(0).get("Timestamp").asLong(),
                         UnitConverter.convertToKilowatt(
                                 jsonNode.get("UnitStr").asText(),
                                 jsonNode.get("Values").get(0).get("Val").doubleValue()),
-                        jsonNode.get("Id").asLong());
+                        jsonNode.get("Id").asLong(),
+                        jsonNode.get("DescriptionStr").asText(),
+                        jsonNode.get("UnitStr").asText());
 
-                if ( jsonNode.get("UnitStr").asText().equals("W") || jsonNode.get("UnitStr").asText().equals("Wh")) {
-                    InfluxDbRepository.insertMeasurement(sensorValue);
+               if ( jsonNode.get("UnitStr").asText().equals("W") || jsonNode.get("UnitStr").asText().equals("Wh")) {
+                    InfluxDbRepository.insertMeasurement(sensorValue,deviceRepository.findById(sensorValue.getDeviceId()));
                 }
             }
 
