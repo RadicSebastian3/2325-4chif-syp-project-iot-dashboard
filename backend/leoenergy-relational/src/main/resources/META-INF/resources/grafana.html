@@ -2,11 +2,33 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Grafana-Graph</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grafana Embedding</title>
+
+    <style>
+        .dashboard-container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .dashboard {
+            width: 50%;
+            height: 300px;
+            box-sizing: border-box;
+        }
+    </style>
 </head>
 <body>
-<iframe src="http://localhost:3000/dashboard/snapshot/ZH1oBppmd1kgASGoyoHxa8rg2tNHaLOu"
-        title="Grafana Dashboard Snapshot">
-</iframe>
+<div class="dashboard-container">
+    <div class="dashboard">
+        <iframe src="http://localhost:3000/d-solo/de09d755-9f14-48ea-a0b4-3e067e5da91d/new-dashboard?orgId=1&from=1693519200000&to=1704236399000&panelId=1" width="100%" height="100%" frameborder="0"></iframe>    </div>
+    <div class="dashboard">
+        <iframe src="http://localhost:3000/d-solo/de09d755-9f14-48ea-a0b4-3e067e5da91d/new-dashboard?orgId=1&from=1693519200000&to=1704236399000&panelId=2" width="100%" height="100%"frameborder="0"></iframe>    </div>
+    <div class="dashboard">
+        <iframe src="http://localhost:3000/d-solo/de09d755-9f14-48ea-a0b4-3e067e5da91d/new-dashboard?orgId=1&from=1693519200000&to=1704236399000&panelId=3" width="100%" height="100%" frameborder="0"></iframe>    </div>
+    <div class="dashboard">
+        <iframe src="http://localhost:3000/d-solo/de09d755-9f14-48ea-a0b4-3e067e5da91d/new-dashboard?orgId=1&from=1693519200000&to=1704236399000&panelId=4" width="100%" height="100%" frameborder="0"></iframe>    </div>
+</div>
 </body>
 </html>
