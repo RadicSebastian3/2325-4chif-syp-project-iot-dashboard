@@ -114,7 +114,8 @@ public class FileProcessorHelper {
                         jsonRoot.at("/Device/Name").asText(),
                         jsonRoot.at("/Device/Site").asText()
                 );
-                deviceRepository.persist(device);
+                deviceRepository.persistAndFlush(device);
+
             }
 
             ArrayNode valueArray = (ArrayNode) jsonRoot.at("/Device/ValueDescs");
