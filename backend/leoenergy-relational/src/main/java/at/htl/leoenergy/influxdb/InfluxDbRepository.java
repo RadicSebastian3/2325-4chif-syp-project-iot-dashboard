@@ -18,7 +18,7 @@ public class InfluxDbRepository {
      DeviceRepository  deviceRepository;
 
     public static void insertMeasurement(SensorValue sensorValue, Device device) {
-        String token = "qwI8IEYW52ragsR2lZvEKxSXvhOcQ6J4klG0h8JGbJ1Q3-4IEG0WRRCOfCS0Nt70MR83BwmDnLaNx7cYEefpCw==";
+        String token = "HNRfqYhoTW4-Ychwv_Cvj92mlK9AlLKx0qCb1PFVo1JcP9URl3xqr9F4aYR5ZNwHYHFB7e4BAQHuowsGoagp5g==";
         String bucket = "db";
         String org = "Leoenergy";
         String influxUrl = "http://localhost:8086";
