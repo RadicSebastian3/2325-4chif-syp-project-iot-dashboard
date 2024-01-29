@@ -15,7 +15,7 @@
 
 
 == Architektur
-* in progress
+image::architecture.png[]
 
 == Was ist MQTT?
 image:mqqt.png[]
