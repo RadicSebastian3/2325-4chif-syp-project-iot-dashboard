@@ -10,7 +10,7 @@
 
 [.font-xx-large]
 == Was ist Leoenergy?
-* Dashboard für den Energieverbrauch und -verkauf an der HTL Leonding
+* Dashboard für den Energieverbrauch an der HTL Leonding
 * Wann wurde wie viel Strom verbraucht oder generiert?
 
 
