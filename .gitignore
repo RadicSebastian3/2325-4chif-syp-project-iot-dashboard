@@ -1,5 +1,7 @@
 .idea/
 dist
+data/
+**/data/
 
 # Created by https://www.toptal.com/developers/gitignore/api/java,maven,intellij,jetbrains
 # Edit at https://www.toptal.com/developers/gitignore?templates=java,maven,intellij,jetbrains
