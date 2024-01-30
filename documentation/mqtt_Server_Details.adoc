@@ -6,4 +6,6 @@
 * UnitStr
 * Values
 * DescriptionStr
-* UnitStr
+* Id
+* ManufacturerId
+* Name (Device Name)

@@ -1,11 +1,15 @@
 :toc:
 :sectnums:
 
-= InlfuxDB Aggregation | Said Nurceski
+= InfluxDB Aggregation | Said Nurceski
 
-=== Wichtig! Erstellen Sie folgende Buckets, bevor Sie die Aggregation laufen lassen.
+== Aufgabe
+* Aggregation für alle Devices mit Zähler und Power
+* Jede Stunde ist die Task geplant und die Daten werden in den jeweiligen Buckets gespeichert
 
-== Buckets für die Aggregation
+== Wichtig! Erstellen Sie folgende Buckets, bevor Sie die Aggregation laufen lassen.
+
+=== Buckets für die Aggregation
 
 * `Energie_Gesamt`: Hier werden Zähler und Power von Energie-Gesamt-HTL gespeichert
 * `PV_Energie`: Hier werden Zähler und Power von EMU PV-Energie gespeichert
