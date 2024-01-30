@@ -43,6 +43,8 @@ sudo apt-get install grafana
 sudo apt-get install grafana-enterprise
 ----
 
+* for more information on downlaod visit https://grafana.com/docs/grafana/latest/setup-grafana/installation/debian/[Download Grafana]
+
 == Start Grafana
 
 .To start the service, run the following commands:
@@ -72,7 +74,6 @@ sudo systemctl stop grafana-server
 localhost:3000
 ----
 
-* for more information on downlaod visit https://grafana.com/docs/grafana/latest/setup-grafana/installation/debian/[Download Grafana]
 * for more information on how to start, restart and stop grafana visit https://grafana.com/docs/grafana/latest/setup-grafana/start-restart-grafana/[Start Grafana]
 
 == Connect InfluxDB with Grafana
@@ -161,7 +162,7 @@ sudo systemctl restart grafana-server
 * Click on the Visualization you want to embed
 ** Click on the Share Button
 * Now you can copy the Link and embed it to your Website
-** It looks like this:
+** It looks something like this:
 ----
 <iframe src="http://localhost:3000/d-solo/c8a2676e-4366-4718-be8c-bb3b11f26395/new-dashboard?orgId=1&from=1698793200000&to=1700953199000&panelId=4" width="450" height="200" frameborder="0"></iframe>
 ----
