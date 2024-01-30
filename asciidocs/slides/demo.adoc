@@ -25,10 +25,9 @@ image:mqqt.png[]
 
 
 
-== Sprint 4 was war zu tun
-** Auf InfluxDB umsteigen
-** Daten Visualizieren mit Graphana und in HTML ausgeben
-
+== Sprint 4: Was war zu tun?
+** InfluxDB statt rel. DB
+** Daten mit Grafana visualisieren
 
 == LIVE DEMO
 image::htlleonding.jpg[background]
