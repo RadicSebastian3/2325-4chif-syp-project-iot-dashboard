@@ -1,7 +1,7 @@
 :toc:
 :sectnums:
 
-= InlfuxDB Aggregation | Said Nurceski
+= InfluxDB Aggregation | Said Nurceski
 
 === Wichtig! Erstellen Sie folgende Buckets, bevor Sie die Aggregation laufen lassen.
 
