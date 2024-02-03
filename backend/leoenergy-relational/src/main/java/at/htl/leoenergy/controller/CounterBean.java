@@ -33,10 +33,9 @@ public class CounterBean {
     }
 
 
- @Scheduled(every="10s")
+    @Scheduled(every="10s")
     void increment() {
         fileProcessorHelper.importJsonFiles(directoryNameAll,200);
         //LIMIT for the datas how many it should read at once
     }
-
 }
