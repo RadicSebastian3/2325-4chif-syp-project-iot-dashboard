@@ -47,6 +47,6 @@ public class MqttReceiver {
     @Incoming(battRemainingCapacityPercentTopic)
     public void receiveBattRemainingCapacityPercent(byte[] byteArray){
         final String msgAsJson = new String(byteArray);
-        Log.info("Received batt remainung capacity %: " + msgAsJson);
+        Log.info("Received batt remaining capacity %: " + msgAsJson);
     }
 }
