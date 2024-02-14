@@ -1,26 +1,22 @@
-package at.htl.leoenergy.entity;
+package at.htlleonding.entity;
 
-import com.influxdb.annotations.Column;
-import com.influxdb.annotations.Measurement;
 
 import java.math.BigInteger;
 import java.time.Instant;
 
-@Measurement(name = "sensor_values")
 public class SensorValue {
-    @Column(tag = true)
+
     private BigInteger id;
-    private long deviceId;
-    @Column(tag = true)
+
+    Device device;
     private Long measurementId;
     private String description;
 
     private String unit;
     private long time;
-    @Column
+
     private double value;
 
-    @Column(timestamp = true)
     Instant timeInstance;
 
 
@@ -29,11 +25,11 @@ public class SensorValue {
     }
 
 
-    public SensorValue(long deviceId, long time, double value, Long measurementId, String description,String unit)  {
+    public SensorValue(Device device, long time, double value, Long measurementId, String description,String unit)  {
         this.measurementId = measurementId;
         this.time = time;
         this.value = value;
-        this.deviceId = deviceId;
+       this.device = device;
         this.description = description;
         this.unit = unit;
     }
@@ -90,14 +86,13 @@ public class SensorValue {
         this.measurementId = measurementId;
     }
 
-    public long getDeviceId() {
-        return deviceId;
+    public Device getDevice() {
+        return device;
     }
 
-    public void setDeviceId(long deviceId) {
-        this.deviceId = deviceId;
+    public void setDevice(Device device) {
+        this.device = device;
     }
-
 
     public void setId(BigInteger id) {
         this.id = id;

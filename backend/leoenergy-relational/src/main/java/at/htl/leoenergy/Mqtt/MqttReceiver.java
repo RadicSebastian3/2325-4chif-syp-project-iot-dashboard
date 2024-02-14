@@ -10,6 +10,6 @@ public class MqttReceiver {
     public void receive(byte[] byteArray){
         final String msgAsJson = new String(byteArray);
         Log.info("received message from broker: " + msgAsJson);
-        MqttData mqttObject = MqttData.convertJsonToMqttData(msgAsJson);
+        //MqttData mqttObject = MqttData.convertJsonToMqttData(msgAsJson);
     }
 }
