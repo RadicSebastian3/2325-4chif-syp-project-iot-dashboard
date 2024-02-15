@@ -15,10 +15,6 @@ public class CounterBean {
 
     @ConfigProperty(name = "json.file-directory-all")
     private String directoryNameAll;
-
-    @ConfigProperty(name = "json.file-directory-midi_700")
-    private String directoryNameMidi_700;
-
     @Inject
     FileProcessorHelper fileProcessorHelper;
     private AtomicInteger counter = new AtomicInteger();
@@ -28,7 +24,7 @@ public class CounterBean {
     }
 
 
-    @Scheduled(every="10s")
+    @Scheduled(every="30s")
     void increment() {
         fileProcessorHelper.importJsonFiles(directoryNameAll,1);
         //LIMIT for the datas how many it should read at once

@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 
 import java.io.IOException;
@@ -23,7 +24,8 @@ import java.util.stream.Stream;
 public class FileProcessorHelper {
 
 
-
+@Inject
+MqttRepository mqttRepository;
 
     private long processedFileCount = 0;
 
@@ -80,6 +82,7 @@ public class FileProcessorHelper {
 
     @Transactional
     void persistInDb(Path filePath) {
+
         ObjectMapper om = new ObjectMapper();
         JsonNode jsonRoot = null;
         Device device = null;
@@ -130,7 +133,8 @@ public class FileProcessorHelper {
 
 
                if ( jsonNode.get("UnitStr").asText().equals("W") || jsonNode.get("UnitStr").asText().equals("Wh")) {
-                   MqttRepository.sendMessage();
+                    mqttRepository.setSensorValuePojo(mqttRepository.convertSensorValueToPojo(sensorValue));
+                    mqttRepository.sendMessage();
                 }
             }
         }
