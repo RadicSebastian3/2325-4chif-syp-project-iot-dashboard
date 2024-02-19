@@ -83,7 +83,7 @@ MqttRepository mqttRepository;
     @Transactional
     void persistInDb(Path filePath) {
 
-        ObjectMapper om = new ObjectMapper();
+      ObjectMapper om = new ObjectMapper();
         JsonNode jsonRoot = null;
         Device device = null;
 
@@ -134,7 +134,6 @@ MqttRepository mqttRepository;
 
                if ( jsonNode.get("UnitStr").asText().equals("W") || jsonNode.get("UnitStr").asText().equals("Wh")) {
                     mqttRepository.setSensorValuePojo(mqttRepository.convertSensorValueToPojo(sensorValue));
-                    mqttRepository.sendMessage();
                 }
             }
         }
