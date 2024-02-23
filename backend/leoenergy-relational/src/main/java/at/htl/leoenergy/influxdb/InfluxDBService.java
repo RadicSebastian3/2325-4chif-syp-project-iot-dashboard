@@ -1,5 +1,6 @@
 package at.htl.leoenergy.influxdb;
 
+import at.htl.leoenergy.influxdb.measurement.TimeSeriesMeasurement;
 import at.htl.leoenergy.mqtt.sunpower.SunPowerPojo;
 import com.influxdb.client.InfluxDBClient;
 import com.influxdb.client.InfluxDBClientFactory;
@@ -29,24 +30,12 @@ public class InfluxDBService {
     @ConfigProperty(name = "influxdb.bucket")
     String bucket;
 
-    public void writeToInflux(SunPowerPojo sunPowerPojo){
+    public void writeToInflux(TimeSeriesMeasurement measurement){
         try(InfluxDBClient client = InfluxDBClientFactory.create(url, token.toCharArray(), org, bucket)){
             try(WriteApi writeApi = client.getWriteApi()){
-
-                Instant timestamp = Instant.ofEpochMilli(sunPowerPojo.getTimeStamp().getTime());
-
-                Point point = Point.measurement("sunpower")
-                        .addTag("device", "SunPowerDevice")
-                        .addField("Consumption_W", sunPowerPojo.getConsumptionW())
-                        .addField("GridFeedIn_W", sunPowerPojo.getGridFeedInW())
-                        .addField("Production_W", sunPowerPojo.getProductionW())
-                        .addField("Batt_remaining_Capacity_Wh", sunPowerPojo.getBattRemainingCapacityWh())
-                        .addField("Batt_remaining_Capacity_%", sunPowerPojo.getBattRemainingCapacityPercent())
-                        .time(timestamp, WritePrecision.NS);
-
+                Point point = measurement.toInfluxDBPoint();
                 writeApi.writePoint(point);
-                Log.info("SunPowerPojo written to InfluxDB: " + sunPowerPojo);
-            }
+                Log.info("Measurement written to InfluxDB: " + measurement);            }
 
         } catch(Exception e){
             Log.error("Failed to write to InfluxDB: " + e.getMessage());
