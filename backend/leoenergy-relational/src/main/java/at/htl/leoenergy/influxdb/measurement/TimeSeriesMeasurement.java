@@ -53,5 +53,16 @@ public class TimeSeriesMeasurement {
                 .addTag("name", name)
                 .addTag("unit", unit)
                 .addField("value", value)
-                .time(timestamp, WritePrecision.NS);    }
+                .time(timestamp, WritePrecision.NS);
+    }
+
+    @Override
+    public String toString() {
+        return "Measurement{" +
+                "name='" + name + '\'' +
+                ", unit='" + unit + '\'' +
+                ", value=" + value +
+                ", timestamp=" + timestamp +
+                '}';
+    }
 }
