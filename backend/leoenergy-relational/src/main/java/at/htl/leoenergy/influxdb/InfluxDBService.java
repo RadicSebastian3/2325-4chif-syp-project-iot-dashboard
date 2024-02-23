@@ -9,17 +9,28 @@ import com.influxdb.client.domain.WritePrecision;
 import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+
 
 import java.time.Instant;
 import java.util.concurrent.TimeUnit;
 
 @ApplicationScoped
 public class InfluxDBService {
-    @Inject
-    InfluxDBConfig config;
+    @ConfigProperty(name = "influxdb.url")
+    String url;
+
+    @ConfigProperty(name = "influxdb.token")
+    String token;
+
+    @ConfigProperty(name = "influxdb.org")
+    String org;
+
+    @ConfigProperty(name = "influxdb.bucket")
+    String bucket;
 
     public void writeToInflux(SunPowerPojo sunPowerPojo){
-        try(InfluxDBClient client = InfluxDBClientFactory.create(config.url, config.token.toCharArray(), config.org, config.bucket)){
+        try(InfluxDBClient client = InfluxDBClientFactory.create(url, token.toCharArray(), org, bucket)){
             try(WriteApi writeApi = client.getWriteApi()){
 
                 Instant timestamp = Instant.ofEpochMilli(sunPowerPojo.getTimeStamp().getTime());
@@ -34,6 +45,7 @@ public class InfluxDBService {
                         .time(timestamp, WritePrecision.NS);
 
                 writeApi.writePoint(point);
+                Log.info("SunPowerPojo written to InfluxDB: " + sunPowerPojo);
             }
 
         } catch(Exception e){
