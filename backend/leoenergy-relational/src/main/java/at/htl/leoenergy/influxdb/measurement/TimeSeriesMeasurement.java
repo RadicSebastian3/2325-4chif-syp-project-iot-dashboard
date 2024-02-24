@@ -50,10 +50,10 @@ public class TimeSeriesMeasurement {
 
     public Point toInfluxDBPoint(){
         return Point.measurement(name)
-                .addTag("name", name)
+                .addTag("measurement_name", name)
                 .addTag("unit", unit)
                 .addField("value", value)
-                .time(timestamp, WritePrecision.NS);
+                .time(timestamp * 1000000, WritePrecision.NS);
     }
 
     @Override
