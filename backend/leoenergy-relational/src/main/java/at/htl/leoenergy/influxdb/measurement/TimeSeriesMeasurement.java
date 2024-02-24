@@ -62,7 +62,7 @@ public class TimeSeriesMeasurement {
                 "name='" + name + '\'' +
                 ", unit='" + unit + '\'' +
                 ", value=" + value +
-                ", timestamp=" + timestamp +
+                ", timestamp=" + timestamp * 1000000 +
                 '}';
     }
 }
