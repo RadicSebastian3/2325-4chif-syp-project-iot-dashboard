@@ -23,12 +23,6 @@ image:mqqt.png[]
 * Protokoll für das Internet der Dinge
 * Alle 5 Minuten Json-Files
 
-
-
-== Sprint 4: Was war zu tun?
-** InfluxDB statt rel. DB
-** Daten mit Grafana visualisieren
-
 == Sprint 6: Was war zu tun?
 ** Kommunikation mit MQTT
 ** SmartHome - SunPower Daten in InfluxDB speichern und mit Grafana visualisieren
