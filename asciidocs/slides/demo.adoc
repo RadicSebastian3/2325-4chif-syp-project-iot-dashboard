@@ -25,8 +25,7 @@ image::architecture.png[]
 == Wer hat was gemacht?
 * Balint
 * Implementierung des MQTT Demo Servers
-* Nachricht an Broker senden
-* Verarbeitung von JSONS
+* Nachricht an Broker senden mit dem Schema, die wir haben wollen
 * Dynamische MQTT-Topics
 
 * Erik
