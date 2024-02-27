@@ -14,8 +14,6 @@
 * Wann wurde wie viel Strom verbraucht oder generiert?
 
 
-== Architektur
-image::architecture.png[]
 
 == Sprint 6: Was war zu tun?
 ** Kommunikation mit MQTT
