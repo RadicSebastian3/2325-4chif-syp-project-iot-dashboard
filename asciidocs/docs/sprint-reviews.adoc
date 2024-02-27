@@ -24,3 +24,14 @@
 *** "Zeile 3 in Diagramm"
 ** in Diagramm ausgeben
 ** Timestamp eingeben -> Daten zu Timestamp ausgeben
+
+== Sprint Review 27.02
+* Dashboard für Kiosk-System machen
+* dynamische Topics mit Zusammenhang und Daten
+* Configure von Graphen auf der Website zum Beispiel: Intervall, Live-Demo refresh rate,
+größe
+* Home eine gute übersicht
+* Und einzeln 4 Verschiedene
+* Verbrauch-Generierung Integrieren Task
+
+
