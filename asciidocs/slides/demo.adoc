@@ -24,23 +24,23 @@ image::architecture.png[]
 
 == Wer hat was gemacht?
 * Balint
-* Implementierung des MQTT Demo Servers
-* Nachricht an Broker senden mit dem Schema, die wir haben wollen
-* Dynamische MQTT-Topics
+** Implementierung des MQTT Demo Servers
+** Nachricht an Broker senden mit dem Schema, die wir haben wollen
+** Dynamische MQTT-Topics
 
 * Erik
-* Erstellen eines neuen Buckets mit einem neuen Schema in influxDB
-* Jede Messung als eigenständiges Objekt persistieren
+** Erstellen eines neuen Buckets mit einem neuen Schema in influxDB
+** Jede Messung als eigenständiges Objekt persistieren
 
 == Wer hat was gemacht?
 * Said
-* Daten aus InfluxDB in Grafana visualisieren
-* HTML
-* Tasks in der Influxdb
+** Daten aus InfluxDB in Grafana visualisieren
+** HTML
+** Tasks in der Influxdb
 
 * Markus
-* Empfang von Nachrichten von SmartHome (dynamisch)
-* Nachrichten in MQTT Pojo-Objekt umwandeln
+** Empfang von Nachrichten von SmartHome (dynamisch)
+** Nachrichten in MQTT Pojo-Objekt umwandeln
 
 == LIVE DEMO
 image::htlleonding.jpg[background]
