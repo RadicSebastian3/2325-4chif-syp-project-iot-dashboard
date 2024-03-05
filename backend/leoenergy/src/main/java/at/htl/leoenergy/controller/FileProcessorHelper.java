@@ -27,7 +27,8 @@ public class FileProcessorHelper {
     @Inject
     private DeviceRepository deviceRepository;
 
-
+    @Inject
+    private InfluxDbRepository influxDbRepository;
     private long processedFileCount = 0;
 
     private long deletedFileCount = 0;
@@ -130,7 +131,7 @@ public class FileProcessorHelper {
                         jsonNode.get("UnitStr").asText());
 
                if ( jsonNode.get("UnitStr").asText().equals("W") || jsonNode.get("UnitStr").asText().equals("Wh")) {
-                    InfluxDbRepository.insertMeasurement(sensorValue,deviceRepository.findById(sensorValue.getDeviceId()));
+                    influxDbRepository.insertMeasurementFromJSON(sensorValue,deviceRepository.findById(sensorValue.getDeviceId()));
                 }
             }
 

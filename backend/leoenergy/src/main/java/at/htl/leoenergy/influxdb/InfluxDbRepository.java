@@ -1,30 +1,39 @@
 package at.htl.leoenergy.influxdb;
 
-import at.htl.leoenergy.controller.DeviceRepository;
 import at.htl.leoenergy.entity.Device;
 import at.htl.leoenergy.entity.SensorValue;
+import at.htl.leoenergy.entity.measurement.TimeSeriesMeasurement;
 import com.influxdb.client.InfluxDBClient;
 import com.influxdb.client.InfluxDBClientFactory;
 import com.influxdb.client.WriteApiBlocking;
 import com.influxdb.client.domain.WritePrecision;
 import com.influxdb.client.write.Point;
-import jakarta.inject.Inject;
+import jakarta.enterprise.context.ApplicationScoped;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.concurrent.TimeUnit;
-
+@ApplicationScoped
 public class InfluxDbRepository {
-     DeviceRepository  deviceRepository;
+    @ConfigProperty(name = "influxdb.url")
+    String influxUrl;
 
-    public static void insertMeasurement(SensorValue sensorValue, Device device) {
-        String token = "uTWTmVznGbdZLn69Bf05cEjmBWIzO8x6e9IXAdN9PrYXhcg3TbgX44HzFDoKN-5j0ETir8V9Du_5OWaYwJ4B_Q==";
-        String bucket = "db";
-        String org = "Leoenergy";
-        String influxUrl = "http://localhost:8086";
+    @ConfigProperty(name = "influxdb.token")
+    String token;
+
+    @ConfigProperty(name = "influxdb.org")
+    String org;
+
+    @ConfigProperty(name = "influxdb.bucket")
+    String bucket;
+
+    public  void insertMeasurementFromJSON(SensorValue sensorValue, Device device) {
+
         try {
             InfluxDBClient client = InfluxDBClientFactory.create(influxUrl, token.toCharArray());
             WriteApiBlocking writeApi = client.getWriteApiBlocking();
+
 
             long currentTimeInNanoseconds = TimeUnit.SECONDS.toNanos(sensorValue.getTime());
 
@@ -35,6 +44,34 @@ public class InfluxDbRepository {
                     .addTag("unit",sensorValue.getUnit())
                     .addField("description",sensorValue.getDescription())
                     .time(currentTimeInNanoseconds,WritePrecision.NS);
+
+            writeApi.writePoint(bucket, org, point);
+
+            client.close();
+
+        } catch (Exception e) {
+            System.err.println("Error writing data to InfluxDB: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    public void insertMQTTMeasurements(TimeSeriesMeasurement measurement) {
+
+        try {
+            InfluxDBClient client = InfluxDBClientFactory.create(influxUrl, token.toCharArray());
+            WriteApiBlocking writeApi = client.getWriteApiBlocking();
+
+            System.out.println(measurement.getTimestamp());
+
+
+            long currentTimeInNanoseconds = TimeUnit.SECONDS.toSeconds(measurement.getTimestamp()) ;
+            System.out.println("HIER NACH UMWANDELUNG " + currentTimeInNanoseconds );
+
+            Point point = Point.measurement("Mqtt-Values")
+                    .addTag("name",measurement.getName())
+                    .addTag("unit",measurement.getUnit())
+                    .addTag("relation",measurement.getRelation())
+                    .addField("value", measurement.getValue())
+                    .time(currentTimeInNanoseconds,WritePrecision.S);
 
             writeApi.writePoint(bucket, org, point);
 

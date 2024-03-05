@@ -1,19 +1,23 @@
-package at.htl.leoenergy.influxdb.measurement;
+package at.htl.leoenergy.entity.measurement;
 
+import at.htl.leoenergy.influxdb.UnitConverter;
 import com.influxdb.client.domain.WritePrecision;
 import com.influxdb.client.write.Point;
 
 public class TimeSeriesMeasurement {
+
+    private String relation;
     private long timestamp;
     private double value;
     private String name;
     private String unit;
 
-    public TimeSeriesMeasurement(long timestamp, double value, String name, String unit) {
+    public TimeSeriesMeasurement(long timestamp, double value, String name, String unit,String relation) {
         this.timestamp = timestamp;
-        this.value = value;
+        this.value = UnitConverter.convertToKilowatt(unit,value);
         this.name = name;
         this.unit = unit;
+        this.relation = relation;
     }
 
     public long getTimestamp() {
@@ -48,12 +52,12 @@ public class TimeSeriesMeasurement {
         this.unit = unit;
     }
 
-    public Point toInfluxDBPoint(){
-        return Point.measurement(name)
-                .addTag("measurement_name", name)
-                .addTag("unit", unit)
-                .addField("value", value)
-                .time(timestamp * 1000000, WritePrecision.NS);
+    public String getRelation() {
+        return relation;
+    }
+
+    public void setRelation(String relation) {
+        this.relation = relation;
     }
 
     @Override
