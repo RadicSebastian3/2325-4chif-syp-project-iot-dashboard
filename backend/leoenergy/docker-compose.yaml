@@ -20,13 +20,12 @@ services:
     volumes:
       - $PWD/data/influxdb:/var/lib/influxdb
   grafana:
-    image: grafana/grafana-enterprise
-    user: "1000"
+    image: grafana/grafana:latest
     container_name: grafana
     restart: unless-stopped
     environment:
-      - GF_PATHS_CONFIG=/etc/grafana/custom.ini
+      - GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource
     ports:
       - "3000:3000"
     volumes:
-      - grafana-data:/var/lib/grafana
+      - $PWD/data/grafana:/var/lib/grafana
