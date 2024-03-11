@@ -1,42 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grafana Zeitleiste</title>
+    <title>Grafana Dashboard</title>
 </head>
 <body>
-<div>
-    <select id="timeRangeSelector" onchange="updateChart()">
-        <option value="5m">Letzte 5 Minuten</option>
-        <option value="15m">Letzte 15 Minuten</option>
-        <option value="1h">Letzte Stunde</option>
-    </select>
-</div>
-<iframe id="chartFrame" src="" width="800" height="600" frameborder="0"></iframe>
+<button onclick="changeTimeframe('5m')">5 Minuten</button>
+<button onclick="changeTimeframe('1h')">1 Stunde</button>
+<button onclick="changeTimeframe('4h')">4 Stunden</button>
+<button onclick="changeTimeframe('1d')">1 Tag</button>
+
+<iframe id="grafanaDashboard" src="http://localhost:3000/d-solo/de09d755-9f14-48ea-a0b4-3e067e5da91d/new-dashboard?orgId=1&refresh=5s&from=now-5m&to=now&panelId=4" width="450" height="200" frameborder="0"></iframe>
 
 <script>
-    function updateChart() {
-        var selectElement = document.getElementById("timeRangeSelector");
-        var selectedValue = selectElement.options[selectElement.selectedIndex].value;
-        var currentTime = new Date().toISOString();
-        var fromTime;
-
-        switch (selectedValue) {
-            case '5m':
-                fromTime = new Date(Date.now() - 5 * 60 * 1000).toISOString(); // 5 Minuten zurück
-                break;
-            case '15m':
-                fromTime = new Date(Date.now() - 15 * 60 * 1000).toISOString(); // 15 Minuten zurück
-                break;
-            case '1h':
-                fromTime = new Date(Date.now() - 60 * 60 * 1000).toISOString(); // 1 Stunde zurück
-                break;
-        }
-
-        var chartURL = "http://localhost:3000/d-solo/de09d755-9f14-48ea-a0b4-3e067e5da91d/new-dashboard?orgId=1&from=" + fromTime + "&to=" + currentTime + "&panelId=6&refresh=20s";
-        console.log(chartURL); // Zur Überprüfung des generierten chartURL-Werts
-        document.getElementById("chartFrame").src = chartURL;
+    function changeTimeframe(timeframe) {
+        var iframe = document.getElementById('grafanaDashboard');
+        var currentUrl = iframe.src;
+        var newUrl = currentUrl.replace(/from=.*?&/, 'from=now-' + timeframe + '&');
+        iframe.src = newUrl;
     }
 </script>
 </body>
