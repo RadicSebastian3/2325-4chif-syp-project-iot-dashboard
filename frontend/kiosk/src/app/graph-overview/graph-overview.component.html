@@ -21,7 +21,7 @@
 <div *ngIf="currentGraph != null" class="centered-div">
   <h1>{{currentGraph.name}}</h1>
   <p>{{currentGraph.description}}</p>
-  <iframe [src]="getSafeUrl(currentGraph.iFrameLink)" width="900" height="400" frameborder="0"></iframe>
+  <iframe [src]="getSafeUrl(currentGraph.iFrameLink)" class="graph-iframe"></iframe>
 </div>
 
 <button (click)="alert('LeoEnergy: SYP project 4BHIF, WTFPL licensed')" class="about-button">About</button>

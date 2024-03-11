@@ -32,3 +32,8 @@ body, html {
 .about-button:hover {
   background-color: #17a2b8; /* Change the background color on hover */
 }
+
+.graph-iframe{
+  width: 1800px;
+  height: 600px
+}
