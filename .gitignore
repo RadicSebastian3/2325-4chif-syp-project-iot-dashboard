@@ -241,3 +241,6 @@ buildNumber.properties
 
 # End of https://www.toptal.com/developers/gitignore/api/java,maven,intellij,jetbrains
 **/json/
+/frontend/kiosk/node_modules/
+node_modules/
+/backend/leoenergy-relational/db-postgres/

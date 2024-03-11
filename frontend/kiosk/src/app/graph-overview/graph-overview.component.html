@@ -1,0 +1,27 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <img class="navbar-brand" width="150" src="assets/images/leoenergy-logo.jpeg" alt="Leoenergy Kiosk">
+
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item" *ngFor="let graph of graphs; let i = index;">
+        <a (click)="setCurrentGraphWithIndex(i); kioskMode = false; deactivateKioskMode();" class="nav-link" href="#">{{ graph.name }}</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="top-right-corner">
+  <p>Kiosk-Mode</p>
+  <input type="checkbox" [(ngModel)]="kioskMode" (change)="kioskModeChecker()">
+  <br>
+  <p>Interval: {{interval}}</p>
+  <input type="range" min="1" max="60" value="15" class="slider" [(ngModel)]="interval" (change)="deactivateKioskMode(); kioskModeChecker()">
+</div>
+
+<div *ngIf="currentGraph != null" class="centered-div">
+  <h1>{{currentGraph.name}}</h1>
+  <p>{{currentGraph.description}}</p>
+  <iframe [src]="getSafeUrl(currentGraph.iFrameLink)" width="900" height="400" frameborder="0"></iframe>
+</div>
+
+<button (click)="alert('LeoEnergy: SYP project 4BHIF, WTFPL licensed')" class="about-button">About</button>

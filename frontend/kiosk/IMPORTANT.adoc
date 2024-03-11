@@ -1,0 +1,29 @@
+= Angular: Kiosk-System für Grafana
+
+== Rechte für Einbettung in HTML erteilen
+
+*im Terminal des Betriebssystemes oder ggf. in der CLI des Containers*
+
+[source, bash]
+----
+cd /usr/share/grafana/conf
+gedit defaults.ini
+-> Wert allow_embedding suchen und auf true setzen!
+
+cd /etc/grafana
+gedit grafana.ini
+-> Wert allow_embedding am Ende der Datei hinzufügen und auf true setzen!
+----
+
+== Routen zu Graphen festlegen
+
+In der JSON-Datei `src/assets/data/graph-data.json` wird ein Array für die Graph-Daten festgelegt
+(Titel, Beschreibung, Link für iframe)
+
+== Angular-Server starten
+
+[source, bash]
+----
+npm install
+ng serve
+----
