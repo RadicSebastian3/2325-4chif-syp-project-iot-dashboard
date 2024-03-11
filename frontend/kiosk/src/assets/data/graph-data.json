@@ -1,0 +1,27 @@
+  [
+    {
+      "name": "Graph1",
+      "description": "Example Graph",
+      "iFrameLink": "http://localhost:3000/d-solo/b325e60f-1876-46a9-bed7-6aaaae7f4cad/speedtest-hisotry?orgId=1&from=1707904249238&to=1707904473191&panelId=1"
+    },
+    {
+      "name": "Graph2",
+      "description": "Another Example Graph",
+      "iFrameLink": "http://localhost:3000/d-solo/b325e60f-1876-46a9-bed7-6aaaae7f4cad/speedtest-hisotry?orgId=1&from=1707904249238&to=1707904473191&panelId=1"
+    },
+    {
+      "name": "HalloAngularJS",
+      "description": "Weiterer Test",
+      "iFrameLink": "http://localhost:3000/d-solo/b325e60f-1876-46a9-bed7-6aaaae7f4cad/speedtest-hisotry?orgId=1&from=1707904249238&to=1707904473191&panelId=1"
+    },
+    {
+      "name": "Erikson",
+      "description": "Zserwas",
+      "iFrameLink": "https://www.oefb.at/bewerbe/oefb2/person/images/1278650591628556536_4cdf1614f4482c7a8b85-1,0-600x315-600x315.png"
+    },
+    {
+      "name": "Lol",
+      "description": "lll",
+      "iFrameLink": "https://www.htl-leonding.at/"
+    }
+  ]
