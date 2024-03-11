@@ -60,11 +60,8 @@ public class InfluxDbRepository {
             InfluxDBClient client = InfluxDBClientFactory.create(influxUrl, token.toCharArray());
             WriteApiBlocking writeApi = client.getWriteApiBlocking();
 
-            System.out.println(measurement.getTimestamp());
-
 
             long currentTimeInNanoseconds = TimeUnit.SECONDS.toSeconds(measurement.getTimestamp()) ;
-            System.out.println("HIER NACH UMWANDELUNG " + currentTimeInNanoseconds );
 
             Point point = Point.measurement("Mqtt-Values")
                     .addTag("name",measurement.getName())

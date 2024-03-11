@@ -19,6 +19,7 @@ import jakarta.json.bind.JsonbBuilder;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
+import org.eclipse.paho.client.mqttv3.MqttCallback;
 
 
 import java.io.IOException;
@@ -52,6 +53,7 @@ public class MqttRepository {
         String topic = "leoenergy-demo/" + entry.getKey() + "/" + measurementId;
         MqttMessage<String> message = MqttMessage.of(topic,entry.getValue());
         emitter.send(message);
+
     }
 
     public Map<String,String> createPayload(SensorValue sensorValue) throws JsonProcessingException {
