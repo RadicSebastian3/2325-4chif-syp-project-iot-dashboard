@@ -1,5 +1,3 @@
-= Leoenergy
-
 :revealjs_theme: moon
 :revealjs_history: true
 :imagesdir: images
@@ -7,12 +5,14 @@
 :title-slide-transition: zoom
 :title-slide-transition-speed: fast
 :title-slide-background-image: htlleonding.jpg
+:title-slide-image: logo.png
+
+image::logo.png[]
 
 [.font-xx-large]
 == Was ist Leoenergy?
 * Dashboard für den Energieverbrauch an der HTL Leonding
 * Wann wurde wie viel Strom verbraucht oder generiert?
-
 
 
 == Sprint 7: Was war zu tun?
