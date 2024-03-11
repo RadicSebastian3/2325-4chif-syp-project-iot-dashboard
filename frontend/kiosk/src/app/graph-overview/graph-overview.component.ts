@@ -41,6 +41,9 @@ export class GraphOverviewComponent{
   public interval: number = 15;
   subscription! : Subscription;
 
+  public selectedRange: any;
+  public ranges: string[] = ["1h", "4h", "1d", "1w", "1m", "1a"]
+
   public kioskModeChecker() {
     if(this.kioskMode){
       this.activateKioskMode();

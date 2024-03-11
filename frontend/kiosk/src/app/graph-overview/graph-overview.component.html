@@ -16,6 +16,12 @@
   <br>
   <p>Interval: {{interval}}</p>
   <input type="range" min="1" max="60" value="15" class="slider" [(ngModel)]="interval" (change)="deactivateKioskMode(); kioskModeChecker()">
+  <p>Range</p>
+  <select [ngModel]="selectedRange">
+    <option *ngFor="let range of ranges" [ngValue]="range">
+      {{range}}
+    </option>
+  </select>
 </div>
 
 <div *ngIf="currentGraph != null" class="centered-div">
