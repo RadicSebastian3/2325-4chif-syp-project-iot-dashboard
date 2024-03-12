@@ -7,12 +7,14 @@
 :title-slide-background-image: htlleonding.jpg
 :title-slide-image: logo.png
 
+= Leoenergy
+
+
 [.font-xx-large]
 == Was ist Leoenergy?
-image::logo.png[]
 
 * Dashboard für den Energieverbrauch an der HTL Leonding
-* Wann wurde wie viel Strom verbraucht oder generiert?
+* Wann wurde wie viel Strom verbraucht?
 
 
 == Sprint 7: Was war zu tun?
