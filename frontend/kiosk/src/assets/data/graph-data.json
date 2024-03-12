@@ -1,17 +1,27 @@
 [
   {
+    "name": "Overview",
+    "description": "Overview of all Graphs",
+    "iFrameLink": "http://localhost:3000/d-solo/de09d755-9f14-48ea-a0b4-3e067e5da91d/new-dashboard?orgId=1&refresh=5s&from=now-5m&to=now&panelId=8"
+  },
+  {
+    "name": "Consumption / Production",
+    "description": "",
+    "iFrameLink": "http://localhost:3000/d-solo/de09d755-9f14-48ea-a0b4-3e067e5da91d/new-dashboard?orgId=1&refresh=5s&from=now-5m&to=now&panelId=7"
+  },
+  {
     "name": "Production",
     "description": "Produktion von den PV Anlagen",
     "iFrameLink": "http://localhost:3000/d-solo/de09d755-9f14-48ea-a0b4-3e067e5da91d/new-dashboard?orgId=1&refresh=5s&from=now-5m&to=now&panelId=3"
   },
   {
     "name": "Consumption",
-    "description": "Another Example Graph",
-    "iFrameLink": "http://localhost:3000/d-solo/b325e60f-1876-46a9-bed7-6aaaae7f4cad/speedtest-hisotry?orgId=1&from=1707904249238&to=1707904473191&panelId=1"
+    "description": "",
+    "iFrameLink": "http://localhost:3000/d-solo/de09d755-9f14-48ea-a0b4-3e067e5da91d/new-dashboard?orgId=1&refresh=5s&from=now-5m&to=now&panelId=4"
   },
   {
-    "name": "Consumption vs Production",
-    "description": "lll",
-    "iFrameLink": "https://www.htl-leonding.at/"
+    "name": "Battery Capacity in %",
+    "description": "",
+    "iFrameLink": "http://localhost:3000/d-solo/de09d755-9f14-48ea-a0b4-3e067e5da91d/new-dashboard?orgId=1&refresh=5s&from=now-5m&to=now&&panelId=1"
   }
 ]
