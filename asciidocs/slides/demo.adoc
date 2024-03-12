@@ -1,5 +1,3 @@
-= Leoenergy
-
 :revealjs_theme: moon
 :revealjs_history: true
 :imagesdir: images
@@ -7,38 +5,20 @@
 :title-slide-transition: zoom
 :title-slide-transition-speed: fast
 :title-slide-background-image: htlleonding.jpg
+:title-slide-image: logo.png
 
 [.font-xx-large]
 == Was ist Leoenergy?
+image::logo.png[]
+
 * Dashboard für den Energieverbrauch an der HTL Leonding
 * Wann wurde wie viel Strom verbraucht oder generiert?
 
 
-
-== Sprint 6: Was war zu tun?
-** Kommunikation mit MQTT
-** SmartHome - SunPower Daten in InfluxDB speichern und mit Grafana visualisieren
-** MQTT Demo Server implementieren für Schema
-
-== Wer hat was gemacht?
-* Balint
-** Implementierung des MQTT Demo Servers
-** Nachricht an Broker senden mit dem Schema, die wir haben wollen
-** Dynamische MQTT-Topics
-
-* Erik
-** Erstellen eines neuen Buckets mit einem neuen Schema in influxDB
-** Jede Messung als eigenständiges Objekt persistieren
-
-== Wer hat was gemacht?
-* Said
-** Daten aus InfluxDB in Grafana visualisieren
-** HTML
-** Tasks in der Influxdb
-
-* Markus
-** Empfang von Nachrichten von SmartHome (dynamisch)
-** Nachrichten in MQTT Pojo-Objekt umwandeln
+== Sprint 7: Was war zu tun?
+** KIOSK-UI
+** Dynamic-MQTT-Receiver
+** Zusammenhängende Graphen
 
 == LIVE DEMO
 image::htlleonding.jpg[background]
