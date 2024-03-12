@@ -3,8 +3,10 @@ body, html {
   margin: 0;
 }
 
-.settings-box {
-  border: forestgreen;
+.top-right-corner {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .centered-div {
@@ -34,12 +36,4 @@ body, html {
 .graph-iframe{
   width: 1800px;
   height: 600px
-}
-
-.settings-button {
-  border: none;
-  padding: 10px;
-  background-color: transparent;
-  color: forestgreen; /* Set your desired text color */
-  cursor: pointer;
 }

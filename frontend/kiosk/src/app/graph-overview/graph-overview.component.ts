@@ -1,13 +1,14 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Graph} from "../model/Graph";
 import {NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
-import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
+import {DomSanitizer} from "@angular/platform-browser";
 import {HttpClient} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
 import {MatSlideToggle} from "@angular/material/slide-toggle";
-import {interval, Subscription, timer} from "rxjs";
+import {Subscription, timer} from "rxjs";
 import { switchMap } from 'rxjs/operators';
 import {Duration} from "../model/Duration";
+import {GraphComponent} from "../graph/graph.component";
 
 @Component({
   selector: 'app-graph-overview',
@@ -17,7 +18,8 @@ import {Duration} from "../model/Duration";
     NgOptimizedImage,
     NgIf,
     FormsModule,
-    MatSlideToggle
+    MatSlideToggle,
+    GraphComponent
   ],
   templateUrl: './graph-overview.component.html',
   styleUrl: './graph-overview.component.css'
@@ -53,6 +55,8 @@ export class GraphOverviewComponent{
   ];
   public selectedDuration: Duration = this.durations.at(3)!;
 
+  public visible: boolean = false;
+
   public kioskModeChecker() {
     if(this.kioskMode){
       this.activateKioskMode();
@@ -84,8 +88,8 @@ export class GraphOverviewComponent{
   }
 
   public changeDuration(): void {
-    const selectedDuration = this.selectedDuration.short;
-    const durationPattern = /from=now-\d+[a-z]/;
+    const selectedDuration: string = this.selectedDuration.short;
+    const durationPattern: RegExp = /from=now-\d+[a-z]/;
 
     this.graphs.forEach(graph => {
       graph.iFrameLink = graph.iFrameLink.replace(durationPattern, `from=now-${selectedDuration}`);
@@ -99,10 +103,10 @@ export class GraphOverviewComponent{
     return this.currentGraph;
   }
 
-  public getSafeUrl(url: string){
-    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
-  }
-
   protected readonly console = console;
   protected readonly alert = alert;
+
+  public toggleCollapse() {
+    this.visible = !this.visible;
+  }
 }
