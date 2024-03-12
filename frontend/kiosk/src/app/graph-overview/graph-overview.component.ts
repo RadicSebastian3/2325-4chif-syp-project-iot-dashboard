@@ -53,7 +53,7 @@ export class GraphOverviewComponent{
     new Duration("30d", "1 month"),
     new Duration("365d", "1 year")
   ];
-  public selectedDuration: Duration = this.durations.at(3)!;
+  public selectedDuration: Duration = this.durations.at(0)!;
 
   public visible: boolean = false;
 
