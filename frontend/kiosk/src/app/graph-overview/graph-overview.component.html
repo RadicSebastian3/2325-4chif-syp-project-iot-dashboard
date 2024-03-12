@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <img class="navbar-brand" width="150" ngSrc="assets/images/leoenergy-logo.jpeg" alt="Leoenergy Kiosk" height="80">
+  <img class="navbar-brand" width="150" src="assets/images/leoenergy-logo.jpeg" alt="Leoenergy Kiosk">
 
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
@@ -10,20 +10,36 @@
   </div>
 </nav>
 
-<button (click)="toggleCollapse()" class="settings-button">{{visible ? "\u2303" : "\u2304"}}</button>
-
-<div class="settings-box" *ngIf="visible" cCollapse>
-  <p>Kiosk-Mode</p>
-  <input type="checkbox" [(ngModel)]="kioskMode" (change)="kioskModeChecker()">
-  <br>
-  <p>Interval: {{interval}}</p>
-  <input type="range" min="1" max="60" value="15" class="slider" [(ngModel)]="interval" (change)="deactivateKioskMode(); kioskModeChecker()">
-  <p>Range</p>
-  <select [(ngModel)]="selectedDuration" (ngModelChange)="changeDuration()">
-    <option *ngFor="let duration of durations" [ngValue]="duration">{{ duration.long }}</option>
-  </select>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-lg-12">
+      <div *ngIf="currentGraph" class="centered-div">
+        <h1>{{ currentGraph.name }}</h1>
+        <p>{{ currentGraph.description }}</p>
+        <iframe [src]="getSafeUrl(currentGraph.iFrameLink)" width="100%" height="600px" frameborder="0"></iframe>
+      </div>
+    </div>
+  </div>
 </div>
 
-<app-graph [graph]="currentGraph"></app-graph>
-
-<button (click)="alert('LeoEnergy: SYP project 4BHIF, WTFPL licensed')" class="about-button">About</button>
+<div class="dropdown mt-4">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="settingsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+    Settings
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="settingsDropdown">
+    <li class="dropdown-item">
+      <input type="checkbox" [(ngModel)]="kioskMode" (change)="kioskModeChecker()" class="form-check-input me-1">
+      <label class="form-check-label">Kiosk-Mode</label>
+    </li>
+    <li>
+      <p class="dropdown-item">Interval: {{interval}}</p>
+      <input type="range" min="1" max="60" value="15" class="dropdown-item slider" [(ngModel)]="interval" (change)="deactivateKioskMode(); kioskModeChecker()">
+    </li>
+    <li>
+      <p class="dropdown-item text-dark">Range</p>
+      <select class="form-select dropdown-item" [(ngModel)]="selectedDuration" (ngModelChange)="changeDuration()">
+        <option *ngFor="let duration of durations" [ngValue]="duration">{{ duration.long }}</option>
+      </select>
+    </li>
+  </ul>
+</div>

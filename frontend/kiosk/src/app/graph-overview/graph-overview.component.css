@@ -32,9 +32,37 @@ body, html {
 }
 
 .graph-iframe{
-  width: 1800px;
+  width: 1500px;
   height: 600px
 }
+
+.centered-div {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.card {
+  margin-bottom: 20px;
+}
+
+iframe {
+  width: 1500px;
+  height: 800px;
+}
+
+.dropdown-menu {
+  background-color: white;
+}
+
+.dropdown-item {
+  color: black;
+}
+
+.dropdown-item:hover {
+  background-color: white;
+}
+
+
 
 .settings-button {
   border: none;
