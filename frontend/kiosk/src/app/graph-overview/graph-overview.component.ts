@@ -7,6 +7,7 @@ import {FormsModule} from "@angular/forms";
 import {MatSlideToggle} from "@angular/material/slide-toggle";
 import {interval, Subscription, timer} from "rxjs";
 import { switchMap } from 'rxjs/operators';
+import {Duration} from "../model/Duration";
 
 @Component({
   selector: 'app-graph-overview',
@@ -41,8 +42,16 @@ export class GraphOverviewComponent{
   public interval: number = 15;
   subscription! : Subscription;
 
-  public selectedRange: any;
-  public ranges: string[] = ["1h", "4h", "1d", "1w", "1m", "1a"]
+  public durations: Duration[] = [
+    new Duration("5m", "5 minutes"),
+    new Duration("1h", "1 hour"),
+    new Duration("4h", "4 hours"),
+    new Duration("1d", "1 day"),
+    new Duration("7d", "1 week"),
+    new Duration("30d", "1 month"),
+    new Duration("365d", "1 year")
+  ];
+  public selectedDuration: Duration = this.durations.at(3)!;
 
   public kioskModeChecker() {
     if(this.kioskMode){
@@ -72,6 +81,13 @@ export class GraphOverviewComponent{
     }
 
     return this.setCurrentGraphWithIndex(this.currentIndex);
+  }
+
+  public changeDuration() {
+    this.graphs.map(graph => {
+      graph.iFrameLink = graph.iFrameLink.replace(/from=.*?&/, 'from=now-' + this.selectedDuration.short + '&');
+      return graph;
+    })
   }
 
   public setCurrentGraphWithIndex(index: number): Graph {

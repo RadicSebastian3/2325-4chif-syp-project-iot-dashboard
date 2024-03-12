@@ -7,9 +7,9 @@ import {
   __spreadValues,
   first,
   map
-} from "./chunk-6KPNVATA.js";
+} from "./chunk-ZDOIMVJD.js";
 
-// ../../node_modules/@angular/core/fesm2022/primitives/signals.mjs
+// node_modules/@angular/core/fesm2022/primitives/signals.mjs
 function defaultEquals(a, b) {
   return Object.is(a, b);
 }
@@ -373,7 +373,7 @@ var WATCH_NODE = (() => {
   });
 })();
 
-// ../../node_modules/@angular/core/fesm2022/core.mjs
+// node_modules/@angular/core/fesm2022/core.mjs
 var ERROR_DETAILS_PAGE_BASE_URL = "https://angular.io/errors";
 var XSS_SECURITY_URL = "https://g.co/ng/security#xss";
 var RuntimeError = class extends Error {
@@ -21328,4 +21328,4 @@ export {
    * found in the LICENSE file at https://angular.io/license
    *)
 */
-//# sourceMappingURL=chunk-UYCTHQZD.js.map
+//# sourceMappingURL=chunk-CUCTVBR6.js.map
