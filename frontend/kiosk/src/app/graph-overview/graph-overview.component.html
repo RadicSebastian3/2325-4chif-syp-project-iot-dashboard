@@ -17,10 +17,8 @@
   <p>Interval: {{interval}}</p>
   <input type="range" min="1" max="60" value="15" class="slider" [(ngModel)]="interval" (change)="deactivateKioskMode(); kioskModeChecker()">
   <p>Range</p>
-  <select [ngModel]="selectedDuration">
-    <option *ngFor="let duration of durations" [ngValue]="duration" (change)="changeDuration()">
-      {{duration.long}}
-    </option>
+  <select [(ngModel)]="selectedDuration" (ngModelChange)="changeDuration()">
+    <option *ngFor="let duration of durations" [ngValue]="duration">{{ duration.long }}</option>
   </select>
 </div>
 

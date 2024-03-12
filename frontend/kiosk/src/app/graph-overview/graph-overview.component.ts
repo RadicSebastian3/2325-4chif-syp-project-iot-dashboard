@@ -83,12 +83,15 @@ export class GraphOverviewComponent{
     return this.setCurrentGraphWithIndex(this.currentIndex);
   }
 
-  public changeDuration() {
-    this.graphs.map(graph => {
-      graph.iFrameLink = graph.iFrameLink.replace(/from=.*?&/, 'from=now-' + this.selectedDuration.short + '&');
-      return graph;
-    })
+  public changeDuration(): void {
+    const selectedDuration = this.selectedDuration.short;
+    const durationPattern = /from=now-\d+[a-z]/;
+
+    this.graphs.forEach(graph => {
+      graph.iFrameLink = graph.iFrameLink.replace(durationPattern, `from=now-${selectedDuration}`);
+    });
   }
+
 
   public setCurrentGraphWithIndex(index: number): Graph {
     this.currentIndex = index;

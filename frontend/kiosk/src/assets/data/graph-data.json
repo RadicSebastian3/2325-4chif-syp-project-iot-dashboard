@@ -1,26 +1,36 @@
   [
     {
-      "name": "Graph1",
-      "description": "Example Graph",
-      "iFrameLink": "http://localhost:3000/d-solo/b325e60f-1876-46a9-bed7-6aaaae7f4cad/speedtest-hisotry?orgId=1&from=1707904249238&to=1707904473191&panelId=1"
+      "name": "Production",
+      "description": "Produktion von den PV Anlagen",
+      "iFrameLink": "http://localhost:3000/d-solo/de09d755-9f14-48ea-a0b4-3e067e5da91d/new-dashboard?orgId=1&refresh=5s&from=now-5m&to=now&panelId=3"
     },
     {
-      "name": "Graph2",
+      "name": "Consumption",
       "description": "Another Example Graph",
       "iFrameLink": "http://localhost:3000/d-solo/b325e60f-1876-46a9-bed7-6aaaae7f4cad/speedtest-hisotry?orgId=1&from=1707904249238&to=1707904473191&panelId=1"
     },
     {
-      "name": "HalloAngularJS",
+      "name": "Consumption vs Production",
+      "description": "lll",
+      "iFrameLink": "https://www.htl-leonding.at/"
+    },
+    {
+      "name": "Battery Capacity",
       "description": "Weiterer Test",
       "iFrameLink": "http://localhost:3000/d-solo/b325e60f-1876-46a9-bed7-6aaaae7f4cad/speedtest-hisotry?orgId=1&from=1707904249238&to=1707904473191&panelId=1"
     },
     {
-      "name": "Erikson",
+      "name": "Battery Capacity in %",
       "description": "Zserwas",
       "iFrameLink": "https://www.oefb.at/bewerbe/oefb2/person/images/1278650591628556536_4cdf1614f4482c7a8b85-1,0-600x315-600x315.png"
     },
     {
-      "name": "Lol",
+      "name": "All Consumptions",
+      "description": "lll",
+      "iFrameLink": "https://www.htl-leonding.at/"
+    },
+    {
+      "name": "GridFeed",
       "description": "lll",
       "iFrameLink": "https://www.htl-leonding.at/"
     }
