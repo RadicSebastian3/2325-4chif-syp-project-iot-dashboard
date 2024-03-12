@@ -1,7 +1,7 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Graph} from "../model/Graph";
 import {NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
-import {DomSanitizer} from "@angular/platform-browser";
+import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 import {HttpClient} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
 import {MatSlideToggle} from "@angular/material/slide-toggle";
@@ -102,6 +102,11 @@ export class GraphOverviewComponent{
     this.currentGraph = this.graphs[this.currentIndex];
     return this.currentGraph;
   }
+
+  public getSafeUrl(url: string): SafeResourceUrl {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+
 
   protected readonly console = console;
   protected readonly alert = alert;
