@@ -27,6 +27,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.ZoneOffset;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,10 +44,11 @@ public class MqttRepository {
     @Inject
     @Channel("leonergy-demo")
     Emitter<String> emitter;
+    private long fileIndex = 0;
     private AtomicInteger counter = new AtomicInteger();
-    @Scheduled(every = "10s")
+    @Scheduled(every = "300s")
     public void invokeSendPeriodically(){
-        importJsonFiles(directoryNameAll,1);
+        importJsonFiles(directoryNameAll,4);
     }
 
     public void send(Map<String,String> payload,String measurementId){
@@ -65,20 +68,37 @@ public class MqttRepository {
         return sensorValueDetails;
     }
 
-    public void importJsonFiles(String directoryName,int limit) {
-        try (Stream<Path> filePathStream = Files.walk(Paths.get(directoryName)).onClose(() -> {
+    public void importJsonFiles(String directory,int limit) {
+        try (Stream<Path> filePathStream = Files.walk(Paths.get(directory)).onClose(() -> {
         })) {
-            filePathStream
+            // Dateipfade filtern und in eine Liste konvertieren
+            List<Path> filePaths = filePathStream
                     .filter(Files::isRegularFile)
                     .filter(f -> !f.toFile().isHidden())
-                    .limit(limit)
-                    .forEach(filePath -> {
-                        try {
-                            processJsonToSensorValue(filePath);
-                        } catch (JsonProcessingException e) {
-                            throw new RuntimeException(e);
-                        }
-                    });
+                    .toList();
+
+
+            int numFiles = filePaths.size();
+            System.out.println("Size numFiles:" + numFiles);
+
+            // Iteration über die Dateien, beginnend beim aktuellen Index
+            for (int i = 0; i < limit; i++) {
+                // Index der aktuellen Datei im Kreislauf
+                int currentIndex = (int) (fileIndex + i) % numFiles;
+                System.out.println("Aktuelle Index" + currentIndex);
+
+                // Pfad zur aktuellen Datei
+                Path filePath = filePaths.get(currentIndex);
+
+                try {
+                    processJsonToSensorValue(filePath);
+                } catch (JsonProcessingException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+            // Aktuellen Index aktualisieren, um den nächsten Startpunkt festzulegen
+            fileIndex = (fileIndex + limit) % numFiles;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -109,17 +129,18 @@ public class MqttRepository {
         for (JsonNode jsonNode : valueArray) {
 
 
-            long dateNow = 1708367175;
+            LocalDate today = LocalDate.now();
+            LocalDate night = today.atStartOfDay().toLocalDate();
+            long unixTimeStamp = night.atStartOfDay().toEpochSecond(ZoneOffset.UTC);
+
             long timeOfValueInUnix =  jsonNode.get("Values").get(0).get("Timestamp").asLong();
 
-            long diff = dateNow-timeOfValueInUnix; // differenz beetwen today 0:00 and the timestamp
+            long diff = unixTimeStamp-timeOfValueInUnix; // differenz beetwen today 0:00 and the timestamp
             long newDate = diff + timeOfValueInUnix; // calculate new Date for every measurement
 
             SensorValue sensorValue = new SensorValue(device,
                     newDate,
-                    UnitConverter.convertToKilowatt(
-                            jsonNode.get("UnitStr").asText(),
-                            jsonNode.get("Values").get(0).get("Val").doubleValue()),
+                    jsonNode.get("Values").get(0).get("Val").doubleValue(),
                     jsonNode.get("Id").asLong(),
                     jsonNode.get("DescriptionStr").asText(),
                     jsonNode.get("UnitStr").asText());

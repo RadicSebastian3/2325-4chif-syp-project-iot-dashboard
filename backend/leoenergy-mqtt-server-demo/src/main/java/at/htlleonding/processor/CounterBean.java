@@ -1,7 +1,5 @@
 package at.htlleonding.processor;
 
-import at.htlleonding.processor.FileProcessorHelper;
-import at.htlleonding.repository.MqttRepository;
 import io.quarkus.scheduler.Scheduled;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -16,8 +14,7 @@ public class CounterBean {
 
     @ConfigProperty(name = "json.file-directory-all")
     private String directoryNameAll;
-    @Inject
-    FileProcessorHelper fileProcessorHelper;
+
     private AtomicInteger counter = new AtomicInteger();
 
     public int get() {

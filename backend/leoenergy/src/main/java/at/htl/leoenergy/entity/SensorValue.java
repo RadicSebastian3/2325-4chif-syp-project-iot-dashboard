@@ -1,7 +1,10 @@
 package at.htl.leoenergy.entity;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.influxdb.annotations.Column;
 import com.influxdb.annotations.Measurement;
+import io.quarkus.logging.Log;
 
 import java.math.BigInteger;
 import java.time.Instant;
@@ -13,10 +16,14 @@ public class SensorValue {
     private long deviceId;
     @Column(tag = true)
     private Long measurementId;
+
+    private String deviceName;
     private String description;
 
     private String unit;
     private long time;
+
+    private String relation;
     @Column
     private double value;
 
@@ -29,17 +36,27 @@ public class SensorValue {
     }
 
 
-    public SensorValue(long deviceId, long time, double value, Long measurementId, String description,String unit)  {
+    public SensorValue(long deviceId, long time, double value, Long measurementId, String description,String unit, String relation,String deviceName)  {
         this.measurementId = measurementId;
         this.time = time;
         this.value = value;
         this.deviceId = deviceId;
         this.description = description;
         this.unit = unit;
+        this.relation = relation;
     }
 
     public long getTime() {
         return time;
+    }
+    public static SensorValue fromJson(String json){
+        try {
+            return new ObjectMapper().readValue(json, SensorValue.class);
+        } catch (JsonProcessingException e) {
+            Log.error("Error during converting json string to SunPowerPojo!");
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public void setTime(long time) {
@@ -92,6 +109,14 @@ public class SensorValue {
 
     public long getDeviceId() {
         return deviceId;
+    }
+
+    public String getRelation() {
+        return relation;
+    }
+
+    public void setRelation(String relation) {
+        this.relation = relation;
     }
 
     public void setDeviceId(long deviceId) {

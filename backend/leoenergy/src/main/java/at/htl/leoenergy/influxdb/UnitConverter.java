@@ -1,17 +1,21 @@
 package at.htl.leoenergy.influxdb;
 
+import at.htl.leoenergy.entity.SensorValue;
+
 import java.math.BigDecimal;
 
 public class UnitConverter {
-    public static double convertToKilowatt(String unit, double value) {
+    public static double convertToKilowattAndSetRelation(SensorValue sensorValue) {
         double result;
 
-        switch (unit) {
+        switch (sensorValue.getUnit()) {
             case "W":
-                result = value / 1000.0;
+                result = sensorValue.getValue() / 1000.0;
+                sensorValue.setRelation("consumtion w");
                 break;
             case "Wh":
-                result = value / 1000.0;
+                result = sensorValue.getValue() / 1000.0;
+                sensorValue.setRelation("consumtion wh");
                 break;
             case "A":
             case "Bin":
