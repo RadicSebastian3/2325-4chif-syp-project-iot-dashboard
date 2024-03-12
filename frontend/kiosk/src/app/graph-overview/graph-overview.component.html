@@ -17,9 +17,9 @@
   <p>Interval: {{interval}}</p>
   <input type="range" min="1" max="60" value="15" class="slider" [(ngModel)]="interval" (change)="deactivateKioskMode(); kioskModeChecker()">
   <p>Range</p>
-  <select [ngModel]="selectedRange">
-    <option *ngFor="let range of ranges" [ngValue]="range">
-      {{range}}
+  <select [ngModel]="selectedDuration">
+    <option *ngFor="let duration of durations" [ngValue]="duration" (change)="changeDuration()">
+      {{duration.long}}
     </option>
   </select>
 </div>
@@ -27,7 +27,8 @@
 <div *ngIf="currentGraph != null" class="centered-div">
   <h1>{{currentGraph.name}}</h1>
   <p>{{currentGraph.description}}</p>
-  <iframe [src]="getSafeUrl(currentGraph.iFrameLink)" class="graph-iframe"></iframe>
+  <iframe [src]="getSafeUrl(currentGraph.iFrameLink)" width="900" height="400" frameborder="0"></iframe>
+  <p>{{currentGraph.iFrameLink}}</p>
 </div>
 
 <button (click)="alert('LeoEnergy: SYP project 4BHIF, WTFPL licensed')" class="about-button">About</button>
