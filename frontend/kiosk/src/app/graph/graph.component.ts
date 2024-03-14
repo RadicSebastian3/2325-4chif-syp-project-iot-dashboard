@@ -14,6 +14,7 @@ import {NgIf} from "@angular/common";
 })
 export class GraphComponent {
   @Input() public graph: Graph | null = null;
+  @Input() public visible: boolean = false;
 
   public constructor(public sanitizer: DomSanitizer) {
 

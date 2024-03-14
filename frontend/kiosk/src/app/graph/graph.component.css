@@ -3,10 +3,8 @@ body, html {
   margin: 0;
 }
 
-.top-right-corner {
-  position: absolute;
-  top: 0;
-  right: 0;
+.settings-box {
+  border: forestgreen;
 }
 
 .centered-div {
@@ -36,4 +34,38 @@ body, html {
 .graph-iframe{
   width: 1500px;
   height: 600px
+}
+
+.centered-div {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.card {
+  margin-bottom: 20px;
+}
+
+iframe {
+  width: 1500px;
+  height: 800px;
+}
+
+.dropdown-menu {
+  background-color: white;
+}
+
+.dropdown-item {
+  color: black;
+}
+
+.dropdown-item:hover {
+  background-color: white;
+}
+
+.settings-button {
+  border: none;
+  padding: 10px;
+  background-color: transparent;
+  color: forestgreen; /* Set your desired text color */
+  cursor: pointer;
 }

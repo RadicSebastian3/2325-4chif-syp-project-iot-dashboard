@@ -16,11 +16,13 @@
       <div *ngIf="currentGraph" class="centered-div">
         <h1>{{ currentGraph.name }}</h1>
         <p>{{ currentGraph.description }}</p>
-        <iframe [src]="getSafeUrl(currentGraph.iFrameLink)" width="100%" height="600px" frameborder="0"></iframe>
+
       </div>
     </div>
   </div>
 </div>
+
+<app-graph [graph]="currentGraph" [visible]="visible"></app-graph>
 
 <div class="dropdown mt-4">
   <button class="btn btn-secondary dropdown-toggle" type="button" id="settingsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
