@@ -3,6 +3,7 @@ package at.htl.leoenergy.mqtt;
 import at.htl.leoenergy.controller.DeviceRepository;
 import at.htl.leoenergy.entity.SensorValue;
 import at.htl.leoenergy.influxdb.InfluxDbRepository;
+import at.htl.leoenergy.influxdb.UnitConverter;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
@@ -15,17 +16,20 @@ public class MqttReceiver {
     DeviceRepository deviceRepository;
 
    public void insertMeasurement(SensorValue sensorValue){
-       influxDbRepository.insertMeasurementFromJSON(sensorValue,deviceRepository.findById(sensorValue.getDeviceId()));
+       influxDbRepository.insertMeasurementFromJSON(sensorValue);
    }
 
     @Incoming("leoenergy-demo")
     public void receive(byte[] byteArray) {
         String msg = new String(byteArray);
-
-        SensorValue sensorValue = new SensorValue();
-
-        /*Dynamic lösung
-        insertMeasurement(TimeSeriesMeasurement.fromJson(msg));*/
+        try {
+            SensorValue sensorValue = SensorValue.fromJson(msg);
+            UnitConverter.convertToKilowattAndSetRelation(sensorValue);
+            insertMeasurement(sensorValue);
+        }
+        catch (NullPointerException e){
+            e.printStackTrace();
+        }
 
     }
 

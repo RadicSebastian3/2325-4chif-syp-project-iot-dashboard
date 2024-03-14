@@ -24,8 +24,6 @@ public class CounterBean {
     @ConfigProperty(name = "json.file-directory-midi_700")
     private String directoryNameMidi_700;
 
-    @Inject
-    private FileProcessorHelper fileProcessorHelper;
     private AtomicInteger counter = new AtomicInteger();
 
     public int get() {

@@ -2,10 +2,9 @@ package at.htl.leoenergy.entity;
 
 import jakarta.persistence.*;
 
-@Entity
-@Table(name = "DEVICE")
+
 public class Device {
-    @Id
+
     private int Id;
     private String manufacturerId;
     private String medium;

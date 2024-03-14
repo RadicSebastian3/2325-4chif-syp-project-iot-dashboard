@@ -1,5 +1,6 @@
 package at.htl.leoenergy.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.influxdb.annotations.Column;
@@ -15,12 +16,15 @@ public class SensorValue {
     private BigInteger id;
     private long deviceId;
     @Column(tag = true)
+    @JsonProperty(namespace = "measurementId")
     private Long measurementId;
-
+    @JsonProperty(namespace = "deviceName")
     private String deviceName;
+    @JsonProperty(namespace = "description")
     private String description;
-
+    @JsonProperty(namespace = "unit")
     private String unit;
+    @JsonProperty(namespace = "timestamp")
     private long time;
 
     private String relation;
@@ -57,6 +61,14 @@ public class SensorValue {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public String getDeviceName() {
+        return deviceName;
+    }
+
+    public void setDeviceName(String deviceName) {
+        this.deviceName = deviceName;
     }
 
     public void setTime(long time) {

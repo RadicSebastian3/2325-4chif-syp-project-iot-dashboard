@@ -27,7 +27,7 @@ public class InfluxDbRepository {
     @ConfigProperty(name = "influxdb.bucket")
     String bucket;
 
-    public  void insertMeasurementFromJSON(SensorValue sensorValue, Device device) {
+    public  void insertMeasurementFromJSON(SensorValue sensorValue) {
 
         try {
             InfluxDBClient client = InfluxDBClientFactory.create(influxUrl, token.toCharArray());
@@ -37,7 +37,7 @@ public class InfluxDbRepository {
             long currentTimeInNanoseconds = TimeUnit.SECONDS.toNanos(sensorValue.getTime());
 
             Point point = Point.measurement("Sensor_Values")
-                    .addTag("device_name",device.getName())
+                    .addTag("device_name",sensorValue.getDeviceName())
                     .addTag("measurement_id",String.valueOf(sensorValue.getMeasurementId()))
                     .addField("value", sensorValue.getValue())
                     .addTag("relation",sensorValue.getRelation())
