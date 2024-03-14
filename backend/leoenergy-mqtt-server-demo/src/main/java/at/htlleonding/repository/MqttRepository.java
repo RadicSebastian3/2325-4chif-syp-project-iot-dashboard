@@ -46,10 +46,26 @@ public class MqttRepository {
     Emitter<String> emitter;
     private long fileIndex = 0;
     private AtomicInteger counter = new AtomicInteger();
-    @Scheduled(every = "300s")
-    public void invokeSendPeriodically(){
-        importJsonFiles(directoryNameAll,4);
+    //every 5 minutes
+    @Scheduled(every = "*/5 * * * *")
+    public void invokeSendPeriodicallySend7(){
+        importJsonFiles(directoryNameAll,1,"7-");
     }
+    @Scheduled(every = "*/5 * * * *")
+    public void invokeSendPeriodically8(){
+        importJsonFiles(directoryNameAll,1,"8-");
+    }
+    @Scheduled(every = "*/5 * * * *")
+    public void invokeSendPeriodically9(){
+        importJsonFiles(directoryNameAll,1,"9-");
+    }
+
+    @Scheduled(every = "*/5 * * * *")
+    public void invokeSendPeriodically10(){
+        importJsonFiles(directoryNameAll,1,"10-");
+    }
+
+
 
     public void send(Map<String,String> payload,String measurementId){
         Map.Entry<String,String> entry = payload.entrySet().iterator().next();
@@ -68,24 +84,28 @@ public class MqttRepository {
         return sensorValueDetails;
     }
 
-    public void importJsonFiles(String directory,int limit) {
+    public void importJsonFiles(String directory,int limit,String startsWithFilterString) {
         try (Stream<Path> filePathStream = Files.walk(Paths.get(directory)).onClose(() -> {
         })) {
             // Dateipfade filtern und in eine Liste konvertieren
             List<Path> filePaths = filePathStream
                     .filter(Files::isRegularFile)
                     .filter(f -> !f.toFile().isHidden())
+                    .filter(f -> {
+                        String fileName = f.getFileName().toString();
+                        return fileName.startsWith(startsWithFilterString);
+                    })
                     .toList();
 
 
             int numFiles = filePaths.size();
-            System.out.println("Size numFiles:" + numFiles);
+
 
             // Iteration über die Dateien, beginnend beim aktuellen Index
             for (int i = 0; i < limit; i++) {
                 // Index der aktuellen Datei im Kreislauf
                 int currentIndex = (int) (fileIndex + i) % numFiles;
-                System.out.println("Aktuelle Index" + currentIndex);
+
 
                 // Pfad zur aktuellen Datei
                 Path filePath = filePaths.get(currentIndex);
