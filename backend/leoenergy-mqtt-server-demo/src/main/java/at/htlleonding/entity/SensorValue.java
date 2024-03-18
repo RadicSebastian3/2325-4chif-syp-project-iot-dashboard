@@ -9,7 +9,7 @@ public class SensorValue {
     private BigInteger id;
 
     Device device;
-    private Long measurementId;
+    private Long measurementId;g
     private String description;
 
     private String unit;
