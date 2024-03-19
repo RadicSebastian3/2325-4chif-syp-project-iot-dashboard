@@ -26,9 +26,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.ZoneOffset;
+import java.time.*;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,20 +46,20 @@ public class MqttRepository {
     private long fileIndex = 0;
     private AtomicInteger counter = new AtomicInteger();
     //every 5 minutes
-    @Scheduled(every = "300s")
+    @Scheduled(every = "60s")
     public void invokeSendPeriodicallySend7(){
         importJsonFiles(directoryNameAll,1,"7-");
     }
-    @Scheduled(every = "300s")
+    @Scheduled(every = "70s")
     public void invokeSendPeriodically8(){
         importJsonFiles(directoryNameAll,1,"8-");
     }
-    @Scheduled(every = "300s")
+    @Scheduled(every = "80s")
     public void invokeSendPeriodically9(){
         importJsonFiles(directoryNameAll,1,"9-");
     }
 
-    @Scheduled(every = "300s")
+    @Scheduled(every = "90s")
     public void invokeSendPeriodically10(){
         importJsonFiles(directoryNameAll,1,"10-");
     }
@@ -84,9 +83,8 @@ public class MqttRepository {
         return sensorValueDetails;
     }
 
-    public void importJsonFiles(String directory,int limit,String startsWithFilterString) {
-        try (Stream<Path> filePathStream = Files.walk(Paths.get(directory)).onClose(() -> {
-        })) {
+    public void importJsonFiles(String directory, int limit, String startsWithFilterString) {
+        try (Stream<Path> filePathStream = Files.walk(Paths.get(directory)).onClose(() -> {})) {
             // Dateipfade filtern und in eine Liste konvertieren
             List<Path> filePaths = filePathStream
                     .filter(Files::isRegularFile)
@@ -95,17 +93,16 @@ public class MqttRepository {
                         String fileName = f.getFileName().toString();
                         return fileName.startsWith(startsWithFilterString);
                     })
+                    .sorted(Comparator.comparing(this::getDateFromFileName)) // Sortiere die Dateien nach dem Datum im Dateinamen
                     .toList();
 
 
             int numFiles = filePaths.size();
 
-
             // Iteration über die Dateien, beginnend beim aktuellen Index
             for (int i = 0; i < limit; i++) {
                 // Index der aktuellen Datei im Kreislauf
                 int currentIndex = (int) (fileIndex + i) % numFiles;
-
 
                 // Pfad zur aktuellen Datei
                 Path filePath = filePaths.get(currentIndex);
@@ -122,6 +119,21 @@ public class MqttRepository {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private String getDateFromFileName(Path filePath) {
+        String fileName = filePath.getFileName().toString();
+        // Extrahiere das Datumsteil aus dem Dateinamen und gib es zurück
+        return fileName.split("-")[2];
+    }
+    long calculateNewDate(long timeOfValueInUnix) {
+        LocalDateTime originalDateTime = LocalDateTime.ofEpochSecond(timeOfValueInUnix, 0, ZoneOffset.UTC);
+        LocalDateTime todayMidnight = LocalDate.now().atStartOfDay();
+        LocalDateTime newDateTime = todayMidnight.withHour(originalDateTime.getHour())
+                .withMinute(originalDateTime.getMinute())
+                .withSecond(originalDateTime.getSecond())
+                .withNano(originalDateTime.getNano());
+        return newDateTime.toEpochSecond(ZoneOffset.UTC);
     }
 
     void processJsonToSensorValue(Path filePath) throws JsonProcessingException {
@@ -154,10 +166,7 @@ public class MqttRepository {
             long unixTimeStamp = night.atStartOfDay().toEpochSecond(ZoneOffset.UTC);
 
             long timeOfValueInUnix =  jsonNode.get("Values").get(0).get("Timestamp").asLong();
-
-            long diff = unixTimeStamp-timeOfValueInUnix; // differenz beetwen today 0:00 and the timestamp
-            long newDate = diff + timeOfValueInUnix; // calculate new Date for every measurement
-
+            long newDate = calculateNewDate(timeOfValueInUnix);
             SensorValue sensorValue = new SensorValue(device,
                     newDate,
                     jsonNode.get("Values").get(0).get("Val").doubleValue(),
@@ -170,9 +179,6 @@ public class MqttRepository {
             }
         }
     }
-
-
-
 
     public SensorValuePojo getSensorValuePojo() {
         return sensorValuePojo;
