@@ -1,5 +1,7 @@
 package at.htl.leoenergy.entity;
 
+import at.htl.leoenergy.influxdb.UnitConverter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,14 +27,13 @@ public class SensorValue {
     @JsonProperty(namespace = "unit")
     private String unit;
     @JsonProperty(namespace = "timestamp")
-    private long time;
+    private long timestamp;
 
     private String relation;
     @Column
+    @JsonProperty(namespace = "value")
     private double value;
 
-    @Column(timestamp = true)
-    Instant timeInstance;
 
 
 
@@ -42,7 +43,7 @@ public class SensorValue {
 
     public SensorValue(long deviceId, long time, double value, Long measurementId, String description,String unit, String relation,String deviceName)  {
         this.measurementId = measurementId;
-        this.time = time;
+        this.timestamp = time;
         this.value = value;
         this.deviceId = deviceId;
         this.description = description;
@@ -51,11 +52,14 @@ public class SensorValue {
     }
 
     public long getTime() {
-        return time;
+        return timestamp;
     }
     public static SensorValue fromJson(String json){
         try {
-            return new ObjectMapper().readValue(json, SensorValue.class);
+            SensorValue sensorValue = new ObjectMapper().readValue(json, SensorValue.class);
+            UnitConverter.convertToKilowattAndSetRelation(sensorValue);
+            return sensorValue;
+
         } catch (JsonProcessingException e) {
             Log.error("Error during converting json string to SunPowerPojo!");
             e.printStackTrace();
@@ -72,7 +76,7 @@ public class SensorValue {
     }
 
     public void setTime(long time) {
-        this.time = time;
+        this.timestamp = time;
     }
 
     public String getDescription() {
@@ -91,13 +95,6 @@ public class SensorValue {
         this.unit = unit;
     }
 
-    public Instant getTimeInstance() {
-        return timeInstance;
-    }
-
-    public void setTimeInstance(Instant timeInstance) {
-        this.timeInstance = timeInstance;
-    }
 
     public double getValue() {
         return value;

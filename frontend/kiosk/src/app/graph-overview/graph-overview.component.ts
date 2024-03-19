@@ -49,11 +49,12 @@ export class GraphOverviewComponent{
     new Duration("1h", "1 hour"),
     new Duration("4h", "4 hours"),
     new Duration("1d", "1 day"),
+    new Duration("2d", "2 day"),
     new Duration("7d", "1 week"),
     new Duration("30d", "1 month"),
     new Duration("365d", "1 year")
   ];
-  public selectedDuration: Duration = this.durations.at(0)!;
+  public selectedDuration: Duration = this.durations.at(3)!;
 
   public visible: boolean = false;
 

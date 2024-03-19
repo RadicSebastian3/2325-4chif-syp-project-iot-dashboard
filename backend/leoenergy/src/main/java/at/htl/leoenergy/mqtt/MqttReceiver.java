@@ -19,12 +19,11 @@ public class MqttReceiver {
        influxDbRepository.insertMeasurementFromJSON(sensorValue);
    }
 
-    @Incoming("leoenergy-demo")
+    @Incoming("leoenergy")
     public void receive(byte[] byteArray) {
         String msg = new String(byteArray);
         try {
             SensorValue sensorValue = SensorValue.fromJson(msg);
-            UnitConverter.convertToKilowattAndSetRelation(sensorValue);
             insertMeasurement(sensorValue);
         }
         catch (NullPointerException e){

@@ -2,26 +2,26 @@
   {
     "name": "Overview",
     "description": "",
-    "iFrameLink": "http://localhost:3000/d-solo/de09d755-9f14-48ea-a0b4-3e067e5da91d/new-dashboard?orgId=1&refresh=5s&from=now-5m&to=now&panelId=8"
+    "iFrameLink": "http://localhost:3000/d-solo/a069aa3c-2d6c-4d46-aef1-bda3f2136927/leoenergy-demo?orgId=1&refresh=10s&from=now-1d&to=now&panelId=9"
   },
   {
-    "name": "Consumption / Production",
+    "name": "Energie-Gesamt",
     "description": "",
-    "iFrameLink": "http://localhost:3000/d-solo/de09d755-9f14-48ea-a0b4-3e067e5da91d/new-dashboard?orgId=1&refresh=5s&from=now-5m&to=now&panelId=7"
+    "iFrameLink": "http://localhost:3000/d-solo/a069aa3c-2d6c-4d46-aef1-bda3f2136927/leoenergy-demo?orgId=1&refresh=10s&from=now-1d&to=now&panelId=1"
   },
   {
-    "name": "Production",
+    "name": "PV_Energie",
     "description": "",
-    "iFrameLink": "http://localhost:3000/d-solo/de09d755-9f14-48ea-a0b4-3e067e5da91d/new-dashboard?orgId=1&refresh=5s&from=now-5m&to=now&panelId=3"
+    "iFrameLink": "http://localhost:3000/d-solo/a069aa3c-2d6c-4d46-aef1-bda3f2136927/leoenergy-demo?orgId=1&refresh=10s&from=now-1d&to=now&panelId=2"
   },
   {
-    "name": "Consumption",
+    "name": "DME Heat",
     "description": "",
-    "iFrameLink": "http://localhost:3000/d-solo/de09d755-9f14-48ea-a0b4-3e067e5da91d/new-dashboard?orgId=1&refresh=5s&from=now-5m&to=now&panelId=4"
+    "iFrameLink": "http://localhost:3000/d-solo/a069aa3c-2d6c-4d46-aef1-bda3f2136927/leoenergy-demo?orgId=1&refresh=10s&from=now-1d&to=now&panelId=8"
   },
   {
-    "name": "Battery Capacity in %",
+    "name": "Zähler-Serverraum",
     "description": "",
-    "iFrameLink": "http://localhost:3000/d-solo/de09d755-9f14-48ea-a0b4-3e067e5da91d/new-dashboard?orgId=1&refresh=5s&from=now-5m&to=now&&panelId=1"
+    "iFrameLink": "http://localhost:3000/d-solo/a069aa3c-2d6c-4d46-aef1-bda3f2136927/leoenergy-demo?orgId=1&refresh=10s&from=now-1d&to=now&panelId=4"
   }
 ]
