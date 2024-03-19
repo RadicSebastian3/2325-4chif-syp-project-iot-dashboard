@@ -24,9 +24,7 @@ public class MqttReceiver {
         String msg = new String(byteArray);
         try {
             SensorValue sensorValue = SensorValue.fromJson(msg);
-            System.out.println("TIME: " + sensorValue.getTime());
             insertMeasurement(sensorValue);
-            System.out.println("HELLLOOOOO");
         }
         catch (NullPointerException e){
             e.printStackTrace();
