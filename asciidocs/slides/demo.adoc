@@ -16,11 +16,13 @@
 * Dashboard für den Energieverbrauch an der HTL Leonding
 * Wann wurde wie viel Strom verbraucht?
 
+== Architecture
+image::architecture.png[]
 
-== Sprint 7: Was war zu tun?
-** KIOSK-UI
+== Sprint 8: Was war zu tun?
+** Interactive KIOSK
 ** Dynamic-MQTT-Receiver
-** Zusammenhängende Graphen
+** Zusammenhängende Graphen von demo-server
 
 == LIVE DEMO
 image::htlleonding.jpg[background]
