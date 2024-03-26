@@ -46,20 +46,20 @@ public class MqttRepository {
     private long fileIndex = 0;
     private AtomicInteger counter = new AtomicInteger();
     //every 5 minutes
-    @Scheduled(every = "60s")
+    @Scheduled(every = "200s")
     public void invokeSendPeriodicallySend7(){
         importJsonFiles(directoryNameAll,1,"7-");
     }
-    @Scheduled(every = "70s")
+    @Scheduled(every = "300s")
     public void invokeSendPeriodically8(){
         importJsonFiles(directoryNameAll,1,"8-");
     }
-    @Scheduled(every = "80s")
+    @Scheduled(every = "300s")
     public void invokeSendPeriodically9(){
         importJsonFiles(directoryNameAll,1,"9-");
     }
 
-    @Scheduled(every = "90s")
+    @Scheduled(every = "300s")
     public void invokeSendPeriodically10(){
         importJsonFiles(directoryNameAll,1,"10-");
     }
