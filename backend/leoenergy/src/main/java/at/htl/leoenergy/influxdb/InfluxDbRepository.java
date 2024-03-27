@@ -1,6 +1,5 @@
 package at.htl.leoenergy.influxdb;
 
-import at.htl.leoenergy.entity.Device;
 import at.htl.leoenergy.entity.SensorValue;
 import com.influxdb.client.InfluxDBClient;
 import com.influxdb.client.InfluxDBClientFactory;
@@ -10,8 +9,6 @@ import com.influxdb.client.write.Point;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.concurrent.TimeUnit;
 @ApplicationScoped
 public class InfluxDbRepository {

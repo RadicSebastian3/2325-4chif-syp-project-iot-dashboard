@@ -10,12 +10,22 @@ public class UnitConverter {
 
         switch (sensorValue.getUnit()) {
             case "W":
+
                 sensorValue.setValue(sensorValue.getValue() / 1000.0);
-                sensorValue.setRelation("consumtion w");
+                if(sensorValue.getDeviceName().equals("EMU PV-Energie"))
+                    sensorValue.setRelation("generated_kW");
+                else {
+                    sensorValue.setRelation("consumtion_kW");
+                }
                 break;
             case "Wh":
+
                 sensorValue.setValue(sensorValue.getValue() / 1000.0);
-                sensorValue.setRelation("consumtion wh");
+                if(sensorValue.getDeviceName().equals("EMU PV-Energie"))
+                sensorValue.setRelation("generated_Wh");
+                else {
+                    sensorValue.setRelation("consumtion_Wh");
+                }
                 break;
             case "A":
             case "Bin":

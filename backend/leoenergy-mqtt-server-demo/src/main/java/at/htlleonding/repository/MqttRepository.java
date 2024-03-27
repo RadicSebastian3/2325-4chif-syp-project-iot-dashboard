@@ -46,7 +46,7 @@ public class MqttRepository {
     private long fileIndex = 0;
     private AtomicInteger counter = new AtomicInteger();
     //every 5 minutes
-    @Scheduled(every = "200s")
+    @Scheduled(every = "180s")
     public void invokeSendPeriodicallySend7(){
         importJsonFiles(directoryNameAll,1,"7-");
     }
