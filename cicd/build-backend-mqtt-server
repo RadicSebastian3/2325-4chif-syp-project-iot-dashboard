@@ -2,8 +2,10 @@
 
 set -e
 
-pushd backend/leoenergy-mqtt-server-demo
+
+pushd ../backend/leoenergy-mqtt-server-demo
     mvn clean package
+popd
 popd
 
 mkdir -p dist/leoenergy-mqtt-server-demo
