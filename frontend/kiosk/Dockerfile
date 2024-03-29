@@ -1,15 +1,10 @@
-FROM node:18.13-alpine as angular
-
+FROM node:18.17.1-alpine AS build
 WORKDIR /app
-
 COPY package*.json ./
-
 RUN npm install
-
+RUN npx ngcc --properties es2023 browser module main --first-only --create-ivy-entry-points
 COPY . .
-
 RUN npm run build
-
-FROM httpd:alpine3.15
-
-COPY --from=angular /app/dist/kiosk/ /usr/local/apache2/htdocs/
+FROM nginx:stable
+COPY --from=build /app/dist/kiosk/browser/ /usr/share/nginx/html
+EXPOSE 80

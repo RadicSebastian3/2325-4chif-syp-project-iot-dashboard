@@ -1,10 +1,11 @@
 version: '3.8'
 services:
   kiosk-app:
-    build: .
     container_name: angular_kiosk
+    build: .
+    image: kiosk:v1
     ports:
-      - "4200:80"
+      - "80:80"
     environment:
       - GRAFANA_URL=http://grafana:3000
     depends_on:
