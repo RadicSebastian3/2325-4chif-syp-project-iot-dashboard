@@ -2,6 +2,7 @@ package at.htlleonding.pojo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 public class SensorValuePojo {
+
     @JsonProperty("deviceName")
     public String deviceName;
     @JsonProperty("measurementId")

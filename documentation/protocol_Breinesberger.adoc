@@ -36,7 +36,7 @@ import io.quarkus.logging.Log;
 
 public class MqttData {
     private long time;
-    private double value;
+    private final double value;
 
     private MqttData(long time, double value){
         this.time = time;
