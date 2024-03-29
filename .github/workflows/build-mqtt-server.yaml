@@ -25,6 +25,9 @@ jobs:
           cache: 'maven'
           cache-dependency-path: 'backend/leoenergy-mqtt-server-demo/pom.xml'
 
+      - name: Set execute permission for the script
+        run: chmod +x cicd/build-backend-mqtt-server
+
       - name: Build with maven
         run: |
           ./cicd/build-backend-mqtt-server
