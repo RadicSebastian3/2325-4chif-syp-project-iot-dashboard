@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class SensorValuePojo {
     @JsonProperty("deviceName")
     public String deviceName;
+
     @JsonProperty("measurementId")
     private Long measurementId;
     @JsonProperty("description")
