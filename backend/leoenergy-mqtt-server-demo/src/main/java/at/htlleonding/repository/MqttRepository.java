@@ -44,7 +44,7 @@ public class MqttRepository {
     @Channel("leonergy-demo")
     Emitter<String> emitter;
     private long fileIndex = 0;
-    private AtomicInteger counter = new AtomicInteger();
+    private final AtomicInteger counter = new AtomicInteger();
     //every 5 minutes
     @Scheduled(every = "180s")
     public void invokeSendPeriodicallySend7(){

@@ -1,0 +1,36 @@
+name: Build Mqtt-demo-server
+
+on:
+  push:
+    paths:
+      - 'backend/leoenergy-mqtt-server-demo/**'
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-mqtt-server-backend:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          cache: 'maven'
+          cache-dependency-path: 'backend/leoenergy-mqtt-server-demo/pom.xml'
+
+      - name: Build with maven
+        run: |
+          ./cicd/build-backend-mqtt-server
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: 'mqtt-server-backend'
+          path: 'dist/leoenergy-mqtt-server-demo/mqtt-server.jar'

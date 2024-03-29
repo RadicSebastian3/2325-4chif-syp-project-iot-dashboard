@@ -15,7 +15,7 @@ public class CounterBean {
     @ConfigProperty(name = "json.file-directory-all")
     private String directoryNameAll;
 
-    private AtomicInteger counter = new AtomicInteger();
+    private final AtomicInteger counter = new AtomicInteger();
 
     public int get() {
         return counter.get();
