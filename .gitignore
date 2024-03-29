@@ -242,3 +242,4 @@ buildNumber.properties
 /frontend/kiosk/node_modules/
 node_modules/
 /backend/leoenergy-relational/db-postgres/
+/backend/mqtt/data/
