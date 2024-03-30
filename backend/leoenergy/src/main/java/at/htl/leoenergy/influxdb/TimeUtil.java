@@ -17,6 +17,7 @@ public enum TimeUtil {
         }
     };
 
+
     private static final ThreadLocal<SimpleDateFormat> FORMATTER_SECONDS = new ThreadLocal<SimpleDateFormat>() {
         @Override
         protected SimpleDateFormat initialValue() {

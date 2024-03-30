@@ -47,8 +47,8 @@ jobs:
 #      - name: Build and push server image
 #        uses: docker/build-push-action@v3
 #        with:
-#          context: ./backend
-#          file: ./backend/src/main/docker/Dockerfile.jvm
+#          context: ./backend/leoenergy-mqtt-server-demo
+#          file: ./backend/leoenergy-mqtt-server-demo
 #          push: true
 #          tags: ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_REPOSITORY }}-backend:latest
 #          cache-from: type=registry,ref=${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_REPOSITORY }}-backend:buildcache
