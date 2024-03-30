@@ -6,6 +6,7 @@ public class Device {
 
     private int Id;
     private String manufacturerId;
+
     private String medium;
     private String name;
     private String site;
