@@ -16,6 +16,7 @@ import java.time.Instant;
 public class SensorValue {
     @Column(tag = true)
     private BigInteger id;
+
     private long deviceId;
     @Column(tag = true)
     @JsonProperty(namespace = "measurementId")

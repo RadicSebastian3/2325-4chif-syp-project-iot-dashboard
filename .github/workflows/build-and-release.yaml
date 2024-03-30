@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
 jobs:
-  build-and-release-franklyn:
+  build-and-release-leoenergy:
     runs-on: ubuntu-22.04
     permissions:
       contents: write
@@ -23,7 +23,7 @@ jobs:
           chmod +x ./cicd/build-backend-mqtt-server
           ./cicd/build-backend-mqtt-server
           chmod +x ./cicd/build-leoenergy
-          ./cicd/build-leoenergys
+          ./cicd/build-leoenergy
 
       - name: Get the git commits since the last tag
         run: |
