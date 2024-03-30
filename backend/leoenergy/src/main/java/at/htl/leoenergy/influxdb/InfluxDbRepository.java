@@ -15,6 +15,7 @@ public class InfluxDbRepository {
     @ConfigProperty(name = "influxdb.url")
     String influxUrl;
 
+
     @ConfigProperty(name = "influxdb.token")
     String token;
 

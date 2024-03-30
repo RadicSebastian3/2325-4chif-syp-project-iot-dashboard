@@ -20,10 +20,10 @@ jobs:
 
       - name: Build with Maven
         run: |
-          chmod +x ./cicd/build-backend-mqtt-server.sh
+          chmod +x ./cicd/build-backend-mqtt-server
           ./cicd/build-backend-mqtt-server.sh
-          chmod +x ./cicd/build-leoenergy.sh
-          ./cicd/build-leoenergy.sh
+          chmod +x ./cicd/build-leoenergy
+          ./cicd/build-leoenergy
 
       - name: Get the git commits since the last tag
         run: |
