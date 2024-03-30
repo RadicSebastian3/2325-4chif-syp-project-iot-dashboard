@@ -23,7 +23,7 @@ jobs:
           cache: maven
 
       - name: Build
-        run: cd ../backend/leoenergy-mqtt-sever-demo && ./mvnw package
+        run: cd backend/leoenergy-mqtt-server-demo && ./mvnw package
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
