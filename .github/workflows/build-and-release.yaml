@@ -21,9 +21,9 @@ jobs:
       - name: Build with Maven
         run: |
           chmod +x ./cicd/build-backend-mqtt-server
-          ./cicd/build-backend-mqtt-server.sh
+          ./cicd/build-backend-mqtt-server
           chmod +x ./cicd/build-leoenergy
-          ./cicd/build-leoenergy
+          ./cicd/build-leoenergys
 
       - name: Get the git commits since the last tag
         run: |
@@ -34,6 +34,6 @@ jobs:
       - name: Release the build
         run: |
           tag="$(date +"%Y.%m.%d")-$(git rev-parse --short HEAD)"
-          gh release create $tag ./dist/*/*.jar --title "franklyn $tag" --notes-file release-notes.txt --prerelease
+          gh release create $tag ./dist/*/*.jar --title "leoenergy $tag" --notes-file release-notes.txt --prerelease
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
