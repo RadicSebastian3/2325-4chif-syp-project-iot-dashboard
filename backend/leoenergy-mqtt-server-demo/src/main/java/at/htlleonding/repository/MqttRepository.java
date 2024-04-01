@@ -99,6 +99,7 @@ public class MqttRepository {
 
             int numFiles = filePaths.size();
 
+
             // Iteration über die Dateien, beginnend beim aktuellen Index
             for (int i = 0; i < limit; i++) {
                 // Index der aktuellen Datei im Kreislauf
@@ -117,6 +118,7 @@ public class MqttRepository {
             // Aktuellen Index aktualisieren, um den nächsten Startpunkt festzulegen
             fileIndex = (fileIndex + limit) % numFiles;
         } catch (IOException e) {
+            System.out.println("Ordner hat keine Json-files:" + directoryNameAll);
             throw new RuntimeException(e);
         }
     }
