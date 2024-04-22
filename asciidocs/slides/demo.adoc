@@ -19,10 +19,10 @@
 == Architecture
 image::architecture.png[]
 
-== Sprint 8: Was war zu tun?
-** Deployment
-** Githubactions
-** Dockern
+== Sprint 9: Was war zu tun?
+** Deployment auf Vm (Reverse Proxy)
+** Von der Schule die echten Daten darstellen
+** Frontend verbesserung
 
 == LIVE DEMO
 image::htlleonding.jpg[background]
