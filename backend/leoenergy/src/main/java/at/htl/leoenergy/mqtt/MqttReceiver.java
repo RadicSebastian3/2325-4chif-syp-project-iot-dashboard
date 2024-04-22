@@ -4,6 +4,7 @@ import at.htl.leoenergy.entity.SensorValue;
 import at.htl.leoenergy.influxdb.InfluxDbRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 
 @ApplicationScoped
@@ -16,6 +17,8 @@ public class MqttReceiver {
    }
     @Incoming("leoenergy")
     public void receive(byte[] byteArray) {
+
+
         String msg = new String(byteArray);
         try {
             SensorValue sensorValue = SensorValue.fromJson(msg);

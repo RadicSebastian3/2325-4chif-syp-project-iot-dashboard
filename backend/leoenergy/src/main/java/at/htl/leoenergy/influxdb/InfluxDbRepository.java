@@ -15,7 +15,6 @@ public class InfluxDbRepository {
     @ConfigProperty(name = "influxdb.url")
     String influxUrl;
 
-
     @ConfigProperty(name = "influxdb.token")
     String token;
 
@@ -32,16 +31,16 @@ public class InfluxDbRepository {
             WriteApiBlocking writeApi = client.getWriteApiBlocking();
 
 
-            long currentTimeInNanoseconds = TimeUnit.SECONDS.toNanos(sensorValue.getTime());
+            long currentTimeInNanoseconds = TimeUnit.MILLISECONDS.toMillis(sensorValue.getTime());
 
             Point point = Point.measurement("Sensor_Values")
                     .addTag("device_name",sensorValue.getDeviceName())
-                    .addTag("measurement_id",String.valueOf(sensorValue.getMeasurementId()))
+                    .addTag("valueType_id",String.valueOf(sensorValue.getValueTypeId()))
                     .addField("value", sensorValue.getValue())
                     .addTag("relation",sensorValue.getRelation())
                     .addTag("unit",sensorValue.getUnit())
-                    .addField("description",sensorValue.getDescription())
-                    .time(currentTimeInNanoseconds,WritePrecision.NS);
+                    .addTag("site",sensorValue.getSite())
+                    .time(currentTimeInNanoseconds,WritePrecision.MS);
 
             writeApi.writePoint(bucket, org, point);
 

@@ -10,7 +10,8 @@ services:
       - DOCKER_INFLUXDB_INIT_PASSWORD=${DOCKER_INFLUXDB_INIT_PASSWORD}
       - DOCKER_INFLUXDB_INIT_BUCKET=${DOCKER_INFLUXDB_INIT_BUCKET}
       - DOCKER_INFLUXDB_INIT_RETENTION=${DOCKER_INFLUXDB_INIT_RETENTION}
-      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN={DOCKER_INFLUXDB_INIT_ADMIN_TOKEN}
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN={DOCKER_INFLUXDB_INIT_ADMIN_TOKEN
+      - DOCKER_INFLUXDB_INIT_ORG={DOCKER_INFLUXDB_INIT_ORG}
     ports:
       - "8086:8086"
     volumes:
@@ -31,22 +32,3 @@ services:
 
     depends_on:
       - influxdb
-
-  leoenergy:
-    image: ghcr.io/balintb4/leoenergy:v2
-    container_name: leoenergy
-    restart: unless-stopped
-    ports:
-      - "1234:1234"
-    depends_on:
-      - influxdb
-      - grafana
-  mqtt_server:
-    image: ghcr.io/balintb4/leoenergy-mqtt-server:v2
-    container_name: mqtt_server
-    restart: unless-stopped
-    volumes:
-      - $PWD/data/mqtt/jsons:/data
-    depends_on:
-      - influxdb
-      - grafana

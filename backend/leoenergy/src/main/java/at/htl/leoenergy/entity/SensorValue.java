@@ -5,67 +5,64 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.influxdb.annotations.Column;
-import com.influxdb.annotations.Measurement;
 import io.quarkus.logging.Log;
 
 import java.math.BigInteger;
-import java.time.Instant;
 
-@Measurement(name = "sensor_values")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SensorValue {
-    @Column(tag = true)
+
     private BigInteger id;
-
-    private long deviceId;
-    @Column(tag = true)
-    @JsonProperty(namespace = "measurementId")
-    private Long measurementId;
-    @JsonProperty(namespace = "deviceName")
+    private long time;
     private String deviceName;
-    @JsonProperty(namespace = "description")
-    private String description;
-    @JsonProperty(namespace = "unit")
+    private String site;
     private String unit;
-    @JsonProperty(namespace = "timestamp")
-    private long timestamp;
-
-    private String relation;
-    @Column
-    @JsonProperty(namespace = "value")
+    private String valueType;
     private double value;
-
-
-
+    private long deviceId;
+    private String relation;
+    private Long valueTypeId;
 
     public SensorValue() {
     }
 
-
-    public SensorValue(long deviceId, long time, double value, Long measurementId, String description,String unit, String relation,String deviceName)  {
-        this.measurementId = measurementId;
-        this.timestamp = time;
+    public SensorValue(long deviceId, long time, double value, Long measurementId, String description, String unit, String relation, String deviceName) {
+        this.valueTypeId = measurementId;
+        this.time = time;
         this.value = value;
         this.deviceId = deviceId;
-        this.description = description;
+        this.site = description;
         this.unit = unit;
         this.relation = relation;
     }
 
-    public long getTime() {
-        return timestamp;
-    }
-    public static SensorValue fromJson(String json){
+    public static SensorValue fromJson(String json) {
         try {
-            SensorValue sensorValue = new ObjectMapper().readValue(json, SensorValue.class);
+            ObjectMapper objectMapper = new ObjectMapper();
+            SensorValue sensorValue = objectMapper.readValue(json, SensorValue.class);
             UnitConverter.convertToKilowattAndSetRelation(sensorValue);
             return sensorValue;
-
         } catch (JsonProcessingException e) {
-            Log.error("Error during converting json string to SunPowerPojo!");
+            Log.error("Error during converting json string to SensorValue object!");
             e.printStackTrace();
             return null;
         }
+    }
+
+    public BigInteger getId() {
+        return id;
+    }
+
+    public void setId(BigInteger id) {
+        this.id = id;
+    }
+
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
     }
 
     public String getDeviceName() {
@@ -76,16 +73,12 @@ public class SensorValue {
         this.deviceName = deviceName;
     }
 
-    public void setTime(long time) {
-        this.timestamp = time;
+    public String getSite() {
+        return site;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setSite(String site) {
+        this.site = site;
     }
 
     public String getUnit() {
@@ -96,6 +89,13 @@ public class SensorValue {
         this.unit = unit;
     }
 
+    public String getValueType() {
+        return valueType;
+    }
+
+    public void setValueType(String valueType) {
+        this.valueType = valueType;
+    }
 
     public double getValue() {
         return value;
@@ -105,20 +105,12 @@ public class SensorValue {
         this.value = value;
     }
 
-    public BigInteger getId() {
-        return id;
-    }
-
-    public Long getMeasurementId() {
-        return measurementId;
-    }
-
-    public void setMeasurementId(Long measurementId) {
-        this.measurementId = measurementId;
-    }
-
     public long getDeviceId() {
         return deviceId;
+    }
+
+    public void setDeviceId(long deviceId) {
+        this.deviceId = deviceId;
     }
 
     public String getRelation() {
@@ -129,12 +121,11 @@ public class SensorValue {
         this.relation = relation;
     }
 
-    public void setDeviceId(long deviceId) {
-        this.deviceId = deviceId;
+    public Long getValueTypeId() {
+        return valueTypeId;
     }
 
-
-    public void setId(BigInteger id) {
-        this.id = id;
+    public void setValueTypeId(Long valueTypeId) {
+        this.valueTypeId = valueTypeId;
     }
 }
