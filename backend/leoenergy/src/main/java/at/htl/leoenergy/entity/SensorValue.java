@@ -2,7 +2,6 @@ package at.htl.leoenergy.entity;
 
 import at.htl.leoenergy.influxdb.UnitConverter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.quarkus.logging.Log;
