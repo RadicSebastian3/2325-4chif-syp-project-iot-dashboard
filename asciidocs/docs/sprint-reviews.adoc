@@ -34,4 +34,11 @@ größe
 * Und einzeln 4 Verschiedene
 * Verbrauch-Generierung Integrieren Task
 
+== Sprint Review 04.02
+* Frontend verbessern
+* Richtigen Daten darstellen
+* Reverse Proxy
+* Deployment
+
+
 

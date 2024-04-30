@@ -7,7 +7,7 @@
   {
     "name": "Momentaner Verbrauch",
     "description": "",
-    "iFrameLink": "http://localhost:3000/d-solo/bdjkuaf3gszr4e/leoenergy?orgId=1&refresh=10sfrom=now-1d&to=now&panelId=2"
+    "iFrameLink": "http://localhost:3000/d-solo/bdjkuaf3gszr4e/leoenergy?orgId=1&refresh=10s&from=now-1d&to=now&panelId=2"
   },
   {
     "name": "Energie Gesamt",

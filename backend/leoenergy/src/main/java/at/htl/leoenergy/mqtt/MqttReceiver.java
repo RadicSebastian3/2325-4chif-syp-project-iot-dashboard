@@ -6,18 +6,20 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
+import org.jboss.logging.Logger;
 
 @ApplicationScoped
 public class MqttReceiver {
    @Inject
     InfluxDbRepository influxDbRepository;
-
+    @Inject
+    Logger log;
    public void insertMeasurement(SensorValue sensorValue){
        influxDbRepository.insertMeasurementFromJSON(sensorValue);
    }
     @Incoming("leoenergy")
     public void receive(byte[] byteArray) {
-
+       log.infof("Received measurement from mqtt: %s", byteArray.length);
 
         String msg = new String(byteArray);
         try {
