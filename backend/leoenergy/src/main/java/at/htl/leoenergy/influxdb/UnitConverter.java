@@ -12,19 +12,17 @@ public class UnitConverter {
             case "W":
 
                 sensorValue.setValue(sensorValue.getValue() / 1000.0);
-                if(sensorValue.getDeviceName().equals("EMU PV-Energie"))
+                if(sensorValue.getDeviceName().equals("PV-Energie"))
                     sensorValue.setRelation("generated_kW");
                 else {
-                    sensorValue.setRelation("consumtion_kW");
+                    sensorValue.setRelation("consumption_kW");
                 }
                 break;
             case "Wh":
-
-                sensorValue.setValue(sensorValue.getValue() / 1000.0);
-                if(sensorValue.getDeviceName().equals("EMU PV-Energie"))
+                if(sensorValue.getDeviceName().equals("PV-Energie"))
                 sensorValue.setRelation("generated_Wh");
                 else {
-                    sensorValue.setRelation("consumtion_Wh");
+                    sensorValue.setRelation("consumption_Wh");
                 }
                 break;
             case "A":
