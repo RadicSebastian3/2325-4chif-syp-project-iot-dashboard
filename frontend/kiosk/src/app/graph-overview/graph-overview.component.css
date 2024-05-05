@@ -66,6 +66,37 @@ iframe {
   border: none;
   padding: 10px;
   background-color: transparent;
-  color: forestgreen; /* Set your desired text color */
+  color: forestgreen;
   cursor: pointer;
 }
+
+.navbar-nav .nav-link {
+  color: green;
+  font-size: 20px;
+  padding-right: 100px;
+  transition: transform 0.3s ease;
+}
+
+.navbar-nav .nav-link span {
+  display: inline-block; /* Ermöglicht die Anwendung von Box-Shadow auf Inline-Elemente */
+  transition: transform 0.3s ease, box-shadow 1s; /* Fügt sanfte Übergänge für Transformation und Schatten hinzu */
+  font-family: SF Pro Display,SF Pro Icons,Helvetica Neue,Helvetica,Arial,sans-serif;
+}
+
+.navbar-nav .nav-link:hover span {
+  transform: scale(1.2);
+  box-shadow: 0px 0px 5px mediumspringgreen; /* Direkte Anwendung des Schattens auf den Text */
+}
+
+
+.navbar-collapse {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.navbar-nav {
+  flex-grow: 1;
+  justify-content: center;
+}
+
