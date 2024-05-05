@@ -1,6 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <img class="navbar-brand" width="150" src="assets/images/leoenergy-logo.jpeg" alt="Leoenergy Kiosk">
-
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
       <li class="nav-item" *ngFor="let graph of graphs; let i = index;">
@@ -9,8 +8,33 @@
         </a>
       </li>
     </ul>
+    <!-- Settings Icon ganz rechts -->
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="settingsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fas fa-cog"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="settingsDropdown">
+          <li class="dropdown-item">
+            <input type="checkbox" [(ngModel)]="kioskMode" (change)="kioskModeChecker()" class="form-check-input me-1">
+            <label class="form-check-label">Kiosk-Mode</label>
+          </li>
+          <li>
+            <p class="dropdown-item">Interval: {{interval}}</p>
+            <input type="range" min="1" max="60" value="15" class="dropdown-item slider" [(ngModel)]="interval" (change)="deactivateKioskMode(); kioskModeChecker()">
+          </li>
+          <li>
+            <p class="dropdown-item text-dark">Range</p>
+            <select class="form-select dropdown-item" [(ngModel)]="selectedDuration" (ngModelChange)="changeDuration()">
+              <option *ngFor="let duration of durations" [ngValue]="duration">{{ duration.long }}</option>
+            </select>
+          </li>
+        </ul>
+      </li>
+    </ul>
   </div>
 </nav>
+
 
 
 <div class="container mt-4">
@@ -26,25 +50,3 @@
 </div>
 
 <app-graph [graph]="currentGraph" [visible]="visible"></app-graph>
-
-<div class="dropdown mt-4">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="settingsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-    Settings
-  </button>
-  <ul class="dropdown-menu" aria-labelledby="settingsDropdown">
-    <li class="dropdown-item">
-      <input type="checkbox" [(ngModel)]="kioskMode" (change)="kioskModeChecker()" class="form-check-input me-1">
-      <label class="form-check-label">Kiosk-Mode</label>
-    </li>
-    <li>
-      <p class="dropdown-item">Interval: {{interval}}</p>
-      <input type="range" min="1" max="60" value="15" class="dropdown-item slider" [(ngModel)]="interval" (change)="deactivateKioskMode(); kioskModeChecker()">
-    </li>
-    <li>
-      <p class="dropdown-item text-dark">Range</p>
-      <select class="form-select dropdown-item" [(ngModel)]="selectedDuration" (ngModelChange)="changeDuration()">
-        <option *ngFor="let duration of durations" [ngValue]="duration">{{ duration.long }}</option>
-      </select>
-    </li>
-  </ul>
-</div>
