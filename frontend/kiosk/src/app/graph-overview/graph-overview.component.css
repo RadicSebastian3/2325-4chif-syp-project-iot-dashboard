@@ -100,3 +100,9 @@ iframe {
   justify-content: center;
 }
 
+.nav-link .fa-cog {
+  color: green;
+font-size: 25px;
+}
+
+
