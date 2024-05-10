@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.20">
 <link rel="icon" type="image/png" href="themes/favicon.png">
-<title>Sprint Reviews</title>
+<title>Fragen von 07.05.2024</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,34 +437,34 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>Sprint Reviews</h1>
+<h1>Fragen von 07.05.2024</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
-<ul class="sectlevel1">
-<li><a href="#_sprint_review_7_11">1. Sprint Review 7.11.</a></li>
-<li><a href="#_sprint_review_7_11_2">2. Sprint Review 7.11.</a></li>
-<li><a href="#_sprint_review_21_11">3. Sprint Review 21.11.</a></li>
-<li><a href="#_sprint_review_12_12">4. Sprint Review 12.12</a></li>
-<li><a href="#_sprint_review_27_02">5. Sprint Review 27.02</a></li>
-<li><a href="#_sprint_review_04_02">6. Sprint Review 04.02</a></li>
+<ul class="sectlevel2">
+<li><a href="#_welche_und_wie_viele_daten_wurden_in_welcher_formtags_gespeichert">1. Welche und wie viele Daten wurden in welcher Form(Tags) gespeichert</a></li>
+<li><a href="#_gibt_es_bereit_ein_produktivsystem">2. Gibt es bereit ein Produktivsystem</a></li>
+<li><a href="#_ziel_des_projektes">3. Ziel des Projektes</a></li>
+<li><a href="#_nächste_sprint">4. Nächste Sprint</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="_sprint_review_7_11"><a class="anchor" href="#_sprint_review_7_11"></a>1. Sprint Review 7.11.</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_welche_und_wie_viele_daten_wurden_in_welcher_formtags_gespeichert"><a class="anchor" href="#_welche_und_wie_viele_daten_wurden_in_welcher_formtags_gespeichert"></a>1. Welche und wie viele Daten wurden in welcher Form(Tags) gespeichert</h3>
 <div class="ulist">
 <ul>
 <li>
-<p>bis 21.11.:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Email an Prof. Stütz</p>
+<p>Änderungen:</p>
 </li>
 <li>
-<p>Darstellung (Diagramm, Tabelle) für Sensorwerte von Facilities</p>
+<p>Es werden alle Werte in normaler Form gespeichert außer werden zusätzliche Metadaten von Backend hinzugefügt wie zum Beispiel: Relation</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Die Wattwerte werden in Kilowatt umgewandelt von Leoenergy und so wird es in der Influxdb gespeichert</p>
+</li>
+<li>
+<p>Mit den WH-Werten wird nichts geändert</p>
 </li>
 </ul>
 </div>
@@ -472,143 +472,62 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_sprint_review_7_11_2"><a class="anchor" href="#_sprint_review_7_11_2"></a>2. Sprint Review 7.11.</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_gibt_es_bereit_ein_produktivsystem"><a class="anchor" href="#_gibt_es_bereit_ein_produktivsystem"></a>2. Gibt es bereit ein Produktivsystem</h3>
 <div class="ulist">
 <ul>
 <li>
-<p>bis 21.11.:</p>
+<p>Ja</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Email an Prof. Stütz</p>
-</li>
-<li>
-<p>Darstellung (Diagramm, Tabelle) für Sensorwerte von Facilities</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_sprint_review_21_11"><a class="anchor" href="#_sprint_review_21_11"></a>3. Sprint Review 21.11.</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>bis 5.12.:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>PV-Daten in Histrogramm visualisieren (von den letzten 24h, in kW)</p>
-<div class="ulist">
-<ul>
-<li>
-<p>"Zeile 3 in Diagramm"</p>
+<p>Wie sehen die Diagramme aus?</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p>in Diagramm ausgeben</p>
+<p>verwendete Daten: Die Daten werden von vm90 genommen</p>
 </li>
 <li>
-<p>Timestamp eingeben &#8594; Daten zu Timestamp ausgeben</p>
+<p>Aussehen: Schlecht</p>
 </li>
 </ul>
 </div>
-</li>
-</ul>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_sprint_review_12_12"><a class="anchor" href="#_sprint_review_12_12"></a>4. Sprint Review 12.12</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_ziel_des_projektes"><a class="anchor" href="#_ziel_des_projektes"></a>3. Ziel des Projektes</h3>
 <div class="ulist">
 <ul>
 <li>
-<p>bis 19.12.:</p>
+<p>Dashboard für die Schule</p>
+</li>
+<li>
+<p>Dashboards sollen Aussagekräftig  und man sollte für jeden verstehbar sein</p>
+</li>
+<li>
+<p>Dynamische Anpassung bei neuen Geräten möglich</p>
+</li>
+<li>
+<p>Verlauf Analyse möglich von uns als Nachricht</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_nächste_sprint"><a class="anchor" href="#_nächste_sprint"></a>4. Nächste Sprint</h3>
 <div class="ulist">
 <ul>
 <li>
-<p>In einer Relationalen Datenbank</p>
-</li>
-<li>
-<p>PV-Daten in Histrogramm visualisieren (von den letzten 24h, in kW)</p>
-<div class="ulist">
-<ul>
-<li>
-<p>"Zeile 3 in Diagramm"</p>
+<p>Endergebniss ungefähr mit Kiosk mode</p>
 </li>
 </ul>
 </div>
-</li>
-<li>
-<p>in Diagramm ausgeben</p>
-</li>
-<li>
-<p>Timestamp eingeben &#8594; Daten zu Timestamp ausgeben</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_sprint_review_27_02"><a class="anchor" href="#_sprint_review_27_02"></a>5. Sprint Review 27.02</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>Dashboard für Kiosk-System machen</p>
-</li>
-<li>
-<p>dynamische Topics mit Zusammenhang und Daten</p>
-</li>
-<li>
-<p>Configure von Graphen auf der Website zum Beispiel: Intervall, Live-Demo refresh rate,
-größe</p>
-</li>
-<li>
-<p>Home eine gute übersicht</p>
-</li>
-<li>
-<p>Und einzeln 4 Verschiedene</p>
-</li>
-<li>
-<p>Verbrauch-Generierung Integrieren Task</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_sprint_review_04_02"><a class="anchor" href="#_sprint_review_04_02"></a>6. Sprint Review 04.02</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>Frontend verbessern</p>
-</li>
-<li>
-<p>Richtigen Daten darstelle</p>
-</li>
-<li>
-<p>Reverse Proxy</p>
-</li>
-<li>
-<p>Deployment</p>
-</li>
-</ul>
-</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/Beispiel_SolarEdge_PV/Beispiel%20SolarEdge%20PV.jpg" alt="Beispiel SolarEdge PV"></span>
+<span class="image"><img src="images/Beispiel_SolarEdge_PV/Energie-Monitor.jpg" alt="Energie Monitor"></span>
+<span class="image"><img src="images/Beispiel_SolarEdge_PV/pv-linie.jpg" alt="pv linie"></span>
+<span class="image"><img src="images/Beispiel_SolarEdge_PV/Visualisierung.jpg" alt="Visualisierung"></span></p>
 </div>
 </div>
 </div>
