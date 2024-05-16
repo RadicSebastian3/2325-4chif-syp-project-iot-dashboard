@@ -22,7 +22,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '19'
+          node-version: '20'
 
       # Install dependencies and build the Angular app
       - name: Install dependencies
@@ -45,7 +45,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
-          context: .
-          file: ./Dockerfile
+          context: ./frontend/kiosk
+          file: ./frontend/kiosk/Dockerfile
           push: true
           tags: ghcr.io/${{ env.REPO_LC }}/kiosk:latest
