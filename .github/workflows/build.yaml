@@ -33,7 +33,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: ./FriedhofsverwaltungApplication
+          context: ./backend/leoenergy
           file: ./backend/leoenergy/src/main/docker/Dockerfile
           platforms: linux/amd64
           push: true
