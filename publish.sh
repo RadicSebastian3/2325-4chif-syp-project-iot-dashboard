@@ -21,5 +21,4 @@ git commit -m "updating github pages"
 git switch -c gh-pages
 
 git remote add origin "$remote"
-
 git push -f origin gh-pages
