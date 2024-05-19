@@ -24,11 +24,11 @@ body, html {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease; /* Add transition for smoother effect */
+  transition: background-color 0.3s ease;
 }
 
 .about-button:hover {
-  background-color: #17a2b8; /* Change the background color on hover */
+  background-color: #17a2b8;
 }
 
 .graph-iframe{
@@ -78,14 +78,14 @@ iframe {
 }
 
 .navbar-nav .nav-link span {
-  display: inline-block; /* Ermöglicht die Anwendung von Box-Shadow auf Inline-Elemente */
-  transition: transform 0.3s ease, box-shadow 1s; /* Fügt sanfte Übergänge für Transformation und Schatten hinzu */
+  display: inline-block;
+  transition: transform 0.3s ease, box-shadow 1s;
   font-family: SF Pro Display,SF Pro Icons,Helvetica Neue,Helvetica,Arial,sans-serif;
 }
 
 .navbar-nav .nav-link:hover span {
   transform: scale(1.2);
-  box-shadow: 0px 0px 5px mediumspringgreen; /* Direkte Anwendung des Schattens auf den Text */
+  box-shadow: 0px 0px 5px mediumspringgreen;
 }
 
 
