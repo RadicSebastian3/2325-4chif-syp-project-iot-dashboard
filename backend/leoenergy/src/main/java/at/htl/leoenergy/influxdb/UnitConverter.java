@@ -6,16 +6,12 @@ import java.math.BigDecimal;
 
 public class UnitConverter {
     public static void convertToKilowattAndSetRelation(SensorValue sensorValue) {
-        double result;
-
         switch (sensorValue.getUnit()) {
             case "W":
-
-                sensorValue.setValue(sensorValue.getValue() / 1000.0);
                 if(sensorValue.getDeviceName().equals("PV-Energie"))
-                    sensorValue.setRelation("generated_kW");
+                    sensorValue.setRelation("generated_W");
                 else {
-                    sensorValue.setRelation("consumption_kW");
+                    sensorValue.setRelation("consumption_W");
                 }
                 break;
             case "Wh":
@@ -25,12 +21,6 @@ public class UnitConverter {
                     sensorValue.setRelation("consumption_Wh");
                 }
                 break;
-            case "A":
-            case "Bin":
-            default:
-                result = 0.00;
         }
-
-
     }
 }
