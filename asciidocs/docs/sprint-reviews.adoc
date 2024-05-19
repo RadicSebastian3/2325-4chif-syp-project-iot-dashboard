@@ -36,9 +36,11 @@ größe
 
 == Sprint Review 04.02
 * Frontend verbessern
-* Richtigen Daten darstellen
+* Richtigen Daten darstelle
 * Reverse Proxy
 * Deployment
+
+
 
 
 
