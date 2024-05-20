@@ -1,0 +1,43 @@
+= InfluxDB Task für die Umwandlung von W in Wh
+
+
+== Für die PV-Energie
+
+----
+option task = {name: "try", every: 1h}
+
+from(bucket: "db")
+    |> range(start: -3mo)
+    |> filter(
+        fn: (r) =>
+            r._measurement == "Sensor_Values" and r._field == "value" and r.device_name
+                ==
+                "EMU PV-Energie",
+    )
+    |> sort(columns: ["_time"], desc: false)
+    |> elapsed(unit: 1s)
+    |> map(
+        fn: (r) =>
+            ({
+                _time: r._time,
+                _measurement: r._measurement,
+                _field: r._field,
+                device_name: r.device_name,
+                duration_s: float(v: r.elapsed),
+                energy_ws: r._value * float(v: r.elapsed),
+            }),
+    )
+    |> cumulativeSum(columns: ["energy_ws"])
+    |> map(
+        fn: (r) =>
+            ({
+                _time: r._time,
+                _measurement: r._measurement,
+                _field: "energy_wh",
+                device_name: r.device_name,
+                _value: r.energy_ws / 3600.0,
+            }),
+    )
+    |> yield(name: "energy")
+    |> to(bucket: "Try")
+----
