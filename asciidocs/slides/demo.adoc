@@ -20,7 +20,7 @@
 image::architecture.png[]
 
 == Sprint 10: Aufgaben
-** W ins Wh Rechnungsweg herzeigen
+** W in Wh Rechenweg herzeigen
 ** Leoenergy auf Vm richtig deployen
 
 == LIVE DEMO
