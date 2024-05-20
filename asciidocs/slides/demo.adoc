@@ -19,9 +19,9 @@
 == Architecture
 image::architecture.png[]
 
-== Sprint 9: Was war zu tun?
-** Deployment auf Vm (Reverse Proxy)
-** Von der Schule die echten Daten darstellen
+== Sprint 10: Aufgaben
+** W ins Wh Rechnungsweg herzeigen
+** Leoenergy auf Vm richtig deployen
 
 == LIVE DEMO
 image::htlleonding.jpg[background]
