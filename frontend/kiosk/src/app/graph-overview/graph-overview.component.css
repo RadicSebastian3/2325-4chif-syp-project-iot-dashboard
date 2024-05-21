@@ -105,4 +105,10 @@ iframe {
 font-size: 25px;
 }
 
+.graph-container {
+  display: flex;
+}
 
+.graph-item {
+  flex: 1; /* Each item takes equal space */
+}

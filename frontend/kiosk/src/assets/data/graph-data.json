@@ -1,17 +1,26 @@
 [
-  {
-    "name": "Overview",
-    "description": "",
-    "iFrameLink": "http://localhost:3000/d-solo/bdjkuaf3gszr4e/leoenergy?orgId=1&refresh=10s&from=now-1d&to=now&panelId=3"
-  },
-  {
-    "name": "Momentaner Verbrauch",
-    "description": "",
-    "iFrameLink": "http://localhost:3000/d-solo/bdjkuaf3gszr4e/leoenergy?orgId=1&refresh=10s&from=now-1d&to=now&panelId=2"
-  },
-  {
-    "name": "Energie Gesamt",
-    "description": "",
-    "iFrameLink": "http://localhost:3000/d-solo/bdjkuaf3gszr4e/leoenergy?orgId=1&refresh=10s&from=now-1d&to=now&panelId=4"
-  }
+  [
+    {
+      "name": "Overview",
+      "description": "",
+      "iFrameLink": "http://localhost:3000/d-solo/bdjkuaf3gszr4e/leoenergy?orgId=1&refresh=10s&from=now-1d&to=now&panelId=3"
+    },
+    {
+      "name": "Momentaner Verbrauch",
+      "description": "",
+      "iFrameLink": "http://localhost:3000/d-solo/bdjkuaf3gszr4e/leoenergy?orgId=1&refresh=10s&from=now-1d&to=now&panelId=2"
+    }
+  ],
+  [
+    {
+      "name": "Energie Gesamt",
+      "description": "",
+      "iFrameLink": "http://localhost:3000/d-solo/bdjkuaf3gszr4e/leoenergy?orgId=1&refresh=10s&from=now-1d&to=now&panelId=4"
+    },
+    {
+      "name": "YT",
+      "description": "",
+      "iFrameLink": "https://youtube.com"
+    }
+  ]
 ]

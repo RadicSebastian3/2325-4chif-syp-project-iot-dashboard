@@ -36,9 +36,9 @@ export class GraphOverviewComponent{
     this.kioskModeChecker();
   }
 
-  public graphs: Graph[] = [];
+  public graphs: Graph[][] = new Array([]);
   public currentIndex = -1;
-  public currentGraph: Graph | null = null;
+  public currentGraph: Graph[] | null = null;
 
   public kioskMode: boolean = true;
   public interval: number = 15;
@@ -69,7 +69,7 @@ export class GraphOverviewComponent{
   public activateKioskMode(): void {
     this.subscription = timer(0,this.interval * 1000).pipe(
       switchMap(() => {
-        return this.nextGraph().name;
+        return this.nextGraph();
       })
     ).subscribe(res => console.log("switched to graph " + res));
   }
@@ -78,7 +78,7 @@ export class GraphOverviewComponent{
     this.subscription.unsubscribe();
   }
 
-  public nextGraph(): Graph{
+  public nextGraph(): Graph[] {
     this.currentIndex++;
 
     if(this.currentIndex >= this.graphs.length){
@@ -92,13 +92,15 @@ export class GraphOverviewComponent{
     const selectedDuration: string = this.selectedDuration.short;
     const durationPattern: RegExp = /from=now-\d+[a-z]/;
 
-    this.graphs.forEach(graph => {
-      graph.iFrameLink = graph.iFrameLink.replace(durationPattern, `from=now-${selectedDuration}`);
+    this.graphs.forEach(graphParent => {
+      graphParent.forEach(graphChild => {
+        graphChild.iFrameLink = graphChild.iFrameLink.replace(durationPattern, `from=now-${selectedDuration}`);
+      })
     });
   }
 
 
-  public setCurrentGraphWithIndex(index: number): Graph {
+  public setCurrentGraphWithIndex(index: number): Graph[] {
     this.currentIndex = index;
     this.currentGraph = this.graphs[this.currentIndex];
     return this.currentGraph;
@@ -114,5 +116,15 @@ export class GraphOverviewComponent{
 
   public toggleCollapse() {
     this.visible = !this.visible;
+  }
+
+  public getAllGraphNames(graphs: Graph[], separator: string): string{
+    let res: string[] = [];
+
+    graphs.forEach(g => {
+      res.push(g.name);
+    })
+
+    return res.join(separator);
   }
 }
