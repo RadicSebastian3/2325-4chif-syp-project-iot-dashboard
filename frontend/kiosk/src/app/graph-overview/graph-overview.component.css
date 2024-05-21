@@ -45,6 +45,13 @@ body, html {
   margin-bottom: 20px;
 }
 
+.graph-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Zentriert die Graphen horizontal */
+  margin-top: 20px;
+}
+
 iframe {
   width: 1500px;
   height: 800px;
@@ -105,10 +112,10 @@ iframe {
 font-size: 25px;
 }
 
-.graph-container {
-  display: flex;
-}
 
 .graph-item {
-  flex: 1; /* Each item takes equal space */
+  flex: 1 1 45%; /* Jeder Graph nimmt gleich viel Platz ein */
+  margin: 10px;
+  min-width: 300px; /* Mindestbreite, um die Reaktionsfähigkeit sicherzustellen */
+  height: 800px; /* Höhe festlegen */
 }
