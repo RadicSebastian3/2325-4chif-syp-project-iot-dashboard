@@ -1,10 +1,13 @@
+# Stage 1: Build the Angular application
 FROM node:18.17.1-alpine AS build
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
-RUN npm run build
+RUN npm run build --prod
 
-FROM nginx:stable
+# Stage 2: Serve the Angular application with Nginx
+FROM nginx:stable-alpine
 COPY --from=build /app/dist/kiosk/ /usr/share/nginx/html
 EXPOSE 80
+
