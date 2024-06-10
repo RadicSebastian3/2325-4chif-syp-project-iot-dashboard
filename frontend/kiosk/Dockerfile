@@ -3,7 +3,7 @@ FROM node:18.17.1-alpine AS build
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
-COPY . .
+COPY . /app
 RUN npm run build --prod
 
 # Debugging step: Check contents of /app/dist/kiosk
