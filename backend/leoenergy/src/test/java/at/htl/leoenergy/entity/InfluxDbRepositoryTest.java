@@ -3,6 +3,7 @@ package at.htl.leoenergy.entity;
 import at.htl.leoenergy.influxdb.InfluxDbRepository;
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
+
 import static org.mockito.Mockito.*;
 
 @QuarkusTest
