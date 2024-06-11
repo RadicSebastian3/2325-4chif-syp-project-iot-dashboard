@@ -4,13 +4,13 @@
       "name": "PV-Energie",
       "description": "",
       "title": "PV-Energie Umgewandelt",
-      "iFrameLink": "http://vm23.htl-leonding.ac.at/grafana/d-solo/edmd6w9nsqdq8f/new-dashboard?orgId=1&refresh=10s&from=now-1d&to=now&panelId=1"
+      "iFrameLink": "http://10.191.112.23/grafana/d-solo/edmd6w9nsqdq8f/new-dashboard?orgId=1&refresh=10s&from=now-1d&to=now&panelId=1"
     },
     {
       "name": "",
       "description": "",
       "title": "PV-Energie Zähler",
-      "iFrameLink": "http://vm23.htl-leonding.ac.at/grafana/d-solo/edmd6w9nsqdq8f/new-dashboard?orgId=1&refresh=10s&from=now-1d&to=now&panelId=2"
+      "iFrameLink": "http://10.191.112.23/grafana/d-solo/edmd6w9nsqdq8f/new-dashboard?orgId=1&refresh=10s&from=now-1d&to=now&panelId=2"
     }
   ],
   [
@@ -18,13 +18,13 @@
       "name": "Energie Gesamt",
       "description": "",
       "title": "Energie Gesamt Umgewandelt",
-      "iFrameLink": "http://vm23.htl-leonding.ac.at/grafana/d-solo/edmd6w9nsqdq8f/new-dashboard?orgId=1&refresh=10s&from=now-1d&to=now&panelId=3"
+      "iFrameLink": "http://10.191.112.23/grafana/d-solo/edmd6w9nsqdq8f/new-dashboard?orgId=1&refresh=10s&from=now-1d&to=now&panelId=3"
     },
     {
       "name": "",
       "description": "",
       "title": "Energie Gesamt Zähler",
-      "iFrameLink": "http://vm23.htl-leonding.ac.at/grafana/d-solo/edmd6w9nsqdq8f/new-dashboard?orgId=1&refresh=10s&from=now-1d&to=now&panelId=4"
+      "iFrameLink": "http://10.191.112.23/grafana/d-solo/edmd6w9nsqdq8f/new-dashboard?orgId=1&refresh=10s&from=now-1d&to=now&panelId=4"
     }
   ],
   [
@@ -32,13 +32,13 @@
       "name": "Zähler Serverraum",
       "description": "",
       "title": "Zähler Serverraum Umgewandelt",
-      "iFrameLink": "http://vm23.htl-leonding.ac.at/grafana/d-solo/edmd6w9nsqdq8f/new-dashboard?orgId=1&refresh=10s&from=now-1d&to=now&panelId=5"
+      "iFrameLink": "http://10.191.112.23/grafana/d-solo/edmd6w9nsqdq8f/new-dashboard?orgId=1&refresh=10s&from=now-1d&to=now&panelId=5"
     },
     {
       "name": "",
       "description": "",
       "title": "Zähler Serverraum Zähler",
-      "iFrameLink": "http://vm23.htl-leonding.ac.at/grafana/d-solo/edmd6w9nsqdq8f/new-dashboard?orgId=1&refresh=10s&from=now-1d&to=now&panelId=6"
+      "iFrameLink": "http://10.191.112.23/grafana/d-solo/edmd6w9nsqdq8f/new-dashboard?orgId=1&refresh=10s&from=now-1d&to=now&panelId=6"
     }
   ]
 ]
