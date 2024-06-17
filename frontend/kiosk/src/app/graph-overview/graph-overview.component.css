@@ -66,12 +66,12 @@ iframe {
   border: none;
   padding: 10px;
   background-color: transparent;
-  color: forestgreen;
+  color: #f15a23;
   cursor: pointer;
 }
 
 .navbar-nav .nav-link {
-  color: green;
+  color: #f15a23;
   font-size: 20px;
   padding-right: 100px;
   transition: transform 0.3s ease;
@@ -85,7 +85,7 @@ iframe {
 
 .navbar-nav .nav-link:hover span {
   transform: scale(1.2);
-  box-shadow: 0px 0px 5px mediumspringgreen;
+  box-shadow: 0px 0px 5px #f8ac09;
 }
 
 
@@ -101,7 +101,7 @@ iframe {
 }
 
 .nav-link .fa-cog {
-  color: green;
+  color: #f15a23;
 font-size: 25px;
 }
 
