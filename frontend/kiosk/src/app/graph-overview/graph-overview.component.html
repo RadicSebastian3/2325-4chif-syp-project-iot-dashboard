@@ -29,6 +29,12 @@
               <option *ngFor="let duration of durations" [ngValue]="duration">{{ duration.long }}</option>
             </select>
           </li>
+          <li>
+            <p class="dropdown-item text-dark">Grafana Server</p>
+            <select class="form-select dropdown-item" [(ngModel)]="selectedGrafanaServer" (ngModelChange)="changeGrafanaServer()">
+              <option *ngFor="let grafanaServer of grafanaServers" [ngValue]="grafanaServer">{{ grafanaServer }}</option>
+            </select>
+          </li>
         </ul>
       </li>
     </ul>

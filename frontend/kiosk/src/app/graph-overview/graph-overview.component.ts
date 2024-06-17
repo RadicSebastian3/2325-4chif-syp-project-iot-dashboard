@@ -127,4 +127,23 @@ export class GraphOverviewComponent{
 
     return res.join(separator);
   }
+
+  public grafanaServers: string[] = ["localhost:3000", "10.191.112.23/grafana"];
+  public selectedGrafanaServer: string = this.grafanaServers[1];
+
+  public changeGrafanaServer() {
+    this.graphs.forEach(parentGraph => {
+      parentGraph.forEach(childGraph => {
+        this.grafanaServers.forEach(server => {
+          childGraph.iFrameLink = childGraph.iFrameLink.replace(server, this.selectedGrafanaServer);
+        })
+      })
+    })
+
+    this.graphs.forEach(parentGraph => {
+      parentGraph.forEach(childGraph => {
+        console.log(childGraph.iFrameLink);
+      })
+    })
+  }
 }
