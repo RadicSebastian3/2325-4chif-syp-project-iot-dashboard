@@ -12,15 +12,15 @@ import java.math.BigInteger;
 public class SensorValue {
 
     private BigInteger id;
-    private long time;
+    private Long valueTypeId;
     private String deviceName;
+    private long deviceId;
+    private long time;
     private String site;
     private String unit;
     private String valueType;
     private double value;
-    private long deviceId;
     private String relation;
-    private Long valueTypeId;
 
     public SensorValue() {
     }
@@ -39,7 +39,7 @@ public class SensorValue {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             SensorValue sensorValue = objectMapper.readValue(json, SensorValue.class);
-            UnitConverter.convertToKilowattAndSetRelation(sensorValue);
+            UnitConverter.setTypeOfDevice(sensorValue);
             return sensorValue;
         } catch (JsonProcessingException e) {
             Log.error("Error during converting json string to SensorValue object!");

@@ -1,6 +1,6 @@
 = Fragen von 07.05.2024
 
-===  Welche und wie viele Daten wurden in welcher Form(Tags) gespeichert
+==  Welche und wie viele Daten wurden in welcher Form(Tags) gespeichert
 * Änderungen:
 * Es werden alle Werte in normaler Form gespeichert außer werden zusätzliche Metadaten von Backend hinzugefügt wie zum Beispiel: Relation
 ** Die Wattwerte werden in Kilowatt umgewandelt von Leoenergy und so wird es in der Influxdb gespeichert

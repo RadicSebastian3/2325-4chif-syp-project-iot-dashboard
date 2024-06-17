@@ -37,7 +37,7 @@ public class InfluxDbRepository {
                     .addTag("device_name",sensorValue.getDeviceName())
                     .addTag("valueType_id",String.valueOf(sensorValue.getValueTypeId()))
                     .addField("value", sensorValue.getValue())
-                    .addTag("relation",sensorValue.getRelation())
+                    .addTag("type",sensorValue.getRelation())
                     .addTag("unit",sensorValue.getUnit())
                     .addTag("site",sensorValue.getSite())
                     .time(currentTimeInNanoseconds,WritePrecision.MS);
