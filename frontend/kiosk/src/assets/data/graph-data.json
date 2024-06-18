@@ -40,5 +40,13 @@
       "title": "Zähler Serverraum Zähler",
       "iFrameLink": "http://localhost:3000/d-solo/edmd6w9nsqdq8f/new-dashboard?orgId=1&refresh=10s&from=now-1d&to=now&panelId=6"
     }
+  ],
+  [
+    {
+      "name": "Tagesbilanz",
+      "description": "",
+      "title": "  ",
+      "iFrameLink": "http://localhost:3000/d-solo/edmd6w9nsqdq8f/new-dashboard?orgId=1&refresh=10s&from=now-1d&to=now&panelId=7"
+    }
   ]
 ]
