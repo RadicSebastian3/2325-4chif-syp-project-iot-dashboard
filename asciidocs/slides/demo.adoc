@@ -7,21 +7,39 @@
 :title-slide-background-image: htlleonding.jpg
 :title-slide-image: logo.png
 
+[.title]
 = Leoenergy
+:author: Balint Balazs
+:date: 2024
 
-
-[.font-xx-large]
 == Was ist Leoenergy?
 
-* Dashboard für den Energieverbrauch an der HTL Leonding
-* Wann wurde wie viel Strom verbraucht und generiert?
+* Dashboard zur Überwachung des Energieverbrauchs an der HTL Leonding
+* Informationen zu Stromverbrauch und -erzeugung (wann, wie viel)
+* Echtzeitdaten und historische Analysen verfügbar
 
-== Architecture
-image::architecture.png[]
+== Wofür wird es gebraucht?
 
-== Sprint 10: Aufgaben
-** W in Wh Rechenweg herzeigen
-** Leoenergy auf Vm richtig deployen
+* Energieverbrauch jederzeit im Blick behalten
+* Analyse von Verbrauchstrends und Ursachen
+* Optimierungspotenziale aufdecken und effizientere Nutzung ermöglichen
+
+== Architektur
+
+[.centered]
+image::architecture.png[Architecture Diagram, 600, center]
+
+== Sprint 11: Aufgaben
+
+* **Upgrade:** Quarkus und Grafana auf die neueste Version
+* **Deployment:** Leoenergy auf eine VM korrekt bereitstellen
 
 == LIVE DEMO
-image::htlleonding.jpg[background]
+
+[.font-xx-large]
+== Team
+* Balint Balazs
+* Said Nurceski
+* Erik Seifried
+* Markus Breinesberger
+
