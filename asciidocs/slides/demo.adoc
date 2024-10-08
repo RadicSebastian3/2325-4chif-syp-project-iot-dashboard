@@ -43,6 +43,6 @@ image::architecture.png[Architecture Diagram, 600, center]
 
 == Probleme Deployment: Bitte um Hilfe!
 
-link:../../documentation/deployment-probleme.adoc[]
+link:https://github.com/2324-4bhif-syp/2324-4bhif-syp-project-iot-dashboard/blob/main/documentation/deployment-probleme.adoc[]
 
 == LIVE DEMO
