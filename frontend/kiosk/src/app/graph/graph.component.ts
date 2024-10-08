@@ -1,7 +1,7 @@
-import {Component, Input} from '@angular/core';
-import {Graph} from "../model/Graph";
-import {DomSanitizer} from "@angular/platform-browser";
-import {NgIf} from "@angular/common";
+import { Component, Input } from '@angular/core';
+import { Graph } from "../model/Graph";
+import { DomSanitizer } from "@angular/platform-browser";
+import { NgIf } from "@angular/common";
 
 @Component({
   selector: 'app-graph',
@@ -10,17 +10,15 @@ import {NgIf} from "@angular/common";
     NgIf
   ],
   templateUrl: './graph.component.html',
-  styleUrl: './graph.component.css'
+  styleUrls: ['./graph.component.css']
 })
 export class GraphComponent {
   @Input() public graph: Graph | null = null;
-  @Input() public visible: boolean = false;
+  @Input() public visible: boolean = false; // Added this line
 
-  public constructor(public sanitizer: DomSanitizer) {
+  constructor(private sanitizer: DomSanitizer) { }
 
-  }
-
-  public getSafeUrl(url: string){
+  public getSafeUrl(url: string) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 }
