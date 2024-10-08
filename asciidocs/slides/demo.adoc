@@ -12,6 +12,13 @@
 :author: Balint Balazs
 :date: 2024
 
+[.font-xx-large]
+== Team
+* Balint Balazs
+* Said Nurceski
+* Erik Seifried
+* Markus Breinesberger
+
 == Was ist Leoenergy?
 
 * Dashboard zur Überwachung des Energieverbrauchs an der HTL Leonding
@@ -34,12 +41,8 @@ image::architecture.png[Architecture Diagram, 600, center]
 * **Upgrade:** Quarkus und Grafana auf die neueste Version
 * **Deployment:** Leoenergy auf eine VM korrekt bereitstellen
 
+== Probleme Deployment: Bitte um Hilfe!
+
+link:../../documentation/deployment-probleme.adoc[]
+
 == LIVE DEMO
-
-[.font-xx-large]
-== Team
-* Balint Balazs
-* Said Nurceski
-* Erik Seifried
-* Markus Breinesberger
-
