@@ -1,75 +1,80 @@
-<!-- graph-overview.component.html -->
+<!-- Navbar mit Einstellungen und Titel auf derselben Höhe -->
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <!-- Titel -->
+  <div class="title-section">
+    <h1>{{ currentGraph ? currentGraph.title : 'Dashboard' }}</h1>
+  </div>
 
-<!-- Navbar mit Einstellungen -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">
-      <img src="assets/images/htl-logo.png" alt="Logo" class="logo-small" />
-    </a>
-    <!-- Einstellungen Dropdown -->
-    <ul class="navbar-nav ms-auto">
-      <li class="nav-item dropdown">
-        <a
-          class="nav-link dropdown-toggle"
-          href="#"
-          id="settingsDropdown"
-          role="button"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-          <i class="fas fa-cog"></i>
-        </a>
-        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="settingsDropdown">
-          <li class="dropdown-item d-flex align-items-center">
-            <input
-              type="checkbox"
-              [(ngModel)]="kioskMode"
-              (change)="kioskModeChecker()"
-              class="form-check-input me-2"
-            />
-            <label class="form-check-label mb-0">Kiosk-Mode</label>
-          </li>
-          <li class="dropdown-item">
-            <label for="intervalRange" class="form-label">Interval: {{ interval }} Sekunden</label>
-            <input
-              id="intervalRange"
-              type="range"
-              min="5"
-              max="60"
-              [(ngModel)]="interval"
-              (change)="deactivateKioskMode(); kioskModeChecker()"
-              class="form-range"
-            />
-          </li>
-          <li class="dropdown-item">
-            <label for="durationSelect" class="form-label">Zeitraum</label>
-            <select
-              id="durationSelect"
-              class="form-select"
-              [(ngModel)]="selectedDuration"
-              (ngModelChange)="changeDuration()"
+  <!-- Einstellungen Dropdown -->
+  <div class="settings-section me-4">
+    <nav class="navbar navbar-expand-lg navbar-light p-0">
+      <div class="container-fluid p-0">
+        <!-- Einstellungen Dropdown -->
+        <ul class="navbar-nav">
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="settingsDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
             >
-              <option *ngFor="let duration of durations" [ngValue]="duration">{{ duration.long }}</option>
-            </select>
-          </li>
-          <li class="dropdown-item">
-            <label for="grafanaServerSelect" class="form-label">Grafana Server</label>
-            <select
-              id="grafanaServerSelect"
-              class="form-select"
-              [(ngModel)]="selectedGrafanaServer"
-              (ngModelChange)="changeGrafanaServer()"
-            >
-              <option *ngFor="let grafanaServer of grafanaServers" [ngValue]="grafanaServer">
-                {{ grafanaServer }}
-              </option>
-            </select>
+              <i class="fas fa-cog"></i> Einstellungen
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="settingsDropdown">
+              <li class="dropdown-item d-flex align-items-center">
+                <input
+                  type="checkbox"
+                  [(ngModel)]="kioskMode"
+                  (change)="kioskModeChecker()"
+                  class="form-check-input me-2"
+                />
+                <label class="form-check-label mb-0">Kiosk-Mode</label>
+              </li>
+              <li class="dropdown-item">
+                <label for="intervalRange" class="form-label">Intervall: {{ interval }} Sekunden</label>
+                <input
+                  id="intervalRange"
+                  type="range"
+                  min="5"
+                  max="60"
+                  [(ngModel)]="interval"
+                  (change)="deactivateKioskMode(); kioskModeChecker()"
+                  class="form-range mt-2"
+                />
+              </li>
+              <li class="dropdown-item">
+                <label for="durationSelect" class="form-label">Zeitraum</label>
+                <select
+                  id="durationSelect"
+                  class="form-select"
+                  [(ngModel)]="selectedDuration"
+                  (ngModelChange)="changeDuration()"
+                >
+                  <option *ngFor="let duration of durations" [ngValue]="duration">{{ duration.long }}</option>
+                </select>
+              </li>
+              <li class="dropdown-item">
+                <label for="grafanaServerSelect" class="form-label">Grafana Server</label>
+                <select
+                  id="grafanaServerSelect"
+                  class="form-select"
+                  [(ngModel)]="selectedGrafanaServer"
+                  (ngModelChange)="changeGrafanaServer()"
+                >
+                  <option *ngFor="let grafanaServer of grafanaServers" [ngValue]="grafanaServer">
+                    {{ grafanaServer }}
+                  </option>
+                </select>
+              </li>
+            </ul>
           </li>
         </ul>
-      </li>
-    </ul>
+      </div>
+    </nav>
   </div>
-</nav>
+</div>
 
 <div class="d-flex">
   <!-- Sidebar -->
@@ -118,11 +123,11 @@
                 <iframe [src]="getSafeUrl(currentGraph.iFrameLink)" class="grafana-iframe"></iframe>
               </div>
             </div>
-            <!-- Alle Graphen -->
+            <!-- Alle Graphen im Dashboard -->
             <div *ngIf="currentIndex === -1" class="graph-container">
               <h1 class="text-center mb-4">Dashboard</h1>
-              <div class="graph-container">
-                <div *ngFor="let graph of graphs" class="graph-item">
+              <div class="row">
+                <div *ngFor="let graph of graphs" class="col-md-6 graph-item">
                   <h3>{{ graph.title }}</h3>
                   <div class="iframe-container">
                     <iframe [src]="getSafeUrl(graph.iFrameLink)" class="grafana-iframe"></iframe>
@@ -138,6 +143,5 @@
         </div>
       </div>
     </div>
-    <!-- Optionaler Footer oder zusätzlicher Inhalt -->
   </div>
 </div>

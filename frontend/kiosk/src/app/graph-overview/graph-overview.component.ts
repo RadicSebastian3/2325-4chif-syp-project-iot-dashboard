@@ -49,17 +49,16 @@ export class GraphOverviewComponent implements OnInit {
     this.http.get<Graph[]>('assets/data/graph-data.json').subscribe((data) => {
       this.graphs = data;
       console.log(this.graphs.length + " graphs loaded");
-      console.log(this.graphs);
-      this.nextGraph();
+      this.currentIndex = 0; // Ändert den Index, um den ersten Graph direkt anzuzeigen
+      this.currentGraph = this.graphs[0]; // Setzt den ersten Graph beim Laden
     });
 
     this.kioskModeChecker();
   }
-  
 
   public selectAllGraphs(): void {
     this.currentIndex = -1;
-    this.currentGraph = null;
+    this.currentGraph = null; // Zeigt alle Graphen an, wenn Dashboard ausgewählt ist
   }
 
   public selectGraph(index: number): void {
@@ -114,8 +113,6 @@ export class GraphOverviewComponent implements OnInit {
       this.currentGraph = null;
     }
   }
-  
-  
 
   public getSafeUrl(url: string): SafeResourceUrl {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);

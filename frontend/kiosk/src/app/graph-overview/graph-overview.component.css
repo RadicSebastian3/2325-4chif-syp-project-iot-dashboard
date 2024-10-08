@@ -1,37 +1,51 @@
-/* graph-overview.component.css */
-
-/* Allgemeine Stile */
-body {
+/* Layout für Titel und Einstellungen */
+.d-flex {
   display: flex;
-  height: 100vh;
-  margin: 0;
-  font-family: 'Lato', sans-serif;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
-/* Sidebar-Stile */
+.title-section h1 {
+  margin: 0;
+  padding: 0;
+  font-size: 24px;
+  color: #333; /* Neutrale Farbe für den Titel */
+}
+
+.settings-section {
+  display: flex;
+  align-items: center;
+}
+
+.navbar {
+  padding: 0;
+}
+
+/* Sidebar Stile */
 .sidebar {
-  position: fixed; /* Fixiert die Sidebar */
+  position: fixed;
   top: 0;
   left: 0;
-  height: 100%; /* Volle Höhe */
-  width: 300px; /* Erhöhte Breite der Sidebar */
-  background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Moderne Farbverläufe */
+  height: 100%;
+  width: 300px;
+  background: linear-gradient(135deg, #ff7e5f, #feb47b);
   color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: 20px;
-  z-index: 1000; /* Stellt sicher, dass die Sidebar über dem Inhalt liegt */
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Sanfter Schatten */
+  z-index: 1000;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .sidebar-header img {
-  width: 120px; /* Verkleinertes Logo */
+  width: 120px;
   transition: width 0.3s ease;
 }
 
 .sidebar-header img:hover {
-  width: 130px; /* Leicht vergrößertes Logo beim Hover */
+  width: 130px;
 }
 
 .sidebar-nav {
@@ -43,95 +57,81 @@ body {
 
 .sidebar-item {
   width: 100%;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Weiße Trennlinie */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .sidebar-link {
   display: flex;
   align-items: center;
   width: 100%;
-  padding: 15px 25px; /* Erhöhtes Padding für breitere Links */
+  padding: 15px 25px;
   color: white;
   text-decoration: none;
   transition: background-color 0.3s ease, transform 0.3s ease;
-  font-size: 1em; /* Angepasste Schriftgröße */
+  font-size: 1em;
   cursor: pointer;
 }
 
 .sidebar-link i {
-  margin-right: 15px; /* Mehr Abstand zwischen Icon und Text */
-  font-size: 1.2em; /* Größere Icons */
-  transition: transform 0.3s ease;
+  margin-right: 15px;
+  font-size: 1.2em;
 }
 
 .sidebar-link:hover {
   background-color: rgba(255, 255, 255, 0.2);
-  transform: translateX(5px); /* Leichtes Verschieben beim Hover */
+  transform: translateX(5px);
 }
 
 .sidebar-link.active {
   background-color: rgba(255, 255, 255, 0.3);
   font-weight: bold;
-  box-shadow: inset 5px 0 0 rgba(255, 255, 255, 0.5); /* Indikator für aktives Element */
 }
 
 .sidebar-link.active i {
-  transform: rotate(90deg); /* Optional: Animation für aktives Icon */
+  transform: rotate(90deg);
 }
 
-/* Content-Stile */
+/* Content Stile */
 .content {
-  margin-left: 300px; /* Platz für die Sidebar */
+  margin-left: 300px;
   padding: 20px;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
   background-color: #f8f9fa;
-  overflow-y: auto; /* Ermöglicht Scrollen bei Überlauf */
+  overflow-y: auto;
 }
 
 .content-wrapper {
   flex-grow: 1;
 }
 
-/* Centered Div for Graphs */
-.centered-div {
-  text-align: center;
-  margin: 0 auto;
-  color: #333;
+/* Anpassung des Graph-Layouts */
+.graph-container {
+  margin-top: 20px;
 }
 
-h1 {
-  font-family: 'Lato', sans-serif;
-  font-weight: bold;
-  color: #6a1b9a; /* Modernes Lila */
-  margin-bottom: 10px;
+.graph-item {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-bottom: 30px;
 }
 
-h3 {
-  font-family: 'Lato', sans-serif;
-  font-weight: bold;
-  color: #6a1b9a;
-  margin-bottom: 10px;
+.graph-item h3 {
+  padding: 15px;
+  margin: 0;
+  background-color: #f0e6ff;
+  border-bottom: 1px solid #dee2e6;
 }
 
-p {
-  font-family: 'Lato', sans-serif;
-  font-weight: 300;
-  color: #666;
-  margin-bottom: 20px;
-}
-
-/* Anpassung für das Iframe-Layout */
 .iframe-container {
   position: relative;
   width: 100%;
   padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
   height: 0;
   overflow: hidden;
-  background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .grafana-iframe {
@@ -141,61 +141,28 @@ p {
   width: 100%;
   height: 100%;
   border: none;
-  background-color: transparent;
-}
-
-/* Graph Container */
-.graph-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 20px; /* Abstand zwischen den Graphen */
-  margin-top: 20px;
-}
-
-.graph-item {
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.graph-item h3 {
-  padding: 15px;
-  margin: 0;
-  background-color: #f0e6ff; /* Helles Lila für den Titelbereich */
-  border-bottom: 1px solid #dee2e6;
-}
-
-.graph-item .iframe-container {
-  flex-grow: 1;
-  padding-bottom: 0; /* Entfernt das Seitenverhältnis für volle Höhe */
-  height: 100%;
 }
 
 /* Responsive Anpassungen */
 @media (max-width: 768px) {
+  .d-flex {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .settings-section {
+    margin-top: 10px;
+  }
+
   .sidebar {
     width: 220px;
   }
+
   .content {
     margin-left: 220px;
   }
-  .sidebar-header img {
-    width: 100px;
-  }
-  .sidebar-link {
-    padding: 12px 20px;
-    font-size: 0.95em;
-  }
-  .sidebar-link i {
-    margin-right: 10px;
-    font-size: 1em;
-  }
-  .graph-container {
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 15px;
+
+  .graph-item {
+    margin-bottom: 20px;
   }
 }
