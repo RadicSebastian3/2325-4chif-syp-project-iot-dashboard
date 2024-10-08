@@ -1,32 +1,52 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {Graph} from "../model/Graph";
-import {NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
-import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
-import {HttpClient} from "@angular/common/http";
-import {FormsModule} from "@angular/forms";
-import {MatSlideToggle} from "@angular/material/slide-toggle";
-import {Subscription, timer} from "rxjs";
-import { switchMap } from 'rxjs/operators';
-import {Duration} from "../model/Duration";
-import {GraphComponent} from "../graph/graph.component";
+import { Component, OnInit } from '@angular/core';
+import { Graph } from "../model/Graph";
+import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
+import { HttpClient } from "@angular/common/http";
+import { NgForOf, NgIf } from "@angular/common";
+import { GraphComponent } from "../graph/graph.component";
+import { FormsModule } from '@angular/forms';
+import { Subscription, timer } from 'rxjs';
+import { Duration } from '../model/Duration';
 
 @Component({
   selector: 'app-graph-overview',
   standalone: true,
   imports: [
     NgForOf,
-    NgOptimizedImage,
     NgIf,
-    FormsModule,
-    MatSlideToggle,
-    GraphComponent
+    GraphComponent,
+    FormsModule
   ],
   templateUrl: './graph-overview.component.html',
-  styleUrl: './graph-overview.component.css'
+  styleUrls: ['./graph-overview.component.css']
 })
-export class GraphOverviewComponent{
-  public constructor(public sanitizer: DomSanitizer, public http: HttpClient) {
-    this.http.get<any>('assets/data/graph-data.json').subscribe((data) => {
+export class GraphOverviewComponent implements OnInit {
+  public graphs: Graph[] = [];
+  public currentIndex = -1;
+  public currentGraph: Graph | null = null;
+
+  public kioskMode: boolean = true;
+  public interval: number = 15;
+  subscription!: Subscription;
+
+  public durations: Duration[] = [
+    new Duration("5m", "5 minutes"),
+    new Duration("1h", "1 hour"),
+    new Duration("4h", "4 hours"),
+    new Duration("1d", "1 day"),
+    new Duration("2d", "2 days"),
+    new Duration("7d", "1 week"),
+    new Duration("30d", "1 month"),
+    new Duration("365d", "1 year")
+  ];
+  public selectedDuration: Duration = this.durations[3];
+
+  public visible: boolean = false;
+
+  constructor(public sanitizer: DomSanitizer, public http: HttpClient) { }
+
+  ngOnInit(): void {
+    this.http.get<Graph[]>('assets/data/graph-data.json').subscribe((data) => {
       this.graphs = data;
       console.log(this.graphs.length + " graphs loaded");
       console.log(this.graphs);
@@ -35,115 +55,98 @@ export class GraphOverviewComponent{
 
     this.kioskModeChecker();
   }
+  
 
-  public graphs: Graph[][] = new Array([]);
-  public currentIndex = -1;
-  public currentGraph: Graph[] | null = null;
+  public selectAllGraphs(): void {
+    this.currentIndex = -1;
+    this.currentGraph = null;
+  }
 
-  public kioskMode: boolean = true;
-  public interval: number = 15;
-  subscription! : Subscription;
-
-  public durations: Duration[] = [
-    new Duration("5m", "5 minutes"),
-    new Duration("1h", "1 hour"),
-    new Duration("4h", "4 hours"),
-    new Duration("1d", "1 day"),
-    new Duration("2d", "2 day"),
-    new Duration("7d", "1 week"),
-    new Duration("30d", "1 month"),
-    new Duration("365d", "1 year")
-  ];
-  public selectedDuration: Duration = this.durations.at(3)!;
-
-  public visible: boolean = false;
+  public selectGraph(index: number): void {
+    this.setCurrentGraphWithIndex(index);
+  }  
 
   public kioskModeChecker() {
-    if(this.kioskMode){
+    if (this.kioskMode) {
       this.activateKioskMode();
-    } else if(!this.kioskMode){
+    } else {
       this.deactivateKioskMode();
     }
   }
 
   public activateKioskMode(): void {
-    this.subscription = timer(0,this.interval * 1000).pipe(
-      switchMap(() => {
-        return this.nextGraph();
-      })
-    ).subscribe(res => console.log("switched to graph " + res));
+    this.subscription = timer(0, this.interval * 1000).subscribe(() => {
+      this.nextGraph();
+    });
   }
 
   public deactivateKioskMode(): void {
-    this.subscription.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
-  public nextGraph(): Graph[] {
+  public nextGraph(): void {
     this.currentIndex++;
-
-    if(this.currentIndex >= this.graphs.length){
+  
+    if (this.currentIndex >= this.graphs.length) {
       this.currentIndex = 0;
     }
-
-    return this.setCurrentGraphWithIndex(this.currentIndex);
+  
+    this.setCurrentGraphWithIndex(this.currentIndex);
   }
+  
 
   public changeDuration(): void {
     const selectedDuration: string = this.selectedDuration.short;
     const durationPattern: RegExp = /from=now-\d+[a-z]/;
 
-    this.graphs.forEach(graphParent => {
-      graphParent.forEach(graphChild => {
-        graphChild.iFrameLink = graphChild.iFrameLink.replace(durationPattern, `from=now-${selectedDuration}`);
-      })
+    this.graphs.forEach(graph => {
+      graph.iFrameLink = graph.iFrameLink.replace(durationPattern, `from=now-${selectedDuration}`);
     });
   }
 
-
-  public setCurrentGraphWithIndex(index: number): Graph[] {
+  public setCurrentGraphWithIndex(index: number): void {
     this.currentIndex = index;
-    this.currentGraph = this.graphs[this.currentIndex];
-    return this.currentGraph;
+    if (index >= 0 && index < this.graphs.length) {
+      this.currentGraph = this.graphs[index];
+    } else {
+      this.currentGraph = null;
+    }
   }
+  
+  
 
   public getSafeUrl(url: string): SafeResourceUrl {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 
-
-  protected readonly console = console;
-  protected readonly alert = alert;
-
   public toggleCollapse() {
     this.visible = !this.visible;
   }
 
-  public getAllGraphNames(graphs: Graph[], separator: string): string{
+  public getAllGraphNames(graphs: Graph[], separator: string): string {
     let res: string[] = [];
 
     graphs.forEach(g => {
       res.push(g.name);
-    })
+    });
 
     return res.join(separator);
   }
 
   public grafanaServers: string[] = ["localhost:3000", "10.191.112.23/grafana"];
-  public selectedGrafanaServer: string = this.grafanaServers[1];
+  public selectedGrafanaServer: string = this.grafanaServers[0]; // Ändern Sie den Index entsprechend
 
   public changeGrafanaServer() {
-    this.graphs.forEach(parentGraph => {
-      parentGraph.forEach(childGraph => {
-        this.grafanaServers.forEach(server => {
-          childGraph.iFrameLink = childGraph.iFrameLink.replace(server, this.selectedGrafanaServer);
-        })
-      })
-    })
+    this.graphs.forEach(graph => {
+      this.grafanaServers.forEach(server => {
+        graph.iFrameLink = graph.iFrameLink.replace(server, this.selectedGrafanaServer);
+      });
+    });
 
-    this.graphs.forEach(parentGraph => {
-      parentGraph.forEach(childGraph => {
-        console.log(childGraph.iFrameLink);
-      })
-    })
+    this.graphs.forEach(graph => {
+      console.log(graph.iFrameLink);
+    });
   }
 }
