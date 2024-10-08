@@ -3,13 +3,13 @@
       "name": "PV-Energie",
       "description": "",
       "title": "PV-Energie Umgewandelt",
-      "iFrameLink": "http://localhost:3000/d-solo/edmd6w9nsqdq8f/new-dashboard?orgId=1&refresh=10s&from=now-1d&to=now&panelId=1&theme=light&css=.panel-container,.graph-panel{background-color:white !important;}.flot-background{fill:white !important;}"
+      "iFrameLink": "http://localhost:3000/d-solo/fe08gqrnrot1ce/test?orgId=1&refresh=10s&from=now-1d&to=now&panelId=1&theme=light&css=.panel-container,.graph-panel{background-color:white !important;}.flot-background{fill:white !important;}"
     },
     {
       "name": "",
       "description": "",
       "title": "PV-Energie Zähler",
-      "iFrameLink": "http://localhost:3000/d-solo/edmd6w9nsqdq8f/new-dashboard?orgId=1&refresh=10s&from=now-1d&to=now&panelId=2&theme=light&css=.panel-container,.graph-panel{background-color:white !important;}.flot-background{fill:white !important;}"
+      "iFrameLink": "http://localhost:3000/d-solo/fe08gqrnrot1ce/new-dashboard?orgId=1&refresh=10s&from=now-1d&to=now&panelId=2&theme=light&css=.panel-container,.graph-panel{background-color:white !important;}.flot-background{fill:white !important;}"
     },
     {
       "name": "Energie Gesamt",
@@ -38,7 +38,7 @@
     {
       "name": "Production vs Consumption",
       "description": "",
-      "title": "  ",
+      "title": "Production",
       "iFrameLink": "http://localhost:3000/d-solo/edmd6w9nsqdq8f/new-dashboard?orgId=1&refresh=10s&from=now-1d&to=now&panelId=7&theme=light&css=.panel-container,.graph-panel{background-color:white !important;}.flot-background{fill:white !important;}"
     }
 ]
