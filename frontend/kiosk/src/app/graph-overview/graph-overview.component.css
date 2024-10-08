@@ -1,4 +1,4 @@
-/* Layout für Titel und Einstellungen */
+/* Layout für Einstellungen und Titel */
 .d-flex {
   display: flex;
   justify-content: space-between;
@@ -6,23 +6,47 @@
   margin-bottom: 1rem;
 }
 
-.title-section h1 {
-  margin: 0;
-  padding: 0;
-  font-size: 24px;
-  color: #333; /* Neutrale Farbe für den Titel */
-}
-
+/* Einstellungen auf der gleichen Höhe wie der Titel */
 .settings-section {
   display: flex;
   align-items: center;
+  margin-left: auto; /* Sorgt dafür, dass die Einstellungen ganz rechts stehen */
 }
 
-.navbar {
-  padding: 0;
+/* Dropdown-Stil */
+.settings-dropdown {
+  font-size: 1.1em;
+  color: #333;
+  cursor: pointer;
 }
 
-/* Sidebar Stile */
+.settings-menu {
+  padding: 10px;
+  width: 250px; /* Festgelegte Breite für das Dropdown-Menü */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  background-color: #fff;
+}
+
+.settings-menu .dropdown-item {
+  padding: 10px;
+  font-size: 0.9em;
+}
+
+/* Zentrierung von Kiosk-Mode und Checkbox */
+.settings-menu .dropdown-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Intervall-Schieberegler unter dem Label */
+.form-range {
+  margin-top: 10px;
+  width: 100%;
+}
+
+/* Sidebar-Stile */
 .sidebar {
   position: fixed;
   top: 0;
@@ -75,23 +99,25 @@
 .sidebar-link i {
   margin-right: 15px;
   font-size: 1.2em;
+  transition: transform 0.3s ease;
 }
 
 .sidebar-link:hover {
   background-color: rgba(255, 255, 255, 0.2);
-  transform: translateX(5px);
+  transform: translateX(5px); /* Animation beim Hover */
 }
 
 .sidebar-link.active {
   background-color: rgba(255, 255, 255, 0.3);
   font-weight: bold;
+  box-shadow: inset 5px 0 0 rgba(255, 255, 255, 0.5);
 }
 
 .sidebar-link.active i {
-  transform: rotate(90deg);
+  transform: rotate(90deg); /* Animation für aktives Icon */
 }
 
-/* Content Stile */
+/* Hauptinhalt */
 .content {
   margin-left: 300px;
   padding: 20px;
@@ -106,7 +132,7 @@
   flex-grow: 1;
 }
 
-/* Anpassung des Graph-Layouts */
+/* Anpassung des Graphen-Layouts */
 .graph-container {
   margin-top: 20px;
 }
@@ -122,7 +148,7 @@
 .graph-item h3 {
   padding: 15px;
   margin: 0;
-  background-color: #f0e6ff;
+  background-color: #fff;
   border-bottom: 1px solid #dee2e6;
 }
 
