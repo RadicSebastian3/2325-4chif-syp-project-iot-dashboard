@@ -1,3 +1,5 @@
+/* graph-overview.component.css */
+
 /* Allgemeine Stile */
 body {
   display: flex;
@@ -8,116 +10,192 @@ body {
 
 /* Sidebar-Stile */
 .sidebar {
-  width: 250px;
-  background: linear-gradient(135deg, #ff7e5f, #feb47b);
+  position: fixed; /* Fixiert die Sidebar */
+  top: 0;
+  left: 0;
+  height: 100%; /* Volle Höhe */
+  width: 300px; /* Erhöhte Breite der Sidebar */
+  background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Moderne Farbverläufe */
   color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: 20px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
+  z-index: 1000; /* Stellt sicher, dass die Sidebar über dem Inhalt liegt */
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Sanfter Schatten */
 }
 
-.sidebar-header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px 0;
+.sidebar-header img {
+  width: 120px; /* Verkleinertes Logo */
+  transition: width 0.3s ease;
 }
 
-.logo {
-  width: 150px;
+.sidebar-header img:hover {
+  width: 130px; /* Leicht vergrößertes Logo beim Hover */
 }
 
 .sidebar-nav {
   list-style: none;
   padding: 0;
   width: 100%;
+  margin-top: 20px;
 }
 
 .sidebar-item {
   width: 100%;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Weiße Trennlinie */
 }
 
 .sidebar-link {
-  display: block;
+  display: flex;
+  align-items: center;
   width: 100%;
-  padding: 15px 20px;
+  padding: 15px 25px; /* Erhöhtes Padding für breitere Links */
   color: white;
   text-decoration: none;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  font-size: 1em; /* Angepasste Schriftgröße */
+  cursor: pointer;
+}
+
+.sidebar-link i {
+  margin-right: 15px; /* Mehr Abstand zwischen Icon und Text */
+  font-size: 1.2em; /* Größere Icons */
+  transition: transform 0.3s ease;
 }
 
 .sidebar-link:hover {
   background-color: rgba(255, 255, 255, 0.2);
+  transform: translateX(5px); /* Leichtes Verschieben beim Hover */
 }
 
 .sidebar-link.active {
   background-color: rgba(255, 255, 255, 0.3);
+  font-weight: bold;
+  box-shadow: inset 5px 0 0 rgba(255, 255, 255, 0.5); /* Indikator für aktives Element */
+}
+
+.sidebar-link.active i {
+  transform: rotate(90deg); /* Optional: Animation für aktives Icon */
 }
 
 /* Content-Stile */
 .content {
-  margin-left: 250px;
+  margin-left: 300px; /* Platz für die Sidebar */
+  padding: 20px;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
   background-color: #f8f9fa;
+  overflow-y: auto; /* Ermöglicht Scrollen bei Überlauf */
 }
 
 .content-wrapper {
-  padding: 20px;
+  flex-grow: 1;
 }
 
+/* Centered Div for Graphs */
 .centered-div {
   text-align: center;
   margin: 0 auto;
   color: #333;
 }
 
-h1, h3 {
+h1 {
   font-family: 'Lato', sans-serif;
   font-weight: bold;
-  color: #333;
+  color: #6a1b9a; /* Modernes Lila */
+  margin-bottom: 10px;
+}
+
+h3 {
+  font-family: 'Lato', sans-serif;
+  font-weight: bold;
+  color: #6a1b9a;
+  margin-bottom: 10px;
 }
 
 p {
   font-family: 'Lato', sans-serif;
-  font-weight: light;
+  font-weight: 300;
   color: #666;
-}
-
-iframe {
-  width: 100%;
-  height: 400px;
-  border: none;
   margin-bottom: 20px;
 }
 
+/* Anpassung für das Iframe-Layout */
+.iframe-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+  height: 0;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.grafana-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  background-color: transparent;
+}
+
+/* Graph Container */
 .graph-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 20px; /* Abstand zwischen den Graphen */
+  margin-top: 20px;
 }
 
 .graph-item {
-  flex: 1 1 45%;
-  margin: 10px;
-  min-width: 300px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
-.sidebar-link i {
-  margin-right: 10px;
+.graph-item h3 {
+  padding: 15px;
+  margin: 0;
+  background-color: #f0e6ff; /* Helles Lila für den Titelbereich */
+  border-bottom: 1px solid #dee2e6;
 }
 
+.graph-item .iframe-container {
+  flex-grow: 1;
+  padding-bottom: 0; /* Entfernt das Seitenverhältnis für volle Höhe */
+  height: 100%;
+}
+
+/* Responsive Anpassungen */
 @media (max-width: 768px) {
   .sidebar {
-    width: 200px;
+    width: 220px;
   }
   .content {
-    margin-left: 200px;
+    margin-left: 220px;
+  }
+  .sidebar-header img {
+    width: 100px;
+  }
+  .sidebar-link {
+    padding: 12px 20px;
+    font-size: 0.95em;
+  }
+  .sidebar-link i {
+    margin-right: 10px;
+    font-size: 1em;
+  }
+  .graph-container {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 15px;
   }
 }
