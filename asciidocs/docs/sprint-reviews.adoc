@@ -40,6 +40,22 @@ größe
 * Reverse Proxy
 * Deployment
 
+== Sprint Review 11.10.2024
+* Ich bekomme Daten von Räumen mit Co2 Verlauf, wie kann ich das einbinden?
+
+* Achsenbeschriftung (bei echten Daten)
+
+* Wir bekommen Daten von Sensorboxen
+
+* Botschaft: HTL Leonding spart Energie
+- So viel ist zugekauft
+- So viel ist erzeugt
+- So viel ist verbraucht
+
+* Neues HTL Leonding Logo soll auch im Kiosk sein
+
+
+
 
 
 

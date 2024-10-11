@@ -9,8 +9,15 @@
 
 [.title]
 = Leoenergy
-:author: Balint Balazs
+:author:
 :date: 2024
+
+[.font-xx-large]
+== Team
+* Balint Balazs
+* Said Nurceski
+* Erik Seifried
+* Markus Breinesberger
 
 == Was ist Leoenergy?
 
@@ -33,13 +40,11 @@ image::architecture.png[Architecture Diagram, 600, center]
 
 * **Upgrade:** Quarkus und Grafana auf die neueste Version
 * **Deployment:** Leoenergy auf eine VM korrekt bereitstellen
+* **Frontend:** überarbeitetes Frontend
+
 
 == LIVE DEMO
 
-[.font-xx-large]
-== Team
-* Balint Balazs
-* Said Nurceski
-* Erik Seifried
-* Markus Breinesberger
+== Probleme Deployment: Bitte um Hilfe!
 
+link:https://github.com/2324-4bhif-syp/2324-4bhif-syp-project-iot-dashboard/blob/main/documentation/deployment-probleme.adoc[]
