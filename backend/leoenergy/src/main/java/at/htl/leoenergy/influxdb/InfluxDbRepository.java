@@ -1,5 +1,6 @@
 package at.htl.leoenergy.influxdb;
 
+import at.htl.leoenergy.entity.Co2Value;
 import at.htl.leoenergy.entity.SensorValue;
 import com.influxdb.client.InfluxDBClient;
 import com.influxdb.client.InfluxDBClientFactory;
@@ -47,7 +48,30 @@ public class InfluxDbRepository {
             client.close();
 
         } catch (Exception e) {
-            System.err.println("Error writing data to InfluxDB: " + e.getMessage());
+            System.err.println("Error writing SensorValue data to InfluxDB: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public  void insertCo2MeasurementFromJSON(Co2Value co2Value) {
+
+        try {
+            InfluxDBClient client = InfluxDBClientFactory.create(influxUrl, token.toCharArray());
+            WriteApiBlocking writeApi = client.getWriteApiBlocking();
+
+
+            long currentTimeInNanoseconds = TimeUnit.MILLISECONDS.toMillis(co2Value.getTime());
+
+            Point point = Point.measurement("CO2")
+                    .addTag("roomName",co2Value.getRoomName())
+                    .addField("value", co2Value.getValue())
+                    .time(currentTimeInNanoseconds,WritePrecision.MS);
+
+            writeApi.writePoint(bucket, org, point);
+            client.close();
+
+        } catch (Exception e) {
+            System.err.println("Error writing CO2 data to InfluxDB: " + e.getMessage());
             e.printStackTrace();
         }
     }
