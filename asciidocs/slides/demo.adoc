@@ -47,4 +47,11 @@ image::architecture.png[Architecture Diagram, 600, center]
 
 == Probleme Deployment: Bitte um Hilfe!
 
+=== Grundgedanken
+* Grafana ist momentan dank der Freigabe des Sysadmins direkt über den Port 3000 erreichbar (nur http).
+* Wir wollen aber den Zugriff über Port 443 (https) und der Route /grafana ermöglichen.
+* Der Zugriff auf das Frontend mit SSL/HTTP2 wurde bereits mittels Certbox ermöglicht.
+* Hier traten einige Probleme bei der Konfiguration von Grafana (grafana.ini) auf.
+* Wenn der Zugriff über die Route /grafana funktioniert, wäre es schlau den Port 3000 für die Öffentlichkeit zu schließen.
+
 image::ProblemeNginxGrafana.jpg[]
