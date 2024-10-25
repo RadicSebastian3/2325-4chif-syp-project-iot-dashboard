@@ -1,44 +1,44 @@
 [
     {
-      "name": "Produktion VS Verbrauch",
+      "name": "Verbrauch VS Produktion",
       "description": "",
-      "title": "Produktion VS Verbrauch",
-      "iFrameLink": "http://vm23.htl-leonding.ac.at:3000/d-solo/de17we49o1c74a/new-dashboard?orgId=1&panelId=7"
+      "title": "Verbrauch VS Produktion",
+      "iFrameLink": "http://vm23.htl-leonding.ac.at:3000/d-solo/ee1wv53yagkxsc/new-dashboard?timezone=browser&orgId=1&panelId=7&__feature.dashboardSceneSolo"
     },
     {
-      "name": "Zähler Serverraum",
+      "name": "Serverraum Zähler",
       "description": "",
-      "title": "Zähler Serverraum",
-      "iFrameLink": "http://vm23.htl-leonding.ac.at:3000/d-solo/de17we49o1c74a/new-dashboard?orgId=1&panelId=6"
+      "title": "Serverraum Zähler",
+      "iFrameLink": "http://vm23.htl-leonding.ac.at:3000/d-solo/ee1wv53yagkxsc/new-dashboard?timezone=browser&orgId=1&panelId=6&__feature.dashboardSceneSolo"
     },
     {
       "name": "Serverraum",
       "description": "",
       "title": "Serverraum",
-      "iFrameLink": "http://vm23.htl-leonding.ac.at:3000/d-solo/de17we49o1c74a/new-dashboard?orgId=1&panelId=5"
+      "iFrameLink": "http://vm23.htl-leonding.ac.at:3000/d-solo/ee1wv53yagkxsc/new-dashboard?timezone=browser&orgId=1&panelId=5&__feature.dashboardSceneSolo"
     },
     {
       "name": "PV Energie Zähler",
       "description": "",
       "title": "PV Energie Zähler",
-      "iFrameLink": "http://vm23.htl-leonding.ac.at:3000/d-solo/de17we49o1c74a/new-dashboard?orgId=1&panelId=4"
+      "iFrameLink": "http://vm23.htl-leonding.ac.at:3000/d-solo/ee1wv53yagkxsc/new-dashboard?timezone=browser&orgId=1&panelId=4&__feature.dashboardSceneSol"
     },
     {
       "name": "PV Energie",
       "description": "",
       "title": "PV Energie",
-      "iFrameLink": "http://vm23.htl-leonding.ac.at:3000/d-solo/de17we49o1c74a/new-dashboard?orgId=1&panelId=3"
+      "iFrameLink": "http://vm23.htl-leonding.ac.at:3000/d-solo/ee1wv53yagkxsc/new-dashboard?timezone=browser&orgId=1&panelId=3&__feature.dashboardSceneSolo"
     },
     {
       "name": "Energie Gesamt Zähler",
       "description": "",
       "title": "Energie Gesamt Zähler",
-      "iFrameLink": "http://vm23.htl-leonding.ac.at:3000/d-solo/de17we49o1c74a/new-dashboard?orgId=1&panelId=2"
+      "iFrameLink": "http://vm23.htl-leonding.ac.at:3000/d-solo/ee1wv53yagkxsc/new-dashboard?timezone=browser&orgId=1&panelId=2&__feature.dashboardSceneSolo"
     },
     {
       "name": "Energie Gesamt",
       "description": "",
       "title": "Energie Gesamt",
-      "iFrameLink": "http://vm23.htl-leonding.ac.at:3000/d-solo/de17we49o1c74a/new-dashboard?orgId=1&panelId=1S"
+      "iFrameLink": "http://vm23.htl-leonding.ac.at:3000/d-solo/ee1wv53yagkxsc/new-dashboard?timezone=browser&orgId=1&panelId=1&__feature.dashboardSceneSolo"
     }
 ]
