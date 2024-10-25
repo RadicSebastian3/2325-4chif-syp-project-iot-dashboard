@@ -1,44 +1,56 @@
 [
+  {
+    "name": "Produktion vs Verbrauch",
+    "description": "",
+    "title": "Produktion vs Verbrauch",
+    "iFrameLink": "http://localhost:3000/d-solo/ee1wv53yagkxsc/new-dashboard?orgId=1&refresh=10s&from=now-1d&to=now&panelId=7&theme=light&css=.panel-container,.graph-panel{background-color:white !important;}.flot-background{fill:white !important;}"
+  },
+  {
+    "name": "PV Energie und Gesamt Energie",
+    "description": "",
+    "title": "PV Energie und Gesamt Energie",
+    "iFrameLink": "http://localhost:3000/d-solo/ee1wv53yagkxsc/new-dashboard?orgId=1&refresh=10s&from=now-1d&to=now&panelId=8&theme=light&css=.panel-container,.graph-panel{background-color:white !important;}.flot-background{fill:white !important;}"
+  },
+  {
+    "name": "Bilanz",
+    "description": "",
+    "title": "Bilanz",
+    "iFrameLink": "http://localhost:3000/d-solo/ee1wv53yagkxsc/new-dashboard?orgId=1&refresh=10s&from=now-1d&to=now&panelId=9&theme=light&css=.panel-container,.graph-panel{background-color:white !important;}.flot-background{fill:white !important;}"
+  },
     {
-      "name": "Verbrauch VS Produktion",
+      "name": "PV-Energie",
       "description": "",
-      "title": "Verbrauch VS Produktion",
-      "iFrameLink": "http://vm23.htl-leonding.ac.at:3000/d-solo/ee1wv53yagkxsc/new-dashboard?timezone=browser&orgId=1&panelId=7&__feature.dashboardSceneSolo"
+      "title": "PV-Energie",
+      "iFrameLink": "http://localhost:3000/d-solo/ee1wv53yagkxsc/new-dashboard?orgId=1&refresh=10s&from=now-1d&to=now&panelId=3&theme=light&css=.panel-container,.graph-panel{background-color:white !important;}.flot-background{fill:white !important;}"
     },
     {
-      "name": "Serverraum Zähler",
+      "name": "",
       "description": "",
-      "title": "Serverraum Zähler",
-      "iFrameLink": "http://vm23.htl-leonding.ac.at:3000/d-solo/ee1wv53yagkxsc/new-dashboard?timezone=browser&orgId=1&panelId=6&__feature.dashboardSceneSolo"
-    },
-    {
-      "name": "Serverraum",
-      "description": "",
-      "title": "Serverraum",
-      "iFrameLink": "http://vm23.htl-leonding.ac.at:3000/d-solo/ee1wv53yagkxsc/new-dashboard?timezone=browser&orgId=1&panelId=5&__feature.dashboardSceneSolo"
-    },
-    {
-      "name": "PV Energie Zähler",
-      "description": "",
-      "title": "PV Energie Zähler",
-      "iFrameLink": "http://vm23.htl-leonding.ac.at:3000/d-solo/ee1wv53yagkxsc/new-dashboard?timezone=browser&orgId=1&panelId=4&__feature.dashboardSceneSol"
-    },
-    {
-      "name": "PV Energie",
-      "description": "",
-      "title": "PV Energie",
-      "iFrameLink": "http://vm23.htl-leonding.ac.at:3000/d-solo/ee1wv53yagkxsc/new-dashboard?timezone=browser&orgId=1&panelId=3&__feature.dashboardSceneSolo"
-    },
-    {
-      "name": "Energie Gesamt Zähler",
-      "description": "",
-      "title": "Energie Gesamt Zähler",
-      "iFrameLink": "http://vm23.htl-leonding.ac.at:3000/d-solo/ee1wv53yagkxsc/new-dashboard?timezone=browser&orgId=1&panelId=2&__feature.dashboardSceneSolo"
+      "title": "PV-Energie Zähler",
+      "iFrameLink": "http://localhost:3000/d-solo/ee1wv53yagkxsc/new-dashboard?orgId=1&refresh=10s&from=now-1d&to=now&panelId=4&theme=light&css=.panel-container,.graph-panel{background-color:white !important;}.flot-background{fill:white !important;}"
     },
     {
       "name": "Energie Gesamt",
       "description": "",
       "title": "Energie Gesamt",
-      "iFrameLink": "http://vm23.htl-leonding.ac.at:3000/d-solo/ee1wv53yagkxsc/new-dashboard?timezone=browser&orgId=1&panelId=1&__feature.dashboardSceneSolo"
+      "iFrameLink": "http://localhost:3000/d-solo/ee1wv53yagkxsc/new-dashboard?orgId=1&refresh=10s&from=now-1d&to=now&panelId=1&theme=light&css=.panel-container,.graph-panel{background-color:white !important;}.flot-background{fill:white !important;}"
+    },
+    {
+      "name": "",
+      "description": "",
+      "title": "Energie Gesamt Zähler",
+      "iFrameLink": "http://localhost:3000/d-solo/ee1wv53yagkxsc/new-dashboard?orgId=1&refresh=10s&from=now-1d&to=now&panelId=2&theme=light&css=.panel-container,.graph-panel{background-color:white !important;}.flot-background{fill:white !important;}"
+    },
+    {
+      "name": "Zähler Serverraum",
+      "description": "",
+      "title": "Zähler Serverraum",
+      "iFrameLink": "http://localhost:3000/d-solo/ee1wv53yagkxsc/new-dashboard?orgId=1&refresh=10s&from=now-1d&to=now&panelId=5&theme=light&css=.panel-container,.graph-panel{background-color:white !important;}.flot-background{fill:white !important;}"
+    },
+    {
+      "name": "Zähler Serverraum Zähler",
+      "description": "",
+      "title": "Zähler Serverraum Zähler",
+      "iFrameLink": "http://localhost:3000/d-solo/ee1wv53yagkxsc/new-dashboard?orgId=1&refresh=10s&from=now-1d&to=now&panelId=6&theme=light&css=.panel-container,.graph-panel{background-color:white !important;}.flot-background{fill:white !important;}"
     }
 ]
