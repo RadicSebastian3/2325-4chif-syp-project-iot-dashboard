@@ -54,5 +54,6 @@ image::architecture.png[Architecture Diagram, 600, center]
 * Hier traten einige Probleme bei der Konfiguration von Grafana (grafana.ini) auf.
 * Wenn der Zugriff über die Route /grafana funktioniert, wäre es schlau den Port 3000 für die Öffentlichkeit zu schließen.
 
+=== Lösung
 
 image::ProblemeNginxGrafana.png[]
