@@ -29,18 +29,15 @@
 
 * Energieverbrauch jederzeit im Blick behalten
 * Analyse von Verbrauchstrends und Ursachen
-* Optimierungspotenziale aufdecken und effizientere Nutzung ermöglichen
 
 == Architektur
 
 [.centered]
 image::architecture.png[Architecture Diagram, 600, center]
 
-== Sprint 11: Aufgaben
+== Sprint 12: Aufgaben
 
-* **Upgrade:** Quarkus und Grafana auf die neueste Version
-* **Deployment:** Leoenergy auf eine VM korrekt bereitstellen
-* **Frontend:** überarbeitetes Frontend
+* **Deployment:** Leoenergy auf VM23 korrekt bereitstellen
 
 
 == LIVE DEMO
