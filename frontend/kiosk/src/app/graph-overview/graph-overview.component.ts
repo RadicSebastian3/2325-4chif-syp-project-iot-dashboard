@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Graph } from "../model/Graph";
 import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient} from "@angular/common/http";
 import { NgForOf, NgIf } from "@angular/common";
 import { GraphComponent } from "../graph/graph.component";
 import { FormsModule } from '@angular/forms';
 import { Subscription, timer } from 'rxjs';
 import { Duration } from '../model/Duration';
+import {WeatherComponent} from "../weather/weather.component";
 
 @Component({
   selector: 'app-graph-overview',
@@ -15,7 +16,8 @@ import { Duration } from '../model/Duration';
     NgForOf,
     NgIf,
     GraphComponent,
-    FormsModule
+    FormsModule,
+    WeatherComponent,
   ],
   templateUrl: './graph-overview.component.html',
   styleUrls: ['./graph-overview.component.css']
@@ -63,7 +65,7 @@ export class GraphOverviewComponent implements OnInit {
 
   public selectGraph(index: number): void {
     this.setCurrentGraphWithIndex(index);
-  }  
+  }
 
   public kioskModeChecker() {
     if (this.kioskMode) {
@@ -87,14 +89,14 @@ export class GraphOverviewComponent implements OnInit {
 
   public nextGraph(): void {
     this.currentIndex++;
-  
+
     if (this.currentIndex >= this.graphs.length) {
       this.currentIndex = 0;
     }
-  
+
     this.setCurrentGraphWithIndex(this.currentIndex);
   }
-  
+
 
   public changeDuration(): void {
     const selectedDuration: string = this.selectedDuration.short;

@@ -2,12 +2,14 @@ import { Component, Input } from '@angular/core';
 import { Graph } from "../model/Graph";
 import { DomSanitizer } from "@angular/platform-browser";
 import { NgIf } from "@angular/common";
+import {WeatherComponent} from "../weather/weather.component";
 
 @Component({
   selector: 'app-graph',
   standalone: true,
   imports: [
-    NgIf
+    NgIf,
+    WeatherComponent
   ],
   templateUrl: './graph.component.html',
   styleUrls: ['./graph.component.css']

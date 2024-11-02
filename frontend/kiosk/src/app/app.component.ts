@@ -3,13 +3,14 @@ import { RouterOutlet } from '@angular/router';
 import {GraphOverviewComponent} from "./graph-overview/graph-overview.component";
 import {HttpClientModule} from "@angular/common/http";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {WeatherComponent} from "./weather/weather.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, GraphOverviewComponent, HttpClientModule, MatSlideToggleModule],
+  imports: [RouterOutlet, GraphOverviewComponent, HttpClientModule, MatSlideToggleModule, WeatherComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
 
 export class AppComponent {
