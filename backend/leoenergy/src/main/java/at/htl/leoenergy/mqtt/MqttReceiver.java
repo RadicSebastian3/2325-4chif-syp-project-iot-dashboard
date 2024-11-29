@@ -1,5 +1,6 @@
 package at.htl.leoenergy.mqtt;
 
+import at.htl.leoenergy.entity.SensorBoxValue;
 import at.htl.leoenergy.entity.SensorValue;
 import at.htl.leoenergy.influxdb.InfluxDbRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -27,11 +28,12 @@ public class MqttReceiver {
 
    @Incoming("leoenergy")
    public void receive(byte[] byteArray) {
-      Log.infof("Received measurement from leoenergy topic mqtt: %s", byteArray.length);
+
 
        String msg = new String(byteArray);
        try {
            SensorValue sensorValue = SensorValue.fromJson(msg);
+           Log.info(sensorValue.toString());
            insertMeasurement(sensorValue);
        }
        catch (NullPointerException e){
@@ -48,13 +50,19 @@ public class MqttReceiver {
        String floor = splitted[0];                      //zB eg
        String room = splitted[1];                       //zB e71
        String physicalParameter = splitted[2];          //zB temperature, noise, co2,...
-       String timestamp = extractTimestamp(payload);    //Unix-Timestamp
+       String timestamp = extractTimestamp(payload);
+     //Unix-Timestamp
        String value = extractValue(payload);            //value
 
-       Log.info(String.format("Floor: %s, Room: %s, Parameter: %s, Timestamp: %s, Value: %s",
-               floor, room, physicalParameter, timestamp, value));
 
-       //TODO: process data and write to InfluxDB
+       long timestampInSeconds = Long.parseLong(timestamp);
+       long timestampInMilliseconds = timestampInSeconds * 1000;
+
+       SensorBoxValue sensorBoxValue = new SensorBoxValue(floor,Double.parseDouble(value),room,physicalParameter,timestampInMilliseconds);
+
+       Log.info(sensorBoxValue.toString());
+
+       influxDbRepository.insertSensorBoxMeasurement(sensorBoxValue);
 
        return msg.ack();
    }

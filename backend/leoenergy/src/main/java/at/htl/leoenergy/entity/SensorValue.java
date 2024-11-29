@@ -127,4 +127,14 @@ public class SensorValue {
     public void setValueTypeId(Long valueTypeId) {
         this.valueTypeId = valueTypeId;
     }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "SensorValue { Device ID: %d, Device Name: %s, Value: %.2f, Value Type: %s, Value Type ID: %d, " +
+                        "Unit: %s, Site: %s, Relation: %s, Time: %d }",
+                deviceId, deviceName, value, valueType, valueTypeId, unit, site, relation, time
+        );
+    }
+
 }
