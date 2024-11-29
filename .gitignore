@@ -246,3 +246,4 @@ buildNumber.properties
 node_modules/
 /backend/leoenergy-relational/db-postgres/
 /backend/mqtt/data/
+/backend/leoenergy/data/

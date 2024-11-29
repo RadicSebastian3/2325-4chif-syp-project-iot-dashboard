@@ -1,6 +1,5 @@
 package at.htl.leoenergy.influxdb;
 
-import at.htl.leoenergy.entity.Co2Value;
 import at.htl.leoenergy.entity.SensorValue;
 import com.influxdb.client.InfluxDBClient;
 import com.influxdb.client.InfluxDBClientFactory;
@@ -53,7 +52,8 @@ public class InfluxDbRepository {
         }
     }
 
-    public  void insertCo2MeasurementFromJSON(Co2Value co2Value) {
+    /*
+    public void insertCo2MeasurementFromJSON(Co2Value co2Value) {
 
         try {
             InfluxDBClient client = InfluxDBClientFactory.create(influxUrl, token.toCharArray());
@@ -74,5 +74,5 @@ public class InfluxDbRepository {
             System.err.println("Error writing CO2 data to InfluxDB: " + e.getMessage());
             e.printStackTrace();
         }
-    }
+    }*/
 }
