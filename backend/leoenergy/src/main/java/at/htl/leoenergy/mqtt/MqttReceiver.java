@@ -50,8 +50,8 @@ public class MqttReceiver {
        String floor = splitted[0];                      //zB eg
        String room = splitted[1];                       //zB e71
        String physicalParameter = splitted[2];          //zB temperature, noise, co2,...
-       String timestamp = extractTimestamp(payload);
-     //Unix-Timestamp
+       String timestamp = extractTimestamp(payload);     //Unix-Timestamp
+
        String value = extractValue(payload);            //value
 
 
