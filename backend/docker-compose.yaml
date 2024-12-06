@@ -33,7 +33,7 @@ services:
       - influxdb
 
   leoenergy:
-    image: ghcr.io/balintb4/leoenergy:v7
+    image: ghcr.io/2324-4bhif-syp/2324-4bhif-syp-project-iot-dashboard/leoenergy:latest
     container_name: leoenergy
     restart: unless-stopped
     ports:
