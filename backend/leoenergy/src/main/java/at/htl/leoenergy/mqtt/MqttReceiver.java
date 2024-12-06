@@ -41,33 +41,44 @@ public class MqttReceiver {
        }
    }
 
-   @Incoming("sensorbox")
-   public CompletionStage<Void> receiveSensorBox(MqttMessage<byte[]> msg) {
-       String topic = msg.getTopic();
-       String payload = new String(msg.getPayload());
-       String[] splitted = topic.split("/");
+    @Incoming("sensorbox")
+    public CompletionStage<Void> receiveSensorBox(MqttMessage<byte[]> msg) {
+        try {
+            String topic = msg.getTopic();
+            String payload = new String(msg.getPayload());
+            String[] splitted = topic.split("/");
 
-       String floor = splitted[0];                      //zB eg
-       String room = splitted[1];                       //zB e71
-       String physicalParameter = splitted[2];          //zB temperature, noise, co2,...
-       String timestamp = extractTimestamp(payload);     //Unix-Timestamp
+            String floor = splitted[0];                      // z.B. eg
+            String room = splitted[1];                       // z.B. e71
+            String physicalParameter = splitted[2];          // z.B. temperature, noise, co2, ...
+            String timestamp = extractTimestamp(payload);    // Unix-Timestamp
 
-       String value = extractValue(payload);            //value
+            String value = extractValue(payload);            // Wert
+
+            long timestampInSeconds = Long.parseLong(timestamp);
+            long timestampInMilliseconds = timestampInSeconds * 1000;
+            SensorBoxValue sensorBoxValue = new SensorBoxValue(
+                    floor,
+                    Double.parseDouble(value),
+                    room,
+                    physicalParameter,
+                    timestampInMilliseconds
+            );
+
+            Log.info(sensorBoxValue.toString());
+            influxDbRepository.insertSensorBoxMeasurement(sensorBoxValue);
+
+            // Rückgabe des Ack als CompletionStage
+            return msg.ack();
+        } catch (RuntimeException e) {
+            Log.error("Fehler bei der Verarbeitung der Nachricht: ", e);
+            // Rückgabe des Nack mit dem Fehler als CompletionStage
+            return msg.nack(e);
+        }
+    }
 
 
-       long timestampInSeconds = Long.parseLong(timestamp);
-       long timestampInMilliseconds = timestampInSeconds * 1000;
-
-       SensorBoxValue sensorBoxValue = new SensorBoxValue(floor,Double.parseDouble(value),room,physicalParameter,timestampInMilliseconds);
-
-       Log.info(sensorBoxValue.toString());
-
-       influxDbRepository.insertSensorBoxMeasurement(sensorBoxValue);
-
-       return msg.ack();
-   }
-
-   private String extractTimestamp(String json){
+    private String extractTimestamp(String json){
        try {
            ObjectMapper objectMapper = new ObjectMapper();
            JsonNode jsonNode = objectMapper.readTree(json);
