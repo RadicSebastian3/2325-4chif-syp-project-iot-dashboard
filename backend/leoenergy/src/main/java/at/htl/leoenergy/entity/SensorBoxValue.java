@@ -57,6 +57,7 @@ public class SensorBoxValue {
     public void setTime(long time) {
         this.time = time;
     }
+
     @Override
     public String toString() {
         return String.format(
