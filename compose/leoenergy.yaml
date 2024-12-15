@@ -1,7 +1,7 @@
 services:
   leoenergy:
     image: ghcr.io/2324-4bhif-syp/2324-4bhif-syp-project-iot-dashboard/leoenergy:latest
-    container_name: leoenergy
+    container_name: leoenergy-backend
     restart: unless-stopped
     ports:
       - "8080:8080"
