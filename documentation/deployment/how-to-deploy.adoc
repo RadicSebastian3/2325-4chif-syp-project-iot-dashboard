@@ -10,24 +10,11 @@
 
 == Docker Compose
 
-=== Services
-* influxdb: our time-series database
-** port mapped to 8086
-* grafana: tool to create graphs from data in influxdb
-** port mapped to 3000
-* leoenergy: receives mqtt messages and writes data to influxdb
-** port mapped to 8080
-* frontend: display data, with embedded grafana boards
-** port mapped to 8000
-
-.docker-compose.yaml
-[source, yaml]
-----
-include::files/docker-compose.yaml[]
-----
-<1> You can define username and password using environment-variables
-<2> Bind mounting of influxdb data
-<3> It's important to mount the data correctly using bind mounts. You also need grafana.ini file in the same directory as your docker-compose.yaml
+* Download all files from https://github.com/2324-4bhif-syp/2324-4bhif-syp-project-iot-dashboard/tree/main/compose[here] and copy to your machine.
+* First, do the Grafana Init Stuff in the section below.
+* Start the services executing `start.sh`..
+* You can stop the services execution `stop.sh`.
+* If there are new images available, there is a automation script called `clean-docker.sh` to delete the old and pull the new images.
 
 === Grafana Initialization File (grafana.ini)
 IMPORTANT: You need grafana.ini file in the same directory as your docker-compose.yaml.
@@ -47,13 +34,6 @@ admin_user = <choose_admin_username>
 admin_password = <choose_admin_password>
 allow_embedding = true
 enabled = true
-----
-
-=== Start all the Services using:
-
-[source, bash]
-----
-docker compose up -d
 ----
 
 == Nginx as Reverse Proxy
