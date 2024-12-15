@@ -120,3 +120,5 @@ sudo systemctl restart nginx
 ----
 
 == Leoenergy is deployed :-)
+
+image::files/deployment.png[]
