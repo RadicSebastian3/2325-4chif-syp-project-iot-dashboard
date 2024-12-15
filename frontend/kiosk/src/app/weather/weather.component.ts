@@ -147,7 +147,7 @@ export class WeatherComponent implements OnInit{
           },
           title: {
             display: true,
-            text: 'Wetterverteilung im aktuellen Monat'
+            text: `Wetterverteilung im ${this.currentMonth}`
           }
         },
         responsive: true
