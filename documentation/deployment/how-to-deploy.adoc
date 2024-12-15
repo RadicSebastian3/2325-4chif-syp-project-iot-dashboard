@@ -10,8 +10,8 @@
 
 * Download all files from https://github.com/2324-4bhif-syp/2324-4bhif-syp-project-iot-dashboard/tree/main/compose[here] and copy to your machine.
 * First, do the Grafana Init Stuff in the section below.
-* Start the services executing `start.sh`..
-* You can stop the services execution `stop.sh`.
+* Start the services executing `start.sh`.
+* You can stop the services executing `stop.sh`.
 * If there are new images available, there is a automation script called `clean-docker.sh` to delete the old and pull the new images.
 
 === Grafana Initialization File (grafana.ini)
