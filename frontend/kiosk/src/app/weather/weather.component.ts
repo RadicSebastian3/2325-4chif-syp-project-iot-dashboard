@@ -107,7 +107,16 @@ export class WeatherComponent implements OnInit{
   }
 
   aggregateMonthlyWeather(weatherCodes: number[]): void{
+    this.monthlyWeatherSummary = { sunny: 0, cloudy: 0, rainy: 0 };
 
+    weatherCodes.forEach((code) => {
+      if ([0, 1].includes(code)) this.monthlyWeatherSummary.sunny++;
+      else if ([2, 3].includes(code)) this.monthlyWeatherSummary.cloudy++;
+      else if ([61, 63, 65].includes(code)) this.monthlyWeatherSummary.rainy++;
+    });
+
+    console.log('Wetterzusammenfassung für den Monat:', this.monthlyWeatherSummary);
   }
+
 
 }
