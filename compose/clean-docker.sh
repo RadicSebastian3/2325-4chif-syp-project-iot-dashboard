@@ -1,21 +1,25 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-docker compose down
-docker container prune -f
-docker image prune -f
-docker volume prune -f
-docker builder prune --all --force
-IMAGES=$(docker images -q)
+# Define the Docker Compose file name
+COMPOSE_FILE="docker-compose.yaml"
 
-for image in $IMAGES
-do
-    docker image rm -f $image
+# Ensure the script exits on any command failure
+set -e
+
+echo "Stopping and removing all containers..."
+docker compose -f "$COMPOSE_FILE" down
+
+echo "Removing all images for the services defined in $COMPOSE_FILE..."
+IMAGES=$(docker compose -f "$COMPOSE_FILE" config | awk '/image:/ {print $2}')
+for IMAGE in $IMAGES; do
+  echo "Removing image: $IMAGE"
+  docker rmi -f "$IMAGE" || echo "Image $IMAGE does not exist locally, skipping removal."
 done
-VOLUMES=$(docker volume ls -q)
-for volume in $VOLUMES
-do
-    docker volume rm $volume 
-done
-docker container ls
-docker volume ls
-docker image ls
+
+echo "Pulling fresh images from the registry..."
+docker compose -f "$COMPOSE_FILE" pull
+
+echo "Starting services in detached mode..."
+docker compose -f "$COMPOSE_FILE" up -d
+
+echo "Docker Compose project refreshed successfully!"
