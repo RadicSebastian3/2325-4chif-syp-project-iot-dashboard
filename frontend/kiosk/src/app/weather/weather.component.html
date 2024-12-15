@@ -1,4 +1,5 @@
 <div class="weather-widget">
+
   <!-- Aktuelle stündliche Vorhersage -->
   <div *ngIf="hourlyData.length" class="section">
     <h3>Heute</h3>
@@ -35,6 +36,12 @@
         </p>
       </div>
     </div>
+  </div>
+
+  <!-- Monatswetterverteilung -->
+  <div *ngIf="monthlyWeatherSummary" class="section">
+    <h3>Wetterverteilung im aktuellen Monat</h3>
+    <canvas id="monthlyWeatherChart"></canvas>
   </div>
 
   <!-- Fehlerbehandlung -->
