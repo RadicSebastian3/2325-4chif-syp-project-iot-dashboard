@@ -148,4 +148,10 @@ export class GraphOverviewComponent implements OnInit {
       console.log(graph.iFrameLink);
     });
   }
+
+  public selectWeather(): void {
+    this.currentIndex = -2; // Spezieller Index für Wetter
+    this.currentGraph = null; // Kein Graph wird angezeigt
+  }
+
 }

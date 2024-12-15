@@ -103,19 +103,33 @@
           <i class="fas fa-chart-bar"></i> {{ graph.title }}
         </a>
       </li>
+      <li class="sidebar-item">
+        <a
+          class="sidebar-link"
+          href="#"
+          (click)="selectWeather(); $event.preventDefault()"
+          [class.active]="currentIndex === -2"
+        >
+          <i class="fas fa-cloud-sun"></i> Wetter
+        </a>
+      </li>
     </ul>
   </div>
 
   <!-- Hauptinhalt -->
   <div class="content">
     <div class="content-wrapper">
+      <!-- Wetteranzeige -->
+      <div *ngIf="currentIndex === -2" class="weather-section">
+        <h1 class="text-center mb-4">Wetterübersicht</h1>
+        <app-weather></app-weather>
+      </div>
       <!-- Anzeige der ausgewählten Graphen -->
       <div class="container">
         <div class="row">
           <div class="col-lg-12">
 
-            <app-weather></app-weather>
-
+            <!-- Einzelner Graph -->
             <div *ngIf="currentGraph" class="centered-div">
               <h1>{{ currentGraph.title }}</h1>
               <p>{{ currentGraph.description }}</p>
