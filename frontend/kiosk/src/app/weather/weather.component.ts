@@ -3,6 +3,7 @@ import { WeatherService } from '../services/weather.service';
 import weatherCodes from '../../assets/weather-codes.json';
 import iconMapping from '../../assets/icon-mapping.json';
 import {DatePipe, NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
+import Chart from 'chart.js/auto';
 
 @Component({
   selector: 'app-weather',
@@ -32,6 +33,7 @@ export class WeatherComponent implements OnInit{
 
   ngOnInit(): void {
     this.getWeather();
+    this.getMonthlyWeather();
   }
 
   getWeather(): void {
@@ -98,6 +100,7 @@ export class WeatherComponent implements OnInit{
     this.weatherService.getMonthlyWeatherForecast(this.latitude, this.longitude, startDate, endDate).subscribe(
       (data) => {
         this.aggregateMonthlyWeather(data.daily.weathercode);
+        this.renderMonthlyWeatherChart();
       },
       (error) => {
         this.errorMessage = 'Fehler beim Abrufen der Monatswetterdaten';
@@ -118,5 +121,36 @@ export class WeatherComponent implements OnInit{
     console.log('Wetterzusammenfassung für den Monat:', this.monthlyWeatherSummary);
   }
 
+  renderMonthlyWeatherChart(): void {
+    const ctx = document.getElementById('monthlyWeatherChart') as HTMLCanvasElement;
 
+    new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: ['Sonnig', 'Bewölkt', 'Regnerisch'],
+        datasets: [
+          {
+            data: [
+              this.monthlyWeatherSummary.sunny,
+              this.monthlyWeatherSummary.cloudy,
+              this.monthlyWeatherSummary.rainy
+            ],
+            backgroundColor: ['#FFD700', '#C0C0C0', '#87CEEB'] // Farben für sonnig, bewölkt, regnerisch
+          }
+        ]
+      },
+      options: {
+        plugins: {
+          legend: {
+            position: 'bottom'
+          },
+          title: {
+            display: true,
+            text: 'Wetterverteilung im aktuellen Monat'
+          }
+        },
+        responsive: true
+      }
+    });
+  }
 }
