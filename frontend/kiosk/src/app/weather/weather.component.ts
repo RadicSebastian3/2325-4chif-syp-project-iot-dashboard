@@ -34,6 +34,7 @@ export class WeatherComponent implements OnInit{
   ngOnInit(): void {
     this.getWeather();
     this.getMonthlyWeather();
+    this.setCurrentMonth();
   }
 
   getWeather(): void {
