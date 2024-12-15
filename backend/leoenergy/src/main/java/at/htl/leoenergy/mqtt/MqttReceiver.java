@@ -19,27 +19,26 @@ import java.util.function.Function;
 
 @ApplicationScoped
 public class MqttReceiver {
-   @Inject
-   InfluxDbRepository influxDbRepository;
+    @Inject
+    InfluxDbRepository influxDbRepository;
 
-   public void insertMeasurement(SensorValue sensorValue){
-       influxDbRepository.insertMeasurementFromJSON(sensorValue);
-   }
+    public void insertMeasurement(SensorValue sensorValue) {
+        influxDbRepository.insertMeasurementFromJSON(sensorValue);
+    }
 
-   @Incoming("leoenergy")
-   public void receive(byte[] byteArray) {
+    @Incoming("leoenergy")
+    public void receive(byte[] byteArray) {
 
 
-       String msg = new String(byteArray);
-       try {
-           SensorValue sensorValue = SensorValue.fromJson(msg);
-           Log.info(sensorValue.toString());
-           insertMeasurement(sensorValue);
-       }
-       catch (NullPointerException e){
-           e.printStackTrace();
-       }
-   }
+        String msg = new String(byteArray);
+        try {
+            SensorValue sensorValue = SensorValue.fromJson(msg);
+            Log.info(sensorValue.toString());
+            insertMeasurement(sensorValue);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Incoming("sensorbox")
     public CompletionStage<Void> receiveSensorBox(MqttMessage<byte[]> msg) {
@@ -48,15 +47,27 @@ public class MqttReceiver {
             String payload = new String(msg.getPayload());
             String[] splitted = topic.split("/");
 
+            // Prüfen, ob das Topic korrekt aufgebaut ist
+            if (splitted.length < 3) {
+                Log.warn("Unerwartetes Topic-Format: " + topic);
+                Log.warn("Nachricht wird ignoriert, da das Topic nicht korrekt aufgebaut ist.");
+                return msg.ack();
+            }
+
             String floor = splitted[0];                      // z.B. eg
             String room = splitted[1];                       // z.B. e71
             String physicalParameter = splitted[2];          // z.B. temperature, noise, co2, ...
             String timestamp = extractTimestamp(payload);    // Unix-Timestamp
-
             String value = extractValue(payload);            // Wert
+
+            if (timestamp.isEmpty() || value.isEmpty()) {
+                Log.warn("Nachricht ignoriert, da der Payload (Body) nicht korrekt ist: " + payload);
+                return msg.ack();
+            }
 
             long timestampInSeconds = Long.parseLong(timestamp);
             long timestampInMilliseconds = timestampInSeconds * 1000;
+
             SensorBoxValue sensorBoxValue = new SensorBoxValue(
                     floor,
                     Double.parseDouble(value),
@@ -68,33 +79,32 @@ public class MqttReceiver {
             Log.info(sensorBoxValue.toString());
             influxDbRepository.insertSensorBoxMeasurement(sensorBoxValue);
 
-            // Rückgabe des Ack als CompletionStage
-            return msg.ack();
+            return msg.ack(); // Nachricht erfolgreich verarbeitet
         } catch (RuntimeException e) {
-            Log.error("Fehler bei der Verarbeitung der Nachricht: ", e);
-            // Rückgabe des Nack mit dem Fehler als CompletionStage
-            return msg.nack(e);
+            Log.error(e);
+            Log.warn("Die Nachricht konnte nicht verarbeitet werden: " + new String(msg.getPayload()));
+            return msg.ack(); // Trotzdem die Nachricht als verarbeitet markieren
         }
     }
 
 
-    private String extractTimestamp(String json){
-       try {
-           ObjectMapper objectMapper = new ObjectMapper();
-           JsonNode jsonNode = objectMapper.readTree(json);
-           return jsonNode.get("timestamp").asText().replace(",", ".");
-       } catch (Exception e) {
-           return "";
-       }
-   }
+    private String extractTimestamp(String json) {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonNode = objectMapper.readTree(json);
+            return jsonNode.get("timestamp").asText().replace(",", ".");
+        } catch (Exception e) {
+            return "";
+        }
+    }
 
-   private String extractValue(String json){
-       try {
-           ObjectMapper objectMapper = new ObjectMapper();
-           JsonNode jsonNode = objectMapper.readTree(json);
-           return jsonNode.get("value").asText().replace(",", ".");
-       } catch (Exception e) {
-           return "";
-       }
-   }
+    private String extractValue(String json) {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonNode = objectMapper.readTree(json);
+            return jsonNode.get("value").asText().replace(",", ".");
+        } catch (Exception e) {
+            return "";
+        }
+    }
 }

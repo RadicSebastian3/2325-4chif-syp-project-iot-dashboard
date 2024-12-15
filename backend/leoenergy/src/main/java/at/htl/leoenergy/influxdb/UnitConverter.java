@@ -6,7 +6,7 @@ public class UnitConverter {
     public static void setTypeOfDevice(SensorValue sensorValue) {
         switch (sensorValue.getUnit()) {
             case "W", "Wh":
-                if(sensorValue.getDeviceName().equals("PV-Energie"))
+                if (sensorValue.getDeviceName().equals("PV-Energie"))
                     sensorValue.setRelation("production");
                 else {
                     sensorValue.setRelation("consumption");

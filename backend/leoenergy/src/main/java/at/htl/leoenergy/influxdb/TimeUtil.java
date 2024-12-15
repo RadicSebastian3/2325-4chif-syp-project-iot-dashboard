@@ -36,6 +36,7 @@ public enum TimeUtil {
             TimeUnit.NANOSECONDS);
 
     public static final int TIME_IN_SECOND_LENGTH = 20;
+
     public static String toTimePrecision(final TimeUnit t) {
         switch (t) {
             case HOURS:
@@ -59,7 +60,7 @@ public enum TimeUtil {
      * convert a unix epoch time to timestamp used by influxdb.
      * this can then be used in query expressions against influxdb's time column like so:
      * influxDB.query(new Query("SELECT * FROM some_measurement WHERE time &gt;= '"
-     *                          + toInfluxDBTimeFormat(timeStart) + "'", some_database))
+     * + toInfluxDBTimeFormat(timeStart) + "'", some_database))
      * influxdb time format example: 2016-10-31T06:52:20.020Z
      *
      * @param time timestamp to use, in unix epoch time

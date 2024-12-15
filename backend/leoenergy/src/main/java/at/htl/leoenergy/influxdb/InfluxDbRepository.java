@@ -11,6 +11,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import java.util.concurrent.TimeUnit;
+
 @ApplicationScoped
 public class InfluxDbRepository {
     @ConfigProperty(name = "influxdb.url")
@@ -25,7 +26,7 @@ public class InfluxDbRepository {
     @ConfigProperty(name = "influxdb.bucket")
     String bucket;
 
-    public  void insertMeasurementFromJSON(SensorValue sensorValue) {
+    public void insertMeasurementFromJSON(SensorValue sensorValue) {
 
         try {
             InfluxDBClient client = InfluxDBClientFactory.create(influxUrl, token.toCharArray());
@@ -53,7 +54,6 @@ public class InfluxDbRepository {
                     .time(currentTimeInNanoseconds, WritePrecision.MS);
 
 
-
             writeApi.writePoint(bucket, org, point);
 
             client.close();
@@ -74,8 +74,7 @@ public class InfluxDbRepository {
 
             long currentTimeInNanoseconds = TimeUnit.MILLISECONDS.toMillis(sensorBox.getTime());
 
-            Point point = Point.measurement("sensor_box")
-                    .addTag("room", sensorBox.getRoom()) // Room: e72
+            Point point = Point.measurement("sensor_box").addTag("room", sensorBox.getRoom()) // Room: e72
                     .addTag("parameter", sensorBox.getParameter()) // Parameter: humidity// Beispiel: Stockwerk, z.B. "eg" (Erdgeschoss)
                     .addTag("floor", sensorBox.getFloor()) // Floor: eg
                     .addField("value", sensorBox.getValue()) // Value: 33.98
