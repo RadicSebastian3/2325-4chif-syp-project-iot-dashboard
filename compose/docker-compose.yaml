@@ -2,3 +2,4 @@ include:
   - grafana.yaml
   - influxdb.yaml
   - leoenergy.yaml
+  - frontend.yaml
