@@ -23,6 +23,7 @@ export class WeatherComponent implements OnInit{
   latitude = 48.2797;  // Breitengrad von Leonding
   longitude = 14.2533; // Längengrad von Leonding
   errorMessage?: string;
+  monthlyWeatherSummary: { sunny: number; cloudy: number; rainy: number } = { sunny: 0, cloudy: 0, rainy: 0 };
 
   weatherCodes: { [key: string]: string } = weatherCodes;
   iconMapping: { [key: string]: string } = iconMapping;
@@ -87,6 +88,26 @@ export class WeatherComponent implements OnInit{
 
   getWeatherIcon(code: number): string {
     return this.iconMapping[code.toString()] || 'fas fa-question';
+  }
+
+  getMonthlyWeather():void{
+    const today = new Date();
+    const startDate = new Date(today.getFullYear(), today.getMonth(),1).toISOString().split('T')[0];
+    const endDate = new Date(today.getFullYear(), today.getMonth() + 1, 0).toISOString().split('T')[0];
+
+    this.weatherService.getMonthlyWeatherForecast(this.latitude, this.longitude, startDate, endDate).subscribe(
+      (data) => {
+        this.aggregateMonthlyWeather(data.daily.weathercode);
+      },
+      (error) => {
+        this.errorMessage = 'Fehler beim Abrufen der Monatswetterdaten';
+        console.error(this.errorMessage, error);
+      }
+    );
+  }
+
+  aggregateMonthlyWeather(weatherCodes: number[]): void{
+
   }
 
 }
