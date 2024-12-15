@@ -31,6 +31,8 @@ allow_embedding = true
 enabled = true
 ----
 
+=== Scripts for Starting and Stopping
+
 * Start the services executing `start.sh`.
 * You can stop the services executing `stop.sh`.
 * If there are new images available, there is a automation script called `clean-docker.sh` to delete the old and pull the new images.
