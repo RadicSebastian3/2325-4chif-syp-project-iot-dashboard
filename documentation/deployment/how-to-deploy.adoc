@@ -4,9 +4,7 @@
 * Machine with https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview[Ubuntu 24.04]
 * https://docs.docker.com/engine/install/ubuntu/[Docker Engine with Docker Compose]
 * https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-20-04[Nginx]
-* Files
-** docker-compose.yaml
-** grafana.ini
+* Files from https://github.com/2324-4bhif-syp/2324-4bhif-syp-project-iot-dashboard/tree/main/compose[here]
 
 == Docker Compose
 
