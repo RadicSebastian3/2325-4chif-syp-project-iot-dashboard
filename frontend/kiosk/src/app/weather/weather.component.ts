@@ -25,9 +25,9 @@ export class WeatherComponent implements OnInit{
   longitude = 14.2533; // Längengrad von Leonding
   errorMessage?: string;
   monthlyWeatherSummary: { sunny: number; cloudy: number; rainy: number } = { sunny: 0, cloudy: 0, rainy: 0 };
-
   weatherCodes: { [key: string]: string } = weatherCodes;
   iconMapping: { [key: string]: string } = iconMapping;
+  currentMonth: string = '';
 
   constructor(private weatherService: WeatherService) { }
 
@@ -152,5 +152,14 @@ export class WeatherComponent implements OnInit{
         responsive: true
       }
     });
+  }
+
+  setCurrentMonth(): void {
+    const today = new Date();
+    const monthNames = [
+      'Januar', 'Februar', 'März', 'April', 'Mai', 'Juni',
+      'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'
+    ];
+    this.currentMonth = monthNames[today.getMonth()]; // Aktueller Monat
   }
 }
