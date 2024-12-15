@@ -20,4 +20,16 @@ private apiUrl = 'https://api.open-meteo.com/v1/forecast';
 
     return this.client.get<any>(this.apiUrl, {params});
   }
+
+  getMonthlyWeatherForecast(latitude: number, longitude: number, startDate: string, endDate: string): Observable<any> {
+    const params = new HttpParams()
+      .set('latitude', latitude.toString())
+      .set('longitude', longitude.toString())
+      .set('daily', 'weathercode') // Wettercode für jeden Tag
+      .set('timezone', 'Europe/Vienna')
+      .set('start_date', startDate) // Startdatum für den Zeitraum
+      .set('end_date', endDate);    // Enddatum für den Zeitraum
+
+    return this.client.get<any>(this.apiUrl, {params});
+  }
 }
