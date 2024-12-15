@@ -83,7 +83,7 @@ TIP: Certbot *automatically* creates all links to all certificates in the config
 
 In the same `server`-block where the certificates and HTTPS ports are defined, define following routes:
 
-./etc/nginx/sites-available
+./etc/nginx/sites-available/default
 [source]
 ----
 location / {
