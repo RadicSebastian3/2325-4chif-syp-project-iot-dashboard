@@ -37,13 +37,6 @@
       </div>
     </div>
   </div>
-
-  <!-- Monatswetterverteilung -->
-  <div *ngIf="monthlyWeatherSummary" class="section">
-    <h3>Wetterverteilung im {{currentMonth}}</h3>
-    <canvas id="monthlyWeatherChart"></canvas>
-  </div>
-
   <!-- Fehlerbehandlung -->
   <div *ngIf="errorMessage" class="error-message">
     <p>{{ errorMessage }}</p>
@@ -52,3 +45,11 @@
     <p>Lade Wetterdaten...</p>
   </div>
 </div>
+<div class="weather-distribution">
+  <!-- Monatswetterverteilung -->
+  <div *ngIf="monthlyWeatherSummary" class="section">
+    <h3>Wetterverteilung im {{currentMonth}}</h3>
+    <canvas id="monthlyWeatherChart" width="400" height="400"></canvas>
+  </div>
+</div>
+

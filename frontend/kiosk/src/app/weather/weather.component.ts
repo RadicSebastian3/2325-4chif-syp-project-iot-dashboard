@@ -146,11 +146,11 @@ export class WeatherComponent implements OnInit{
             position: 'bottom'
           },
           title: {
-            display: true,
-            text: `Wetterverteilung im ${this.currentMonth}`
+            display: true
           }
         },
-        responsive: true
+        responsive: false,
+        maintainAspectRatio: false
       }
     });
   }
