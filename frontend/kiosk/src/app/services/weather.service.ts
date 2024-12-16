@@ -32,4 +32,14 @@ private apiUrl = 'https://api.open-meteo.com/v1/forecast';
 
     return this.client.get<any>(this.apiUrl, {params});
   }
+
+  getUVIndex(latitude: number, longitude: number): Observable<any>{
+    const params = new HttpParams()
+      .set('latitude', latitude.toString())
+      .set('longitude', longitude.toString())
+      .set('daily', 'uv_index_max')
+      .set('timezone', 'Europe/Vienna');
+
+    return this.client.get<any>(this.apiUrl, { params });
+  }
 }
