@@ -3,13 +3,16 @@
   background: linear-gradient(135deg, #ff7e5f, #feb47b);
   padding: 20px;
   border-radius: 10px;
-  max-width: 1200px;
+  width: 90%;
+  max-width: 1920px;
   margin: 0 auto;
   color: white;
+  min-height: 60vh;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .weather-widget h3 {
-  font-size: 1.7em;
+  font-size: calc(1.5em + 0.5vw);
   color: #fff;
   text-align: left;
   margin-bottom: 15px;
@@ -23,51 +26,47 @@
 .daily-forecast {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-around;
 }
 
-/* Einzelne Vorhersage-Elemente */
 .hourly-item,
 .daily-item {
-  flex: 1 1 100px;
+  flex: 1 1 calc(25% - 20px);
   margin: 10px;
   text-align: center;
   background-color: rgba(255, 255, 255, 0.2);
-  padding: 10px;
+  padding: 20px;
   border-radius: 8px;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, padding 0.3s ease;
 }
 
 .hourly-item:hover,
 .daily-item:hover {
   transform: scale(1.05);
+  padding: 25px;
 }
 
-/* Styling der Temperaturanzeige */
 .temperature {
-  font-size: 1.8em;
+  font-size: calc(1.2em + 0.5vw);
   font-weight: bold;
 }
 
 .temperature-min {
-  font-size: 1.4em;
+  font-size: calc(1em + 0.3vw);
   opacity: 0.8;
 }
 
-/* Styling der Wetterbeschreibung */
 .description {
-  font-size: 0.9em; /* Kleinere Schriftgröße */
-  color: #e0e0e0; /* Hellere Farbe */
+  font-size: calc(0.8em + 0.3vw);
+  color: #e0e0e0;
 }
 
-/* Styling der Icons */
 .weather-widget i {
-  font-size: 50px;
+  font-size: calc(30px + 1vw);
   color: #fff;
   margin: 10px 0;
 }
 
-/* Fehlernachricht */
 .error-message {
   color: #ffdddd;
   font-weight: bold;
@@ -75,20 +74,48 @@
   margin-top: 20px;
 }
 
-@media (max-width: 600px) {
-  .hourly-item,
-  .daily-item {
-    flex: 1 1 80px;
-  }
-
-  .weather-widget i {
-    font-size: 40px;
-  }
-}
-
-.weather-distribution{
+.weather-distribution {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 20px;
+}
+
+.weather-distribution canvas {
+  width: 80%;
+  max-width: 600px;
+  height: auto;
+}
+
+@media (max-width: 1200px) {
+  .hourly-item,
+  .daily-item {
+    flex: 1 1 calc(33.33% - 20px);
+  }
+
+  .weather-widget h3 {
+    font-size: calc(1.2em + 0.5vw);
+  }
+}
+
+@media (max-width: 768px) {
+  .hourly-item,
+  .daily-item {
+    flex: 1 1 calc(50% - 20px);
+  }
+
+  .weather-widget h3 {
+    font-size: calc(1em + 0.5vw);
+  }
+}
+
+@media (max-width: 480px) {
+  .hourly-item,
+  .daily-item {
+    flex: 1 1 100%;
+  }
+
+  .weather-widget i {
+    font-size: 30px;
+  }
 }
