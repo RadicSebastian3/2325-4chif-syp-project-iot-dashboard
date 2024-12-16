@@ -28,8 +28,6 @@ public class MqttReceiver {
 
     @Incoming("leoenergy")
     public void receive(byte[] byteArray) {
-
-
         String msg = new String(byteArray);
         try {
             SensorValue sensorValue = SensorValue.fromJson(msg);
