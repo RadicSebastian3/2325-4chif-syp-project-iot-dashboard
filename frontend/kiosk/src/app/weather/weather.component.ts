@@ -27,6 +27,7 @@ export class WeatherComponent implements OnInit{
   errorMessage?: string;
   monthlyWeatherSummary: { sunny: number; cloudy: number; rainy: number } = { sunny: 0, cloudy: 0, rainy: 0 };
   weatherCodes: { [key: string]: string } = weatherCodes;
+  weatherGifs: { [key: string]: string } = weatherGifs;
   iconMapping: { [key: string]: string } = iconMapping;
   currentMonth: string = '';
 
