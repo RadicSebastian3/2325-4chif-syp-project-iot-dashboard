@@ -178,4 +178,9 @@ export class WeatherComponent implements OnInit{
     if ([66, 67, 71, 73, 75].includes(code)) return 'snowy'; // Schnee-Codes
     return 'unknown';
   }
+
+  setCurrentWeatherCondition(): void {
+    const currentCode = this.weatherData.current.weathercode; // Aktueller Wettercode
+    this.currentWeatherCondition = this.getWeatherCondition(currentCode);
+  }
 }

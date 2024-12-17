@@ -1,4 +1,15 @@
 <div class="weather-widget">
+  <!-- Überschrift -->
+  <h3 class="mb-4">Wetterübersicht</h3>
+
+  <!-- Dynamisches Wetter-Icon, nur wenn der Zustand nicht 'unknown' ist -->
+  <img
+    *ngIf="currentWeatherCondition !== 'unknown'"
+    [src]="getWeatherGif(currentWeatherCondition)"
+    alt="Aktuelles Wetter"
+    width="60"
+    height="60"
+  />
 
   <!-- Aktuelle stündliche Vorhersage -->
   <div *ngIf="hourlyData.length" class="section">
