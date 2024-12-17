@@ -4,6 +4,7 @@ import weatherCodes from '../../assets/weather-codes.json';
 import iconMapping from '../../assets/icon-mapping.json';
 import {DatePipe, NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
 import Chart from 'chart.js/auto';
+import weatherGifs from '../../assets/weather-gifs.json';
 
 @Component({
   selector: 'app-weather',
