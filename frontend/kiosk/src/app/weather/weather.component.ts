@@ -30,6 +30,7 @@ export class WeatherComponent implements OnInit{
   weatherGifs: { [key: string]: string } = weatherGifs;
   iconMapping: { [key: string]: string } = iconMapping;
   currentMonth: string = '';
+  currentWeatherCondition: string = 'unknown';
 
   constructor(private weatherService: WeatherService) { }
 
@@ -168,5 +169,13 @@ export class WeatherComponent implements OnInit{
 
   getWeatherGif(condition: string): string {
     return this.weatherGifs[condition] || this.weatherGifs['unknown'];
+  }
+
+  getWeatherCondition(code: number): string {
+    if ([0, 1].includes(code)) return 'sunny';
+    if ([2, 3].includes(code)) return 'cloudy';
+    if ([61, 63, 65].includes(code)) return 'rainy';
+    if ([66, 67, 71, 73, 75].includes(code)) return 'snowy'; // Schnee-Codes
+    return 'unknown';
   }
 }
