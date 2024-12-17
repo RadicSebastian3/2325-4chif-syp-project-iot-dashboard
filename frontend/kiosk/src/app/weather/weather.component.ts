@@ -165,4 +165,8 @@ export class WeatherComponent implements OnInit{
     ];
     this.currentMonth = monthNames[today.getMonth()]; // Aktueller Monat
   }
+
+  getWeatherGif(condition: string): string {
+    return this.weatherGifs[condition] || this.weatherGifs['unknown'];
+  }
 }
