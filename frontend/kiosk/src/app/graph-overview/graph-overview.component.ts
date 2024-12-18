@@ -51,8 +51,6 @@ export class GraphOverviewComponent implements OnInit {
     this.http.get<Graph[]>('assets/data/graph-data.json').subscribe((data) => {
       this.graphs = data;
 
-      this.graphs.push(new Graph('Wetter', '', 'Wetter', ''));
-
       console.log(this.graphs.length + " graphs loaded");
       this.currentIndex = 0; // Ändert den Index, um den ersten Graph direkt anzuzeigen
       this.currentGraph = this.graphs[0]; // Setzt den ersten Graph beim Laden
@@ -91,23 +89,22 @@ export class GraphOverviewComponent implements OnInit {
   }
 
   public nextGraph(): void {
+    // Inkrementiere den Index
     this.currentIndex++;
 
+    // Wenn das Ende der Liste erreicht ist, schalte zu Wetter
     if (this.currentIndex >= this.graphs.length) {
-      this.currentIndex = 0;
+      this.currentIndex = -2; // Wechsel zu Wetter
     }
 
-    const current = this.graphs[this.currentIndex];
-    // Prüfe ob der aktuelle Graph Wetter ist
-    if(current.name === 'Wetter') {
+    // Wechsel zu Wetter oder Graphen
+    if (this.currentIndex === -2) {
       this.selectWeather();
+    } else {
+      this.setCurrentGraphWithIndex(this.currentIndex);
     }
-    else{
-      this.setCurrentGraphWithIndex(this.currentIndex)
-    }
-
-    this.setCurrentGraphWithIndex(this.currentIndex);
   }
+
 
 
   public changeDuration(): void {
