@@ -72,10 +72,15 @@ export class WeatherComponent implements OnInit{
 
       // Relative Luftfeuchtigkeit für die aktuelle Stunde
       const currentHourIndex = this.weatherData.hourly.time.findIndex((t: string) => {
-        return new Date(t).getHours() === currentHour && new Date(t).getDate() === now.getDate();
+        const date = new Date(t);
+        return date.getHours() === currentHour && date.getDate() === now.getDate();
       });
-      if (currentHourIndex >= 0) {
-        this.currentHumidity = this.weatherData.hourly.relativehumidity_2m[currentHourIndex];
+
+      if (currentHourIndex >= 0 && this.weatherData.hourly.relative_humidity_2m) {
+        this.currentHumidity = this.weatherData.hourly.relative_humidity_2m[currentHourIndex];
+      } else {
+        console.warn("Keine Luftfeuchtigkeitsdaten für die aktuelle Stunde verfügbar.");
+        this.currentHumidity = undefined; // Optional: Standardwert setzen
       }
     }
 
@@ -94,7 +99,7 @@ export class WeatherComponent implements OnInit{
           item.time.getHours() <= currentHour + 4;
       });
 
-    console.log('Gefilterte stündliche Daten:', this.hourlyData);
+    console.log("Gefilterte stündliche Daten:", this.hourlyData);
 
     // Tägliche Wetterdaten für die nächsten 5 Tage
     this.dailyData = {
@@ -104,8 +109,9 @@ export class WeatherComponent implements OnInit{
       weathercode: this.weatherData.daily.weathercode.slice(0, 5)
     };
 
-    console.log('Tägliche Wetterdaten für die nächsten 5 Tage:', this.dailyData);
+    console.log("Tägliche Wetterdaten für die nächsten 5 Tage:", this.dailyData);
   }
+
 
 
   getWeatherDescription(code: number): string {
@@ -125,6 +131,7 @@ export class WeatherComponent implements OnInit{
       (data) => {
         this.aggregateMonthlyWeather(data.daily.weathercode);
         this.renderMonthlyWeatherChart();
+        this.renderDailyWeatherChart();
       },
       (error) => {
         this.errorMessage = 'Fehler beim Abrufen der Monatswetterdaten';
@@ -177,6 +184,56 @@ export class WeatherComponent implements OnInit{
       }
     });
   }
+
+  renderDailyWeatherChart(): void {
+    const ctx = document.getElementById('dailyWeatherChart') as HTMLCanvasElement;
+    if (!ctx) {
+      console.error("Daily weather chart canvas not found");
+      return;
+    }
+
+    if (!this.dailyData || !this.dailyData.time) {
+      console.error("Daily data is not available.");
+      return;
+    }
+
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: this.dailyData.time.map((t: string) => new Date(t).toLocaleDateString('de-DE', { weekday: 'short' })),
+        datasets: [
+          {
+            label: 'Max Temperatur',
+            data: this.dailyData.temperature_2m_max,
+            borderColor: '#ff7e5f',
+            backgroundColor: 'rgba(255, 126, 95, 0.2)',
+            fill: true
+          },
+          {
+            label: 'Min Temperatur',
+            data: this.dailyData.temperature_2m_min,
+            borderColor: '#feb47b',
+            backgroundColor: 'rgba(254, 180, 123, 0.2)',
+            fill: true
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'top'
+          },
+          title: {
+            display: true,
+            text: 'Täglicher Temperaturverlauf'
+          }
+        }
+      }
+    });
+  }
+
 
   setCurrentMonth(): void {
     const today = new Date();
