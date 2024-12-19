@@ -14,9 +14,10 @@ private apiUrl = 'https://api.open-meteo.com/v1/forecast';
     const params = new HttpParams()
       .set('latitude', latitude.toString())
       .set('longitude', longitude.toString())
-      .set('hourly', 'temperature_2m,weathercode')
+      .set('hourly', 'temperature_2m,weathercode,relative_humidity_2m')
       .set('daily', 'weathercode,temperature_2m_max,temperature_2m_min')
-      .set('timezone', 'Europe/Vienna');
+      .set('timezone', 'Europe/Vienna')
+      .set('current_weather', 'true');
 
     return this.client.get<any>(this.apiUrl, {params});
   }
