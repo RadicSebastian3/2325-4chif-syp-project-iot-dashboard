@@ -108,6 +108,15 @@ h3 {
 .hourly-overview {
   grid-column: 1 / 2;
   grid-row: 2 / 3;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.hourly-overview h3 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: #333;
 }
 
 .weather-distribution {
@@ -131,25 +140,42 @@ h3 {
   gap: 10px;
 }
 
-.hourly-item {
+.hourly-list {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 15px;
-  background: #f9f9f9;
+  flex-direction: column; /* Vertikal untereinander */
+  gap: 15px; /* Abstand zwischen den einzelnen Einträgen */
+}
+
+.hourly-item {
+  display: grid; /* Grid-Layout für exakte Spaltenausrichtung */
+  grid-template-columns: 1fr auto 1fr; /* Drei Spalten: Uhrzeit, Icon, Temperatur */
+  align-items: center; /* Vertikale Ausrichtung der Inhalte */
+  padding: 10px 20px;
   border-radius: 10px;
   color: #333;
-  font-size: 0.9em;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
+.hourly-item .time {
+  text-align: left; /* Uhrzeit linksbündig */
+  font-size: 1.5rem; /* Größerer Text für die Uhrzeit */
+  font-weight: bold;
+  color: #ff7e5f; /* Orange-Ton */
+}
+
 .hourly-item i {
-  font-size: 1.5em;
+  font-size: 1.5rem; /* Größe des Icons */
+  color: #ff7e5f; /* Gleicher Farbton wie Temperatur */
+  justify-self: center; /* Zentriere das Icon */
 }
 
 .hourly-item .temp {
-  font-weight: 600;
+  text-align: right; /* Temperatur rechtsbündig */
+  font-size: 1.7rem; /* Gleicher Stil wie Uhrzeit */
+  font-weight: bold;
+  color: #333;
 }
+
 
 .error-message {
   color: #ff6666;
