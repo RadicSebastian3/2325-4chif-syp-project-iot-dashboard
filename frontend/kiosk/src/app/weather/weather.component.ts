@@ -110,6 +110,7 @@ export class WeatherComponent implements OnInit{
     };
 
     console.log("Tägliche Wetterdaten für die nächsten 5 Tage:", this.dailyData);
+    this.renderDailyWeatherChart();
   }
 
 
@@ -180,57 +181,95 @@ export class WeatherComponent implements OnInit{
           }
         },
         responsive: false,
-        maintainAspectRatio: false
+        maintainAspectRatio: true
       }
     });
   }
 
   renderDailyWeatherChart(): void {
     const ctx = document.getElementById('dailyWeatherChart') as HTMLCanvasElement;
+
     if (!ctx) {
-      console.error("Daily weather chart canvas not found");
+      console.error("Canvas für den täglichen Wetterverlauf nicht gefunden");
       return;
     }
 
-    if (!this.dailyData || !this.dailyData.time) {
-      console.error("Daily data is not available.");
+    if (
+      !this.dailyData ||
+      !this.dailyData.time ||
+      !this.dailyData.temperature_2m_max ||
+      !this.dailyData.temperature_2m_min ||
+      this.dailyData.time.length !== this.dailyData.temperature_2m_max.length ||
+      this.dailyData.time.length !== this.dailyData.temperature_2m_min.length
+    ) {
+      console.error("Ungültige Daten für den täglichen Wetterverlauf", this.dailyData);
       return;
     }
 
+    console.log("Daily Data Time:", this.dailyData.time);
+    console.log("Max Temp:", this.dailyData.temperature_2m_max);
+    console.log("Min Temp:", this.dailyData.temperature_2m_min);
+
+    // Canvas-Größe zurücksetzen
+    ctx.width = ctx.width;
+
+    // Sicherstellen, dass vorherige Chart-Instanz gelöscht wird
+    Chart.getChart(ctx)?.destroy();
+
+    // Neuen Chart erstellen
     new Chart(ctx, {
       type: 'line',
       data: {
-        labels: this.dailyData.time.map((t: string) => new Date(t).toLocaleDateString('de-DE', { weekday: 'short' })),
+        labels: this.dailyData.time.map((t: string) =>
+          new Date(t).toLocaleDateString('de-DE', { weekday: 'short', day: 'numeric' })
+        ),
         datasets: [
           {
-            label: 'Max Temperatur',
+            label: 'Max Temperatur (°C)',
             data: this.dailyData.temperature_2m_max,
             borderColor: '#ff7e5f',
             backgroundColor: 'rgba(255, 126, 95, 0.2)',
-            fill: true
+            tension: 0.4, // Glättung der Linie
+            fill: true,
           },
           {
-            label: 'Min Temperatur',
+            label: 'Min Temperatur (°C)',
             data: this.dailyData.temperature_2m_min,
-            borderColor: '#feb47b',
-            backgroundColor: 'rgba(254, 180, 123, 0.2)',
-            fill: true
-          }
-        ]
+            borderColor: '#6baed6',
+            backgroundColor: 'rgba(107, 174, 214, 0.2)',
+            tension: 0.4, // Glättung der Linie
+            fill: true,
+          },
+        ],
       },
       options: {
-        responsive: true,
-        maintainAspectRatio: false,
+        responsive: false,
+        maintainAspectRatio: true,
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: 'Datum',
+            },
+          },
+          y: {
+            title: {
+              display: true,
+              text: 'Temperatur (°C)',
+            },
+            beginAtZero: false,
+          },
+        },
         plugins: {
           legend: {
-            position: 'top'
+            position: 'top',
           },
           title: {
             display: true,
-            text: 'Täglicher Temperaturverlauf'
-          }
-        }
-      }
+            text: 'Täglicher Temperaturverlauf',
+          },
+        },
+      },
     });
   }
 
