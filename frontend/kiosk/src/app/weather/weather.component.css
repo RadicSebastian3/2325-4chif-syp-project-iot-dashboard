@@ -26,16 +26,42 @@
 .current-weather {
   grid-column: 1 / 2;
   grid-row: 1 / 2;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  position: relative; /* Positionierung von Kind-Elementen ermöglichen */
+  background: #f9f9f9;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  color: #333;
 }
 
 .current-weather .temp {
-  font-size: 4rem; /* Große Schriftgröße */
+  font-size: 4rem; /* Große Schriftgröße für die Temperatur */
   font-weight: bold;
   color: #ff7e5f; /* Orange Ton */
+  position: absolute; /* Absolute Positionierung */
+  top: 20px; /* Abstand vom oberen Rand */
+  left: 20px; /* Abstand vom linken Rand */
 }
+
+.current-weather .weather-icon {
+  position: absolute; /* Absolute Positionierung */
+  top: 20px; /* Abstand vom oberen Rand */
+  right: 20px; /* Abstand vom rechten Rand */
+  font-size: 5rem; /* Icon vergrößern */
+  color: #ff7e5f; /* Gleicher Orange-Ton wie die Temperatur */
+}
+
+.current-weather .condition {
+  margin-top: 80px; /* Platz unter der Temperatur */
+  font-size: 1.2rem; /* Etwas größere Schriftgröße */
+}
+
+.current-weather .details {
+  margin-top: 10px;
+  font-size: 1rem; /* Standard Schriftgröße */
+  color: #666; /* Etwas helleres Grau */
+}
+
 
 .daily-chart,
 .weather-distribution {
