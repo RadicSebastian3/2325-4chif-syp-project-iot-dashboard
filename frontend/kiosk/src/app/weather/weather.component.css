@@ -35,7 +35,7 @@
 }
 
 .current-weather .temp {
-  font-size: 4rem; /* Große Schriftgröße für die Temperatur */
+  font-size: 5rem; /* Noch größere Schriftgröße für die Temperatur */
   font-weight: bold;
   color: #ff7e5f; /* Orange Ton */
   position: absolute; /* Absolute Positionierung */
@@ -47,31 +47,35 @@
   position: absolute; /* Absolute Positionierung */
   top: 20px; /* Abstand vom oberen Rand */
   right: 20px; /* Abstand vom rechten Rand */
-  font-size: 5rem; /* Icon vergrößern */
+  font-size: 6rem; /* Noch größeres Icon */
   color: #ff7e5f; /* Gleicher Orange-Ton wie die Temperatur */
 }
 
 .current-weather .condition {
-  margin-top: 80px; /* Platz unter der Temperatur */
-  font-size: 1.2rem; /* Etwas größere Schriftgröße */
+  margin-top: 100px; /* Mehr Platz unter der Temperatur */
+  font-size: 1.5rem; /* Größere Schriftgröße für die Beschreibung */
+  color: #555; /* Dezente Farbe */
 }
 
 .current-weather .details {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 8px;
+  position: absolute; /* Absolute Positionierung */
+  bottom: 20px; /* Abstand vom unteren Rand */
+  left: 20px; /* Abstand vom linken Rand */
 }
 
 .current-weather .details span {
   display: flex;
   align-items: center;
-  font-size: 0.9em; /* Kleinere Schriftgröße */
+  font-size: 1.7rem; /* Größere Schriftgröße */
   color: #555; /* Dezente Farbe */
 }
 
 .current-weather .details span i {
-  font-size: 1.2em; /* Größe der Icons */
-  margin-right: 8px; /* Abstand zwischen Icon und Text */
+  font-size: 1.7rem; /* Vergrößerte Icons */
+  margin-right: 10px; /* Abstand zwischen Icon und Text */
   color: #ff7e5f; /* Gleicher Farbton wie Temperatur */
 }
 
@@ -98,6 +102,7 @@ h3 {
   margin: 0 0 10px;
   text-align: left; /* Überschriften links ausrichten */
   width: 100%;
+  color: black;
 }
 
 .hourly-overview {
