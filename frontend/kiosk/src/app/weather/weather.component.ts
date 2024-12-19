@@ -31,6 +31,11 @@ export class WeatherComponent implements OnInit{
   iconMapping: { [key: string]: string } = iconMapping;
   currentMonth: string = '';
   currentWeatherCondition: string = 'unknown';
+  currentTemp?: number;
+  currentConditionDescription?: string;
+  currentWind?: number;
+  currentHumidity?: number;
+
 
   constructor(private weatherService: WeatherService) { }
 
@@ -58,8 +63,23 @@ export class WeatherComponent implements OnInit{
   processData(): void {
     const now = new Date();
     const currentHour = now.getHours();
-    const currentDate = now.toISOString().split('T')[0];
 
+    // Aktuelle Wetterdaten setzen
+    if (this.weatherData.current_weather) {
+      this.currentTemp = this.weatherData.current_weather.temperature;
+      this.currentConditionDescription = this.getWeatherDescription(this.weatherData.current_weather.weathercode);
+      this.currentWind = this.weatherData.current_weather.windspeed;
+
+      // Relative Luftfeuchtigkeit für die aktuelle Stunde
+      const currentHourIndex = this.weatherData.hourly.time.findIndex((t: string) => {
+        return new Date(t).getHours() === currentHour && new Date(t).getDate() === now.getDate();
+      });
+      if (currentHourIndex >= 0) {
+        this.currentHumidity = this.weatherData.hourly.relativehumidity_2m[currentHourIndex];
+      }
+    }
+
+    // Stündliche Wetterdaten filtern
     this.hourlyData = this.weatherData.hourly.time
       .map((time: string, index: number) => {
         return {
@@ -69,7 +89,6 @@ export class WeatherComponent implements OnInit{
         };
       })
       .filter((item: any) => {
-        // Nur die Daten für heute und die nächsten Stunden (bis +4 Stunden)
         return item.time.getDate() === now.getDate() &&
           item.time.getHours() >= currentHour &&
           item.time.getHours() <= currentHour + 4;
@@ -77,7 +96,7 @@ export class WeatherComponent implements OnInit{
 
     console.log('Gefilterte stündliche Daten:', this.hourlyData);
 
-    // Begrenzung auf die nächsten 5 Tage
+    // Tägliche Wetterdaten für die nächsten 5 Tage
     this.dailyData = {
       time: this.weatherData.daily.time.slice(0, 5),
       temperature_2m_max: this.weatherData.daily.temperature_2m_max.slice(0, 5),
@@ -87,6 +106,7 @@ export class WeatherComponent implements OnInit{
 
     console.log('Tägliche Wetterdaten für die nächsten 5 Tage:', this.dailyData);
   }
+
 
   getWeatherDescription(code: number): string {
     return this.weatherCodes[code.toString()] || 'Unbekanntes Wetter';
