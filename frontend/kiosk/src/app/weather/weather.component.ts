@@ -191,6 +191,9 @@ export class WeatherComponent implements OnInit{
   renderDailyWeatherChart(): void {
     const ctx = document.getElementById('dailyWeatherChart') as HTMLCanvasElement;
 
+    ctx.height = 400; // Höhe in Pixel
+    ctx.width = ctx.parentElement?.clientWidth || 800;
+
     if (!ctx) {
       console.error("Canvas für den täglichen Wetterverlauf nicht gefunden");
       return;

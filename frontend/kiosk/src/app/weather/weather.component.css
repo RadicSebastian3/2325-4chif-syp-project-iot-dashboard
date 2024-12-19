@@ -80,8 +80,6 @@
   color: #ff7e5f; /* Gleicher Farbton */
 }
 
-
-
 .daily-chart,
 .weather-distribution {
   display: flex; /* Flexbox für Zentrierung */
