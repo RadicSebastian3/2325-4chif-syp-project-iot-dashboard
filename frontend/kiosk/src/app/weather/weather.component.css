@@ -57,10 +57,29 @@
 }
 
 .current-weather .details {
-  margin-top: 10px;
-  font-size: 1rem; /* Standard Schriftgröße */
-  color: #666; /* Etwas helleres Grau */
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
+
+.current-weather .details span {
+  display: flex;
+  align-items: center;
+  font-size: 0.9em; /* Kleinere Schriftgröße */
+  color: #555; /* Dezente Farbe */
+}
+
+.current-weather .details span i {
+  font-size: 1.2em; /* Größe der Icons */
+  margin-right: 8px; /* Abstand zwischen Icon und Text */
+  color: #ff7e5f; /* Gleicher Farbton wie Temperatur */
+}
+
+.weather-icon i {
+  font-size: 4rem; /* Vergrößertes Icon */
+  color: #ff7e5f; /* Gleicher Farbton */
+}
+
 
 
 .daily-chart,

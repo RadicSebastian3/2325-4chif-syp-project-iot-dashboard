@@ -5,8 +5,12 @@
       <h2 class="temp">{{ currentTemp }}°</h2>
       <p class="condition">{{ currentConditionDescription }}</p>
       <div class="details">
-        <span class="wind">Wind: {{ currentWind }} km/h</span>
-        <span class="humidity">Luftfeuchtigkeit: {{ currentHumidity }}%</span>
+        <span class="wind">
+        <i class="fas fa-wind"></i> Wind: {{ currentWind }} km/h
+      </span>
+        <span class="humidity">
+        <i class="fas fa-tint"></i> Luftfeuchtigkeit: {{ currentHumidity }}%
+      </span>
       </div>
     </div>
     <div class="weather-icon">
