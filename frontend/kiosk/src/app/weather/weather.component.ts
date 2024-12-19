@@ -30,7 +30,7 @@ export class WeatherComponent implements OnInit{
   weatherGifs: { [key: string]: string } = weatherGifs;
   iconMapping: { [key: string]: string } = iconMapping;
   currentMonth: string = '';
-  currentWeatherCondition: string = 'unknown';
+  currentWeatherCondition?: number;
   currentTemp?: number;
   currentConditionDescription?: string;
   currentWind?: number;
@@ -69,6 +69,8 @@ export class WeatherComponent implements OnInit{
       this.currentTemp = this.weatherData.current_weather.temperature;
       this.currentConditionDescription = this.getWeatherDescription(this.weatherData.current_weather.weathercode);
       this.currentWind = this.weatherData.current_weather.windspeed;
+
+      this.currentWeatherCondition = this.weatherData.current_weather.weathercode;
 
       // Relative Luftfeuchtigkeit für die aktuelle Stunde
       const currentHourIndex = this.weatherData.hourly.time.findIndex((t: string) => {
@@ -294,8 +296,4 @@ export class WeatherComponent implements OnInit{
     return 'unknown';
   }
 
-  setCurrentWeatherCondition(): void {
-    const currentCode = this.weatherData.current.weathercode; // Aktueller Wettercode
-    this.currentWeatherCondition = this.getWeatherCondition(currentCode);
-  }
 }

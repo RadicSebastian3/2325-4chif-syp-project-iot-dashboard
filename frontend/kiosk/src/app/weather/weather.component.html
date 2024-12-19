@@ -10,13 +10,7 @@
       </div>
     </div>
     <div class="weather-icon">
-      <img
-        *ngIf="currentWeatherCondition !== 'unknown'"
-        [src]="getWeatherGif(currentWeatherCondition)"
-        alt="Aktuelles Wetter"
-        width="80"
-        height="80"
-      />
+      <i *ngIf="currentWeatherCondition !== undefined" [class]="getWeatherIcon(currentWeatherCondition)" aria-hidden="true"></i>
     </div>
   </div>
 
