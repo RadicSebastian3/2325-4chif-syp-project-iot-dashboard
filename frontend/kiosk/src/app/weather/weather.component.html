@@ -1,66 +1,51 @@
 <div class="weather-widget">
-  <!-- Überschrift -->
-  <h3 class="mb-4">Wetterübersicht</h3>
+  <!-- Aktuelles Wetter -->
+  <div class="current-weather">
+    <div class="weather-info">
+      <h2 class="temp">{{ currentTemp }}°</h2>
+      <p class="condition">{{ currentConditionDescription }}</p>
+      <div class="details">
+        <span class="wind">Wind: {{ currentWind }} km/h</span>
+        <span class="humidity">Luftfeuchtigkeit: {{ currentHumidity }}%</span>
+      </div>
+    </div>
+    <div class="weather-icon">
+      <img
+        *ngIf="currentWeatherCondition !== 'unknown'"
+        [src]="getWeatherGif(currentWeatherCondition)"
+        alt="Aktuelles Wetter"
+        width="80"
+        height="80"
+      />
+    </div>
+  </div>
 
-  <!-- Dynamisches Wetter-Icon, nur wenn der Zustand nicht 'unknown' ist -->
-  <img
-    *ngIf="currentWeatherCondition !== 'unknown'"
-    [src]="getWeatherGif(currentWeatherCondition)"
-    alt="Aktuelles Wetter"
-    width="60"
-    height="60"
-  />
+  <!-- Täglicher Wetterverlauf -->
+  <div class="daily-chart">
+    <h3>Täglicher Wetterverlauf</h3>
+    <canvas id="dailyWeatherChart" width="400" height="200"></canvas>
+  </div>
 
-  <!-- Aktuelle stündliche Vorhersage -->
-  <div *ngIf="hourlyData.length" class="section">
-    <h3>Heute</h3>
-    <div class="hourly-forecast">
+  <!-- Heutiges Wetter (stündliche Vorschau) -->
+  <div class="hourly-overview">
+    <h3>Heutiges Wetter</h3>
+    <div class="hourly-list">
       <div *ngFor="let hour of hourlyData" class="hourly-item">
-        <p>
-          <strong>{{ hour.time | date: 'HH:mm' }}</strong> <!-- 24-Stunden-Format -->
-          <br />
-          <i [class]="getWeatherIcon(hour.weathercode)" aria-hidden="true"></i>
-          <br />
-          <span class="description">{{ getWeatherDescription(hour.weathercode) }}</span> <!-- Beschreibung hinzufügen -->
-          <br />
-          <span class="temperature">{{ hour.temperature }}°C</span>
-        </p>
+        <span class="time">{{ hour.time | date: 'HH:mm' }}</span>
+        <i [class]="getWeatherIcon(hour.weathercode)" aria-hidden="true"></i>
+        <span class="temp">{{ hour.temperature }}°C</span>
       </div>
     </div>
   </div>
 
-  <!-- Tägliche Vorhersage -->
-  <div *ngIf="dailyData" class="section">
-    <h3>Täglich</h3>
-    <div class="daily-forecast">
-      <div *ngFor="let day of dailyData.time; let i = index" class="daily-item">
-        <p>
-          <strong>{{ day | date: 'EEEE' }}</strong>
-          <br />
-          <i [class]="getWeatherIcon(dailyData.weathercode[i])" aria-hidden="true"></i>
-          <br />
-          <span class="description">{{ getWeatherDescription(dailyData.weathercode[i]) }}</span> <!-- Beschreibung hinzufügen -->
-          <br />
-          <span class="temperature">{{ dailyData.temperature_2m_max[i] }}°C</span>
-          <br />
-          <span class="temperature-min">{{ dailyData.temperature_2m_min[i] }}°C</span>
-        </p>
-      </div>
-    </div>
+  <!-- Wetterverteilung (Monatsweise) -->
+  <div class="weather-distribution">
+    <h3>Wetterverteilung im {{ currentMonth }}</h3>
+    <canvas id="monthlyWeatherChart" width="300" height="300"></canvas>
   </div>
-  <!-- Fehlerbehandlung -->
+
+  <!-- Fehlernachricht -->
   <div *ngIf="errorMessage" class="error-message">
     <p>{{ errorMessage }}</p>
   </div>
-  <div *ngIf="!weatherData && !errorMessage">
-    <p>Lade Wetterdaten...</p>
-  </div>
 </div>
-<div class="weather-distribution">
-  <!-- Monatswetterverteilung -->
-  <div *ngIf="monthlyWeatherSummary" class="section">
-    <h3>Wetterverteilung im {{currentMonth}}</h3>
-    <canvas id="monthlyWeatherChart" width="400" height="400"></canvas>
-  </div>
-</div>
-
