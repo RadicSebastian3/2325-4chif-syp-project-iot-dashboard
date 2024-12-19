@@ -1,6 +1,5 @@
 .weather-widget {
   font-family: 'Roboto', sans-serif;
-  background: linear-gradient(135deg, #ff7e5f 0%, #feb47b 100%);
   padding: 20px;
   border-radius: 20px;
   width: 100%;
@@ -17,7 +16,7 @@
 .daily-chart,
 .hourly-overview,
 .weather-distribution {
-  background: #fff;
+  background: #f9f9f9;
   border-radius: 15px;
   padding: 20px;
   color: #333;
@@ -32,10 +31,30 @@
   align-items: center;
 }
 
-.daily-chart {
-  grid-column: 2 / 3;
-  grid-row: 1 / 2;
-  position: relative;
+.current-weather .temp {
+  font-size: 4rem; /* Große Schriftgröße */
+  font-weight: bold;
+  color: #ff7e5f; /* Orange Ton */
+}
+
+.daily-chart,
+.weather-distribution {
+  display: flex; /* Flexbox für Zentrierung */
+  flex-direction: column;
+  align-items: center; /* Horizontale Zentrierung */
+  justify-content: center; /* Vertikale Zentrierung */
+}
+
+.daily-chart canvas,
+.weather-distribution canvas {
+  max-width: 100%; /* Verhindert Überschreiten des Containers */
+  height: auto; /* Automatische Höhe für responsives Verhalten */
+}
+
+h3 {
+  margin: 0 0 10px;
+  text-align: left; /* Überschriften links ausrichten */
+  width: 100%;
 }
 
 .hourly-overview {

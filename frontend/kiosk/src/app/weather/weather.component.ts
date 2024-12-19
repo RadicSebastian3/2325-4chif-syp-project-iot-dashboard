@@ -266,7 +266,6 @@ export class WeatherComponent implements OnInit{
           },
           title: {
             display: true,
-            text: 'Täglicher Temperaturverlauf',
           },
         },
       },
