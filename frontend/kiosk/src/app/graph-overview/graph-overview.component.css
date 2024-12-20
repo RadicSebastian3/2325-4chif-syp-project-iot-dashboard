@@ -209,7 +209,7 @@
 /* Dropdown-Container */
 .dropdown-container {
   position: absolute;
-  top: 20px;
+  top: 50px;
   left: 310px;
   z-index: 10;
 }
@@ -220,3 +220,10 @@
   border-color: #6c757d;
   padding: 0.375rem 0.75rem; /* Standard-Padding von Bootstrap */
 }
+
+.d-flex h1 {
+  /* Deine CSS-Regeln */
+  margin-left: 305px;
+}
+
+
