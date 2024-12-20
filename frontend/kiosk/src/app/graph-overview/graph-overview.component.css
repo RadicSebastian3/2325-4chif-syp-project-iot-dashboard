@@ -214,11 +214,13 @@
   z-index: 10;
 }
 
+/* Dropdown-Container */
 .dropdown-container .form-select {
-  width: auto; /* Passt die Breite an den Inhalt an */
+  width: 300px; /* Breite des Dropdowns erhöhen */
   border-radius: 5px;
-  border-color: #6c757d;
-  padding: 0.375rem 0.75rem; /* Standard-Padding von Bootstrap */
+  color: #333; /* Textfarbe */
+  padding: 0.5rem 1rem;
+  transition: background-color 0.3s, border-color 0.3s; /* Weicher Übergang */
 }
 
 .d-flex h1 {
