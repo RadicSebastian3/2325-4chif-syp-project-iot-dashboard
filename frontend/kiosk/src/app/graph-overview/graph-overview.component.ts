@@ -45,18 +45,24 @@ export class GraphOverviewComponent implements OnInit {
 
   public visible: boolean = false;
 
+  // Monate und Auswahl
+  public months: string[] = [
+    "Januar", "Februar", "März", "April", "Mai", "Juni",
+    "Juli", "August", "September", "Oktober", "November", "Dezember"
+  ];
+  public selectedMonth: number = new Date().getMonth(); // Aktueller Monat als Standard
+
   constructor(public sanitizer: DomSanitizer, public http: HttpClient) { }
 
   ngOnInit(): void {
     this.http.get<Graph[]>('assets/data/graph-data.json').subscribe((data) => {
       this.graphs = data;
-
       console.log(this.graphs.length + " graphs loaded");
-      this.currentIndex = 0; // Ändert den Index, um den ersten Graph direkt anzuzeigen
-      this.currentGraph = this.graphs[0]; // Setzt den ersten Graph beim Laden
     });
 
     this.kioskModeChecker();
+    this.changeDuration();
+    this.updateGraphLinks();
   }
 
   public selectAllGraphs(): void {
@@ -105,16 +111,92 @@ export class GraphOverviewComponent implements OnInit {
     }
   }
 
+  calculateStartAndEndOfMonth(month: number): { from: number, to: number } {
+    const desiredYear = 2024;
+
+    const startDate = new Date(desiredYear, month, 1, 0, 0, 0, 0);
+    const endDate = new Date(desiredYear, month + 1, 0, 23, 59, 59, 999);
+
+    const from = startDate.getTime();
+    const to = endDate.getTime();
+
+    return { from, to };
+  }
+
+
+
+  public selectMonth(): void {
+    const { from, to } = this.calculateStartAndEndOfMonth(this.selectedMonth);
+
+    this.graphs.forEach(graph => {
+      if (graph.iFrameLink.includes("from=") && graph.iFrameLink.includes("to=")) {
+        graph.iFrameLink = graph.iFrameLink
+          .replace(/from=[^&]+/, `from=${from}`)
+          .replace(/to=[^&]+/, `to=${to}`);
+      } else if (graph.iFrameLink.includes("from=") && !graph.iFrameLink.includes("to=")) {
+        graph.iFrameLink += `&to=${to}`;
+      } else if (!graph.iFrameLink.includes("from=") && graph.iFrameLink.includes("to=")) {
+        graph.iFrameLink += `&from=${from}`;
+      } else {
+        graph.iFrameLink += `&from=${from}&to=${to}`;
+      }
+
+      console.log(`Updated Graph Link for Month: ${graph.iFrameLink}`);
+    });
+
+    this.updateCurrentGraph(); // Aktualisiert den aktuellen Graph
+  }
+
+
+  private updateCurrentGraph(): void {
+    if (this.currentIndex !== -1) {
+      this.setCurrentGraphWithIndex(this.currentIndex); // Aktualisiert den aktuellen Graph
+    } else {
+      this.currentGraph = null; // Zeigt alle Graphen an, falls kein spezifischer ausgewählt ist
+    }
+  }
+
 
 
   public changeDuration(): void {
     const selectedDuration: string = this.selectedDuration.short;
-    const durationPattern: RegExp = /from=now-\d+[a-z]/;
 
     this.graphs.forEach(graph => {
-      graph.iFrameLink = graph.iFrameLink.replace(durationPattern, `from=now-${selectedDuration}`);
+      if (graph.iFrameLink.includes("from=now") && graph.iFrameLink.includes("to=now")) {
+        graph.iFrameLink = graph.iFrameLink.replace(/from=now-\w+/, `from=now-${selectedDuration}`);
+      } else {
+        graph.iFrameLink += `&from=now-${selectedDuration}&to=now`;
+      }
+      console.log(`Updated Graph Link for Duration: ${graph.iFrameLink}`);
     });
+
+    this.updateCurrentGraph();
   }
+
+
+  private updateGraphLinks(): void {
+    const { from, to } = this.calculateStartAndEndOfMonth(this.selectedMonth);
+    const selectedDuration: string = this.selectedDuration.short;
+
+    this.graphs.forEach(graph => {
+      if (graph.iFrameLink.includes("from=now")) {
+        // Aktualisiert relative Zeitangaben (bei "now" basierten Links)
+        graph.iFrameLink = graph.iFrameLink.replace(/from=now-\w+/, `from=now-${selectedDuration}`);
+      } else if (graph.iFrameLink.includes("from=") && graph.iFrameLink.includes("to=")) {
+        // Aktualisiert absolute Zeitangaben (bei "from" und "to" vorhandenen Links)
+        graph.iFrameLink = graph.iFrameLink
+          .replace(/from=\d+/, `from=${from}`)
+          .replace(/to=\d+/, `to=${to}`);
+      } else {
+        // Fügt `from` und `to` hinzu, falls sie nicht vorhanden sind
+        graph.iFrameLink += `&from=${from}&to=${to}`;
+      }
+      console.log(`Updated Graph Link: ${graph.iFrameLink}`);
+    });
+
+    this.updateCurrentGraph(); // Aktualisiert den aktuellen Graph
+  }
+
 
   public setCurrentGraphWithIndex(index: number): void {
     this.currentIndex = index;
@@ -143,24 +225,8 @@ export class GraphOverviewComponent implements OnInit {
     return res.join(separator);
   }
 
-  public grafanaServers: string[] = ["localhost:3000", "10.191.112.23/grafana"];
-  public selectedGrafanaServer: string = this.grafanaServers[0]; // Ändern Sie den Index entsprechend
-
-  public changeGrafanaServer() {
-    this.graphs.forEach(graph => {
-      this.grafanaServers.forEach(server => {
-        graph.iFrameLink = graph.iFrameLink.replace(server, this.selectedGrafanaServer);
-      });
-    });
-
-    this.graphs.forEach(graph => {
-      console.log(graph.iFrameLink);
-    });
-  }
-
   public selectWeather(): void {
     this.currentIndex = -2; // Spezieller Index für Wetter
     this.currentGraph = null; // Kein Graph wird angezeigt
   }
-
 }

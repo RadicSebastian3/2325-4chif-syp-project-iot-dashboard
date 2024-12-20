@@ -59,12 +59,12 @@
   flex-direction: column;
   align-items: center;
   padding-top: 20px;
-  z-index: 1000;
+  z-index: 5;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .sidebar-header img {
-  width: 120px;
+  width: 150px;
   transition: width 0.3s ease;
 }
 
@@ -125,7 +125,6 @@
   display: flex;
   flex-direction: column;
   background-color: #f8f9fa;
-  overflow-y: auto;
 }
 
 .content-wrapper {
@@ -205,4 +204,19 @@
   .graph-item {
     margin-bottom: 20px;
   }
+}
+
+/* Dropdown-Container */
+.dropdown-container {
+  position: absolute;
+  top: 20px;
+  left: 310px;
+  z-index: 10;
+}
+
+.dropdown-container .form-select {
+  width: auto; /* Passt die Breite an den Inhalt an */
+  border-radius: 5px;
+  border-color: #6c757d;
+  padding: 0.375rem 0.75rem; /* Standard-Padding von Bootstrap */
 }
