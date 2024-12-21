@@ -216,16 +216,26 @@
 
 /* Dropdown-Container */
 .dropdown-container .form-select {
-  width: 300px; /* Breite des Dropdowns erhöhen */
+  width: 150px;
   border-radius: 5px;
-  color: #333; /* Textfarbe */
+  color: #333;
   padding: 0.5rem 1rem;
   transition: background-color 0.3s, border-color 0.3s; /* Weicher Übergang */
 }
 
-.d-flex h1 {
-  /* Deine CSS-Regeln */
-  margin-left: 305px;
+.header-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  padding: 10px 0 20px 0;
+  z-index: 10;
 }
+
 
 

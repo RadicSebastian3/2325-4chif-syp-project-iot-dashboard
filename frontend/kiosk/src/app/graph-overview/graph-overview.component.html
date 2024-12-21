@@ -1,14 +1,9 @@
 <!-- Container für Titel, Einstellungen und Wetterkomponente auf derselben Höhe -->
 <div class="d-flex justify-content-between align-items-center mb-4">
-  <!-- Titel -->
-  <div *ngIf="currentGraph">
-    <h1>{{ currentGraph.title }}</h1>
-  </div>
-  <div *ngIf="currentIndex === -1">
-    <h1 class="text-center">Dashboard</h1>
-  </div>
-  <div *ngIf="currentIndex === -2">
-    <h1 class="text-center">Wetter</h1>
+  <div class="header-center">
+    <h1 *ngIf="currentGraph">{{ currentGraph.title }}</h1>
+    <h1 *ngIf="currentIndex === -1" class="text-center"></h1>
+    <h1 *ngIf="currentIndex === -2" class="text-center">Wetter</h1>
   </div>
 
   <!-- Einstellungen Dropdown auf der gleichen Höhe ganz rechts -->
