@@ -301,4 +301,21 @@ export class WeatherComponent implements OnInit{
     return 'unknown';
   }
 
+  getSunriseSunset(): void {
+    this.weatherService.getSunriseSunset(this.latitude, this.longitude).subscribe(
+      data => {
+        const sunrise = new Date(data.daily.sunrise[0]);
+        const sunset = new Date(data.daily.sunset[0]);
+
+        this.sunriseTime = sunrise.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
+        this.sunsetTime = sunset.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
+
+        const duration = Math.floor((sunset.getTime() - sunrise.getTime()) / (1000 * 60));
+        this.daylightDuration = `${Math.floor(duration / 60)} Std. ${duration % 60} Min.`;
+      },
+      error => {
+        console.error('Fehler beim Abrufen von Sonnenaufgang und -untergang', error);
+      }
+    );
+  }
 }
