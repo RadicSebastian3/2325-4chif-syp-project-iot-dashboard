@@ -45,6 +45,7 @@ export class WeatherComponent implements OnInit{
     this.getWeather();
     this.getMonthlyWeather();
     this.setCurrentMonth();
+    this.getSunriseSunset();
   }
 
   getWeather(): void {
