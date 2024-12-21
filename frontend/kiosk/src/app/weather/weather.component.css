@@ -182,3 +182,52 @@ h3 {
   font-weight: bold;
   text-align: center;
 }
+
+.sunrise-sunset {
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f9f9f9;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  color: #333;
+  font-size: 1.2rem;
+}
+
+.sun-path {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  gap: 15px;
+}
+
+.sun-path span {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 5px;
+  color: #ff7e5f; /* Gleiche Farbe wie Temperatur */
+  font-size: 1rem;
+}
+
+.sun-path .daylight-duration {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #333; /* Dezente Kontrastfarbe */
+}
+
+.sun-path i {
+  font-size: 1.5rem;
+  color: #ff7e5f;
+}
+
+.sunrise-sunset .sunrise span,
+.sunrise-sunset .sunset span {
+  font-size: 0.9rem;
+  color: #999; /* Sekundäre Textfarbe */
+}
