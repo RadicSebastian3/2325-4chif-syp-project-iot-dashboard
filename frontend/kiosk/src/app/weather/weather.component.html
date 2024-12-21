@@ -4,6 +4,13 @@
     <div class="weather-info">
       <h2 class="temp">{{ currentTemp }}°</h2>
       <p class="condition">{{ currentConditionDescription }}</p>
+      <div class="sunrise-sunset">
+        <div class="sun-path">
+          <span class="sunrise"><i class="fas fa-sun"></i> {{ sunriseTime }} Sonnenaufgang</span>
+          <span class="daylight-duration">{{ daylightDuration }}</span>
+          <span class="sunset"><i class="fas fa-moon"></i> {{ sunsetTime }} Sonnenuntergang</span>
+        </div>
+      </div>
       <div class="details">
         <span class="wind">
         <i class="fas fa-wind"></i> Wind: {{ currentWind }} km/h
