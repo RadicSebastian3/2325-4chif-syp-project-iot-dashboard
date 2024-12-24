@@ -233,4 +233,9 @@ export class GraphOverviewComponent implements OnInit {
     this.currentIndex = -2; // Spezieller Index für Wetter
     this.currentGraph = null; // Kein Graph wird angezeigt
   }
+
+  public selectSensorBox():void {
+    this.currentIndex = -3; // Spezieller Index für SensorBox
+    this.currentGraph = null; // Kein Graph wird angezeigt
+  }
 }
