@@ -8,9 +8,12 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.quarkus.logging.Log;
+import io.quarkus.runtime.StartupEvent;
 import io.smallrye.reactive.messaging.mqtt.MqttMessage;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Observes;
 import jakarta.inject.Inject;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.jetbrains.annotations.NotNull;
 
@@ -21,6 +24,17 @@ import java.util.function.Function;
 public class MqttReceiver {
     @Inject
     InfluxDbRepository influxDbRepository;
+
+    @ConfigProperty(name = "mp.messaging.incoming.leoenergy.host")
+    String leoenergyHost;
+
+    @ConfigProperty(name = "mp.messaging.incoming.sensorbox.host")
+    String sensorboxHost;
+
+    public void startUp(@Observes StartupEvent ev) {
+        Log.infof("Set %s as leoenergy host", leoenergyHost);
+        Log.infof("Set %s as sensorbox host", sensorboxHost);
+    }
 
     public void insertMeasurement(SensorValue sensorValue) {
         influxDbRepository.insertMeasurementFromJSON(sensorValue);
