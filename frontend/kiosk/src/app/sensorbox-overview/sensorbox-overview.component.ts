@@ -12,13 +12,16 @@ import {SensorboxService} from "../services/sensorbox.service";
 export class SensorboxOverviewComponent implements OnInit, OnDestroy{
   public floors: string[] = [];
   public rooms: string[] = [];
-  public currentSensorboxValues: SensorBoxDTO[] = [];
+  public currentSensorboxValues: Map<string, SensorBoxDTO> = new Map();
   private intervalId: any;
 
   constructor(private sbs: SensorboxService) {
 
   }
 
+  //#region Service
+  //PLEASE DON'T TOUCH!!!
+  //loads all floors and rooms, and syncs the latest values of all rooms
   ngOnInit() {
     this.sbs.getAllFloors().subscribe((data) => {
       this.floors = data;
@@ -33,13 +36,16 @@ export class SensorboxOverviewComponent implements OnInit, OnDestroy{
     this.intervalId = setInterval(() => {
       this.rooms.forEach(room => {
         this.sbs.getLatestValuesOfRoom(room).subscribe((data) => {
-          console.log(data);
-        })
-      })
-    })
+          this.currentSensorboxValues.set(data.room, data);
+          console.log(this.currentSensorboxValues);
+        });
+      });
+
+    }, 10000);
   }
 
   ngOnDestroy() {
     this.intervalId ? clearInterval(this.intervalId) : null;
   }
+  //#endregion
 }
