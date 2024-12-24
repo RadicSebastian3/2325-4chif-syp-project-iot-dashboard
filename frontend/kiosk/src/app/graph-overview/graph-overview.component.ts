@@ -8,6 +8,8 @@ import { FormsModule } from '@angular/forms';
 import { Subscription, timer } from 'rxjs';
 import { Duration } from '../model/Duration';
 import {WeatherComponent} from "../weather/weather.component";
+import {RouterLink} from "@angular/router";
+import {SensorboxOverviewComponent} from "../sensorbox-overview/sensorbox-overview.component";
 
 @Component({
   selector: 'app-graph-overview',
@@ -18,6 +20,8 @@ import {WeatherComponent} from "../weather/weather.component";
     GraphComponent,
     FormsModule,
     WeatherComponent,
+    RouterLink,
+    SensorboxOverviewComponent,
   ],
   templateUrl: './graph-overview.component.html',
   styleUrls: ['./graph-overview.component.css']
