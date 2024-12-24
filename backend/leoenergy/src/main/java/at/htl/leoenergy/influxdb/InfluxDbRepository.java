@@ -1,5 +1,6 @@
 package at.htl.leoenergy.influxdb;
 
+import at.htl.leoenergy.entity.SensorBoxDTO;
 import at.htl.leoenergy.entity.SensorBoxValue;
 import at.htl.leoenergy.entity.SensorValue;
 import com.influxdb.client.InfluxDBClient;
@@ -145,5 +146,70 @@ public class InfluxDbRepository {
         }
 
         return rooms.stream().toList();
+    }
+
+    public SensorBoxDTO getLatestSensorBoxDataForRoom(String room) {
+        final SensorBoxDTO sensorBoxDTO = new SensorBoxDTO();
+        sensorBoxDTO.setRoom(room);
+
+        try (InfluxDBClient client = InfluxDBClientFactory.create(influxUrl, token.toCharArray())) {
+            QueryApi queryApi = client.getQueryApi();
+
+            String fluxQuery = String.format(
+                    "from(bucket: \"%s\") " +
+                            "|> range(start: 0) " +
+                            "|> filter(fn: (r) => r[\"_measurement\"] == \"sensor_box\") " +
+                            "|> filter(fn: (r) => r[\"room\"] == \"%s\") " +
+                            "|> group(columns: [\"parameter\"]) " +
+                            "|> last()",
+                    bucket, room
+            );
+
+            queryApi.query(fluxQuery, org).forEach(table ->
+                    table.getRecords().forEach(record -> {
+                        String parameter = record.getValueByKey("parameter").toString();
+                        Double value = Double.parseDouble(record.getValueByKey("_value").toString());
+                        long timestamp = record.getTime().toEpochMilli();
+
+                        sensorBoxDTO.setTimestamp(timestamp); // Set timestamp from any parameter (latest)
+                        sensorBoxDTO.setFloor(record.getValueByKey("floor").toString());
+
+                        switch (parameter) {
+                            case "co2":
+                                sensorBoxDTO.setCo2(value);
+                                break;
+                            case "humidity":
+                                sensorBoxDTO.setHumidity(value);
+                                break;
+                            case "motion":
+                                sensorBoxDTO.setMotion(value);
+                                break;
+                            case "neopixel":
+                                sensorBoxDTO.setNeopixel(value);
+                                break;
+                            case "noise":
+                                sensorBoxDTO.setNoise(value);
+                                break;
+                            case "pressure":
+                                sensorBoxDTO.setPressure(value);
+                                break;
+                            case "rssi":
+                                sensorBoxDTO.setRssi(value);
+                                break;
+                            case "temperature":
+                                sensorBoxDTO.setTemperature(value);
+                                break;
+                            default:
+                                Log.warnf("Unhandled parameter: %s", parameter);
+                                break;
+                        }
+                    })
+            );
+
+        } catch (Exception e) {
+            Log.error("Error retrieving latest sensor box data for room: " + room, e);
+        }
+
+        return sensorBoxDTO;
     }
 }
