@@ -75,6 +75,14 @@ export class SensorboxOverviewComponent implements OnInit, OnDestroy{
       : 'assets/icons/temperature-hot.png';
   }
 
+  getHumidityIcon(humidity?: number): string | null {
+    if (humidity === undefined || humidity === null) return null;
+    if (humidity < 30) return 'assets/icons/humidity-low.png';
+    if (humidity <= 60) return 'assets/icons/humidity-medium.png';
+    if (humidity > 60) return 'assets/icons/humidity-high.png';
+    return null;
+  }
+
   //#region Service
   //PLEASE DON'T TOUCH!!!
   //loads all floors and rooms, and syncs the latest values of all rooms
