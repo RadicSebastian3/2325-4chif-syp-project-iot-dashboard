@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SensorBoxDTO} from "../model/SensorBoxDTO";
 import {SensorboxService} from "../services/sensorbox.service";
 import {NgClass, NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
+import Chart from "chart.js/auto";
 
 @Component({
   selector: 'app-sensorbox-overview',
@@ -30,6 +31,7 @@ export class SensorboxOverviewComponent implements OnInit, OnDestroy{
   private intervalId: any;
   private openFloors: Set<string> = new Set();
   private openRooms: Set<string> = new Set();
+  private pieChart: Chart | null = null;
 
   constructor(private sbs: SensorboxService) {
 
@@ -131,6 +133,34 @@ export class SensorboxOverviewComponent implements OnInit, OnDestroy{
     });
 
     console.log('Fake data loaded:', this.currentSensorboxValues);
+  }
+
+  createPieChart(): void {
+    const totalGreenRooms = this.rooms.filter(room => !this.isWindowOpen(room)).length;
+    const totalRedRooms = this.rooms.filter(room => this.isWindowOpen(room)).length;
+
+    const ctx = document.getElementById('roomStatusChart') as HTMLCanvasElement;
+    if (ctx) {
+      this.pieChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: ['Green Rooms', 'Red Rooms'],
+          datasets: [{
+            label: 'Room Status',
+            data: [totalGreenRooms, totalRedRooms],
+            backgroundColor: ['#28a745', '#dc3545']
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'bottom'
+            }
+          }
+        }
+      });
+    }
   }
 
   //#region Service
