@@ -4,6 +4,9 @@
     <h1 *ngIf="currentGraph">{{ currentGraph.title }}</h1>
     <h1 *ngIf="currentIndex === -1" class="text-center"></h1>
     <h1 *ngIf="currentIndex === -2" class="text-center">Wetter</h1>
+    <h1 *ngIf="currentIndex === -3" class="text-center">
+      <img src="assets/images/live-icon.png" class="live-icon me-2">
+      Sensorboxen</h1>
   </div>
 
   <!-- Einstellungen Dropdown auf der gleichen Höhe ganz rechts -->
@@ -130,6 +133,16 @@
           [class.active]="currentIndex === -2"
         >
           <i class="fas fa-cloud-sun"></i> Wetter
+        </a>
+      </li>
+      <li class="sidebar-item">
+        <a
+          class="sidebar-link"
+          href="#"
+          (click)="selectSensorBox(); $event.preventDefault()"
+          [class.active]="currentIndex === -3"
+        >
+          <i class="fas fa-box"></i> Sensor-Boxen
         </a>
       </li>
     </ul>

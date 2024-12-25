@@ -237,5 +237,27 @@
   z-index: 10;
 }
 
+.live-icon {
+  display: inline-block;
+  margin-right: 8px;
+  width: 50px;
+  height: 50px;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
 
 

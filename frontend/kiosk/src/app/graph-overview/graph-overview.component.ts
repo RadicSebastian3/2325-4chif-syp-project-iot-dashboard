@@ -102,14 +102,15 @@ export class GraphOverviewComponent implements OnInit {
     // Inkrementiere den Index
     this.currentIndex++;
 
-    // Wenn das Ende der Liste erreicht ist, schalte zu Wetter
     if (this.currentIndex >= this.graphs.length) {
-      this.currentIndex = -2; // Wechsel zu Wetter
+      this.currentIndex = -3; // SensorBox kommt nach Wetter
     }
 
-    // Wechsel zu Wetter oder Graphen
+    // Wechsel zwischen Wetter, SensorBox oder Graphen
     if (this.currentIndex === -2) {
       this.selectWeather();
+    } else if (this.currentIndex === -3) {
+      this.selectSensorBox(); // SensorBox wird ausgewählt
     } else {
       this.setCurrentGraphWithIndex(this.currentIndex);
     }
