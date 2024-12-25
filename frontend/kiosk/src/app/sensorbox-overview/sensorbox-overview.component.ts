@@ -37,6 +37,10 @@ export class SensorboxOverviewComponent implements OnInit, OnDestroy{
     return (isCo2Low && isTemperatureLow) || (isCo2Low && isHumidityLow) || (isTemperatureLow && isHumidityLow);
   }
 
+  toogleFloor(floor: string): void {
+    this.openFloors.has(floor) ? this.openFloors.delete(floor) : this.openFloors.add(floor);
+  }
+
   //#region Service
   //PLEASE DON'T TOUCH!!!
   //loads all floors and rooms, and syncs the latest values of all rooms
