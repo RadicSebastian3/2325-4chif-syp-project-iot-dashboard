@@ -31,7 +31,7 @@ export class SensorboxOverviewComponent implements OnInit, OnDestroy{
   private intervalId: any;
   private openFloors: Set<string> = new Set();
   private openRooms: Set<string> = new Set();
-  private pieChart: Chart | null = null;
+  private doughnutChart: Chart | null = null;
 
   constructor(private sbs: SensorboxService) {
 
@@ -135,15 +135,15 @@ export class SensorboxOverviewComponent implements OnInit, OnDestroy{
     console.log('Fake data loaded:', this.currentSensorboxValues);
   }
 
-  createPieChart(): void {
+  createDoughnutChart(): void {
     const totalGreenRooms = this.rooms.filter(room => !this.isWindowOpen(room)).length;
     const totalRedRooms = this.rooms.filter(room => this.isWindowOpen(room)).length;
 
     const ctx = document.getElementById('roomStatusChart') as HTMLCanvasElement;
 
     if (ctx) {
-      this.pieChart = new Chart(ctx, {
-        type: 'pie',
+      this.doughnutChart = new Chart(ctx, {
+        type: 'doughnut',
         data: {
           labels: ['Fenster geschlossen', 'Fenster geöffnet'],
           datasets: [{
@@ -207,15 +207,15 @@ export class SensorboxOverviewComponent implements OnInit, OnDestroy{
     //     });
     //   });
 
-      this.createPieChart();
+      this.createDoughnutChart();
     //
     // }, 10000);
   }
 
   ngOnDestroy() {
     // this.intervalId ? clearInterval(this.intervalId) : null;
-    if (this.pieChart) {
-      this.pieChart.destroy();
+    if (this.doughnutChart) {
+      this.doughnutChart.destroy();
     }
   }
   //#endregion
