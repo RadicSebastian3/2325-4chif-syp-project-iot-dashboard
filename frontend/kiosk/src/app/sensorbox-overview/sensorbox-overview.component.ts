@@ -15,6 +15,9 @@ export class SensorboxOverviewComponent implements OnInit, OnDestroy{
   public currentSensorboxValues: Map<string, SensorBoxDTO> = new Map();
   private intervalId: any;
 
+  private openFloors: Set<string> = new Set();
+  private openRooms: Set<string> = new Set();
+
   constructor(private sbs: SensorboxService) {
 
   }
