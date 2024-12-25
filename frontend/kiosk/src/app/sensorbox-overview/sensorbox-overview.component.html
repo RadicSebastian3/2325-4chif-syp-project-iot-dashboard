@@ -1,1 +1,19 @@
-<p>sensorbox-overview works!</p>
+<div class="sensorbox-container">
+  <!-- Floors -->
+  <div *ngFor="let floor of floors" class="floor">
+    <!-- Floor Header -->
+    <div class="floor-header" (click)="toggleFloor(floor)">
+      <span>{{ floor }} (Etage)</span>
+      <span>{{ getRoomCount(floor) }} Räume</span>
+      <div class="status-indicators">
+        <span class="status-green">{{ getGreenRoomCount(floor) }}</span>
+        <span class="status-red">{{ getRedRoomCount(floor) }}</span>
+      </div>
+      <div class="toggle-icon">
+        <i [class]="isFloorOpen(floor) ? 'arrow-up' : 'arrow-down'"></i>
+      </div>
+    </div>
+  </div>
+
+
+</div>

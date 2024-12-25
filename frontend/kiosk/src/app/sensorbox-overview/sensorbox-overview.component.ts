@@ -1,11 +1,14 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SensorBoxDTO} from "../model/SensorBoxDTO";
 import {SensorboxService} from "../services/sensorbox.service";
+import {NgForOf} from "@angular/common";
 
 @Component({
   selector: 'app-sensorbox-overview',
   standalone: true,
-  imports: [],
+  imports: [
+    NgForOf
+  ],
   templateUrl: './sensorbox-overview.component.html',
   styleUrl: './sensorbox-overview.component.css'
 })
@@ -37,7 +40,7 @@ export class SensorboxOverviewComponent implements OnInit, OnDestroy{
     return (isCo2Low && isTemperatureLow) || (isCo2Low && isHumidityLow) || (isTemperatureLow && isHumidityLow);
   }
 
-  toogleFloor(floor: string): void {
+  toggleFloor(floor: string): void {
     this.openFloors.has(floor) ? this.openFloors.delete(floor) : this.openFloors.add(floor);
   }
 
@@ -45,7 +48,7 @@ export class SensorboxOverviewComponent implements OnInit, OnDestroy{
     return this.openFloors.has(floor);
   }
 
-  toogleRoom(room: string): void {
+  toggleRoom(room: string): void {
     this.openRooms.has(room) ? this.openRooms.delete(room) : this.openRooms.add(room);
   }
 
@@ -83,10 +86,34 @@ export class SensorboxOverviewComponent implements OnInit, OnDestroy{
     return null;
   }
 
+  private loadFakeData(): void {
+    this.floors = ['EG', 'OG1', 'OG2'];
+    this.rooms = [
+      'EG01', 'EG02', 'OG101', 'OG102', 'OG201', 'OG202'
+    ];
+
+    const fakeData: SensorBoxDTO[] = [
+      new SensorBoxDTO('EG01', 'EG', Date.now(), 350, 45, 1, 100, 40, 1010, -50, 20),
+      new SensorBoxDTO('EG02', 'EG', Date.now(), 1200, 25, 0, 200, 60, 1005, -55, 12),
+      new SensorBoxDTO('OG101', 'OG1', Date.now(), 800, 50, 1, 150, 45, 1020, -40, 22),
+      new SensorBoxDTO('OG102', 'OG1', Date.now(), 300, 55, 1, 150, 35, 1015, -60, 18),
+      new SensorBoxDTO('OG201', 'OG2', Date.now(), 700, 30, 1, 100, 50, 1018, -45, 19),
+      new SensorBoxDTO('OG202', 'OG2', Date.now(), 1500, 20, 0, 200, 70, 1002, -65, 14)
+    ];
+
+    fakeData.forEach(data => {
+      this.currentSensorboxValues.set(data.room, data);
+    });
+
+    console.log('Fake data loaded:', this.currentSensorboxValues);
+  }
+
   //#region Service
   //PLEASE DON'T TOUCH!!!
   //loads all floors and rooms, and syncs the latest values of all rooms
   ngOnInit() {
+    this.loadFakeData();
+
     this.sbs.getAllFloors().subscribe((data) => {
       this.floors = data;
       console.log("All floors: " + this.floors);
