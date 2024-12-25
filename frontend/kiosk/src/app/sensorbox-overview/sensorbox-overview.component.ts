@@ -22,6 +22,21 @@ export class SensorboxOverviewComponent implements OnInit, OnDestroy{
 
   }
 
+  // check window status
+  isWindowOpen(room: string): boolean {
+    const data = this.currentSensorboxValues.get(room);
+
+    if(!data) return false;
+
+    const {co2, temperature, humidity} = data;
+
+    const isCo2Low = co2 !== undefined && co2 < 400;
+    const isTemperatureLow = temperature !== undefined && temperature < 15;
+    const isHumidityLow = humidity !== undefined && humidity < 30;
+
+    return (isCo2Low && isTemperatureLow) || (isCo2Low && isHumidityLow) || (isTemperatureLow && isHumidityLow);
+  }
+
   //#region Service
   //PLEASE DON'T TOUCH!!!
   //loads all floors and rooms, and syncs the latest values of all rooms
