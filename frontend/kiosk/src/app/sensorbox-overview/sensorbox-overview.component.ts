@@ -17,21 +17,18 @@ import Chart from "chart.js/auto";
   styleUrl: './sensorbox-overview.component.css'
 })
 export class SensorboxOverviewComponent implements OnInit, OnDestroy{
-  public floors: string[] = ["EG", "OG1", "OG2"];
-  public rooms: string[] = ["EG01", "EG02", "OG101", "OG102", "OG201", "OG202"];
-  public currentSensorboxValues: Map<string, SensorBoxDTO> = new Map([
-    ['EG01', new SensorBoxDTO('EG01', 'EG', Date.now(), 350, 45, 1, 100, 40, 1010, -50, 20)],
-    ['EG02', new SensorBoxDTO('EG02', 'EG', Date.now(), 1200, 25, 0, 200, 60, 1005, -55, 12)],
-    ['OG101', new SensorBoxDTO('OG101', 'OG1', Date.now(), 800, 50, 1, 150, 45, 1020, -40, 22)],
-    ['OG102', new SensorBoxDTO('OG102', 'OG1', Date.now(), 300, 55, 1, 150, 35, 1015, -60, 18)],
-    ['OG201', new SensorBoxDTO('OG201', 'OG2', Date.now(), 700, 30, 1, 100, 50, 1018, -45, 19)],
-    ['OG202', new SensorBoxDTO('OG202', 'OG2', Date.now(), 1500, 20, 0, 200, 70, 1002, -65, 14)]
-  ]);
+  public floors: string[] = [];
+  public rooms: string[] = [];
+  public currentSensorboxValues: Map<string, SensorBoxDTO> = new Map();
 
   private intervalId: any;
   private openFloors: Set<string> = new Set();
   private openRooms: Set<string> = new Set();
   private doughnutChart: Chart | null = null;
+
+  private lastGreenRooms = 0;
+  private lastRedRooms = 0;
+
 
   constructor(private sbs: SensorboxService) {
 
@@ -139,7 +136,22 @@ export class SensorboxOverviewComponent implements OnInit, OnDestroy{
     const totalGreenRooms = this.rooms.filter(room => !this.isWindowOpen(room)).length;
     const totalRedRooms = this.rooms.filter(room => this.isWindowOpen(room)).length;
 
+    // Überprüfen, ob sich die Daten geändert haben
+    if (totalGreenRooms === this.lastGreenRooms && totalRedRooms === this.lastRedRooms) {
+      console.log('Keine Änderung bei den Daten. Chart wird nicht aktualisiert.');
+      return;
+    }
+
+    // Aktuelle Werte speichern
+    this.lastGreenRooms = totalGreenRooms;
+    this.lastRedRooms = totalRedRooms;
+
     const ctx = document.getElementById('roomStatusChart') as HTMLCanvasElement;
+
+    // Zerstöre den existierenden Chart, falls vorhanden
+    if (this.doughnutChart) {
+      this.doughnutChart.destroy();
+    }
 
     if (ctx) {
       this.doughnutChart = new Chart(ctx, {
@@ -158,20 +170,20 @@ export class SensorboxOverviewComponent implements OnInit, OnDestroy{
               position: 'bottom',
               labels: {
                 font: {
-                  size: 12 // Adjust legend font size for smaller charts
+                  size: 12
                 }
               }
             },
             title: {
               display: true,
-              text: 'Status der Räume', // Title text
+              text: 'Status der Räume',
               font: {
-                size: 14 // Adjust title font size
+                size: 14
               }
             }
           },
           responsive: true,
-          maintainAspectRatio: false, // Allows resizing
+          maintainAspectRatio: false,
           layout: {
             padding: {
               top: 10,
@@ -180,6 +192,7 @@ export class SensorboxOverviewComponent implements OnInit, OnDestroy{
           }
         }
       });
+      console.log('Chart wurde erfolgreich aktualisiert.');
     }
   }
 
@@ -189,31 +202,31 @@ export class SensorboxOverviewComponent implements OnInit, OnDestroy{
   //loads all floors and rooms, and syncs the latest values of all rooms
   ngOnInit() {
 
-    // this.sbs.getAllFloors().subscribe((data) => {
-    //   this.floors = data;
-    //   console.log("All floors: " + this.floors);
-    // });
-    //
-    // this.sbs.getAllRooms().subscribe((data) => {
-    //   this.rooms = data;
-    //   console.log("All rooms: " + this.rooms);
-    // });
-    //
-    // this.intervalId = setInterval(() => {
-    //   this.rooms.forEach(room => {
-    //     this.sbs.getLatestValuesOfRoom(room).subscribe((data) => {
-    //       this.currentSensorboxValues.set(data.room, data);
-    //       console.log(this.currentSensorboxValues);
-    //     });
-    //   });
+    this.sbs.getAllFloors().subscribe((data) => {
+      this.floors = data;
+      console.log("All floors: " + this.floors);
+    });
+
+    this.sbs.getAllRooms().subscribe((data) => {
+      this.rooms = data;
+      console.log("All rooms: " + this.rooms);
+    });
+
+    this.intervalId = setInterval(() => {
+      this.rooms.forEach(room => {
+        this.sbs.getLatestValuesOfRoom(room).subscribe((data) => {
+          this.currentSensorboxValues.set(data.room, data);
+          console.log(this.currentSensorboxValues);
+        });
+      });
 
       this.createDoughnutChart();
-    //
-    // }, 10000);
+
+    }, 10000);
   }
 
   ngOnDestroy() {
-    // this.intervalId ? clearInterval(this.intervalId) : null;
+    this.intervalId ? clearInterval(this.intervalId) : null;
     if (this.doughnutChart) {
       this.doughnutChart.destroy();
     }
