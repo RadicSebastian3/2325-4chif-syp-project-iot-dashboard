@@ -3,80 +3,195 @@
   margin: 10px;
 }
 
-.floor-header, .room-header {
+.floor {
+  margin-bottom: 25px; /* Abstand zwischen den Floors */
+}
+
+.room-header {
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  align-items: center;
   background: #f5f5f5;
   border: 1px solid #ddd;
+  border-radius: 5px;
   cursor: pointer;
+  width: 100%;
+  padding: 10px;
+}
+
+.floor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  padding: 10px;
+  min-height: 60px; /* Einheitliche Höhe für alle Header */
+  box-sizing: border-box; /* Sicherstellen, dass Padding in der Höhe berücksichtigt wird */
+}
+
+.floor-header .room-count {
+  flex-grow: 1; /* Lässt den Raumzähler den verfügbaren Platz nutzen */
+  text-align: center; /* Zentriert den Text */
+  font-weight: bold;
+  margin-left: 60px;
+  margin-right: 60px;
+}
+
+.status-indicators {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-left: auto; /* Schiebt die Status-Indikatoren ganz nach rechts */
+}
+
+
+.room-header.room-green {
+  background-color: #d4edda; /* Light green background for closed windows */
+  border-color: #c3e6cb;
+}
+
+.room-header.room-red {
+  background-color: #f8d7da; /* Light red background for open windows */
+  border-color: #f5c6cb;
 }
 
 .rooms {
   padding: 10px;
   background: #f9f9f9;
+  width: 100%;
 }
 
 .room {
   border: 1px solid #eee;
+  background: #ffffff;
+  padding: 10px;
+  width: 100%;
   margin: 5px 0;
+  border-radius: 5px;
 }
 
 .room.window-open {
-  background-color: #f8d7da; /* Red highlight for open window */
-  border-color: #f5c6cb;
+  /*background-color: #f8d7da; /* Red highlight for open window */
+  /*border-color: #f5c6cb;*/
 }
 
 .room-details {
   display: flex;
   justify-content: space-around;
+  align-items: center;
+  gap: 15px;
   padding: 10px;
 }
 
 .sensor {
   text-align: center;
+  flex: 1;
 }
 
-.sensor-circle {
-  border: 2px solid #f0ad4e;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 5px auto;
+.co2-display .co2-container {
+  border-radius: 10px;
+  padding: 5px 10px;
+  text-align: center;
+}
+
+.co2-container.low {
+  background-color: #d4edda; /* Green for low CO₂ */
+  border: 1px solid #c3e6cb;
+  color: #155724;
+}
+
+.co2-container.medium {
+  background-color: #fff3cd; /* Orange for medium CO₂ */
+  border: 1px solid #ffeeba;
+  color: #856404;
+}
+
+.co2-container.high {
+  background-color: #f8d7da; /* Red for high CO₂ */
+  border: 1px solid #f5c6cb;
+  color: #721c24;
+}
+
+.noise-container {
+  border-radius: 10px;
+  padding: 5px 10px;
+  text-align: center;
+}
+
+.noise-container.low {
+  background-color: #d4edda; /* Green for low noise */
+  border: 1px solid #c3e6cb;
+  color: #155724;
+  padding-right: 4px;
+}
+
+.noise-container.medium {
+  background-color: #fff3cd; /* Orange for medium noise */
+  border: 1px solid #ffeeba;
+  color: #856404;
+  padding-right: 4px;
+}
+
+.noise-container.high {
+  background-color: #f8d7da; /* Red for high noise */
+  border: 1px solid #f5c6cb;
+  color: #721c24;
+  padding-right: 4px;
+}
+
+.co2-value {
+  font-size: 16px;
+  font-weight: bold;
+  padding-right: 4px;
+}
+
+.noise-value {
+  font-size: 16px;
+  font-weight: bold;
+  padding-right: 4px;
 }
 
 .status-indicators {
   display: flex;
-  gap: 5px;
+  gap: 10px;
+  align-items: center;
+  margin-left: auto; /* Schiebt die Status-Indikatoren ganz nach rechts */
+  padding-right: 20px;
+}
+
+.status-green, .status-red {
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25px; /* Breite des Kästchens */
+  height: 25px; /* Höhe des Kästchens */
+  border-radius: 5px; /* Abgerundete Ecken */
 }
 
 .status-green {
-  color: green;
-  font-weight: bold;
+  background-color: green;
 }
 
 .status-red {
-  color: red;
-  font-weight: bold;
+  background-color: red;
 }
 
-.noise-bar {
-  width: 100%;
-  height: 10px;
-  background: linear-gradient(to right, green, yellow, red);
+
+.toggle-icon img {
+  width: 24px;
+  height: 24px;
 }
 
-.toggle-icon i {
-  font-size: 16px;
-}
-
-.arrow-up::before {
-  content: "▲";
-}
-
-.arrow-down::before {
-  content: "▼";
+.icon-small {
+  width: 40px;
+  height: 40px;
+  display: block;
+  margin: 0 auto;
 }
