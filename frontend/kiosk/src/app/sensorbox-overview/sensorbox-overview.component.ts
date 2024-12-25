@@ -140,28 +140,49 @@ export class SensorboxOverviewComponent implements OnInit, OnDestroy{
     const totalRedRooms = this.rooms.filter(room => this.isWindowOpen(room)).length;
 
     const ctx = document.getElementById('roomStatusChart') as HTMLCanvasElement;
+
     if (ctx) {
       this.pieChart = new Chart(ctx, {
         type: 'pie',
         data: {
-          labels: ['Green Rooms', 'Red Rooms'],
+          labels: ['Fenster geschlossen', 'Fenster geöffnet'],
           datasets: [{
-            label: 'Room Status',
+            label: 'Raum Status',
             data: [totalGreenRooms, totalRedRooms],
             backgroundColor: ['#28a745', '#dc3545']
           }]
         },
         options: {
-          responsive: true,
           plugins: {
             legend: {
-              position: 'bottom'
+              position: 'bottom',
+              labels: {
+                font: {
+                  size: 12 // Adjust legend font size for smaller charts
+                }
+              }
+            },
+            title: {
+              display: true,
+              text: 'Status der Räume', // Title text
+              font: {
+                size: 14 // Adjust title font size
+              }
+            }
+          },
+          responsive: true,
+          maintainAspectRatio: false, // Allows resizing
+          layout: {
+            padding: {
+              top: 10,
+              bottom: 10
             }
           }
         }
       });
     }
   }
+
 
   //#region Service
   //PLEASE DON'T TOUCH!!!
@@ -185,12 +206,17 @@ export class SensorboxOverviewComponent implements OnInit, OnDestroy{
     //       console.log(this.currentSensorboxValues);
     //     });
     //   });
+
+      this.createPieChart();
     //
     // }, 10000);
   }
 
   ngOnDestroy() {
     // this.intervalId ? clearInterval(this.intervalId) : null;
+    if (this.pieChart) {
+      this.pieChart.destroy();
+    }
   }
   //#endregion
 }
