@@ -31,6 +31,13 @@
   padding: 10px;
   min-height: 60px; /* Einheitliche Höhe für alle Header */
   box-sizing: border-box; /* Sicherstellen, dass Padding in der Höhe berücksichtigt wird */
+  transition: transform 0.3s ease; /* Übergang für Skalierung und Schatten */
+}
+
+.floor-header:hover {
+  background-color: #e0e0e0; /* Helleres Grau beim Hover */
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2); /* Stärkerer Schatten beim Hover */
+  transform: translateY(-5px); /* Verschiebt den Header leicht nach oben */
 }
 
 .floor-header .room-count {
