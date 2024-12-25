@@ -69,6 +69,12 @@ export class SensorboxOverviewComponent implements OnInit, OnDestroy{
     return this.getRoomsForFloor(floor).filter((room) => this.isWindowOpen(room)).length;
   }
 
+  getTemperatureIcon(temperature?: number): string {
+    return temperature && temperature < 18
+      ? 'assets/icons/temperature-cold.png'
+      : 'assets/icons/temperature-hot.png';
+  }
+
   //#region Service
   //PLEASE DON'T TOUCH!!!
   //loads all floors and rooms, and syncs the latest values of all rooms
