@@ -49,6 +49,10 @@ export class SensorboxOverviewComponent implements OnInit, OnDestroy{
     this.openRooms.has(room) ? this.openRooms.delete(room) : this.openRooms.add(room);
   }
 
+  isRoomOpen(room: string): boolean {
+    return this.openRooms.has(room);
+  }
+
   //#region Service
   //PLEASE DON'T TOUCH!!!
   //loads all floors and rooms, and syncs the latest values of all rooms
