@@ -53,6 +53,10 @@ export class SensorboxOverviewComponent implements OnInit, OnDestroy{
     return this.openRooms.has(room);
   }
 
+  getRoomsForFloor(floor: string): string[] {
+    return this.rooms.filter((room) => this.currentSensorboxValues.get(room)?.floor === floor);
+  }
+
   //#region Service
   //PLEASE DON'T TOUCH!!!
   //loads all floors and rooms, and syncs the latest values of all rooms
