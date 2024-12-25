@@ -65,6 +65,10 @@ export class SensorboxOverviewComponent implements OnInit, OnDestroy{
     return this.getRoomsForFloor(floor).filter((room) => !this.isWindowOpen(room)).length;
   }
 
+  getRedRoomCount(floor: string): number {
+    return this.getRoomsForFloor(floor).filter((room) => this.isWindowOpen(room)).length;
+  }
+
   //#region Service
   //PLEASE DON'T TOUCH!!!
   //loads all floors and rooms, and syncs the latest values of all rooms
