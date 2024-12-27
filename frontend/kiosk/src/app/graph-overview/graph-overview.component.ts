@@ -82,7 +82,8 @@ export class GraphOverviewComponent implements OnInit {
   }
 
   public selectGraph(index: number): void {
-    this.setCurrentGraphWithIndex(index);
+    this.currentIndex = index;
+    this.currentGraph = this.graphs[index];
   }
 
   public kioskModeChecker() {
