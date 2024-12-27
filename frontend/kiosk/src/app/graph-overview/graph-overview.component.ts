@@ -35,6 +35,8 @@ export class GraphOverviewComponent implements OnInit {
   public interval: number = 15;
   subscription!: Subscription;
 
+  public showPvData: boolean = true;
+
   public durations: Duration[] = [
     new Duration("5m", "5 minutes"),
     new Duration("1h", "1 hour"),
