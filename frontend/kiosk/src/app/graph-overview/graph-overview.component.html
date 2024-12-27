@@ -108,21 +108,33 @@
 
     <!-- Modus-Slider -->
     <div class="mode-switch p-3">
-      <label class="form-check-label mb-2">Modus:</label>
-      <div class="form-switch d-flex align-items-center">
-        <input
-          type="checkbox"
-          class="form-check-input"
-          id="dataModeToggle"
-          [(ngModel)]="showPvData"
-          (change)="toggleDataMode()"
-        />
-        <span class="ms-2">
-        <i *ngIf="showPvData" class="fas fa-solar-panel" style="color: orange;"></i>
-        <i *ngIf="!showPvData" class="fas fa-box" style="color: gray;"></i>
-      </span>
+      <label class="mode-title">Modus:</label>
+      <div class="form-switch d-flex align-items-center justify-content-between mode-slider-container">
+        <div class="slider-container">
+          <input
+            type="checkbox"
+            class="form-check-input mode-slider"
+            id="dataModeToggle"
+            [(ngModel)]="showPvData"
+            (change)="toggleDataMode()"
+          />
+        </div>
+        <div class="icon-container">
+          <i
+            *ngIf="showPvData"
+            class="fas fa-solar-panel mode-icon"
+            title="PV-Daten"
+          ></i>
+          <i
+            *ngIf="!showPvData"
+            class="fas fa-box mode-icon"
+            title="Sensorbox"
+          ></i>
+        </div>
       </div>
     </div>
+
+
 
     <!-- Dynamische Sidebar-Elemente -->
     <ul class="sidebar-nav">
