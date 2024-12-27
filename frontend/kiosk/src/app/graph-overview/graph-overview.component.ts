@@ -112,10 +112,23 @@ export class GraphOverviewComponent implements OnInit {
       return;
     }
 
-    // PV-Modus: Wechsle zum nächsten Graph
-    this.currentIndex = (this.currentIndex + 1) % this.graphs.length;
-    this.currentGraph = this.graphs[this.currentIndex];
+    // PV-Modus: Inkrementiere den Index
+    this.currentIndex++;
+
+    // Wechsel zwischen Dashboard, Graphen und Wetter
+    if (this.currentIndex === -1) {
+      this.selectAllGraphs(); // Dashboard
+    } else if (this.currentIndex === this.graphs.length) {
+      this.selectWeather(); // Wetter nach dem letzten Graph
+      this.currentIndex = -2; // Wetter-Index setzen
+    } else if (this.currentIndex >= 0 && this.currentIndex < this.graphs.length) {
+      this.setCurrentGraphWithIndex(this.currentIndex); // Graph anzeigen
+    } else if (this.currentIndex > this.graphs.length) {
+      this.currentIndex = -1; // Zurück zum Dashboard
+      this.selectAllGraphs();
+    }
   }
+
 
   calculateStartAndEndOfMonth(month: number): { from: number, to: number } {
     const desiredYear = 2024;
