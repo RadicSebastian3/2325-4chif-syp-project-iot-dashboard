@@ -71,6 +71,11 @@ export class GraphOverviewComponent implements OnInit {
     this.updateGraphLinks();
   }
 
+  public toggleDataMode(): void {
+     this.currentIndex = this.showPvData ? -1 : -3;
+     this.currentGraph = null;
+  }
+
   public selectAllGraphs(): void {
     this.currentIndex = -1;
     this.currentGraph = null; // Zeigt alle Graphen an, wenn Dashboard ausgewählt ist
