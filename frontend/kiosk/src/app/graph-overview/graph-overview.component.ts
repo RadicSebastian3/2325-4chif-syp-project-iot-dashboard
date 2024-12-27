@@ -107,21 +107,14 @@ export class GraphOverviewComponent implements OnInit {
   }
 
   public nextGraph(): void {
-    // Inkrementiere den Index
-    this.currentIndex++;
-
-    if (this.currentIndex >= this.graphs.length) {
-      this.currentIndex = -3; // SensorBox kommt nach Wetter
+    if (!this.showPvData) {
+      this.selectSensorBox(); // Sensorbox-Modus: Nur Sensorbox anzeigen
+      return;
     }
 
-    // Wechsel zwischen Wetter, SensorBox oder Graphen
-    if (this.currentIndex === -2) {
-      this.selectWeather();
-    } else if (this.currentIndex === -3) {
-      this.selectSensorBox(); // SensorBox wird ausgewählt
-    } else {
-      this.setCurrentGraphWithIndex(this.currentIndex);
-    }
+    // PV-Modus: Wechsle zum nächsten Graph
+    this.currentIndex = (this.currentIndex + 1) % this.graphs.length;
+    this.currentGraph = this.graphs[this.currentIndex];
   }
 
   calculateStartAndEndOfMonth(month: number): { from: number, to: number } {
