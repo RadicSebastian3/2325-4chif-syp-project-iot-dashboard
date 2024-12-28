@@ -162,7 +162,7 @@ export class WeatherComponent implements OnInit{
     const ctx = document.getElementById('monthlyWeatherChart') as HTMLCanvasElement;
 
     new Chart(ctx, {
-      type: 'pie',
+      type: 'doughnut',
       data: {
         labels: ['Sonnig', 'Bewölkt', 'Regnerisch'],
         datasets: [
