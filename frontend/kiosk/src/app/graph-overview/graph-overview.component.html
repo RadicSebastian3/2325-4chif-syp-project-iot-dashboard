@@ -87,7 +87,7 @@
 </div>
 
 <!-- Monatsauswahl als Dropdown -->
-<div class="dropdown-container">
+<div class="dropdown-container" *ngIf="showPvData && currentIndex !== -2 && currentIndex !== -3">
   <div class="month-selector">
     <select class="form-select" [(ngModel)]="selectedMonth" (ngModelChange)="selectMonth()">
       <option *ngFor="let month of months; let i = index" [ngValue]="i">
