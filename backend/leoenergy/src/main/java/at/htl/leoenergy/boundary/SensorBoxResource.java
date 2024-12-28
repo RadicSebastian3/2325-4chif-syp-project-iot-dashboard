@@ -1,5 +1,6 @@
 package at.htl.leoenergy.boundary;
 
+import at.htl.leoenergy.entity.SensorBoxDTO;
 import at.htl.leoenergy.influxdb.InfluxDbRepository;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
@@ -38,7 +39,9 @@ public class SensorBoxResource {
     @Path("/latest-values/{room}")
     public Response getLatestValues(@PathParam("room") String room) {
         return influxDbRepository.getAllRooms().contains(room)
-                ? Response.ok(influxDbRepository.getLatestSensorBoxDataForRoom(room)).build()
+                ? Response.ok(SensorBoxDTO.deleteFaultyValues(
+                    influxDbRepository.getLatestSensorBoxDataForRoom(room)
+        )).build()
                 : Response.noContent().entity("Room not in database").build();
     }
 }

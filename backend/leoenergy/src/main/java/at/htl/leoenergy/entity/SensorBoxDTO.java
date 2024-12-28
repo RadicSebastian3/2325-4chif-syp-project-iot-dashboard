@@ -119,4 +119,13 @@ public class SensorBoxDTO {
                 room, floor, timestamp, co2, humidity, motion, noise, pressure, rssi, temperature
         );
     }
+
+    public static SensorBoxDTO deleteFaultyValues(SensorBoxDTO dto) {
+        dto.co2 = dto.co2 >= 0 && dto.co2 <= 1_000_000 ? dto.co2 : Double.NaN;
+        dto.humidity = dto.humidity >= 0 && dto.humidity <= 100 ? dto.humidity : Double.NaN;
+        dto.noise = dto.noise >= 0 && dto.noise <= 194 ? dto.noise : Double.NaN;
+        dto.pressure = dto.pressure >= 0 ? dto.pressure : Double.NaN;
+        dto.temperature = dto.temperature >= -273.15 ? dto.temperature : Double.NaN;
+        return dto;
+    }
 }
