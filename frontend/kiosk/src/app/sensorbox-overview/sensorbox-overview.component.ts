@@ -222,7 +222,7 @@ export class SensorboxOverviewComponent implements OnInit, OnDestroy{
 
       this.createDoughnutChart();
 
-    }, 10000);
+    }, 1000);
   }
 
   ngOnDestroy() {
