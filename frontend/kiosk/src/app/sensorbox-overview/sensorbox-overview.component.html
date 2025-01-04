@@ -1,87 +1,153 @@
 <div class="sensorbox-container">
-  <!-- Floors -->
-  <div *ngFor="let floor of floors" class="floor">
-    <!-- Floor Header -->
-    <div class="floor-header" (click)="toggleFloor(floor)">
-      <span>{{ floor }} (Etage)</span>
-      <span class="room-count">{{ getRoomCount(floor) }} Räume</span>
-      <div class="status-indicators">
-        <span class="status-green">{{ getGreenRoomCount(floor) }}</span>
-        <span class="status-red">{{ getRedRoomCount(floor) }}</span>
-      </div>
-      <div class="toggle-icon">
-        <img
-          [src]="isFloorOpen(floor) ? 'assets/images/arrow-up.png' : 'assets/images/arrow-down.png'"
-          alt="Toggle Icon" />
-      </div>
+  <!-- Oberer Bereich mit Graph und Einstellungen -->
+  <div class="top-container d-flex justify-content-between align-items-center mb-4">
+    <!-- Graph -->
+    <div class="chart-container">
+      <canvas id="roomStatusChart"></canvas>
     </div>
 
-    <!-- Rooms -->
-    <div *ngIf="isFloorOpen(floor)" class="rooms">
-      <div
-        *ngFor="let room of getRoomsForFloor(floor)"
-        class="room"
-        [class.window-open]="isWindowOpen(room)">
-        <!-- Room Header -->
+    <!-- Einstellungen -->
+    <div class="settings-container">
+      <button class="btn btn-orange d-flex align-items-center" (click)="openSettings()">
+        <i class="fas fa-sliders-h me-2"></i> Schwellenwerte bearbeiten
+      </button>
+    </div>
+  </div>
+
+  <!-- Filter -->
+  <div class="filter-container mb-3">
+    <label for="room-filter">Filter: </label>
+    <select id="room-filter" [(ngModel)]="selectedFilter" (change)="applyFilter()">
+      <option value="all">Alle Räume</option>
+      <option value="optimal">Optimale Räume</option>
+      <option value="acceptable">Akzeptable Räume</option>
+      <option value="critical">Kritische Räume</option>
+    </select>
+  </div>
+
+  <!-- Anzeige der Räume -->
+  <div *ngIf="selectedFilter === 'all'">
+    <!-- Etagen und zugehörige Räume -->
+    <div *ngFor="let floor of floors" class="floor">
+      <!-- Etagenüberschrift -->
+      <div class="floor-header" (click)="toggleFloor(floor)">
+        <span>{{ floor }} (Etage)</span>
+        <span class="room-count">
+          {{ getRoomsForFloor(floor).length }} Räume
+        </span>
+        <div class="status-indicators">
+          <span class="status-green">{{ getGreenRoomCount(floor) }}</span>
+          <span class="status-yellow">{{ getYellowRoomCount(floor) }}</span>
+          <span class="status-red">{{ getRedRoomCount(floor) }}</span>
+        </div>
+        <div class="toggle-icon">
+          <img
+            [src]="isFloorOpen(floor) ? 'assets/images/arrow-up.png' : 'assets/images/arrow-down.png'"
+            alt="Toggle Icon" />
+        </div>
+      </div>
+
+      <!-- Räume der Etage -->
+      <div *ngIf="isFloorOpen(floor)" class="rooms">
         <div
-          class="room-header"
-          [ngClass]="{'room-green': !isWindowOpen(room), 'room-red': isWindowOpen(room)}"
-          (click)="toggleRoom(room)">
-          <span>{{ room }} (Raum)</span>
-          <div class="toggle-icon">
-            <img
-              [src]="isRoomOpen(room) ? 'assets/images/arrow-up.png' : 'assets/images/arrow-down.png'"
-              alt="Toggle Icon" />
+          *ngFor="let room of getRoomsForFloor(floor)"
+          class="room"
+          [ngClass]="{
+            'optimal': isRoomOptimal(room),
+            'acceptable': isRoomAcceptable(room),
+            'critical': isRoomCritical(room)
+          }">
+          <div class="room-header" [ngClass]="{
+              'optimal': isRoomOptimal(room),
+              'acceptable': isRoomAcceptable(room),
+              'critical': isRoomCritical(room)
+            }" (click)="toggleRoom(room)">
+            <span>{{ room }} (Raum)</span>
+            <div class="toggle-icon">
+              <img
+                [src]="isRoomOpen(room) ? 'assets/images/arrow-up.png' : 'assets/images/arrow-down.png'"
+                alt="Toggle Icon" />
+            </div>
           </div>
-        </div>
-
-        <!-- Room Details -->
-        <div *ngIf="isRoomOpen(room)" class="room-details">
-          <!-- CO₂ Display -->
-          <div class="sensor co2-display">
-            <div
-              class="co2-container"
-              [ngClass]="getCo2Class(currentSensorboxValues.get(room)?.co2)">
-              <span class="co2-value">{{ currentSensorboxValues.get(room)?.co2 || 'N/A' }} ppm</span>
+          <div *ngIf="isRoomOpen(room)" class="room-details">
+            <div class="sensor sensor-co2" [ngClass]="getCo2Class(currentSensorboxValues.get(room)?.co2)">
               <label>CO₂</label>
+              <span>{{ currentSensorboxValues.get(room)?.co2 || 'N/A' }} ppm</span>
             </div>
-          </div>
-
-          <!-- Noise -->
-          <div class="sensor noise-display">
-            <div
-              class="noise-container"
-              [ngClass]="getNoiseClass(currentSensorboxValues.get(room)?.noise)">
-              <span class="noise-value">{{ currentSensorboxValues.get(room)?.noise || 'N/A' }} dB</span>
-              <label></label>
+            <div class="sensor sensor-temperature" [ngClass]="getTemperatureClass(currentSensorboxValues.get(room)?.temperature)">
+              <label>Temperatur</label>
+              <span>{{ currentSensorboxValues.get(room)?.temperature || 'N/A' }}°C</span>
             </div>
-          </div>
-
-          <!-- Temperature -->
-          <div class="sensor">
-            <img
-              class="icon-small"
-              *ngIf="getTemperatureIcon(currentSensorboxValues.get(room)?.temperature)"
-              [src]="getTemperatureIcon(currentSensorboxValues.get(room)?.temperature)"
-              alt="Temperature Icon" />
-            <label>{{ currentSensorboxValues.get(room)?.temperature || 'N/A' }}°C</label>
-          </div>
-
-          <!-- Humidity -->
-          <div class="sensor">
-            <img
-              class="icon-small"
-              *ngIf="getHumidityIcon(currentSensorboxValues.get(room)?.humidity)"
-              [src]="getHumidityIcon(currentSensorboxValues.get(room)?.humidity)"
-              alt="Humidity Icon" />
-            <label>{{ currentSensorboxValues.get(room)?.humidity || 'N/A' }}%</label>
+            <div class="sensor sensor-humidity" [ngClass]="getHumidityClass(currentSensorboxValues.get(room)?.humidity)">
+              <label>Luftfeuchtigkeit</label>
+              <span>{{ currentSensorboxValues.get(room)?.humidity || 'N/A' }}%</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <!-- Pie Chart -->
-  <div class="chart-container">
-    <canvas id="roomStatusChart"></canvas>
+
+  <!-- Gefilterte Räume ohne Etagenansicht -->
+  <div *ngIf="selectedFilter !== 'all'" class="filtered-rooms">
+    <div *ngFor="let room of getFilteredRoomsForAllFloors()" class="filtered-room">
+      <span>{{ room }} (Raum)</span>
+      <div class="room-details">
+        <div class="sensor sensor-co2" [ngClass]="getCo2Class(currentSensorboxValues.get(room)?.co2)">
+          <label>CO₂</label>
+          <span>{{ currentSensorboxValues.get(room)?.co2 || 'N/A' }} ppm</span>
+        </div>
+        <div class="sensor sensor-temperature" [ngClass]="getTemperatureClass(currentSensorboxValues.get(room)?.temperature)">
+          <label>Temperatur</label>
+          <span>{{ currentSensorboxValues.get(room)?.temperature || 'N/A' }}°C</span>
+        </div>
+        <div class="sensor sensor-humidity" [ngClass]="getHumidityClass(currentSensorboxValues.get(room)?.humidity)">
+          <label>Luftfeuchtigkeit</label>
+          <span>{{ currentSensorboxValues.get(room)?.humidity || 'N/A' }}%</span>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <!-- Einstellungen Popup -->
+  <div *ngIf="isSettingsOpen" class="settings-modal" (keydown.escape)="closeSettings()">
+    <div class="settings-content">
+      <h4>Schwellenwert-Einstellungen</h4>
+      <div class="form-group">
+        <label>CO₂ (ppm)</label>
+        <div class="input-container">
+          <i class="fas fa-thumbs-up icon-good"></i>
+          <input type="number" [(ngModel)]="settings.co2.greenMax" placeholder="Grün bis" />
+          <i class="fas fa-thumbs-down icon-bad"></i>
+          <input type="number" [(ngModel)]="settings.co2.yellowMax" placeholder="Gelb bis" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Temperatur (°C)</label>
+        <div class="input-container">
+          <i class="fas fa-temperature-low icon-good"></i>
+          <input type="number" [(ngModel)]="settings.temperature.greenMin" placeholder="Grün ab" />
+          <i class="fas fa-temperature-high icon-bad"></i>
+          <input type="number" [(ngModel)]="settings.temperature.greenMax" placeholder="Grün bis" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Luftfeuchtigkeit (%)</label>
+        <div class="input-container">
+          <i class="fas fa-tint icon-good"></i>
+          <input type="number" [(ngModel)]="settings.humidity.greenMin" placeholder="Grün ab" />
+          <i class="fas fa-tint-slash icon-bad"></i>
+          <input type="number" [(ngModel)]="settings.humidity.greenMax" placeholder="Grün bis" />
+        </div>
+      </div>
+      <div class="settings-buttons">
+        <button class="btn btn-success d-flex align-items-center" (click)="saveSettings()">
+          <i class="fas fa-check me-2"></i> Speichern
+        </button>
+        <button class="btn btn-secondary d-flex align-items-center" (click)="closeSettings()">
+          <i class="fas fa-times me-2"></i> Abbrechen
+        </button>
+      </div>
+  </div>
+</div>
 </div>

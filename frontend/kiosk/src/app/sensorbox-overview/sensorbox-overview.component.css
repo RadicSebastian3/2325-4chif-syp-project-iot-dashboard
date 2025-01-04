@@ -55,17 +55,6 @@
   margin-left: auto; /* Schiebt die Status-Indikatoren ganz nach rechts */
 }
 
-
-.room-header.room-green {
-  background-color: #d4edda; /* Light green background for closed windows */
-  border-color: #c3e6cb;
-}
-
-.room-header.room-red {
-  background-color: #f8d7da; /* Light red background for open windows */
-  border-color: #f5c6cb;
-}
-
 .rooms {
   padding: 10px;
   background: #f9f9f9;
@@ -170,7 +159,7 @@
   padding-right: 20px;
 }
 
-.status-green, .status-red {
+.status-green, .status-red, .status-yellow {
   color: white;
   font-weight: bold;
   font-size: 14px;
@@ -188,6 +177,10 @@
 
 .status-red {
   background-color: red;
+}
+
+.status-yellow {
+  background-color: orange;
 }
 
 
@@ -208,3 +201,230 @@
   max-width: 600px;
   text-align: center;
 }
+
+/* Top-Container */
+.top-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chart-container {
+  width: 60%;
+  max-width: 600px;
+}
+
+.settings-container {
+  width: 45%;
+  text-align: right;
+}
+
+.settings-modal {
+  position: fixed;
+  top: 50%;
+  left: 60%;
+  transform: translate(-50%, -50%);
+  background: #ffffff; /* Weißer Hintergrund */
+  padding: 40px; /* Mehr Padding für größeren Inhalt */
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  width: 600px; /* Breitere Darstellung */
+  max-width: 90%; /* Sorgt für responsive Breite */
+}
+
+.settings-content h4 {
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 22px; /* Größerer Text */
+  color: #333;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px; /* Mehr Abstand zwischen den Eingabefeldern */
+}
+
+.input-container input {
+  flex: 1;
+  padding: 12px; /* Größere Eingabefelder */
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background: #f9f9f9; /* Leichtes Grau als Feldhintergrund */
+}
+
+.icon-good {
+  color: #28a745; /* Grün für "gut" */
+  font-size: 22px;
+}
+
+.icon-bad {
+  color: #dc3545; /* Rot für "schlecht" */
+  font-size: 22px;
+}
+
+.settings-buttons {
+  display: flex;
+  justify-content: space-between; /* Buttons links und rechts */
+  margin-top: 30px; /* Mehr Abstand nach oben */
+}
+
+.settings-buttons .btn {
+  padding: 12px 30px; /* Größere Buttons */
+  border-radius: 5px;
+  font-size: 16px; /* Größerer Text */
+  font-weight: bold;
+  cursor: pointer;
+  min-width: 120px; /* Breitere Buttons */
+}
+
+.settings-buttons .btn-success, .btn-secondary {
+  background: rgba(255, 159, 0, 0.9); /* Sanftes Orange */
+  color: white;
+  border: none;
+}
+
+.btn-orange {
+  background: rgba(255, 159, 0, 0.9); /* Sanftes Orange */
+  border: none; /* Entfernt den Standardrahmen */
+  color: white; /* Weißer Text */
+  padding: 10px 20px; /* Größe des Buttons */
+  font-size: 1rem; /* Schriftgröße */
+  border-radius: 5px; /* Abgerundete Ecken */
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease; /* Sanftere Übergänge */
+}
+
+.btn-orange:hover {
+  background: rgba(255, 159, 0, 0.95); /* Etwas kräftigeres Orange */
+  transform: scale(1.05); /* Dezente Vergrößerung */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Leichterer Schatten */
+}
+
+.room-header {
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.3s ease;
+}
+
+.room-header.optimal {
+  background: rgba(40, 167, 69, 0.2); /* Sanftes Grün */
+}
+
+.room-header.acceptable {
+  background: rgba(255, 193, 7, 0.2); /* Sanftes Gelb */
+}
+
+.room-header.critical {
+  background: rgba(220, 53, 69, 0.2); /* Sanftes Rot */
+}
+
+.room-details {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 10px;
+  background: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 15px;
+}
+
+/* Sensor-Stil */
+.sensor {
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+
+.sensor label {
+  font-size: 14px;
+  color: #666;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.sensor span {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.sensor-co2.low {
+  background-color: rgba(40, 167, 69, 0.2); /* Sanftes Grün */
+}
+
+.sensor-co2.medium {
+  background-color: rgba(255, 193, 7, 0.2); /* Sanftes Gelb */
+}
+
+.sensor-co2.high {
+  background-color: rgba(220, 53, 69, 0.2); /* Sanftes Rot */
+}
+
+.sensor-temperature.low {
+  background-color: rgba(40, 167, 69, 0.2); /* Sanftes Grün */
+}
+
+.sensor-temperature.medium {
+  background-color: rgba(255, 193, 7, 0.2); /* Sanftes Gelb */
+}
+
+.sensor-temperature.high {
+  background-color: rgba(220, 53, 69, 0.2); /* Sanftes Rot */
+}
+
+.sensor-humidity.low {
+  background-color: rgba(220, 53, 69, 0.2); /* Sanftes Rot */
+}
+
+.sensor-humidity.medium {
+  background-color: rgba(255, 193, 7, 0.2); /* Sanftes Gelb */
+}
+
+.sensor-humidity.high {
+  background-color: rgba(40, 167, 69, 0.2); /* Sanftes Grün */
+}
+
+.filter-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 10px 0;
+}
+
+.filter-container label {
+  font-size: 16px;
+  font-weight: bold;
+  margin-right: 10px;
+  color: #555;
+}
+
+.filter-container select {
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.filtered-rooms {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* Abstand zwischen den Räumen */
+}
+.filtered-room {
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+
+
+
