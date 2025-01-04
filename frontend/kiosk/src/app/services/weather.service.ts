@@ -53,4 +53,17 @@ private apiUrl = 'https://api.open-meteo.com/v1/forecast';
 
     return this.client.get<any>(this.apiUrl, { params });
   }
+
+  getMonthlyWeatherForecastWithDays(latitude: number, longitude: number, startDate: string, days: number): Observable<any> {
+    const params = new HttpParams()
+      .set('latitude', latitude.toString())
+      .set('longitude', longitude.toString())
+      .set('daily', 'weathercode')
+      .set('timezone', 'Europe/Vienna')
+      .set('start_date', startDate)
+      .set('forecast_days', days.toString());
+
+    return this.client.get<any>(this.apiUrl, { params });
+  }
+
 }

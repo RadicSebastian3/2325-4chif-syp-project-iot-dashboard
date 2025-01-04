@@ -5,6 +5,7 @@ import iconMapping from '../../assets/icon-mapping.json';
 import {DatePipe, NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
 import Chart from 'chart.js/auto';
 import weatherGifs from '../../assets/weather-gifs.json';
+import {forkJoin} from "rxjs";
 
 @Component({
   selector: 'app-weather',
@@ -128,23 +129,61 @@ export class WeatherComponent implements OnInit{
     return this.iconMapping[code.toString()] || 'fas fa-question';
   }
 
-  getMonthlyWeather():void{
+  getMonthlyWeather(): void {
     const today = new Date();
-    const startDate = new Date(today.getFullYear(), today.getMonth(),1).toISOString().split('T')[0];
-    const endDate = new Date(today.getFullYear(), today.getMonth() + 1, 0).toISOString().split('T')[0];
+    let startDate = new Date(today.getFullYear(), today.getMonth(), 1);
+    let endDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
 
-    this.weatherService.getMonthlyWeatherForecast(this.latitude, this.longitude, startDate, endDate).subscribe(
-      (data) => {
-        this.aggregateMonthlyWeather(data.daily.weathercode);
+    const maxApiDate = new Date('2025-01-19');
+    if (endDate > maxApiDate) {
+      endDate = maxApiDate;
+    }
+
+    if (today.getFullYear() > 2025 || (today.getFullYear() === 2025 && today.getMonth() > 0)) {
+      console.warn("Keine Daten für die Zukunft verfügbar");
+      return;
+    }
+
+    const requests = [];
+    let currentStartDate = new Date(startDate);
+
+    while (currentStartDate <= endDate) {
+      const blockStartDate = currentStartDate.toISOString().split('T')[0];
+
+      let daysToAdd = Math.min(15, Math.floor((endDate.getTime() - currentStartDate.getTime()) / (1000 * 60 * 60 * 24)));
+      const blockEndDate = new Date(currentStartDate);
+      blockEndDate.setDate(currentStartDate.getDate() + daysToAdd);
+
+      const blockEndDateString = blockEndDate.toISOString().split('T')[0];
+      console.log(`Block: ${blockStartDate} bis ${blockEndDateString}`);
+
+      requests.push(this.weatherService.getMonthlyWeatherForecast(this.latitude, this.longitude, blockStartDate, blockEndDateString));
+
+      currentStartDate = new Date(blockEndDate);
+      currentStartDate.setDate(currentStartDate.getDate() + 1);
+    }
+
+    forkJoin(requests).subscribe(
+      (responses) => {
+        const combinedWeatherCodes = responses.flatMap((response: any) => response?.daily?.weathercode || []);
+
+        if (!combinedWeatherCodes.length) {
+          console.warn('Keine Wetterdaten für den angegebenen Zeitraum verfügbar.');
+          return;
+        }
+
+        console.log('Kombinierte Wettercodes:', combinedWeatherCodes);
+
+        this.aggregateMonthlyWeather(combinedWeatherCodes);
         this.renderMonthlyWeatherChart();
-        this.renderDailyWeatherChart();
       },
       (error) => {
-        this.errorMessage = 'Fehler beim Abrufen der Monatswetterdaten';
+        this.errorMessage = 'Fehler beim Abrufen der Monatswetterdaten: ' + error.message;
         console.error(this.errorMessage, error);
       }
     );
   }
+
 
   aggregateMonthlyWeather(weatherCodes: number[]): void{
     this.monthlyWeatherSummary = { sunny: 0, cloudy: 0, rainy: 0 };
