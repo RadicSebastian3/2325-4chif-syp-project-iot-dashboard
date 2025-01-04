@@ -1,0 +1,98 @@
+= Problematik und Aufgabenstellung
+
+== Problematik
+- Woher kommen die Daten für das Dashboard?
+** Daten für Stromverbrauch: Sie kommen aus der mqtt: mqtt://vm90.htl-leonding.ac.at:1883
+** Daten für Sensorboxen: Sie kommen aus der mqtt://mqtt.htl-leonding.ac.at:1883
+
+- Wo wird das derzeitige System gehostet (vm23)?
+** Das derzeigite System wird auf vm23 gehostet
+
+- Warum sind die Daten nur 2 Tage alt? Warum keine älteren Daten?
+** Es gibt keine ältere Daten, da wir immer unsere Influxdb struktur geändert haben.
+- Gibt es ein Sicherungskonzept? (InfluxDB)
+** Ja es gibt eine Backup für Influxdb: Es wird jede Woche eine komplette Backup gemacht
+- Es fehlen sämtliche Daten über:
+* Leistungsaufnahme vom Netz
+* Wärmeverbrauch
+* Sämtliche andere Daten
+
+== Sämtliche Serveradressen
+** *https://vm23.htl-leonding.ac.at*
+** *https://vm23.htl-leonding.ac.at/grafana*
+
+== InfluxDB-Struktur
+
+=== Sensorboxen Struktur
+==== Aufbau der Datenstruktur
+
+- **Measurement:**
+- Name: `sensor_box`
+- Dient als logischer Container für alle Daten, die von Sensoren gesammelt werden.
+
+- **Tags:**
+- `room`:
+- Beispielwert: `e72`
+- Definiert den Raum, in dem der Sensor platziert ist.
+- `parameter`:
+- Beispielwert: `humidity`
+- Gibt an, welche Art von Messwert der Sensor erfasst (z. B. Luftfeuchtigkeit, Temperatur).
+- `floor`:
+- Beispielwert: `eg`
+- Gibt die Etage des Sensors an.
+- **Fields:**
+- `value`:
+- Beispielwert: Der vom Sensor gemessene Wert.
+- Felder sind nicht indiziert, aber sie enthalten die eigentlichen Messwerte.
+
+- **Timestamp:**
+- Zeitstempel des Wertes (z. B. in Millisekunden oder Nanosekunden).
+- Beispielwert: `1732874651000` (nach Konvertierung).
+- InfluxDB verwendet den Zeitstempel, um Daten zu sortieren und Abfragen basierend auf Zeitintervallen durchzuführen.
+
+=== Sensorvalues Struktur
+
+==== Aufbau der Datenstruktur
+
+- **Measurement:**
+- Name: `sensor_values`
+- Dient als Container für gemessene Werte von verschiedenen Geräten.
+
+- **Tags:**
+- `device_name`:
+- Beispielwert: `PV-Energie`
+- Gibt den Namen des Geräts an, das die Messung durchgeführt hat.
+- `value_type_id`:
+- Beispielwert: `56`
+- Eindeutige ID für den Typ des gemessenen Werts.
+- `value_type`:
+- Beispielwert: `Energy`
+- Gibt den Typ des gemessenen Werts an (z. B. Energie, Temperatur).
+- `relation`:
+- Beispielwert: `generated`
+- Beschreibt die Beziehung oder Art des Werts (z. B. Verbrauch oder Erzeugung).
+- `unit`:
+- Beispielwert: `Wh`
+- Gibt die Einheit des gemessenen Werts an.
+- `site`:
+- Beispielwert: `PV-Raum-Keller`
+- Beschreibt den Standort des Geräts.
+
+- **Fields:**
+- `value`:
+- Beispielwert: `7572564`
+- Enthält den gemessenen Wert. Felder sind nicht indiziert und speichern die tatsächlichen Daten.
+
+- **Timestamp:**
+- Zeitstempel des Werts (z. B. in Millisekunden).
+- Beispielwert: `1732873810000` (nach Konvertierung).
+- Zeitstempel werden verwendet, um zeitbasierte Abfragen und Analysen durchzuführen.
+
+
+== GitHub-Repositories
+** *https://github.com/2324-4bhif-syp/2324-4bhif-syp-project-iot-dashboard*
+
+== Überblick über das ganze Projekt
+
+image::deployment/files/deployment.png[]
+
