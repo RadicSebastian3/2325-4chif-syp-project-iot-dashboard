@@ -270,61 +270,62 @@
   margin: 20px 0; /* Abstand nach oben und unten */
 }
 
-/* Modus-Titel */
-.mode-title {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: white;
-  margin-bottom: 10px;
-  display: block;
+/* Gesamter Container für die Modus-Auswahl */
+.mode-selection-container {
+  text-align: center;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  margin-bottom: 1rem;
 }
 
-/* Modus-Slider und Icons */
-.mode-slider-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between; /* Abstand zwischen Slider und Icons */
-  gap: 20px;
+/* Styling für Modus-Optionen */
+.mode-option {
+  text-align: center;
 }
 
-/* Slider bleibt links */
-.slider-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 auto; /* Feste Größe für Slider-Bereich */
-}
-
-.mode-slider {
-  width: 50px;
-  height: 25px;
-  cursor: pointer;
-  accent-color: orange;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.mode-slider:active {
-  transform: scale(1.1);
-  box-shadow: 0 0 5px orange;
-}
-
-/* Icons bleiben rechts */
-.icon-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 auto; /* Feste Größe für Icon-Bereich */
-}
-
+/* Styling für Icons */
 .mode-icon {
   font-size: 2rem;
-  color: white;
+  color: white; /* Weiße Icons */
   transition: transform 0.3s ease, color 0.3s ease;
 }
 
 .mode-icon:hover {
-  transform: scale(1.2);
+  transform: scale(1.2); /* Icons vergrößern sich beim Hover */
 }
+
+/* Styling für Radio-Buttons */
+.mode-radio {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  accent-color: white; /* Weißer Radio-Button */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mode-radio:active {
+  transform: scale(1.2); /* Leichte Vergrößerung beim Klick */
+  box-shadow: 0 0 10px white; /* Leuchtender Effekt beim Klick */
+}
+
+/* Abstand zwischen Optionen */
+.mode-option:not(:last-child) {
+  margin-right: 3rem; /* Abstand zwischen PV und Sensorbox */
+}
+
+/* Responsive Anpassung */
+@media (max-width: 768px) {
+  .mode-selection-container {
+    padding: 2rem;
+  }
+  .d-flex {
+    flex-direction: column;
+    gap: 2rem; /* Vertikaler Abstand zwischen den Optionen */
+  }
+}
+
+
+
+
 
 
 

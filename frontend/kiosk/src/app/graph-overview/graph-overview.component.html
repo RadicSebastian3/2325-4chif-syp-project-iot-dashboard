@@ -106,34 +106,37 @@
       <img src="assets/images/new_htl_logo_name.png" alt="Logo" class="logo" style="width: 280px; height: auto;" />
     </div>
 
-    <!-- Modus-Slider -->
-    <div class="mode-switch p-3">
-      <label class="mode-title">Modus:</label>
-      <div class="form-switch d-flex align-items-center justify-content-between mode-slider-container">
-        <div class="slider-container">
+    <!-- Gesamter Container für die Modus-Auswahl -->
+    <div class="mode-selection-container p-4 mt-5 mb-2 rounded">
+      <!-- Überschrift für den Container -->
+      <h3 class="mode-selection-title mb-4">Modus</h3>
+      <div class="d-flex justify-content-center">
+        <!-- PV-Modus -->
+        <div class="mode-option d-flex flex-column align-items-center me-5">
+          <i class="fas fa-solar-panel mode-icon" title="PV-Daten"></i>
           <input
-            type="checkbox"
-            class="form-check-input mode-slider"
-            id="dataModeToggle"
+            type="radio"
+            name="mode"
             [(ngModel)]="showPvData"
+            [value]="true"
             (change)="toggleDataMode()"
+            class="mode-radio mt-3"
           />
         </div>
-        <div class="icon-container">
-          <i
-            *ngIf="showPvData"
-            class="fas fa-solar-panel mode-icon"
-            title="PV-Daten"
-          ></i>
-          <i
-            *ngIf="!showPvData"
-            class="fas fa-box mode-icon"
-            title="Sensorbox"
-          ></i>
+        <!-- Sensorbox-Modus -->
+        <div class="mode-option d-flex flex-column align-items-center">
+          <i class="fas fa-broadcast-tower mode-icon" title="Sensorbox"></i>
+          <input
+            type="radio"
+            name="mode"
+            [(ngModel)]="showPvData"
+            [value]="false"
+            (change)="toggleDataMode()"
+            class="mode-radio mt-3"
+          />
         </div>
       </div>
     </div>
-
 
 
     <!-- Dynamische Sidebar-Elemente -->
