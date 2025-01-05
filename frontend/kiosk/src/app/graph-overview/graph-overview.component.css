@@ -21,26 +21,87 @@
 }
 
 .settings-menu {
-  padding: 10px;
-  width: 250px; /* Festgelegte Breite für das Dropdown-Menü */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 6px;
+  padding: 0; /* Entfernen des Standard-Paddings, wir stylen selbst */
+  min-width: 250px;
+  border-radius: 12px;
+  overflow: hidden; /* Damit runde Ecken auch wirken */
+  border: none;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Weicher, größerer Schatten */
+  background: #ffffff; /* Weißer Hintergrund (kannst du auch anpassen) */
+}
+
+.settings-menu .dropdown-item {
+  padding: 12px 16px;
+  font-size: 0.95rem;
+  color: #333;
+  border-bottom: 1px solid #f0f0f0;
   background-color: #fff;
+  transition: background 0.3s ease;
 }
 
-.settings-menu .dropdown-item {
-  padding: 10px;
-  font-size: 0.9em;
+.settings-menu .dropdown-item:last-child {
+  border-bottom: none; /* Letztes Element ohne Border */
 }
 
-/* Zentrierung von Kiosk-Mode und Checkbox */
-.settings-menu .dropdown-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.settings-menu .dropdown-item:hover {
+  background: rgba(255, 126, 95, 0.1);
 }
 
-/* Intervall-Schieberegler unter dem Label */
+.settings-menu label {
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+}
+
+.form-check-input:checked {
+  background-color: #ff7e5f;
+  border-color: #ff7e5f;
+  box-shadow: none;
+}
+
+.form-select {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 6px 12px;
+  transition: border 0.3s ease;
+}
+
+.form-select:focus {
+  border-color: #ff7e5f;
+  box-shadow: 0 0 5px rgba(255, 126, 95, 0.3);
+}
+
+.nav-item.dropdown {
+  position: relative; /* Wichtig: parent => position relative */
+}
+
+.nav-item.dropdown .dropdown-menu {
+  position: absolute; /* Standard für Bootstrap, damit es sich überlagert */
+  top: 100%;          /* direkt unter dem Button/Link */
+  left: 0;
+  margin-top: 8px;    /* kleiner Abstand nach unten */
+}
+
+.dropdown-menu.show {
+  animation: fadeSlideIn 0.3s forwards ease-in-out;
+}
+
+@keyframes fadeSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-5%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-range {
+  accent-color: #ff7e5f;
+  outline: none;
+  cursor: pointer;
+}
+
 .form-range {
   margin-top: 10px;
   width: 100%;
@@ -82,6 +143,15 @@
 .sidebar-item {
   width: 100%;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.custom-dropdown-header {
+  background: linear-gradient(135deg, #ff7e5f, #feb47b);
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.1rem;
+  padding: 12px 16px;
+  margin-bottom: 6px; /* Kleiner Abstand nach unten */
 }
 
 .sidebar-link {
