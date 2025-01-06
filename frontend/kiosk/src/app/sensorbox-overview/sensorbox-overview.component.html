@@ -70,19 +70,28 @@
             </div>
           </div>
           <div *ngIf="isRoomOpen(room)" class="room-details">
+            <!-- CO₂ -->
             <div class="sensor sensor-co2" [ngClass]="getCo2Class(currentSensorboxValues.get(room)?.co2)">
+              <i class="fas fa-wind sensor-icon"></i>
               <label>CO₂</label>
               <span>{{ currentSensorboxValues.get(room)?.co2 || 'N/A' }} ppm</span>
             </div>
+
+            <!-- Temperatur -->
             <div class="sensor sensor-temperature" [ngClass]="getTemperatureClass(currentSensorboxValues.get(room)?.temperature)">
+              <i class="fas fa-thermometer-half sensor-icon"></i>
               <label>Temperatur</label>
               <span>{{ currentSensorboxValues.get(room)?.temperature || 'N/A' }}°C</span>
             </div>
+
+            <!-- Luftfeuchtigkeit -->
             <div class="sensor sensor-humidity" [ngClass]="getHumidityClass(currentSensorboxValues.get(room)?.humidity)">
+              <i class="fas fa-tint sensor-icon"></i>
               <label>Luftfeuchtigkeit</label>
               <span>{{ currentSensorboxValues.get(room)?.humidity || 'N/A' }}%</span>
             </div>
           </div>
+
         </div>
       </div>
     </div>
