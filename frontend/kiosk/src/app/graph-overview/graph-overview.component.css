@@ -75,11 +75,15 @@
 }
 
 .nav-item.dropdown .dropdown-menu {
-  position: absolute; /* Standard für Bootstrap, damit es sich überlagert */
-  top: 100%;          /* direkt unter dem Button/Link */
-  left: 0;
-  margin-top: 8px;    /* kleiner Abstand nach unten */
+  position: absolute; /* Standard für Bootstrap */
+  top: 100%;          /* Direkt unter dem Button/Link */
+  right: 10px;        /* Abstand von der rechten Seite, angepasst */
+  left: auto;         /* Sicherstellen, dass linksbündige Ausrichtung nicht stört */
+  margin-top: 8px;    /* Abstand nach unten */
+  transform: translateX(-10%); /* Optional: Leichte Verschiebung nach links */
+  min-width: 250px;   /* Breite des Dropdown-Menüs */
 }
+
 
 .dropdown-menu.show {
   animation: fadeSlideIn 0.3s forwards ease-in-out;
@@ -304,7 +308,6 @@
   transform: translateX(-50%);
   width: 100%;
   padding: 10px 0 20px 0;
-  z-index: 10;
 }
 
 .live-icon {
