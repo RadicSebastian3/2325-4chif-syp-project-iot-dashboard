@@ -334,7 +334,7 @@ export class SensorboxOverviewComponent implements OnInit, OnDestroy{
     const data = this.currentSensorboxValues.get(room);
     if (!data) return false;
 
-    // Ein Raum ist optimal, wenn alle Parameter im grünen Bereich liegen
+    // Grün, wenn alle Werte im grünen Bereich liegen
     return (
       (data.co2 ?? Infinity) <= this.settings.co2.greenMax &&
       (data.temperature ?? -Infinity) >= this.settings.temperature.greenMin &&
@@ -348,34 +348,33 @@ export class SensorboxOverviewComponent implements OnInit, OnDestroy{
     const data = this.currentSensorboxValues.get(room);
     if (!data) return false;
 
-    // Ein Raum ist akzeptabel, wenn er nicht optimal ist, aber mindestens einen gelben Wert hat
-    return (
-      !this.isRoomOptimal(room) && (
-        ((data.co2 ?? 0) > this.settings.co2.greenMax && (data.co2 ?? 0) <= this.settings.co2.yellowMax) ||
-        ((data.temperature ?? 0) > this.settings.temperature.greenMax && (data.temperature ?? 0) <= 24) ||
-        ((data.temperature ?? 0) < this.settings.temperature.greenMin && (data.temperature ?? 0) >= 18) ||
-        ((data.humidity ?? 0) > this.settings.humidity.greenMax && (data.humidity ?? 0) <= 70) ||
-        ((data.humidity ?? 0) < this.settings.humidity.greenMin && (data.humidity ?? 0) >= 30)
-      )
-    );
+    // Gelb, wenn kein Wert kritisch ist, aber mindestens ein Wert im gelben Bereich liegt
+    const isCo2Yellow = (data.co2 ?? 0) > this.settings.co2.greenMax && (data.co2 ?? 0) <= this.settings.co2.yellowMax;
+    const isTemperatureYellow =
+      (data.temperature ?? 0) > this.settings.temperature.greenMax ||
+      (data.temperature ?? 0) < this.settings.temperature.greenMin;
+    const isHumidityYellow =
+      (data.humidity ?? 0) > this.settings.humidity.greenMax ||
+      (data.humidity ?? 0) < this.settings.humidity.greenMin;
+
+    return !this.isRoomCritical(room) && (isCo2Yellow || isTemperatureYellow || isHumidityYellow);
   }
+
 
   isRoomCritical(room: string): boolean {
     const data = this.currentSensorboxValues.get(room);
     if (!data) return false;
 
-    // Ein Raum ist kritisch, wenn er weder optimal noch akzeptabel ist
+    // Kritisch, wenn ein Wert über den gelben Schwellenwerten liegt
     return (
-      !this.isRoomOptimal(room) &&
-      !this.isRoomAcceptable(room) && (
-        (data.co2 ?? 0) > this.settings.co2.yellowMax ||
-        (data.temperature ?? 0) < 18 ||
-        (data.temperature ?? 0) > 24 ||
-        (data.humidity ?? 0) < 30 ||
-        (data.humidity ?? 0) > 70
-      )
+      (data.co2 ?? 0) > this.settings.co2.yellowMax ||
+      (data.temperature ?? 0) < this.settings.temperature.greenMin ||
+      (data.temperature ?? 0) > this.settings.temperature.greenMax ||
+      (data.humidity ?? 0) < this.settings.humidity.greenMin ||
+      (data.humidity ?? 0) > this.settings.humidity.greenMax
     );
   }
+
 
   getTemperatureClass(temperature?: number): string {
     if (temperature === undefined || temperature === null) return 'low';
