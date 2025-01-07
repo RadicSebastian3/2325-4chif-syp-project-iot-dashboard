@@ -1,9 +1,9 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {SensorBoxDTO} from "../model/SensorBoxDTO";
-import {SensorboxService} from "../services/sensorbox.service";
-import {NgClass, NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { SensorBoxDTO } from "../model/SensorBoxDTO";
+import { SensorboxService } from "../services/sensorbox.service";
+import { NgClass, NgForOf, NgIf, NgOptimizedImage } from "@angular/common";
 import Chart from "chart.js/auto";
-import {FormsModule} from "@angular/forms";
+import { FormsModule } from "@angular/forms";
 
 @Component({
   selector: 'app-sensorbox-overview',
@@ -18,7 +18,7 @@ import {FormsModule} from "@angular/forms";
   templateUrl: './sensorbox-overview.component.html',
   styleUrl: './sensorbox-overview.component.css'
 })
-export class SensorboxOverviewComponent implements OnInit, OnDestroy{
+export class SensorboxOverviewComponent implements OnInit, OnDestroy {
   public floors: string[] = [];
   public filteredFloors: string[] = [...this.floors];
   public rooms: string[] = [];
@@ -42,22 +42,19 @@ export class SensorboxOverviewComponent implements OnInit, OnDestroy{
 
   public selectedFilter: string = 'all';
 
-  constructor(private sbs: SensorboxService) {
-
-  }
+  constructor(private sbs: SensorboxService) { }
 
   applyFilter(): void {
     console.log('Filter angewendet:', this.selectedFilter);
 
     if (this.selectedFilter === 'all') {
-      // Zeige alle Etagen
       this.filteredFloors = [...this.floors];
     } else {
-      // Filtere Etagen basierend auf passenden Räumen
       this.filteredFloors = this.floors.filter(
         (floor) => this.getFilteredRooms(floor).length > 0
       );
     }
+    this.filteredFloors.forEach(floor => this.openFloors.add(floor));
   }
 
   getFilteredRooms(floor: string): string[] {
@@ -98,9 +95,9 @@ export class SensorboxOverviewComponent implements OnInit, OnDestroy{
   isWindowOpen(room: string): boolean {
     const data = this.currentSensorboxValues.get(room);
 
-    if(!data) return false;
+    if (!data) return false;
 
-    const {co2, temperature, humidity} = data;
+    const { co2, temperature, humidity } = data;
 
     const isCo2Low = co2 !== undefined && co2 < 400;
     const isTemperatureLow = temperature !== undefined && temperature < 15;
@@ -138,15 +135,12 @@ export class SensorboxOverviewComponent implements OnInit, OnDestroy{
   }
 
   getYellowRoomCount(floor: string): number {
-    // Ein Raum kann nur gelb sein, wenn er nicht grün (optimal) ist
     return this.getRoomsForFloor(floor).filter((room) => this.isRoomAcceptable(room)).length;
   }
 
   getRedRoomCount(floor: string): number {
-    // Ein Raum kann nur rot sein, wenn er weder grün (optimal) noch gelb (akzeptabel) ist
     return this.getRoomsForFloor(floor).filter((room) => this.isRoomCritical(room)).length;
   }
-
 
   getTemperatureIcon(temperature?: number): string {
     return temperature && temperature < 18
@@ -162,10 +156,11 @@ export class SensorboxOverviewComponent implements OnInit, OnDestroy{
     return null;
   }
 
+  // Verbesserte getCo2Class-Funktion
   getCo2Class(co2?: number): string {
     if (co2 === undefined || co2 === null) return '';
-    if (co2 < 400) return 'low';
-    if (co2 <= 1000) return 'medium';
+    if (co2 < this.settings.co2.greenMax) return 'low'; // Verwendet greenMax
+    if (co2 <= this.settings.co2.yellowMax) return 'medium'; // Verwendet yellowMax
     return 'high';
   }
 
@@ -175,7 +170,6 @@ export class SensorboxOverviewComponent implements OnInit, OnDestroy{
     if (noise <= 70) return 'medium';
     return 'high';
   }
-
 
   private loadFakeData(): void {
     this.floors = ['EG', 'OG1', 'OG2', 'OG3', 'OG4'];
@@ -200,13 +194,11 @@ export class SensorboxOverviewComponent implements OnInit, OnDestroy{
     console.log('Fake data loaded:', Array.from(this.currentSensorboxValues.entries()));
   }
 
-
   createDoughnutChart(): void {
     const totalGreenRooms = this.rooms.filter((room) => this.isRoomOptimal(room)).length;
     const totalYellowRooms = this.rooms.filter((room) => this.isRoomAcceptable(room)).length;
     const totalRedRooms = this.rooms.filter((room) => this.isRoomCritical(room)).length;
 
-    // Überprüfen, ob sich die Daten geändert haben
     if (
       totalGreenRooms === this.lastGreenRooms &&
       totalYellowRooms === this.lastYellowRooms &&
@@ -216,14 +208,12 @@ export class SensorboxOverviewComponent implements OnInit, OnDestroy{
       return;
     }
 
-    // Aktuelle Werte speichern
     this.lastGreenRooms = totalGreenRooms;
     this.lastYellowRooms = totalYellowRooms;
     this.lastRedRooms = totalRedRooms;
 
     const ctx = document.getElementById('roomStatusChart') as HTMLCanvasElement;
 
-    // Zerstöre den existierenden Chart, falls vorhanden
     if (this.doughnutChart) {
       this.doughnutChart.destroy();
     }
@@ -237,7 +227,7 @@ export class SensorboxOverviewComponent implements OnInit, OnDestroy{
             {
               label: 'Raum Status',
               data: [totalGreenRooms, totalYellowRooms, totalRedRooms],
-              backgroundColor: ['#28a745', '#ffc107', '#dc3545'], // Grün, Gelb, Rot
+              backgroundColor: ['#28a745', '#ffc107', '#dc3545'],
             },
           ],
         },
@@ -273,16 +263,12 @@ export class SensorboxOverviewComponent implements OnInit, OnDestroy{
     }
   }
 
-
-
   //#region Service
-  //PLEASE DON'T TOUCH!!!
-  //loads all floors and rooms, and syncs the latest values of all rooms
   ngOnInit() {
-
     // Abonniere echte Daten
     this.sbs.getAllFloors().subscribe((data) => {
       this.floors = data;
+      this.filteredFloors = [...this.floors];
       console.log("All floors: ", this.floors);
     });
 
@@ -301,10 +287,9 @@ export class SensorboxOverviewComponent implements OnInit, OnDestroy{
       });
 
       // Aktualisiere das Diagramm
-    this.createDoughnutChart();
+      this.createDoughnutChart();
     }, 1000);
   }
-
 
   ngOnDestroy() {
     this.intervalId ? clearInterval(this.intervalId) : null;
@@ -314,17 +299,14 @@ export class SensorboxOverviewComponent implements OnInit, OnDestroy{
   }
   //#endregion
 
-  // Öffnet das Einstellungsfenster
   openSettings(): void {
     this.isSettingsOpen = true;
   }
 
-  // Schließt das Einstellungsfenster
   closeSettings(): void {
     this.isSettingsOpen = false;
   }
 
-  // Speichert die Einstellungen
   saveSettings(): void {
     console.log('Einstellungen gespeichert:', this.settings);
     this.closeSettings();
@@ -334,7 +316,6 @@ export class SensorboxOverviewComponent implements OnInit, OnDestroy{
     const data = this.currentSensorboxValues.get(room);
     if (!data) return false;
 
-    // Grün, wenn alle Werte im grünen Bereich liegen
     return (
       (data.co2 ?? Infinity) <= this.settings.co2.greenMax &&
       (data.temperature ?? -Infinity) >= this.settings.temperature.greenMin &&
@@ -348,7 +329,6 @@ export class SensorboxOverviewComponent implements OnInit, OnDestroy{
     const data = this.currentSensorboxValues.get(room);
     if (!data) return false;
 
-    // Gelb, wenn kein Wert kritisch ist, aber mindestens ein Wert im gelben Bereich liegt
     const isCo2Yellow = (data.co2 ?? 0) > this.settings.co2.greenMax && (data.co2 ?? 0) <= this.settings.co2.yellowMax;
     const isTemperatureYellow =
       (data.temperature ?? 0) > this.settings.temperature.greenMax ||
@@ -360,12 +340,10 @@ export class SensorboxOverviewComponent implements OnInit, OnDestroy{
     return !this.isRoomCritical(room) && (isCo2Yellow || isTemperatureYellow || isHumidityYellow);
   }
 
-
   isRoomCritical(room: string): boolean {
     const data = this.currentSensorboxValues.get(room);
     if (!data) return false;
 
-    // Kritisch, wenn ein Wert über den gelben Schwellenwerten liegt
     return (
       (data.co2 ?? 0) > this.settings.co2.yellowMax ||
       (data.temperature ?? 0) < this.settings.temperature.greenMin ||
@@ -375,20 +353,17 @@ export class SensorboxOverviewComponent implements OnInit, OnDestroy{
     );
   }
 
-
   getTemperatureClass(temperature?: number): string {
     if (temperature === undefined || temperature === null) return 'low';
-    if (temperature < 18 || temperature > 24) return 'high';
-    if (temperature >= 18 && temperature <= 20 || temperature >= 22 && temperature <= 24) return 'medium';
+    if (temperature < this.settings.temperature.greenMin || temperature > this.settings.temperature.greenMax) return 'high';
+    if (temperature >= this.settings.temperature.greenMin && temperature <= this.settings.temperature.greenMax) return 'medium';
     return 'low';
   }
 
   getHumidityClass(humidity?: number): string {
     if (humidity === undefined || humidity === null) return 'low';
-    if (humidity < 30 || humidity > 70) return 'high';
-    if ((humidity >= 30 && humidity < 40) || (humidity > 60 && humidity <= 70)) return 'medium';
+    if (humidity < this.settings.humidity.greenMin || humidity > this.settings.humidity.greenMax) return 'high';
+    if (humidity >= this.settings.humidity.greenMin && humidity <= this.settings.humidity.greenMax) return 'medium';
     return 'low';
   }
-
-
 }
