@@ -1,4 +1,4 @@
-:revealjs_theme: white
+:revealjs_theme: moon
 :revealjs_history: true
 :imagesdir: images
 :revealjs_center: true
