@@ -64,9 +64,7 @@
                 </div>
               </li>
               <li class="dropdown-item">
-                <label for="durationSelect" class="form-label"
-                >Zeitraum</label
-                >
+                <label for="durationSelect" class="form-label">Zeitraum</label>
                 <select
                   id="durationSelect"
                   class="form-select"
@@ -80,7 +78,7 @@
                     {{ duration.long }}
                   </option>
                 </select>
-              </li>
+              </li>              
             </ul>
           </li>
         </ul>
@@ -90,12 +88,17 @@
 </div>
 
 <!-- Monatsauswahl als Dropdown -->
+<!-- Kombiniertes Monats- und Jahresauswahl-Dropdown -->
 <div class="dropdown-container" *ngIf="showPvData && currentIndex !== -2 && currentIndex !== -3">
-  <div class="month-selector">
-    <select class="form-select" [(ngModel)]="selectedMonth" (ngModelChange)="selectMonth()">
-      <option *ngFor="let month of months; let i = index" [ngValue]="i">
-        {{ month }}
-      </option>
+  <div class="month-year-selector">
+    <select class="form-select" [(ngModel)]="selectedMonthYear" (ngModelChange)="selectMonthYearCombo()">
+      <ng-container *ngFor="let year of years">
+        <optgroup [label]="year.toString()">
+          <option *ngFor="let month of months; let i = index" [ngValue]="{ year: year, month: i }">
+            {{ month }} {{ year }}
+          </option>
+        </optgroup>
+      </ng-container>
     </select>
   </div>
 </div>

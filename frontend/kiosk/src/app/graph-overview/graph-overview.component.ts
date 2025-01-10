@@ -31,11 +31,14 @@ export class GraphOverviewComponent implements OnInit {
   public currentIndex = -1;
   public currentGraph: Graph | null = null;
 
+  public isMonthSelected: boolean = false;
   public kioskMode: boolean = true;
   public interval: number = 15;
   subscription!: Subscription;
 
   public showPvData: boolean = true;
+  public years: number[] = [2024, 2025];
+  public selectedYear: number = new Date().getFullYear();
 
   public durations: Duration[] = [
     new Duration("5m", "5 minutes"),
@@ -48,15 +51,15 @@ export class GraphOverviewComponent implements OnInit {
     new Duration("365d", "1 year")
   ];
   public selectedDuration: Duration = this.durations[3];
+  public selectedMonthYear: { year: number, month: number } = { year: new Date().getFullYear(), month: new Date().getMonth() };
 
   public visible: boolean = false;
 
-  // Monate und Auswahl
   public months: string[] = [
     "Januar", "Februar", "März", "April", "Mai", "Juni",
     "Juli", "August", "September", "Oktober", "November", "Dezember"
   ];
-  public selectedMonth: number = new Date().getMonth(); // Aktueller Monat als Standard
+  public selectedMonth: number = new Date().getMonth();
 
   constructor(public sanitizer: DomSanitizer, public http: HttpClient) { }
 
@@ -66,19 +69,28 @@ export class GraphOverviewComponent implements OnInit {
       console.log(this.graphs.length + " graphs loaded");
     });
 
-    this.kioskModeChecker();
-    this.changeDuration();
+    // Initialisiere die Graphen mit der Standard-Zeitspanne
     this.updateGraphLinks();
+
+    this.kioskModeChecker();
+  }
+
+  public selectMonthYearCombo(): void {
+    this.selectedMonth = this.selectedMonthYear.month;
+    this.selectedYear = this.selectedMonthYear.year;
+    this.isMonthSelected = true;
+    this.updateGraphLinks();
+    console.log("Updated Graphs for Monthly Selection");
   }
 
   public toggleDataMode(): void {
-     this.currentIndex = this.showPvData ? -1 : -3;
-     this.currentGraph = null;
+    this.currentIndex = this.showPvData ? -1 : -3;
+    this.currentGraph = null;
   }
 
   public selectAllGraphs(): void {
     this.currentIndex = -1;
-    this.currentGraph = null; // Zeigt alle Graphen an, wenn Dashboard ausgewählt ist
+    this.currentGraph = null;
   }
 
   public selectGraph(index: number): void {
@@ -108,114 +120,79 @@ export class GraphOverviewComponent implements OnInit {
 
   public nextGraph(): void {
     if (!this.showPvData) {
-      this.selectSensorBox(); // Sensorbox-Modus: Nur Sensorbox anzeigen
+      this.selectSensorBox();
       return;
     }
 
-    // PV-Modus: Inkrementiere den Index
     this.currentIndex++;
 
-    // Wechsel zwischen Dashboard, Graphen und Wetter
     if (this.currentIndex === -1) {
-      this.selectAllGraphs(); // Dashboard
+      this.selectAllGraphs();
     } else if (this.currentIndex === this.graphs.length) {
-      this.selectWeather(); // Wetter nach dem letzten Graph
-      this.currentIndex = -2; // Wetter-Index setzen
+      this.selectWeather();
+      this.currentIndex = -2;
     } else if (this.currentIndex >= 0 && this.currentIndex < this.graphs.length) {
-      this.setCurrentGraphWithIndex(this.currentIndex); // Graph anzeigen
+      this.setCurrentGraphWithIndex(this.currentIndex);
     } else if (this.currentIndex > this.graphs.length) {
-      this.currentIndex = -1; // Zurück zum Dashboard
+      this.currentIndex = -1;
       this.selectAllGraphs();
     }
   }
 
-
-  calculateStartAndEndOfMonth(month: number): { from: number, to: number } {
-    const desiredYear = 2024;
-
-    const startDate = new Date(desiredYear, month, 1, 0, 0, 0, 0);
-    const endDate = new Date(desiredYear, month + 1, 0, 23, 59, 59, 999);
-
+  calculateStartAndEndOfMonth(month: number, year: number): { from: number, to: number } {
+    const startDate = new Date(year, month, 1, 0, 0, 0, 0);
+    const endDate = new Date(year, month + 1, 0, 23, 59, 59, 999);
+  
     const from = startDate.getTime();
     const to = endDate.getTime();
-
+  
     return { from, to };
   }
 
-
-
-  public selectMonth(): void {
-    const { from, to } = this.calculateStartAndEndOfMonth(this.selectedMonth);
-
-    this.graphs.forEach(graph => {
-      if (graph.iFrameLink.includes("from=") && graph.iFrameLink.includes("to=")) {
-        graph.iFrameLink = graph.iFrameLink
-          .replace(/from=[^&]+/, `from=${from}`)
-          .replace(/to=[^&]+/, `to=${to}`);
-      } else if (graph.iFrameLink.includes("from=") && !graph.iFrameLink.includes("to=")) {
-        graph.iFrameLink += `&to=${to}`;
-      } else if (!graph.iFrameLink.includes("from=") && graph.iFrameLink.includes("to=")) {
-        graph.iFrameLink += `&from=${from}`;
-      } else {
-        graph.iFrameLink += `&from=${from}&to=${to}`;
-      }
-
-      console.log(`Updated Graph Link for Month: ${graph.iFrameLink}`);
-    });
-
-    this.updateCurrentGraph(); // Aktualisiert den aktuellen Graph
+  public changeDuration(): void {
+    this.isMonthSelected = false;
+    // Verzögere den Aufruf von updateGraphLinks um einen kurzen Moment,
+    // um sicherzustellen, dass Angular die Änderungen an selectedDuration und isMonthSelected erkennt.
+    setTimeout(() => {
+      this.updateGraphLinks();
+      console.log("Timeframe updated, overriding month selection");
+    }, 10);
   }
-
 
   private updateCurrentGraph(): void {
     if (this.currentIndex !== -1) {
-      this.setCurrentGraphWithIndex(this.currentIndex); // Aktualisiert den aktuellen Graph
+      this.setCurrentGraphWithIndex(this.currentIndex);
     } else {
-      this.currentGraph = null; // Zeigt alle Graphen an, falls kein spezifischer ausgewählt ist
+      this.currentGraph = null;
     }
   }
 
-
-
-  public changeDuration(): void {
-    const selectedDuration: string = this.selectedDuration.short;
-
-    this.graphs.forEach(graph => {
-      if (graph.iFrameLink.includes("from=now") && graph.iFrameLink.includes("to=now")) {
-        graph.iFrameLink = graph.iFrameLink.replace(/from=now-\w+/, `from=now-${selectedDuration}`);
-      } else {
-        graph.iFrameLink += `&from=now-${selectedDuration}&to=now`;
-      }
-      console.log(`Updated Graph Link for Duration: ${graph.iFrameLink}`);
-    });
-
+  private updateGraphLinks(): void {
+    console.log("updateGraphLinks called. isMonthSelected:", this.isMonthSelected, "selectedDuration:", this.selectedDuration);
+    if (this.isMonthSelected) {
+      const { from, to } = this.calculateStartAndEndOfMonth(this.selectedMonth, this.selectedYear);
+      this.graphs.forEach(graph => {
+        graph.iFrameLink = graph.iFrameLink
+          .replace(/from=[^&]+/, `from=${from}`)
+          .replace(/to=[^&]+/, `to=${to}`);
+      });
+      console.log("Using Monthly Timeframe");
+    } else {
+      const selectedDuration: string = this.selectedDuration.short;
+      this.graphs.forEach(graph => {
+        if (graph.iFrameLink.includes("from=now")) {
+          graph.iFrameLink = graph.iFrameLink.replace(/from=now-\w+/, `from=now-${selectedDuration}`);
+          graph.iFrameLink = graph.iFrameLink.replace(/&to=now/, '');
+          graph.iFrameLink += `&to=now`;
+        } else {
+          graph.iFrameLink = graph.iFrameLink.replace(/&from=now-\w+&to=now/, '');
+          graph.iFrameLink += `&from=now-${selectedDuration}&to=now`;
+        }
+      });
+      console.log("Using Duration Timeframe");
+    }
     this.updateCurrentGraph();
   }
-
-
-  private updateGraphLinks(): void {
-    const { from, to } = this.calculateStartAndEndOfMonth(this.selectedMonth);
-    const selectedDuration: string = this.selectedDuration.short;
-
-    this.graphs.forEach(graph => {
-      if (graph.iFrameLink.includes("from=now")) {
-        // Aktualisiert relative Zeitangaben (bei "now" basierten Links)
-        graph.iFrameLink = graph.iFrameLink.replace(/from=now-\w+/, `from=now-${selectedDuration}`);
-      } else if (graph.iFrameLink.includes("from=") && graph.iFrameLink.includes("to=")) {
-        // Aktualisiert absolute Zeitangaben (bei "from" und "to" vorhandenen Links)
-        graph.iFrameLink = graph.iFrameLink
-          .replace(/from=\d+/, `from=${from}`)
-          .replace(/to=\d+/, `to=${to}`);
-      } else {
-        // Fügt `from` und `to` hinzu, falls sie nicht vorhanden sind
-        graph.iFrameLink += `&from=${from}&to=${to}`;
-      }
-      console.log(`Updated Graph Link: ${graph.iFrameLink}`);
-    });
-
-    this.updateCurrentGraph(); // Aktualisiert den aktuellen Graph
-  }
-
 
   public setCurrentGraphWithIndex(index: number): void {
     this.currentIndex = index;
@@ -245,12 +222,12 @@ export class GraphOverviewComponent implements OnInit {
   }
 
   public selectWeather(): void {
-    this.currentIndex = -2; // Spezieller Index für Wetter
-    this.currentGraph = null; // Kein Graph wird angezeigt
+    this.currentIndex = -2;
+    this.currentGraph = null;
   }
 
   public selectSensorBox():void {
-    this.currentIndex = -3; // Spezieller Index für SensorBox
-    this.currentGraph = null; // Kein Graph wird angezeigt
+    this.currentIndex = -3;
+    this.currentGraph = null;
   }
 }
