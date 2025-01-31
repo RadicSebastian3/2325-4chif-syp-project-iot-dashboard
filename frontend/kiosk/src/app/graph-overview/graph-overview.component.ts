@@ -150,14 +150,15 @@ export class GraphOverviewComponent implements OnInit {
   }
 
   public changeDuration(): void {
+    console.log("Changing Timeframe to: ", this.selectedDuration.short);
+  
+    // Setze die Monatsauswahl zurück
     this.isMonthSelected = false;
-    // Verzögere den Aufruf von updateGraphLinks um einen kurzen Moment,
-    // um sicherzustellen, dass Angular die Änderungen an selectedDuration und isMonthSelected erkennt.
-    setTimeout(() => {
-      this.updateGraphLinks();
-      console.log("Timeframe updated, overriding month selection");
-    }, 10);
+    
+    // Aktualisiere die Graphen-Links sofort nach der Änderung
+    this.updateGraphLinks();
   }
+  
 
   private updateCurrentGraph(): void {
     if (this.currentIndex !== -1) {
@@ -168,31 +169,33 @@ export class GraphOverviewComponent implements OnInit {
   }
 
   private updateGraphLinks(): void {
-    console.log("updateGraphLinks called. isMonthSelected:", this.isMonthSelected, "selectedDuration:", this.selectedDuration);
+    console.log("updateGraphLinks called. isMonthSelected:", this.isMonthSelected, "selectedDuration:", this.selectedDuration.short);
+  
     if (this.isMonthSelected) {
+      // Monatsansicht aktiv: Berechne Start- und Endzeit
       const { from, to } = this.calculateStartAndEndOfMonth(this.selectedMonth, this.selectedYear);
       this.graphs.forEach(graph => {
         graph.iFrameLink = graph.iFrameLink
           .replace(/from=[^&]+/, `from=${from}`)
           .replace(/to=[^&]+/, `to=${to}`);
       });
-      console.log("Using Monthly Timeframe");
+      console.log("Using Monthly Timeframe:", from, to);
     } else {
+      // Zeitspanne ändern (z. B. 4h, 1d, etc.)
       const selectedDuration: string = this.selectedDuration.short;
       this.graphs.forEach(graph => {
-        if (graph.iFrameLink.includes("from=now")) {
-          graph.iFrameLink = graph.iFrameLink.replace(/from=now-\w+/, `from=now-${selectedDuration}`);
-          graph.iFrameLink = graph.iFrameLink.replace(/&to=now/, '');
-          graph.iFrameLink += `&to=now`;
-        } else {
-          graph.iFrameLink = graph.iFrameLink.replace(/&from=now-\w+&to=now/, '');
-          graph.iFrameLink += `&from=now-${selectedDuration}&to=now`;
-        }
+        // Stelle sicher, dass die URL richtig überschrieben wird
+        graph.iFrameLink = graph.iFrameLink
+          .replace(/from=[^&]+/, `from=now-${selectedDuration}`)
+          .replace(/to=[^&]+/, `to=now`);
       });
-      console.log("Using Duration Timeframe");
+      console.log("Using Timeframe:", selectedDuration);
     }
+  
+    // Aktualisiere den aktuellen Graphen, falls einer aktiv ist
     this.updateCurrentGraph();
   }
+  
 
   public setCurrentGraphWithIndex(index: number): void {
     this.currentIndex = index;
