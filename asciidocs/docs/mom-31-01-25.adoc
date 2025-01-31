@@ -1,0 +1,20 @@
+= MOM 31. Jänner 2025
+ifndef::imagesdir[:imagesdir: images]
+
+* Momentanverbrauch und Tagesverbrauch anzeigen (wie in solaredge App)
+
+image::solar-edge-app.png[width=200]
+
+* Kiosk-Mode
+** aktuelle Woche
+** aktueller Monat
+** aktueller Tag
+** -> dann zwischen verschiedenen Tagen/Monaten/Wochen sliden
+* Achsenbeschriftungen besser machen
+* Diagrammtitel ansprechender machen
+* YouTrack gescheiter machen
+** Commit immer mit Task linken
+* Sensorboxen
+** Räume und Etagen als Matrix
+
+* DOKU GESCHEIT MACHEN!!!
