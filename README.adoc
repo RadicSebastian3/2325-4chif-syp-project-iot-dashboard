@@ -1,5 +1,13 @@
 = 🔋 LeoEnergy – Dashboard zur Überwachung des Energieverbrauchs an der HTL Leonding
 
+image:https://img.shields.io/github/actions/workflow/status/2324-4bhif-syp/2324-4bhif-syp-project-iot-dashboard/build-leoenergy.yaml?branch=main&style=flat-square&logo=github&label=LeoEnergy%20Build[LeoEnergy Build Status] +
+image:https://img.shields.io/github/actions/workflow/status/2324-4bhif-syp/2324-4bhif-syp-project-iot-dashboard/build-kiosk.yaml?branch=main&style=flat-square&logo=github&label=Kiosk%20Build[Kiosk Build Status] +
+image:https://img.shields.io/github/actions/workflow/status/2324-4bhif-syp/2324-4bhif-syp-project-iot-dashboard/docs.yaml?branch=main&style=flat-square&logo=github&label=Docs%20Build[Docs Build Status] +
+image:https://img.shields.io/github/stars/2324-4bhif-syp/2324-4bhif-syp-project-iot-dashboard?style=flat-square&logo=github[GitHub Stars] +
+image:https://img.shields.io/github/forks/2324-4bhif-syp/2324-4bhif-syp-project-iot-dashboard?style=flat-square&logo=github[GitHub Forks] +
+image:https://img.shields.io/github/issues/2324-4bhif-syp/2324-4bhif-syp-project-iot-dashboard?style=flat-square&logo=github[GitHub Issues] +
+image:https://img.shields.io/github/license/2324-4bhif-syp/2324-4bhif-syp-project-iot-dashboard?style=flat-square[GitHub License]
+
 == 📌 Überblick
 **LeoEnergy** ist ein Dashboard zur Echtzeitüberwachung und Analyse
 des Energieverbrauchs an der **HTL Leonding**.
