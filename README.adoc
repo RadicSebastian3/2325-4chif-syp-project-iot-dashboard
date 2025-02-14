@@ -1,47 +1,51 @@
-= IoT Dashboard
+= 🔋 LeoEnergy – Dashboard zur Überwachung des Energieverbrauchs an der HTL Leonding
 
-== Team
-.Team
-|===
-|Name
+== 📌 Überblick
+**LeoEnergy** ist ein Dashboard zur Echtzeitüberwachung und Analyse des Energieverbrauchs an der **HTL Leonding**. Es erfasst den Stromverbrauch und die -erzeugung und bietet sowohl aktuelle Daten als auch historische Analysen. Ziel ist es, Transparenz über den Energiehaushalt der Schule zu schaffen und nachhaltige Entscheidungen zu unterstützen.
 
-| Said Nurceski
+== ✨ Features
+✅ *Echtzeitüberwachung* – Anzeige von aktuellem Stromverbrauch und -erzeugung
+✅ *Historische Analysen* – Langfristige Trends und Muster erkennen bis 2024 Dezember
+✅ *Interaktive Visualisierung* – Grafische Darstellung der Energieflüsse
+✅ *Effizienzsteigerung* – Identifikation von Einsparpotenzialen
+✅ *Benutzerfreundliches UI* – Einfache und intuitive Bedienung
 
-| Balint Balazs
+== 👀 Live-Demo
+Das Projekt kann unter folgendem Link angesehen werden:
+🌍 link:https://vm23.htl-leonding.ac.at/[LeoEnergy Dashboard]
 
-| Erik Seifried
+== 🛠️ Technologie-Stack
+image::/home/balint/htl/4bhif/syp/2324-4bhif-syp-project-iot-dashboard/asciidocs/slides/images/architecture.png[Architecture Diagram, width=600]
 
-| Markus Breinesberger
+== 🚀 Installation & Setup
+=== Voraussetzungen
+- [Hier notwendige Software/Tools auflisten, z. B. Node.js, Python, Docker]
 
-|===
-
-
-== Ausgangssituation
+=== Installation
+[source,sh]
 ----
-Auf einer vm (leoenergy genannt) werden von einem schuleigenen Server in einem 5min -
-Intervall per sftp Datendateien im json-Format heruntergeladen
+# Repository klonen
+git clone https://github.com/2324-4bhif-syp/2324-4bhif-syp-project-iot-dashboard
 ----
-
-== Anforderungen
+=== Starten der Anwendung
+[source,sh]
 ----
-Die Quarkus App liest diese json-Dateien ein und schreibt diese in eine influxdb
-Dabei ist auf korrektes Tagging zu achten
-Es werden laufend neue json-Dateitypen hinzugefügt.
-----
-----
-Am Dashboard soll angezeigt werden, welche Dateien (Struktur des Namens) derzeit import
-importiert
-Wieviele verschiedene Dateiarten gibt es im Verzeichnis
-Wieviele verschieden Dateiarten werden derzeit importiert
 ----
 
-== Diagrams
+== 📷 Screenshots
+image::/home/balint/htl/4bhif/syp/2324-4bhif-syp-project-iot-dashboard/asciidocs/slides/images/screenshot.png[Dashboard Energie Gesamt Verbrauch, width=600]
+image::/home/balint/htl/4bhif/syp/2324-4bhif-syp-project-iot-dashboard/asciidocs/slides/images/screenshot2.png[Energie Diagramm, width=600]
+image::/home/balint/htl/4bhif/syp/2324-4bhif-syp-project-iot-dashboard/asciidocs/slides/images/screenshot3.png[Consumption/Production, width=600]
+image::/home/balint/htl/4bhif/syp/2324-4bhif-syp-project-iot-dashboard/asciidocs/slides/images/screenshot4.png[Sensorboxen Diagramm, width=600]
 
-.Class Diagram
-image::https://www.plantuml.com/plantuml/png/ZP2xgiCm38PtFONmU233MJs5agLpIdTZgwx0TeAjP2bvzoPk0irMJ-P3_qLgYvWiKmmGw24e0sRsJq77cQpma01iCALWHpDRUW6kZvt62_jh4lAKAqecaiPUCYSFoo7gAPKXtqsOVbHkmDKalITMD6yELTcHvMZ2FbXivd5hUJAO4ii924TQzuoZnjln1Lm0FX6e_bNJg3_rtHTQIcwzoni0[]
+== 🏗️ Überblick über das ganze Projekt
+image::/home/balint/htl/4bhif/syp/2324-4bhif-syp-project-iot-dashboard/documentation/deployment/files/deployment.png[]
 
-.Usecase Diagram
-image::https://www.plantuml.com/plantuml/png/ROyn3i8m34NtdCBgtZjKGcniY0EOvBUDI1raEqW8SNTeMHYwFlizouCvgxUbX8BHoIjfdcQdb1NHSvN0qQjITp5eHsmKKrX7B5C1dL0XqEb9hq3K394Dr1rNbl60NfLRd0bP33DaA_oCGnLhotsxiQlUk8rxuXcbX7U8YVf-f_NFjzK1ahuFVW000[]
+== 📜 Lizenz
+Dieses Projekt steht unter der link:https://www.htl-leonding.at/[**HTL-Leonding**].
 
-== Sprint-backlog
-https://vm81.htl-leonding.ac.at/agiles/99-387/current[Sprint Backlog]
+== 👥 Mitwirkende
+- **[Balint Balazs]** – https://github.com/balintb4
+- **[Said Nurceski]** – https://github.com/sxidn
+- **[Erik Seifried]** – https://github.com/erikseifried
+- **[Markus Breinesberger]** – https://github.com/markSuuS
