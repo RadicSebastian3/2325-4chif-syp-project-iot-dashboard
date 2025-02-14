@@ -20,7 +20,7 @@ Das Projekt kann unter folgendem Link angesehen werden:
 🌍 link:https://vm23.htl-leonding.ac.at/[LeoEnergy]
 
 == 🛠️ Technologie-Stack
-image::/home/balint/htl/4bhif/syp/2324-4bhif-syp-project-iot-dashboard/asciidocs/slides/images/architecture.png[Architecture Diagram, width=600]
+image::asciidocs/slides/images/architecture.png[Architecture Diagram, width=600]
 
 == 🚀 Installation & Setup
 === Voraussetzungen
@@ -48,13 +48,13 @@ cd backend/leoenergy
 ----
 
 == 📷 Screenshots
-image::/home/balint/htl/4bhif/syp/2324-4bhif-syp-project-iot-dashboard/asciidocs/slides/images/screenshot.png[Dashboard Energie Gesamt Verbrauch, width=600]
-image::/home/balint/htl/4bhif/syp/2324-4bhif-syp-project-iot-dashboard/asciidocs/slides/images/screenshot2.png[Energie Diagramm, width=600]
-image::/home/balint/htl/4bhif/syp/2324-4bhif-syp-project-iot-dashboard/asciidocs/slides/images/screenshot3.png[Consumption/Production, width=600]
-image::/home/balint/htl/4bhif/syp/2324-4bhif-syp-project-iot-dashboard/asciidocs/slides/images/screenshot4.png[Sensorboxen Diagramm, width=600]
+image::asciidocs/slides/images/screenshot.png[Dashboard Energie Gesamt Verbrauch, width=600]
+image::asciidocs/slides/images/screenshot2.png[Energie Diagramm, width=600]
+image::asciidocs/slides/images/screenshot3.png[Consumption/Production, width=600]
+image::asciidocs/slides/images/screenshot4.png[Sensorboxen Diagramm, width=600]
 
 == 🏗️ Überblick über das ganze Projekt
-image::/home/balint/htl/4bhif/syp/2324-4bhif-syp-project-iot-dashboard/documentation/deployment/files/deployment.png[]
+image::documentation/deployment/files/deployment.png[]
 
 == 📜 Lizenz
 Dieses Projekt steht unter der link:https://www.htl-leonding.at/[**HTL-Leonding**].
